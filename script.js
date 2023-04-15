@@ -33,6 +33,16 @@ function formatDate(format = 0)
   return res;
 }
 
+function getPageTitle()
+{
+  return document.title;
+}
+
+function formatFilename()
+{
+  return formatDate() + ' ' + getPageTitle();
+}
+
 function exportConversation() {
   const messages = document.querySelectorAll('.container-xl'); // Replace '.message-selector' with the appropriate CSS selector for the messages on phind.com
   let markdown = '';
@@ -40,7 +50,7 @@ function exportConversation() {
   messages.forEach(message => {
     //const username = message.querySelector('.username-selector') // Replace '.username-selector' with the appropriate CSS selector for the username
     const messageText = message.querySelector('.container-xl > div > span'); // Replace '.message-text-selector' with the appropriate CSS selector for the message text
-      //console.log(messageText === null ? '' : messageText.textContent);
+    //console.log(messageText === null ? '' : messageText.textContent);
     markdown += formatMarkdown(messageText === null ? '' : `**Answer**:\n` + messageText.textContent + "\n");
   });
 
@@ -60,4 +70,4 @@ function download(text, filename) {
 }
 
 const markdownContent = exportConversation();
-download(markdownContent, formatDate() + '.md');
+download(markdownContent, formatFilename() + '.md');
