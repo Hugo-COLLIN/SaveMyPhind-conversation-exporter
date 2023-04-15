@@ -73,7 +73,7 @@ function formatMarkdown(message)
       conv = conv.turndown(message);
     // }
 
-    return conv + "\n\n___\n";
+    return (conv + "\n\n___\n").replaceAll('\\*', '*');
   }
   return '';
 }
@@ -93,8 +93,10 @@ function exportConversation() {
   let markdown = setFileHeader();
 
   messages.forEach(message => {
-    const messageText = message.querySelector('.row > .col-lg-8.col-xl-7 > .container-xl > div > span') ?? message.querySelector('.row .container-xl > h3');
-    markdown += formatMarkdown(messageText === null ? '' : messageText.innerHTML);
+    let p1 = message.querySelector('.row > .col-lg-8.col-xl-7 > .container-xl > div > span');
+    let p2 = message.querySelector('.row > .col-lg-8.col-xl-7 > .container-xl > h3');
+    const messageText =  p1 ? `**AI answer :**\n` + p1.innerHTML : p2 ? `**You :**\n` + p2.innerHTML : '';
+    markdown += formatMarkdown(messageText);
   });
 
   return markdown;
