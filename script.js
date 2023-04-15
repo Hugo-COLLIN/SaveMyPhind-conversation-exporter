@@ -2,17 +2,6 @@
 --- Load CDN ---
  */
 function loadScript(url, callback) {
-  // const exportScript = document.createElement('script');
-  // exportScript.type = 'text/javascript';
-  // exportScript.innerHTML = "var exports = {}; Object.defineProperty(require, \"__esModule\", { value: true });"
-  // document.head.appendChild(exportScript);
-
-  // const requireScript = document.createElement('script');
-  // requireScript.type = 'text/javascript';
-  // requireScript.innerHTML = "var require = {};"
-  // document.head.appendChild(requireScript);
-
-
   const script = document.createElement('script');
   script.type = 'text/javascript';
   script.src = url;
@@ -24,12 +13,7 @@ function loadScript(url, callback) {
   document.head.appendChild(script);
 }
 
-// const cdnUrl = 'https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js';
 const cdnUrl = 'https://unpkg.com/turndown/dist/turndown.js';
-// const cdnUrl = 'https://cdn.jsdelivr.net/npm/html2md@0.1.1/lib/html2md.min.js'; // not working : needs node
-// const cdnUrl = 'https://cdn.jsdelivr.net/npm/html-to-markdown@1.1.0/dist/html-to-markdown.min.js'; //???
-// const cdnUrl = 'https://cdn.jsdelivr.net/npm/htmlarkdown@1.0.2/dist/index.min.js'; // not working : needs node
-// const cdnUrl = 'https://cdn.jsdelivr.net/npm/remark@14.0.2/index.min.js';
 
 
 
@@ -90,18 +74,6 @@ function formatMarkdown(message)
     // else if (turndown !== undefined) {
       conv = new TurndownService();
       conv = conv.turndown(message);
-    // }
-    // else if (html2md !== undefined) {
-    //   conv = html2md(message);
-    // }
-    // if (htmlToMarkdown !== undefined) {
-    //     conv = htmlToMarkdown(message);
-    // }
-    // if (htmlarkdown !== undefined) {
-    //     conv = htmlarkdown(message);
-    // }
-    // if (reMarked !== undefined) {
-    //     conv = reMarked.render(message);
     // }
 
     return `**Answer**:\n` + conv + "\n\n";
