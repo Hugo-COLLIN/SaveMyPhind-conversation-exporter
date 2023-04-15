@@ -73,7 +73,7 @@ function formatMarkdown(message)
       conv = conv.turndown(message);
     // }
 
-    return `**Answer**:\n` + conv + "\n\n<hr>\n";
+    return `**AI answer :**\n` + conv + "\n\n___\n";
   }
   return ''; //`\${message}\n\n`; /** *\${username}**: */
 }
