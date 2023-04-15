@@ -144,5 +144,7 @@ alert("Start");
 
 // console.log('Script executed on', document.location.href);
 //
-const markdownContent = exportConversation();
+// if (markdownContent === undefined)
+//   let markdownContent;
+markdownContent = exportConversation();
 download(markdownContent, formatFilename() + '.md');
