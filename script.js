@@ -13,7 +13,9 @@ function loadScript(url, callback) {
   document.head.appendChild(script);
 }
 
-const cdnUrl = 'https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js';
+// const cdnUrl = 'https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js';
+const cdnUrl = 'https://unpkg.com/turndown/dist/turndown.js';
+// const cdnUrl = 'https://cdn.jsdelivr.net/npm/html2md@0.1.1/lib/html2md.min.js';
 
 
 /*
@@ -64,9 +66,21 @@ function formatMarkdown(message)
 {
   if (message !== '' && message !== ' ')
   {
-    let conv = new showdown.Converter();
+    let conv;
 
-    return `**Answer**:\n` + conv.makeMarkdown(message); + "\n\n";
+    // if (showdown !== undefined) {
+    //   conv = new showdown.Converter();
+    //   conv = conv.makeMarkdown(message);
+    // }
+    // else if (turndown !== undefined) {
+      conv = new TurndownService();
+      conv = conv.turndown(message);
+    // }
+    // else if (html2md !== undefined) {
+    //   conv = html2md(message);
+    // }
+
+    return `**Answer**:\n` + conv + "\n\n";
   }
   return ''; //`\${message}\n\n`; /** *\${username}**: */
 }
