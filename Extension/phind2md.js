@@ -109,14 +109,27 @@ function download(text, filename) {
 --- Main ---
  */
 alert("Start");
-import('turndown.js')
-  .then(turndownModule => {
-    TurndownService = turndownModule.TurndownService;
-    alert("TurndownService loaded")
-    // Use the TurndownService class here
-    const markdownContent = exportConversation();
-    download(markdownContent, formatFilename() + '.md');
-  });
+
+// fetch('https://unpkg.com/turndown/dist/turndown.js')
+//   .then((response) => response.text())
+//   .then((scriptContent) => {
+//     const script = document.createElement('script');
+//     script.textContent = scriptContent;
+//     document.head.appendChild(script);
+//     console.log("CHARGEMENT OK");
+//
+//     // Utilisez TurndownService comme d'habitude
+//   })
+//   .catch((error) => console.error('Erreur lors du chargement du script Turndown:', error));
+
+// import('turndown.js')
+//   .then(turndownModule => {
+//     TurndownService = turndownModule.TurndownService;
+//     alert("TurndownService loaded")
+//     // Use the TurndownService class here
+//     const markdownContent = exportConversation();
+//     download(markdownContent, formatFilename() + '.md');
+//   });
 
 
 // const cdnUrl = 'https://unpkg.com/turndown/dist/turndown.js';
@@ -131,5 +144,5 @@ import('turndown.js')
 
 // console.log('Script executed on', document.location.href);
 //
-// const markdownContent = exportConversation();
-// download(markdownContent, formatFilename() + '.md');
+const markdownContent = exportConversation();
+download(markdownContent, formatFilename() + '.md');
