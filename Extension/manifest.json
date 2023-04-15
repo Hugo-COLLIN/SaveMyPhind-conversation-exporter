@@ -7,10 +7,10 @@
     "128": "img/logo_128.png"
   },
   "permissions": [
-  "tabs", "scripting", "activeTab"
+    "scripting", "activeTab"
   ],
   "host_permissions": [
-    "http://*/*", "https://*/*"
+    "http://*.phind.com/*", "https://*.phind.com/*"
   ],
   "action": {
     "default_icon": "img/logo.png",

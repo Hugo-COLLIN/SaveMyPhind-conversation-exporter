@@ -117,5 +117,8 @@ function download(text, filename) {
 /*
 --- Main ---
  */
-markdownContent = exportConversation();
-download(markdownContent, formatFilename() + '.md');
+if(window.location.href.includes('www.phind.com/search'))
+{
+  markdownContent = exportConversation();
+  download(markdownContent, formatFilename() + '.md');
+}
