@@ -60,4 +60,4 @@ function download(text, filename) {
 }
 
 const markdownContent = exportConversation();
-download(markdownContent, this.formatDate() + '.md');
+download(markdownContent, formatDate() + '.md');
