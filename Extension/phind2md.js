@@ -36,7 +36,7 @@ function formatDate(format = 0)
   let res;
   switch (format) {
     case 1 :
-      res = "Modifiée le " + dd + "/" + mm + "/" + yyyy + " à " + hh + ":" + mn + ":" + ss;
+      res = "Exported " + dd + "/" + mm + "/" + yyyy + " à " + hh + ":" + mn + ":" + ss;
       break;
     case 2 :
       res = dd + "/" + mm + "/" + yyyy;
@@ -75,18 +75,26 @@ function formatMarkdown(message)
 
     return `**AI answer :**\n` + conv + "\n\n___\n";
   }
-  return ''; //`\${message}\n\n`; /** *\${username}**: */
+  return '';
 }
 
+function setFileHeader()
+{
+  return "# " + capitalizeFirst(getPageTitle()) + "\n" + formatDate(1) + "\n\n";
+}
+
+function capitalizeFirst(string)
+{
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 function exportConversation() {
   const messages = document.querySelectorAll('.container-xl'); // Replace '.message-selector' with the appropriate CSS selector for the messages on phind.com
-  let markdown = "# " + getPageTitle() + "\n\n" + formatDate(1) + "\n\n<hr>\n\n"
+  let markdown = setFileHeader();
 
   messages.forEach(message => {
     //const username = message.querySelector('.username-selector') // Replace '.username-selector' with the appropriate CSS selector for the username
     const messageText = message.querySelector('.container-xl > div > span'); // Replace '.message-text-selector' with the appropriate CSS selector for the message text
-    //console.log(messageText === null ? '' : messageText.textContent);
     markdown += formatMarkdown(messageText === null ? '' : messageText.innerHTML);
   });
 
@@ -108,43 +116,5 @@ function download(text, filename) {
 /*
 --- Main ---
  */
-alert("Start");
-
-// fetch('https://unpkg.com/turndown/dist/turndown.js')
-//   .then((response) => response.text())
-//   .then((scriptContent) => {
-//     const script = document.createElement('script');
-//     script.textContent = scriptContent;
-//     document.head.appendChild(script);
-//     console.log("CHARGEMENT OK");
-//
-//     // Utilisez TurndownService comme d'habitude
-//   })
-//   .catch((error) => console.error('Erreur lors du chargement du script Turndown:', error));
-
-// import('turndown.js')
-//   .then(turndownModule => {
-//     TurndownService = turndownModule.TurndownService;
-//     alert("TurndownService loaded")
-//     // Use the TurndownService class here
-//     const markdownContent = exportConversation();
-//     download(markdownContent, formatFilename() + '.md');
-//   });
-
-
-// const cdnUrl = 'https://unpkg.com/turndown/dist/turndown.js';
-// const cdnUrl = 'turndown.js';
-
-// loadScript(cdnUrl, function() {
-//   console.log('Library loaded');
-//
-//   const markdownContent = exportConversation();
-//   download(markdownContent, formatFilename() + '.md');
-// });
-
-// console.log('Script executed on', document.location.href);
-//
-// if (markdownContent === undefined)
-//   let markdownContent;
 markdownContent = exportConversation();
 download(markdownContent, formatFilename() + '.md');
