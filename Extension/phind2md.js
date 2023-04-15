@@ -36,7 +36,7 @@ function formatDate(format = 0)
   let res;
   switch (format) {
     case 1 :
-      res = "Exported " + dd + "/" + mm + "/" + yyyy + " à " + hh + ":" + mn + ":" + ss;
+      res = "Exported " + dd + "/" + mm + "/" + yyyy + " " + hh + ":" + mn + ":" + ss;
       break;
     case 2 :
       res = dd + "/" + mm + "/" + yyyy;
@@ -73,7 +73,7 @@ function formatMarkdown(message)
       conv = conv.turndown(message);
     // }
 
-    return `**AI answer :**\n` + conv + "\n\n___\n";
+    return conv + "\n\n___\n";
   }
   return '';
 }
@@ -89,12 +89,11 @@ function capitalizeFirst(string)
 }
 
 function exportConversation() {
-  const messages = document.querySelectorAll('.container-xl'); // Replace '.message-selector' with the appropriate CSS selector for the messages on phind.com
+  const messages = document.querySelectorAll('.row > .col-lg-8.col-xl-7 > .container-xl'); // Replace '.message-selector' with the appropriate CSS selector for the messages on phind.com
   let markdown = setFileHeader();
 
   messages.forEach(message => {
-    //const username = message.querySelector('.username-selector') // Replace '.username-selector' with the appropriate CSS selector for the username
-    const messageText = message.querySelector('.container-xl > div > span'); // Replace '.message-text-selector' with the appropriate CSS selector for the message text
+    const messageText = message.querySelector('.row > .col-lg-8.col-xl-7 > .container-xl > div > span') ?? message.querySelector('.row .container-xl > h3');
     markdown += formatMarkdown(messageText === null ? '' : messageText.innerHTML);
   });
 
