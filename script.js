@@ -1,0 +1,63 @@
+function formatMarkdown(message) {
+  return message; //`\${message}\n\n`; /** *\${username}**: */
+}
+
+function formatDate(format = 0)
+{
+  dc = new Date();
+  const yyyy = dc.getFullYear();
+  let mm = dc.getMonth() + 1; // Les mois commencent à 0 !
+  let dd = dc.getDate();
+  let hh = dc.getHours();
+  let mn = dc.getMinutes();
+  let ss = dc.getSeconds();
+
+  if (mm < 10) mm = '0' + mm;
+  if (dd < 10) dd = '0' + dd;
+  if (hh < 10) hh = '0' + hh;
+  if (mn < 10) mn = '0' + mn;
+  if (ss < 10) ss = '0' + ss;
+
+  let res;
+  switch (format) {
+    case 1 :
+      res = "Modifiée le " + dd + "/" + mm + "/" + yyyy + " à " + hh + ":" + mn + ":" + ss;
+      break;
+    case 2 :
+      res = dd + "/" + mm + "/" + yyyy;
+      break;
+    case 0 :
+      res = yyyy + "-" + mm + "-" + dd + "_" + hh + "-" + mn + "-" + ss;
+      break;
+  }
+  return res;
+}
+
+function exportConversation() {
+  const messages = document.querySelectorAll('.container-xl'); // Replace '.message-selector' with the appropriate CSS selector for the messages on phind.com
+  let markdown = '';
+
+  messages.forEach(message => {
+    //const username = message.querySelector('.username-selector') // Replace '.username-selector' with the appropriate CSS selector for the username
+    const messageText = message.querySelector('.container-xl > div > span'); // Replace '.message-text-selector' with the appropriate CSS selector for the message text
+      //console.log(messageText === null ? '' : messageText.textContent);
+    markdown += formatMarkdown(messageText === null ? '' : `**Answer**:\n` + messageText.textContent + "\n");
+  });
+
+  return markdown;
+}
+
+function download(text, filename) {
+  const blob = new Blob([text], { type: 'text/markdown' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+const markdownContent = exportConversation();
+download(markdownContent, this.formatDate() + '.md');
