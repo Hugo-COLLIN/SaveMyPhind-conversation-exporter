@@ -108,9 +108,11 @@ function download(text, filename) {
 /*
 --- Main ---
  */
+alert("Start");
 import('turndown.js')
   .then(turndownModule => {
-    TurndownService = turndownModule.default || turndownModule.TurndownService;
+    TurndownService = turndownModule.TurndownService;
+    alert("TurndownService loaded")
     // Use the TurndownService class here
     const markdownContent = exportConversation();
     download(markdownContent, formatFilename() + '.md');
