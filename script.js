@@ -1,7 +1,24 @@
-function formatMarkdown(message) {
-  return message; //`\${message}\n\n`; /** *\${username}**: */
+/*
+--- Load CDN ---
+ */
+function loadScript(url, callback) {
+  const script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = url;
+
+  script.onload = function() {
+    callback();
+  };
+
+  document.head.appendChild(script);
 }
 
+const cdnUrl = 'https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js';
+
+
+/*
+--- Formatting ---
+ */
 function formatDate(format = 0)
 {
   dc = new Date();
@@ -43,6 +60,18 @@ function formatFilename()
   return formatDate() + ' ' + getPageTitle();
 }
 
+function formatMarkdown(message)
+{
+  if (message !== '' && message !== ' ')
+  {
+    let conv = new showdown.Converter();
+
+    return `**Answer**:\n` + conv.makeMarkdown(message); + "\n\n";
+  }
+  return ''; //`\${message}\n\n`; /** *\${username}**: */
+}
+
+
 function exportConversation() {
   const messages = document.querySelectorAll('.container-xl'); // Replace '.message-selector' with the appropriate CSS selector for the messages on phind.com
   let markdown = '';
@@ -51,7 +80,7 @@ function exportConversation() {
     //const username = message.querySelector('.username-selector') // Replace '.username-selector' with the appropriate CSS selector for the username
     const messageText = message.querySelector('.container-xl > div > span'); // Replace '.message-text-selector' with the appropriate CSS selector for the message text
     //console.log(messageText === null ? '' : messageText.textContent);
-    markdown += formatMarkdown(messageText === null ? '' : `**Answer**:\n` + messageText.textContent + "\n");
+    markdown += formatMarkdown(messageText === null ? '' : messageText.innerHTML);
   });
 
   return markdown;
@@ -69,5 +98,13 @@ function download(text, filename) {
   URL.revokeObjectURL(url);
 }
 
-const markdownContent = exportConversation();
-download(markdownContent, formatFilename() + '.md');
+/*
+--- Main ---
+ */
+loadScript(cdnUrl, function() {
+  console.log('Library loaded');
+
+  const markdownContent = exportConversation();
+  download(markdownContent, formatFilename() + '.md');
+});
+
