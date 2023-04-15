@@ -13,9 +13,6 @@ function loadScript(url, callback) {
   document.head.appendChild(script);
 }
 
-const cdnUrl = 'https://unpkg.com/turndown/dist/turndown.js';
-
-
 
 /*
 --- Formatting ---
@@ -76,7 +73,7 @@ function formatMarkdown(message)
       conv = conv.turndown(message);
     // }
 
-    return `**Answer**:\n` + conv + "\n\n";
+    return `**Answer**:\n` + conv + "\n\n<hr>\n";
   }
   return ''; //`\${message}\n\n`; /** *\${username}**: */
 }
@@ -84,7 +81,7 @@ function formatMarkdown(message)
 
 function exportConversation() {
   const messages = document.querySelectorAll('.container-xl'); // Replace '.message-selector' with the appropriate CSS selector for the messages on phind.com
-  let markdown = '';
+  let markdown = "# " + getPageTitle() + "\n\n" + formatDate(1) + "\n\n<hr>\n\n"
 
   messages.forEach(message => {
     //const username = message.querySelector('.username-selector') // Replace '.username-selector' with the appropriate CSS selector for the username
@@ -111,6 +108,8 @@ function download(text, filename) {
 /*
 --- Main ---
  */
+const cdnUrl = 'https://unpkg.com/turndown/dist/turndown.js';
+
 loadScript(cdnUrl, function() {
   console.log('Library loaded');
 
