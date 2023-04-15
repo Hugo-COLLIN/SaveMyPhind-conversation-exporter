@@ -108,15 +108,24 @@ function download(text, filename) {
 /*
 --- Main ---
  */
+import('turndown.js')
+  .then(turndownModule => {
+    TurndownService = turndownModule.default || turndownModule.TurndownService;
+    // Use the TurndownService class here
+    const markdownContent = exportConversation();
+    download(markdownContent, formatFilename() + '.md');
+  });
+
+
 // const cdnUrl = 'https://unpkg.com/turndown/dist/turndown.js';
-const cdnUrl = 'turndown.js';
+// const cdnUrl = 'turndown.js';
 
-loadScript(cdnUrl, function() {
-  console.log('Library loaded');
-
-  const markdownContent = exportConversation();
-  download(markdownContent, formatFilename() + '.md');
-});
+// loadScript(cdnUrl, function() {
+//   console.log('Library loaded');
+//
+//   const markdownContent = exportConversation();
+//   download(markdownContent, formatFilename() + '.md');
+// });
 
 // console.log('Script executed on', document.location.href);
 //
