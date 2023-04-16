@@ -1,6 +1,5 @@
 # Save My Phind 
-### Conversation exporter for Phind.com
-**Hugo COLLIN**
+### Conversation exporter for the Phind.com AI engine - Hugo COLLIN
 
 ## How to use ?
 ### Chrome extension
@@ -11,6 +10,7 @@ Until the extension is published on the Chrome Web Store, you can follow these s
 4. Select the unzipped folder in the popout window.
 
 ### Simple Javascript script
+Another option is to use the Javascript script directly. To do so, follow these steps :
 1. Go to original/script.js and copy the content script.
 2. On your Phind thread, open the developer tools.
 3. In the developer console tab, paste the Javascript code and press enter.
