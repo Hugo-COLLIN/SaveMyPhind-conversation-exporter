@@ -6,7 +6,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
       files: ['turndown.js']
     })
       .then(() => {
-        console.log("Script LOCAL ok.");
+        console.log("Local Library ok.");
       })
       .catch(err => console.log(err));
 });
@@ -15,6 +15,6 @@ chrome.action.onClicked.addListener(async (tab) => {
   console.log("Action clicked.");
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
-    files: ['phind2md.js']
+    files: ['main.js']
   });
 });
