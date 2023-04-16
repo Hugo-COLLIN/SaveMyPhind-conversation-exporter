@@ -95,8 +95,6 @@ function download(text, filename) {
  */
 if(window.location.href.includes('www.phind.com/search'))
 {
-  // if (typeof TurndownService === 'undefined') location.reload();
-    // window.alert('TurndownService is not defined. Please reload the page.');
   markdownContent = exportConversation();
   download(markdownContent, formatFilename() + '.md');
 }
