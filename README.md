@@ -1,13 +1,13 @@
 # Save My Phind 
-### Conversation exporter for the Phind.com AI engine
+### Conversation exporter for the Phind.com AI engined
 
 ## Chrome extension
 ### How to install ?
 Until the extension is published on the Chrome Web Store, you can follow these steps :
-1. Download the latest version by going on Releases and download the `save-my-phind_x.y.z.zip` of the latest version.
-2. Unzip it.
-3. On chrome://extensions (or \[yourChromiumBasedBrowser]://extensions), enable "Developer mode" and click on "Load unpacked" button.
-4. Select the unzipped folder in the popout window.
+1. Download the latest version by going on Releases and download the `save-my-phind_x.y.z.crx` file.
+2. Go on chrome://extensions (or \[yourChromiumBasedBrowser]://extensions), then drag and drop the .crx file on the page.
+3. Click on "Add extension".
+4. You can now use the extension.
 
 ### How to use ?
 1. Go to your Phind thread.
