@@ -44,10 +44,6 @@ composer.json
 # Node and packages
 node_modules/
 output/
-#package.json
-#package-lock.json
-#*.lock
-#jsconfig.json
 
 #intelliJ
 *.iml
@@ -55,5 +51,3 @@ output/
 out
 .target
 .idea/
-/api/stanza_resources/
-rub.sh
