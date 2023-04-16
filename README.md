@@ -1,5 +1,5 @@
 # Save My Phind 
-### Conversation exporter for the Phind.com AI engined
+### Conversation exporter for the Phind.com AI engine
 
 ## Chrome extension
 ### How to install ?
