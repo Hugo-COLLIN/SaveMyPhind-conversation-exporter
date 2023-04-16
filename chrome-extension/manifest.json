@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Save my Phind",
-  "version": "0.7",
+  "version": "0.8",
   "description": "Export your Phind.com conversation to a markdown file",
   "icons": {
     "128": "img/logo_128.png"
