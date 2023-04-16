@@ -17,6 +17,6 @@ Until the extension is published on the Chrome Web Store, you can follow these s
 ## Simple Javascript script
 ### How to use ?
 Another option is to use the Javascript script directly. To do so, follow these steps :
-1. Go to original/script.js and copy the content script.
+1. Go to original/script.js and copy the content of the file.
 2. On your Phind thread, open the developer tools.
-3. In the developer console tab, paste the Javascript code and press enter.
+3. In the developer console, paste the Javascript code and press enter.
