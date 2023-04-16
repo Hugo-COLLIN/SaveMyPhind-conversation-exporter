@@ -4,6 +4,8 @@
   "version": "0.8",
   "description": "Export your Phind.com conversation to a markdown file",
   "icons": {
+    "16": "img/logo_128.png",
+    "48": "img/logo_128.png",
     "128": "img/logo_128.png"
   },
   "permissions": [
