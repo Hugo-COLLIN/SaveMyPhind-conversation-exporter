@@ -1,20 +1,4 @@
 /*
---- Load CDN ---
- */
-function loadScript(url, callback) {
-  const script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src = url;
-
-  script.onload = function() {
-    callback();
-  };
-
-  document.head.appendChild(script);
-}
-
-
-/*
 --- Formatting ---
  */
 function formatDate(format = 0)
@@ -62,16 +46,8 @@ function formatMarkdown(message)
 {
   if (message !== '' && message !== ' ')
   {
-    let conv;
-
-    // if (showdown !== undefined) {
-    //   conv = new showdown.Converter();
-    //   conv = conv.makeMarkdown(message);
-    // }
-    // else if (turndown !== undefined) {
-      conv = new TurndownService();
-      conv = conv.turndown(message);
-    // }
+    const turndownService = new TurndownService();
+    const conv = turndownService.turndown(message);
 
     return (conv + "\n\n___\n").replaceAll('\\*', '*');
   }
