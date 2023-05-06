@@ -3,7 +3,9 @@
 
 ## Chrome extension
 ### How to install ?
-Until the extension is published on the Chrome Web Store, you can follow these steps :
+Simply go to the Chrome Web Store and click on the install button : [click here](https://chrome.google.com/webstore/detail/save-my-phind/agklnagmfeooogcppjccdnoallkhgkod)
+
+You can also follow these steps to install it manually:
 1. Download the latest version on GitHub by going on Releases (in the right side menu) and download the `save-my-phind_x.y.z.crx` file from the latest version.
 2. Go on chrome://extensions (or \[yourChromiumBasedBrowser]://extensions), then drag and drop the .crx file on the page.
 3. Click on "Add extension".
