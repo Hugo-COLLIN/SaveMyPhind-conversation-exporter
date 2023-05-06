@@ -34,9 +34,7 @@ function formatDate(format = 0)
 
 function getPageTitle()
 {
-  // console.log(document.querySelector('textarea').innerHTML);
   return document.querySelector('textarea').innerHTML;
-    //.value.replaceAll(' ', '_').replaceAll('/', '-');
 }
 
 function formatFilename()
