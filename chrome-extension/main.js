@@ -49,14 +49,14 @@ function formatMarkdown(message)
     const turndownService = new TurndownService();
     const conv = turndownService.turndown(message);
 
-    return (conv + "\n\n___\n").replaceAll('\\*', '*');
+    return "\n\n___\n" + conv.replaceAll('\\*', '*');
   }
   return '';
 }
 
 function setFileHeader()
 {
-  return "# " + capitalizeFirst(getPageTitle()) + "\n" + formatDate(1) + "\n\n";
+  return "# " + capitalizeFirst(getPageTitle()) + "\n" + formatDate(1) + "\n";
 }
 
 function capitalizeFirst(string)
