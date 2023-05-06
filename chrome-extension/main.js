@@ -34,12 +34,14 @@ function formatDate(format = 0)
 
 function getPageTitle()
 {
-  return document.title;
+  // console.log(document.querySelector('textarea').innerHTML);
+  return document.querySelector('textarea').innerHTML;
+    //.value.replaceAll(' ', '_').replaceAll('/', '-');
 }
 
 function formatFilename()
 {
-  return formatDate() + ' ' + getPageTitle();
+  return formatDate() + ' ' + getPageTitle().replace(/[\/:*?"<>|]/g, '');
 }
 
 function formatMarkdown(message)
@@ -68,10 +70,9 @@ function exportConversation() {
   const messages = document.querySelectorAll('.row > .col-lg-8.col-xl-7 > .container-xl');
   let markdown = setFileHeader();
 
-  messages.forEach(message => {
-    let p1 = message.querySelector('.row > .col-lg-8.col-xl-7 > .container-xl > div > span');
-    let p2 = message.querySelector('.row > .col-lg-8.col-xl-7 > .container-xl > div.mb-3');
-    console.log(p1, p2)
+  messages.forEach(content => {
+    let p1 = content.querySelector('.row > .col-lg-8.col-xl-7 > .container-xl > div > span');
+    let p2 = content.querySelector('.row > .col-lg-8.col-xl-7 > .container-xl > div.mb-3');
     const messageText =  p2 ? `**You :**\n` + p2.innerHTML : p1 ? `**AI answer :**\n` + p1.innerHTML : '';
     markdown += formatMarkdown(messageText);
   });
