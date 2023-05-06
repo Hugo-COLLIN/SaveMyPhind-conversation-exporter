@@ -1,11 +1,9 @@
 {
   "manifest_version": 3,
   "name": "Save my Phind",
-  "version": "0.8",
-  "description": "Export your Phind.com conversation to a markdown file",
+  "version": "0.8.2",
+  "description": "Export your Phind.com threads into markdown files!",
   "icons": {
-    "16": "img/logo_128.png",
-    "48": "img/logo_128.png",
     "128": "img/logo_128.png"
   },
   "permissions": [

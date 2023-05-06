@@ -65,13 +65,14 @@ function capitalizeFirst(string)
 }
 
 function exportConversation() {
-  const messages = document.querySelectorAll('.row > .col-lg-8.col-xl-7 > .container-xl'); // Replace '.message-selector' with the appropriate CSS selector for the messages on phind.com
+  const messages = document.querySelectorAll('.row > .col-lg-8.col-xl-7 > .container-xl');
   let markdown = setFileHeader();
 
   messages.forEach(message => {
     let p1 = message.querySelector('.row > .col-lg-8.col-xl-7 > .container-xl > div > span');
-    let p2 = message.querySelector('.row > .col-lg-8.col-xl-7 > .container-xl > h3');
-    const messageText =  p1 ? `**AI answer :**\n` + p1.innerHTML : p2 ? `**You :**\n` + p2.innerHTML : '';
+    let p2 = message.querySelector('.row > .col-lg-8.col-xl-7 > .container-xl > div.mb-3');
+    console.log(p1, p2)
+    const messageText =  p2 ? `**You :**\n` + p2.innerHTML : p1 ? `**AI answer :**\n` + p1.innerHTML : '';
     markdown += formatMarkdown(messageText);
   });
 
