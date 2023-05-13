@@ -48,7 +48,6 @@ function formatMarkdown(message)
   if (message !== '' && message !== ' ')
   {
     const conv = turndownService.turndown(message);
-    console.log(conv)
     return conv;
   }
   return '';
@@ -72,32 +71,18 @@ function exportConversation() {
     let p1 = content.querySelector('.row > .col-lg-8.col-xl-7 > .container-xl > div > span');
     let p2 = content.querySelector('.row > .col-lg-8.col-xl-7 > .container-xl > div.mb-3');
     let p3 = content.querySelectorAll('.col-xl-4.col-lg-4 > .container-xl > .position-relative > div > div.pb-3');
-    console.log(p3)
-    // if (p3) {
-    //   let res = "";
-    //   p3.forEach((elt) => {
-    //     res += elt.innerHTML;
-    //   });
-    //   console.log(res)
-    // }
     const messageText =
-          p3.length > 0 ? (() => {
-            let res = "**Sources :**";
-            p3.forEach((elt) => {
-              console.log(elt)
-              res += "\n" + formatMarkdown(elt.querySelector("div.pb-3 > :not(.d-flex)").outerHTML)
-              // res += elt.querySelector('.fs-6').toString()
-              //      + elt.querySelector('a').toString()
-              //      + elt.querySelector('p').toString();
-            });
-            return res;
-          })() :
-          p2 ? `\n___\n**You :**\n` + formatMarkdown(p2.innerHTML) :
-          p1 ? `___\n**AI answer :**\n` + formatMarkdown(p1.innerHTML) :
-          '';
-    messageText !== "" ?
-        markdown += messageText + "\n\n" :
-        true;
+      p3.length > 0 ? (() => {
+        let res = "**Sources :**";
+        p3.forEach((elt) => {
+          res += "\n" + formatMarkdown(elt.querySelector("div.pb-3 > :not(.d-flex)").outerHTML)
+        });
+        return res;
+      })() :
+      p2 ? `\n___\n**You :**\n` + formatMarkdown(p2.innerHTML) :
+      p1 ? `___\n**AI answer :**\n` + formatMarkdown(p1.innerHTML) :
+      '';
+    if (messageText !== "") markdown += messageText + "\n\n";
   });
 
   return markdown;
