@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Save my Phind - AI Conversation Exporter",
-  "version": "0.11.1",
+  "version": "0.11.2",
   "description": "Export your Phind.com threads into markdown files!",
   "icons": {
     "128": "img/logo_128.png"
@@ -17,7 +17,7 @@
     "default_popup": ""
   },
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "js/background.js"
   },
   "content_security_policy": {
     "extension_pages": "script-src 'self' 'wasm-unsafe-eval' http://localhost:* http://127.0.0.1:* ; object-src 'self'"
