@@ -1,12 +1,16 @@
+/**
+ * SaveMyPhind v0.11.1
+ * Hugo COLLIN - 2023-05-13
+ */
+
 /*
 --- Formatting ---
  */
-
 function formatDate(format = 0)
 {
   dc = new Date();
   const yyyy = dc.getFullYear();
-  let mm = dc.getMonth() + 1; // Les mois commencent à 0 !
+  let mm = dc.getMonth() + 1; // Begins at 0 !
   let dd = dc.getDate();
   let hh = dc.getHours();
   let mn = dc.getMinutes();
@@ -21,7 +25,7 @@ function formatDate(format = 0)
   let res;
   switch (format) {
     case 1 :
-      res = "Exported on " + dd + "/" + mm + "/" + yyyy + " " + hh + ":" + mn + ":" + ss + " from phind.com - with SaveMyPhind";
+      res = dd + "/" + mm + "/" + yyyy + " " + hh + ":" + mn + ":" + ss;
       break;
     case 2 :
       res = dd + "/" + mm + "/" + yyyy;
@@ -48,34 +52,34 @@ function formatMarkdown(message)
   message = DOMPurify.sanitize(message);
   if (message !== '' && message !== ' ')
   {
-    // const conv = turndownService.turndown(message);
-    // const conv = HTML2Markdown(message);
-    // const conv = md.render(message);
-    // const conv = md.render()
-
-    // const tokens = md.parse(md.render(message), {});
-    // const conv = tokens.map(token => token.content).join('\n');
-    // const conv = marked(message)
-    // const conv = reMarker.render(message);
-    const conv =
+    return
         converterChoice === turndownChoice ? turndownService.turndown(message) :
         converterChoice === showdownChoice ? showdown.makeMarkdown(message) :
-        converterChoice === mditChoice ? mdit.render(message) :
-        converterChoice === markedChoice ? marked.parse(message) :
-        converterChoice === html2MarkChoice ? HTML2Markdown(message) :
-        converterChoice === html2mdChoice ? window.html2Md(message) :
-        converterChoice === reMarkedChoice ? reMarker.render(message) :
-        converterChoice === htmlArkChoice ? htmlArk.convert(message) :
-        converterChoice === htmlToMdChoice ? converter.convert(message) :
+        // converterChoice === mditChoice ? mdit.render(message) :
+        // converterChoice === markedChoice ? marked.parse(message) :
+        // converterChoice === html2MarkChoice ? HTML2Markdown(message) :
+        // converterChoice === html2mdChoice ? window.html2Md(message) :
+        // converterChoice === reMarkedChoice ? reMarker.render(message) :
+        // converterChoice === htmlArkChoice ? htmlArk.convert(message) :
+        // converterChoice === htmlToMdChoice ? converter.convert(message) :
         '';
-    return conv;
   }
   return '';
 }
 
 function setFileHeader()
 {
-  return "# " + capitalizeFirst(getPageTitle()) + "\n" + formatDate(1) + "\n\n";
+  return "# " + capitalizeFirst(getPageTitle()) + "\n" + "Exported on " + formatDate(1) + " " + formatUrl(getUrl(), "from Phind.com") + " using SaveMyPhind" + "\n\n";
+}
+
+function formatUrl(url, message)
+{
+  return "[" + message + "](" + url + ")";
+}
+
+function getUrl()
+{
+  return window.location.href;
 }
 
 function capitalizeFirst(string)
@@ -91,6 +95,7 @@ function exportConversation() {
     let p1 = content.querySelector('.row > .col-lg-8.col-xl-7 > .container-xl > div > span');
     let p2 = content.querySelector('.row > .col-lg-8.col-xl-7 > .container-xl > div.mb-3');
     let p3 = content.querySelectorAll('.col-xl-4.col-lg-4 > .container-xl > .position-relative > div > div.pb-3');
+
     const messageText =
       p3.length > 0 ? (() => {
         let res = "**Sources :**";
@@ -102,6 +107,7 @@ function exportConversation() {
       p2 ? `\n___\n**You :**\n` + formatMarkdown(p2.innerHTML) :
       p1 ? `___\n**AI answer :**\n` + formatMarkdown(p1.innerHTML) :
       '';
+
     if (messageText !== "") markdown += messageText + "\n\n";
   });
 
@@ -124,14 +130,13 @@ function download(text, filename) {
 --- Main ---
  */
 const turndownChoice = "turndown",
-    showdownChoice = "showdown",
-    mditChoice = "markdownit",
-    markedChoice = "marked",
-    html2MarkChoice = "html2Mark",
-    html2mdChoice = "html2md",
-    reMarkedChoice = "reMarked",
-    htmlArkChoice = "htmlArk",
-    htmlToMdChoice = "htmlToMd";
+    showdownChoice = "showdown";
+    // markedChoice = "marked",
+    // html2MarkChoice = "html2Mark",
+    // html2mdChoice = "html2md",
+    // reMarkedChoice = "reMarked",
+    // htmlArkChoice = "htmlArk",
+    // htmlToMdChoice = "htmlToMd";
 
 const converterChoice = turndownChoice;
 
@@ -145,25 +150,21 @@ if(window.location.href.includes('www.phind.com/search'))
     case showdownChoice:
       showdown = new showdown.Converter();
       break;
-    case mditChoice: //md to html
-      mdit = window.markdownit();
-      break;
-    case markedChoice: //import statement outside module
-      marked = window.marked();
-      break;
-    case html2MarkChoice: //error HTMLParser is not defined
-    case html2mdChoice: //error require
-      break;
-    case reMarkedChoice: //error Refused to evaluate a string : 'unsafe-eval' not allowed source of scripts
-      reMarker = new reMarked();
-      break;
-    case htmlArkChoice : //need to import directory
-      htmlArk = new HTMLarkdown();
-      break;
-    case htmlToMdChoice : //need to import directory
-      converter = window.htmltomarkdown;
-      break;
-
+    // case markedChoice: //import statement outside module
+    //   marked = window.marked();
+    //   break;
+    // case html2MarkChoice: //error HTMLParser is not defined
+    // case html2mdChoice: //error require
+    //   break;
+    // case reMarkedChoice: //error Refused to evaluate a string : 'unsafe-eval' not allowed source of scripts
+    //   reMarker = new reMarked();
+    //   break;
+    // case htmlArkChoice : //need to import directory
+    //   htmlArk = new HTMLarkdown();
+    //   break;
+    // case htmlToMdChoice : //need to import directory
+    //   converter = window.htmltomarkdown();
+    //   break;
   }
   markdownContent = exportConversation();
   download(markdownContent, formatFilename() + '.md');
