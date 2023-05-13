@@ -1,6 +1,7 @@
 /*
 --- Formatting ---
  */
+
 function formatDate(format = 0)
 {
   dc = new Date();
@@ -47,7 +48,15 @@ function formatMarkdown(message)
   message = DOMPurify.sanitize(message);
   if (message !== '' && message !== ' ')
   {
-    const conv = turndownService.turndown(message);
+    // const conv = turndownService.turndown(message);
+    // const conv = HTML2Markdown(message);
+    // const conv = md.render(message);
+    // const conv = md.render()
+
+    // const tokens = md.parse(md.render(message), {});
+    // const conv = tokens.map(token => token.content).join('\n');
+    // const conv = marked(message)
+    const conv = reMarker.render(message);
     return conv;
   }
   return '';
@@ -103,9 +112,18 @@ function download(text, filename) {
 /*
 --- Main ---
  */
-const turndownService = new TurndownService();
+// import {marked} from "./marked.min.js";
+
 if(window.location.href.includes('www.phind.com/search'))
 {
+  reMarker = new reMarked();
+  console.log(reMarker.render("<strong>test</strong>"));
+
+  turndownService = new TurndownService();
+  md = window.markdownit();
+  // console.log(typeof marked)
+  // console.log(marked)
+  // console.log(marked.parse("**test**"));
   markdownContent = exportConversation();
   download(markdownContent, formatFilename() + '.md');
 }

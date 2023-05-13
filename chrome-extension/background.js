@@ -1,8 +1,9 @@
+import "html2md.js"
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === 'complete' && /^http/.test(tab.url))
     chrome.scripting.executeScript({
       target: { tabId: tab.id },
-      files: ['turndown.js', "purify.min.js"]
+      files: ['turndown.js', "purify.min.js", "markdown-it.min.js", "html2markdown.js", "marked.min.js"]
     })
       .catch(err => console.log(err));
 });
