@@ -57,7 +57,17 @@ function formatMarkdown(message)
     // const conv = tokens.map(token => token.content).join('\n');
     // const conv = marked(message)
     // const conv = reMarker.render(message);
-    const conv = showdown.makeMarkdown(message);
+    const conv =
+        converterChoice === turndownChoice ? turndownService.turndown(message) :
+        converterChoice === showdownChoice ? showdown.makeMarkdown(message) :
+        converterChoice === mditChoice ? mdit.render(message) :
+        converterChoice === markedChoice ? marked.parse(message) :
+        converterChoice === html2MarkChoice ? HTML2Markdown(message) :
+        converterChoice === html2mdChoice ? window.html2Md(message) :
+        converterChoice === reMarkedChoice ? reMarker.render(message) :
+        converterChoice === htmlArkChoice ? htmlArk.convert(message) :
+        converterChoice === htmlToMdChoice ? converter.convert(message) :
+        '';
     return conv;
   }
   return '';
@@ -113,14 +123,48 @@ function download(text, filename) {
 /*
 --- Main ---
  */
+const turndownChoice = "turndown",
+    showdownChoice = "showdown",
+    mditChoice = "markdownit",
+    markedChoice = "marked",
+    html2MarkChoice = "html2Mark",
+    html2mdChoice = "html2md",
+    reMarkedChoice = "reMarked",
+    htmlArkChoice = "htmlArk",
+    htmlToMdChoice = "htmlToMd";
+
+const converterChoice = turndownChoice;
 
 if(window.location.href.includes('www.phind.com/search'))
 {
-  // reMarker = new reMarked();
-  // console.log(reMarker.render("<strong>test</strong>"));
+  switch (converterChoice)
+  {
+    case turndownChoice:
+      turndownService = new TurndownService();
+      break;
+    case showdownChoice:
+      showdown = new showdown.Converter();
+      break;
+    case mditChoice: //md to html
+      mdit = window.markdownit();
+      break;
+    case markedChoice: //import statement outside module
+      marked = window.marked();
+      break;
+    case html2MarkChoice: //error HTMLParser is not defined
+    case html2mdChoice: //error require
+      break;
+    case reMarkedChoice: //error Refused to evaluate a string : 'unsafe-eval' not allowed source of scripts
+      reMarker = new reMarked();
+      break;
+    case htmlArkChoice : //need to import directory
+      htmlArk = new HTMLarkdown();
+      break;
+    case htmlToMdChoice : //need to import directory
+      converter = window.htmltomarkdown;
+      break;
 
-  turndownService = new TurndownService();
-  showdown = new showdown.Converter();
+  }
   markdownContent = exportConversation();
   download(markdownContent, formatFilename() + '.md');
 }
