@@ -68,7 +68,7 @@ function formatMarkdown(message)
 
 function setFileHeader()
 {
-  return "# " + capitalizeFirst(getPageTitle()) + "\n" + "Exported on " + formatDate(1) + " " + formatUrl(getUrl(), "from Phind.com") + " using SaveMyPhind" + "\n\n";
+  return "# " + capitalizeFirst(getPageTitle()) + "\n" + "Exported on " + formatDate(1) + " " + formatUrl(getUrl(), "from Phind.com") + " - with SaveMyPhind" + "\n\n";
 }
 
 function formatUrl(url, message)
