@@ -52,17 +52,16 @@ function formatMarkdown(message)
   message = DOMPurify.sanitize(message);
   if (message !== '' && message !== ' ')
   {
-    return
-        converterChoice === turndownChoice ? turndownService.turndown(message) :
-        converterChoice === showdownChoice ? showdown.makeMarkdown(message) :
-        // converterChoice === mditChoice ? mdit.render(message) :
-        // converterChoice === markedChoice ? marked.parse(message) :
-        // converterChoice === html2MarkChoice ? HTML2Markdown(message) :
-        // converterChoice === html2mdChoice ? window.html2Md(message) :
-        // converterChoice === reMarkedChoice ? reMarker.render(message) :
-        // converterChoice === htmlArkChoice ? htmlArk.convert(message) :
-        // converterChoice === htmlToMdChoice ? converter.convert(message) :
-        '';
+    return  converterChoice === turndownChoice ? turndownService.turndown(message) :
+            converterChoice === showdownChoice ? showdown.makeMarkdown(message) :
+            // converterChoice === mditChoice ? mdit.render(message) :
+            // converterChoice === markedChoice ? marked.parse(message) :
+            // converterChoice === html2MarkChoice ? HTML2Markdown(message) :
+            // converterChoice === html2mdChoice ? window.html2Md(message) :
+            // converterChoice === reMarkedChoice ? reMarker.render(message) :
+            // converterChoice === htmlArkChoice ? htmlArk.convert(message) :
+            // converterChoice === htmlToMdChoice ? converter.convert(message) :
+            '';
   }
   return '';
 }
@@ -142,7 +141,7 @@ const converterChoice = turndownChoice;
 
 if(window.location.href.includes('www.phind.com/search'))
 {
-  switch (converterChoice)
+  switch (converterChoice) //make function chooseHeader
   {
     case turndownChoice:
       turndownService = new TurndownService();
