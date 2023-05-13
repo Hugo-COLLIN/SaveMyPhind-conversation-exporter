@@ -56,7 +56,8 @@ function formatMarkdown(message)
     // const tokens = md.parse(md.render(message), {});
     // const conv = tokens.map(token => token.content).join('\n');
     // const conv = marked(message)
-    const conv = reMarker.render(message);
+    // const conv = reMarker.render(message);
+    const conv = showdown.makeMarkdown(message);
     return conv;
   }
   return '';
@@ -112,18 +113,14 @@ function download(text, filename) {
 /*
 --- Main ---
  */
-// import {marked} from "./marked.min.js";
 
 if(window.location.href.includes('www.phind.com/search'))
 {
-  reMarker = new reMarked();
-  console.log(reMarker.render("<strong>test</strong>"));
+  // reMarker = new reMarked();
+  // console.log(reMarker.render("<strong>test</strong>"));
 
   turndownService = new TurndownService();
-  md = window.markdownit();
-  // console.log(typeof marked)
-  // console.log(marked)
-  // console.log(marked.parse("**test**"));
+  showdown = new showdown.Converter();
   markdownContent = exportConversation();
   download(markdownContent, formatFilename() + '.md');
 }
