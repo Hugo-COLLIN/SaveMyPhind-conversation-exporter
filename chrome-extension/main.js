@@ -20,7 +20,7 @@ function formatDate(format = 0)
   let res;
   switch (format) {
     case 1 :
-      res = "Exported " + dd + "/" + mm + "/" + yyyy + " " + hh + ":" + mn + ":" + ss;
+      res = "Exported on " + dd + "/" + mm + "/" + yyyy + " " + hh + ":" + mn + ":" + ss + " from phind.com - with SaveMyPhind";
       break;
     case 2 :
       res = dd + "/" + mm + "/" + yyyy;
@@ -44,19 +44,19 @@ function formatFilename()
 
 function formatMarkdown(message)
 {
+  message = DOMPurify.sanitize(message);
   if (message !== '' && message !== ' ')
   {
-    const turndownService = new TurndownService();
     const conv = turndownService.turndown(message);
-
-    return "\n\n___\n" + conv.replaceAll('\\*', '*');
+    console.log(conv)
+    return conv;
   }
   return '';
 }
 
 function setFileHeader()
 {
-  return "# " + capitalizeFirst(getPageTitle()) + "\n" + formatDate(1) + "\n";
+  return "# " + capitalizeFirst(getPageTitle()) + "\n" + formatDate(1) + "\n\n";
 }
 
 function capitalizeFirst(string)
@@ -65,14 +65,39 @@ function capitalizeFirst(string)
 }
 
 function exportConversation() {
-  const messages = document.querySelectorAll('.row > .col-lg-8.col-xl-7 > .container-xl');
+  const messages = document.querySelectorAll('.row > div > .container-xl');
   let markdown = setFileHeader();
 
   messages.forEach(content => {
     let p1 = content.querySelector('.row > .col-lg-8.col-xl-7 > .container-xl > div > span');
     let p2 = content.querySelector('.row > .col-lg-8.col-xl-7 > .container-xl > div.mb-3');
-    const messageText =  p2 ? `**You :**\n` + p2.innerHTML : p1 ? `**AI answer :**\n` + p1.innerHTML : '';
-    markdown += formatMarkdown(messageText);
+    let p3 = content.querySelectorAll('.col-xl-4.col-lg-4 > .container-xl > .position-relative > div > div.pb-3');
+    console.log(p3)
+    // if (p3) {
+    //   let res = "";
+    //   p3.forEach((elt) => {
+    //     res += elt.innerHTML;
+    //   });
+    //   console.log(res)
+    // }
+    const messageText =
+          p3.length > 0 ? (() => {
+            let res = "**Sources :**";
+            p3.forEach((elt) => {
+              console.log(elt)
+              res += "\n" + formatMarkdown(elt.querySelector("div.pb-3 > :not(.d-flex)").outerHTML)
+              // res += elt.querySelector('.fs-6').toString()
+              //      + elt.querySelector('a').toString()
+              //      + elt.querySelector('p').toString();
+            });
+            return res;
+          })() :
+          p2 ? `\n___\n**You :**\n` + formatMarkdown(p2.innerHTML) :
+          p1 ? `___\n**AI answer :**\n` + formatMarkdown(p1.innerHTML) :
+          '';
+    messageText !== "" ?
+        markdown += messageText + "\n\n" :
+        true;
   });
 
   return markdown;
@@ -93,6 +118,7 @@ function download(text, filename) {
 /*
 --- Main ---
  */
+const turndownService = new TurndownService();
 if(window.location.href.includes('www.phind.com/search'))
 {
   markdownContent = exportConversation();
