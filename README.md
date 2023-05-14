@@ -6,7 +6,7 @@
 Simply go to the Chrome Web Store and click on the install button : [click here](https://chrome.google.com/webstore/detail/save-my-phind/agklnagmfeooogcppjccdnoallkhgkod)
 
 You can also follow these steps to install it manually:
-1. Download the latest version on GitHub by going on Releases (in the right side menu) and download the `save-my-phind_x.y.z.crx` file from the latest version.
+1. Download the latest version : on GitHub, click on Releases (in the right side menu), go on the latest version and download the `save-my-phind_x.y.z.crx` file.
 2. Go on chrome://extensions (or \[yourChromiumBasedBrowser]://extensions), then drag and drop the .crx file on the page.
 3. Click on "Add extension".
 4. You're done!
