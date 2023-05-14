@@ -20,7 +20,7 @@ This project uses the following third-party libraries:
 
 
 ### Bugs :
-- [ ] Icons instead of sources
+- [x] Icons instead of sources
 - [x] Code is not correctly formatted when converting Html to md 
 - [x] Not longer exporting AI answers and source links
      => stronger CSS selectors (try not to use styling classes)

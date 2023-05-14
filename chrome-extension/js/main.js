@@ -96,19 +96,19 @@ function exportConversation() {
 
     const messageText =
       p3.length > 0 ? (() => {
-        let res = "**Sources :**";
+        let res = "**Sources:**";
         p3.forEach((elt) => {
           res += "\n" + formatMarkdown(elt.querySelector("a").outerHTML);
         });
         return res;
       })() :
 
-      p2 ? `\n___\n**You :**\n` + formatMarkdown(p2.innerHTML) :
+      p2 ? `\n___\n**You:**\n` + formatMarkdown(p2.innerHTML) :
 
       p1 ? (() => {
           let res = formatMarkdown(p1.innerHTML)
           const index = res.indexOf('\n\n');
-          return `___\n**AI answer :**\n` + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
+          return `___\n**AI answer:**\n` + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
         })() :
 
       '';
