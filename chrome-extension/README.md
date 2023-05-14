@@ -20,6 +20,8 @@ This project uses the following third-party libraries:
 
 
 ### Bugs :
+- [ ] Fix bug not exporting correctly (AI begins with backtite ?)
+  https://www.phind.com/search?cache=3dc3a9e2-6841-4ca0-9110-8ee9b11c327b
 - [x] Icons instead of sources
 - [x] Code is not correctly formatted when converting Html to md 
 - [x] Not longer exporting AI answers and source links
