@@ -1,5 +1,5 @@
 /**
- * SaveMyPhind v0.11.4
+ * SaveMyPhind v0.12.2
  * Hugo COLLIN - 2023-05-14
  */
 
@@ -52,8 +52,7 @@ function formatMarkdown(message)
   message = DOMPurify.sanitize(message);
   if (message !== '' && message !== ' ')
   {
-    let conv =
-            converterChoice === turndownChoice ? turndownService.turndown(message) :
+    return  converterChoice === turndownChoice ? turndownService.turndown(message) :
             converterChoice === showdownChoice ? showdown.makeMarkdown(message) :
             // converterChoice === markedChoice ? marked.parse(message) :
             // converterChoice === html2MarkChoice ? HTML2Markdown(message) :
@@ -62,7 +61,6 @@ function formatMarkdown(message)
             // converterChoice === htmlArkChoice ? htmlArk.convert(message) :
             // converterChoice === htmlToMdChoice ? converter.convert(message) :
             '';
-    return conv.replaceAll("\n`", "\n```\n").replaceAll("\n`", "\n```\n");
   }
   return '';
 }
@@ -100,7 +98,7 @@ function exportConversation() {
       p3.length > 0 ? (() => {
         let res = "**Sources :**";
         p3.forEach((elt) => {
-          res += "\n" + formatMarkdown(elt.querySelector("div > :not(.d-flex)").outerHTML);
+          res += "\n" + formatMarkdown(elt.querySelector("a").outerHTML);
         });
         return res;
       })() :
@@ -115,7 +113,7 @@ function exportConversation() {
 
       '';
 
-    if (messageText !== "") markdown += messageText.replaceAll("```\n``", "") + "\n\n"; // The Turndown rule is a nonsense!
+    if (messageText !== "") markdown += messageText + "\n\n";
   });
 
   return markdown;
@@ -149,8 +147,7 @@ showdownChoice = "showdown";
 
 converterChoice = turndownChoice;
 
-if(window.location.href.includes('www.phind.com/search'))
-{
+if (window.location.href.includes('www.phind.com/search')) {
   switch (converterChoice) //make function chooseHeader
   {
     case turndownChoice:
@@ -162,7 +159,7 @@ if(window.location.href.includes('www.phind.com/search'))
         replacement: function (content, node) {
           const codeBlock = node.querySelector('code');
           const codeContent = codeBlock.textContent.trim();
-          return ('\n``' + codeContent + '\n``');
+          return ('\n```\n' + codeContent + '\n```');
         }
       });
       break;
