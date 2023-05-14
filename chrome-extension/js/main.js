@@ -136,16 +136,16 @@ function download(text, filename) {
 /*
 --- Main ---
  */
-const turndownChoice = "turndown",
-    showdownChoice = "showdown";
-    // markedChoice = "marked",
-    // html2MarkChoice = "html2Mark",
-    // html2mdChoice = "html2md",
-    // reMarkedChoice = "reMarked",
-    // htmlArkChoice = "htmlArk",
-    // htmlToMdChoice = "htmlToMd";
+turndownChoice = "turndown";
+showdownChoice = "showdown";
+// markedChoice = "marked";
+// html2MarkChoice = "html2Mark";
+// html2mdChoice = "html2md";
+// reMarkedChoice = "reMarked";
+// htmlArkChoice = "htmlArk";
+// htmlToMdChoice = "htmlToMd";
 
-const converterChoice = turndownChoice;
+converterChoice = turndownChoice;
 
 if(window.location.href.includes('www.phind.com/search'))
 {
