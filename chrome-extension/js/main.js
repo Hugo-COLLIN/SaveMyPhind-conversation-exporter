@@ -52,9 +52,9 @@ function formatMarkdown(message)
   message = DOMPurify.sanitize(message);
   if (message !== '' && message !== ' ')
   {
-    return  converterChoice === turndownChoice ? turndownService.turndown(message) :
+    let conv =
+            converterChoice === turndownChoice ? turndownService.turndown(message) :
             converterChoice === showdownChoice ? showdown.makeMarkdown(message) :
-            // converterChoice === mditChoice ? mdit.render(message) :
             // converterChoice === markedChoice ? marked.parse(message) :
             // converterChoice === html2MarkChoice ? HTML2Markdown(message) :
             // converterChoice === html2mdChoice ? window.html2Md(message) :
@@ -62,6 +62,7 @@ function formatMarkdown(message)
             // converterChoice === htmlArkChoice ? htmlArk.convert(message) :
             // converterChoice === htmlToMdChoice ? converter.convert(message) :
             '';
+    return conv;
   }
   return '';
 }
@@ -90,13 +91,10 @@ function exportConversation() {
   const messages = document.querySelectorAll('[name^="answer-"] > div > div');
   let markdown = setFileHeader();
 
-  console.log(messages)
-
   messages.forEach(content => {
     let p1 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div');
     let p2 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div.mb-3');
     let p3 = content.querySelectorAll(".container-xl > .position-relative > div > div:not(:has(> .pagination))"); //.container-xl > .position-relative > div > div:not([class*='col'])
-    console.log(p1)
 
     const messageText =
       p3.length > 0 ? (() => {
@@ -112,13 +110,11 @@ function exportConversation() {
       p1 ? (() => {
           let res = formatMarkdown(p1.innerHTML)
           const index = res.indexOf('\n\n');
-          console.log(index)
           return `___\n**AI answer :**\n` + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
         })() :
 
       '';
 
-    console.log(messageText)
     if (messageText !== "") markdown += messageText + "\n\n";
   });
 
