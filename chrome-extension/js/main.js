@@ -1,6 +1,6 @@
 /**
- * SaveMyPhind v0.11.2
- * Hugo COLLIN - 2023-05-13
+ * SaveMyPhind v0.11.3
+ * Hugo COLLIN - 2023-05-14
  */
 
 /*
@@ -93,10 +93,6 @@ function exportConversation() {
   console.log(messages)
 
   messages.forEach(content => {
-    // console.log(content)
-    // console.log(content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div'))
-    // console.log(content.querySelector('div:nth-of-type(3) > .container-xl > div'))
-
     let p1 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div');
     let p2 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div.mb-3');
     let p3 = content.querySelectorAll(".container-xl > .position-relative > div > div:not(:has(> .pagination))"); //.container-xl > .position-relative > div > div:not([class*='col'])
@@ -113,12 +109,6 @@ function exportConversation() {
 
       p2 ? `\n___\n**You :**\n` + formatMarkdown(p2.innerHTML) :
 
-      // p1.length > 0 ? (() => {
-      //   // const str = formatMarkdown(p1.innerHTML);
-      //   // const index = str.indexOf('\n');
-      //   // return `___\n**AI answer :**\n` + str.substring(index + 1);
-      // })() :
-
       p1 ? (() => {
           let res = formatMarkdown(p1.innerHTML)
           const index = res.indexOf('\n\n');
@@ -126,39 +116,6 @@ function exportConversation() {
           return `___\n**AI answer :**\n` + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
         })() :
 
-        // p1.length > 0 ? (() => {
-        //   let res = `___\n**AI answer :**\n`;
-        //   p1.forEach((elt) => {
-        //     res += "\n" + formatMarkdown(elt);
-        //     // const str = formatMarkdown(elt);
-        //     // const index = str.indexOf('\n');
-        //     // // return `___\n**AI answer :**\n` + str.substring(index + 1);
-        //     // res += "\n" + str.substring(index + 1);
-        //   });
-        //   const index = res.indexOf('\n');
-        //   return res.substring(index + 1);
-        // })() :
-
-      // p1.length > 0 ? (() => {
-      //   let res = `___\n**AI answer :**\n`;
-      //   p1.forEach((elt) => {
-      //     const str = formatMarkdown(elt);
-      //     const index = str.indexOf('\n');
-      //     // return `___\n**AI answer :**\n` + str.substring(index + 1);
-      //     res += "\n" + str.substring(index + 1);
-      //   });
-      //   return res;
-      // })() :
-
-      // p1.length > 0 ? (() => {
-      //   let res = `___\n**AI answer :**\n`;
-      //   p1.forEach((elt) => {
-      //     res += "\n" + formatMarkdown(elt);
-      //   });
-      //   return res;
-      // })() :
-
-      // p1 ? `___\n**AI answer :**\n` + formatMarkdown(p1.innerHTML) :
       '';
 
     console.log(messageText)
