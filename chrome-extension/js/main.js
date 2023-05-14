@@ -136,6 +136,8 @@ function download(text, filename) {
 /*
 --- Main ---
  */
+
+//Global variables
 turndownChoice = "turndown";
 showdownChoice = "showdown";
 // markedChoice = "marked";
@@ -153,31 +155,16 @@ if(window.location.href.includes('www.phind.com/search'))
   {
     case turndownChoice:
       turndownService = new TurndownService();
-      console.log(turndownService.rules)
-      // if (turndownService.rules._items.hasOwnProperty('preserveLineBreaksInPre'))
-      /*var ruleKeys = Array.from(turndownService.rules).map(function(rule) {
-        return rule.key;
+      turndownService.addRule('preserveLineBreaksInPre', {
+        filter: function (node) {
+          return node.nodeName === 'PRE' && node.querySelector('div');
+        },
+        replacement: function (content, node) {
+          const codeBlock = node.querySelector('code');
+          const codeContent = codeBlock.textContent.trim();
+          return ('\n``' + codeContent + '\n``');
+        }
       });
-
-      if (!ruleKeys.includes('preserveLineBreaksInPre'))
-      {*/
-        console.log("ça passe !!!")
-        turndownService.addRule('preserveLineBreaksInPre', {
-          filter: function (node) {
-            return node.nodeName === 'PRE' && node.querySelector('div');
-          },
-          replacement: function (content, node) {
-            const codeBlock = node.querySelector('code');
-            const codeContent = codeBlock.textContent.trim();
-            // const trimmedContent = codeContent.replace(/^`{3,}/, '').replace(/`{3,}$/, '');
-            //
-            // const lastChar = trimmedContent.slice(-1);
-            // const contentWithNewline = lastChar === '\n' ? trimmedContent : trimmedContent + '\n';
-
-            return ('\n``' + codeContent + '\n``');
-          }
-        });
-      //}
       break;
     case showdownChoice:
       showdown = new showdown.Converter();
