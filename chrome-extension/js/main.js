@@ -1,5 +1,5 @@
 /**
- * SaveMyPhind v0.11.3
+ * SaveMyPhind v0.11.4
  * Hugo COLLIN - 2023-05-14
  */
 
@@ -62,7 +62,7 @@ function formatMarkdown(message)
             // converterChoice === htmlArkChoice ? htmlArk.convert(message) :
             // converterChoice === htmlToMdChoice ? converter.convert(message) :
             '';
-    return conv;
+    return conv.replaceAll("\n`", "\n```\n").replaceAll("\n`", "\n```\n");
   }
   return '';
 }
@@ -115,7 +115,7 @@ function exportConversation() {
 
       '';
 
-    if (messageText !== "") markdown += messageText + "\n\n";
+    if (messageText !== "") markdown += messageText.replaceAll("```\n``", "") + "\n\n"; // The Turndown rule is a nonsense!
   });
 
   return markdown;
@@ -153,6 +153,31 @@ if(window.location.href.includes('www.phind.com/search'))
   {
     case turndownChoice:
       turndownService = new TurndownService();
+      console.log(turndownService.rules)
+      // if (turndownService.rules._items.hasOwnProperty('preserveLineBreaksInPre'))
+      /*var ruleKeys = Array.from(turndownService.rules).map(function(rule) {
+        return rule.key;
+      });
+
+      if (!ruleKeys.includes('preserveLineBreaksInPre'))
+      {*/
+        console.log("ça passe !!!")
+        turndownService.addRule('preserveLineBreaksInPre', {
+          filter: function (node) {
+            return node.nodeName === 'PRE' && node.querySelector('div');
+          },
+          replacement: function (content, node) {
+            const codeBlock = node.querySelector('code');
+            const codeContent = codeBlock.textContent.trim();
+            // const trimmedContent = codeContent.replace(/^`{3,}/, '').replace(/`{3,}$/, '');
+            //
+            // const lastChar = trimmedContent.slice(-1);
+            // const contentWithNewline = lastChar === '\n' ? trimmedContent : trimmedContent + '\n';
+
+            return ('\n``' + codeContent + '\n``');
+          }
+        });
+      //}
       break;
     case showdownChoice:
       showdown = new showdown.Converter();

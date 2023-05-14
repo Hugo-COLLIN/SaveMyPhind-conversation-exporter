@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Save my Phind - AI Conversation Exporter",
-  "version": "0.11.3",
+  "version": "0.11.4",
   "description": "Export your Phind.com threads into markdown files!",
   "icons": {
     "128": "img/logo_128.png"
