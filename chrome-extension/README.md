@@ -7,6 +7,7 @@ This project uses the following third-party libraries:
 
 ## Roadmap
 ### Features :
+- [ ] Code type specified in codeblocks
 - [ ] Make a Firefox extension (multi-browser development approach ?)
 - [ ] Reduce file title length and move the next as the subtitle
 ```md
@@ -15,10 +16,13 @@ This project uses the following third-party libraries:
 ```
 - [x] Export source links
 - [x] Link to the Phind original search on the file top
+- [x] Export conversation to markdown
+
 
 ### Bugs :
-- [ ] Code is not correctly formatted when converting Html to md 
-- [ ] Not longer exporting AI answers and source links
+- [ ] Icons instead of sources
+- [x] Code is not correctly formatted when converting Html to md 
+- [x] Not longer exporting AI answers and source links
      => stronger CSS selectors (try not to use styling classes)
 - [x] Inconsistent spaces between questions and answers
 - [x] Fix bug "AI Answer" with user question
