@@ -87,26 +87,81 @@ function capitalizeFirst(string)
 }
 
 function exportConversation() {
-  const messages = document.querySelectorAll('.row > div > .container-xl');
+  const messages = document.querySelectorAll('[name^="answer-"] > div > div');
   let markdown = setFileHeader();
 
+  console.log(messages)
+
   messages.forEach(content => {
-    let p1 = content.querySelector('.row > .col-lg-8.col-xl-7 > .container-xl > div > span');
-    let p2 = content.querySelector('.row > .col-lg-8.col-xl-7 > .container-xl > div.mb-3');
-    let p3 = content.querySelectorAll('.col-xl-4.col-lg-4 > .container-xl > .position-relative > div > div.pb-3');
+    // console.log(content)
+    // console.log(content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div'))
+    // console.log(content.querySelector('div:nth-of-type(3) > .container-xl > div'))
+
+    let p1 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div');
+    let p2 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div.mb-3');
+    let p3 = content.querySelectorAll(".container-xl > .position-relative > div > div:not(:has(> .pagination))"); //.container-xl > .position-relative > div > div:not([class*='col'])
+    console.log(p1)
 
     const messageText =
       p3.length > 0 ? (() => {
         let res = "**Sources :**";
         p3.forEach((elt) => {
-          res += "\n" + formatMarkdown(elt.querySelector("div.pb-3 > :not(.d-flex)").outerHTML)
+          res += "\n" + formatMarkdown(elt.querySelector("div > :not(.d-flex)").outerHTML);
         });
         return res;
       })() :
+
       p2 ? `\n___\n**You :**\n` + formatMarkdown(p2.innerHTML) :
-      p1 ? `___\n**AI answer :**\n` + formatMarkdown(p1.innerHTML) :
+
+      // p1.length > 0 ? (() => {
+      //   // const str = formatMarkdown(p1.innerHTML);
+      //   // const index = str.indexOf('\n');
+      //   // return `___\n**AI answer :**\n` + str.substring(index + 1);
+      // })() :
+
+      p1 ? (() => {
+          let res = formatMarkdown(p1.innerHTML)
+          const index = res.indexOf('\n\n');
+          console.log(index)
+          return `___\n**AI answer :**\n` + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
+        })() :
+
+        // p1.length > 0 ? (() => {
+        //   let res = `___\n**AI answer :**\n`;
+        //   p1.forEach((elt) => {
+        //     res += "\n" + formatMarkdown(elt);
+        //     // const str = formatMarkdown(elt);
+        //     // const index = str.indexOf('\n');
+        //     // // return `___\n**AI answer :**\n` + str.substring(index + 1);
+        //     // res += "\n" + str.substring(index + 1);
+        //   });
+        //   const index = res.indexOf('\n');
+        //   return res.substring(index + 1);
+        // })() :
+
+      // p1.length > 0 ? (() => {
+      //   let res = `___\n**AI answer :**\n`;
+      //   p1.forEach((elt) => {
+      //     const str = formatMarkdown(elt);
+      //     const index = str.indexOf('\n');
+      //     // return `___\n**AI answer :**\n` + str.substring(index + 1);
+      //     res += "\n" + str.substring(index + 1);
+      //   });
+      //   return res;
+      // })() :
+
+      // p1.length > 0 ? (() => {
+      //   let res = `___\n**AI answer :**\n`;
+      //   p1.forEach((elt) => {
+      //     res += "\n" + formatMarkdown(elt);
+      //   });
+      //   return res;
+      // })() :
+
+      // p1 ? `___\n**AI answer :**\n` + formatMarkdown(p1.innerHTML) :
       '';
 
+    console.log(messageText)
     if (messageText !== "") markdown += messageText + "\n\n";
   });
 
