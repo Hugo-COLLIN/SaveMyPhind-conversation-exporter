@@ -1,5 +1,5 @@
 /**
- * SaveMyPhind v0.12.2
+ * SaveMyPhind v0.12.3
  * Hugo COLLIN - 2023-05-14
  */
 
@@ -92,7 +92,7 @@ function exportConversation() {
   messages.forEach(content => {
     let p1 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div');
     let p2 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div.mb-3');
-    let p3 = content.querySelectorAll(".container-xl > .position-relative > div > div:not(:has(> .pagination))"); //.container-xl > .position-relative > div > div:not([class*='col'])
+    let p3 = content.querySelectorAll(".col-lg-4.col-xl-4 > .container-xl > .position-relative > div > div:not(:has(> .pagination))"); //.container-xl > .position-relative > div > div:not([class*='col'])
 
     const messageText =
       p3.length > 0 ? (() => {
