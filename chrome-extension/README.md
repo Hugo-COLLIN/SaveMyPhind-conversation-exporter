@@ -6,7 +6,7 @@ This project uses the following third-party libraries:
 - Showdown: Licensed under the MIT License. See js/libs/showdown_license.txt for details.
 
 ## Roadmap
-### Features :
+### Features:
 - [ ] Code type specified in codeblocks
     => When Phind will make it correct
 - [ ] ~~Export to different file types? (PDF, Word, etc.)~~
@@ -22,7 +22,7 @@ This project uses the following third-party libraries:
 - [x] Export conversation to markdown
 
 
-### Bugs :
+### Bugs:
 - [x] Fix broken quotes links
 - [x] Fix bug not exporting correctly (AI begins with backtite?, citations so the HTML structure is different?)
   https://www.phind.com/search?cache=3dc3a9e2-6841-4ca0-9110-8ee9b11c327b
@@ -35,6 +35,8 @@ This project uses the following third-party libraries:
 - [x] File title is the last followup question (= tab title)
      => title taken from search bar
 
-### Security :
--[x] Sanitize HTML code
+### Security and maintenance:
+- [ ] Comment code
+- [ ] Remove unused libraries
+- [x] Sanitize HTML code
 
