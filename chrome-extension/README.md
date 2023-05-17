@@ -7,7 +7,6 @@ This project uses the following third-party libraries:
 
 ## Roadmap
 ### Features :
-- [x] Include AI response quotes after the response
 - [ ] Code type specified in codeblocks
 - [ ] Make a Firefox extension (multi-browser development approach?)
 - [ ] Reduce file title length and move the next as the subtitle
@@ -15,6 +14,7 @@ This project uses the following third-party libraries:
 # My title...
 ### ... is too long
 ```
+- [x] Include AI response quotes after the response
 - [x] Export source links
 - [x] Link to the Phind original search on the file top
 - [x] Export conversation to markdown
