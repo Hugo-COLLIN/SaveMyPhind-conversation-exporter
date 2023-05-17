@@ -7,6 +7,7 @@ This project uses the following third-party libraries:
 
 ## Roadmap
 ### Features:
+- [ ] Citation numbers next to the source links
 - [ ] Code type specified in codeblocks
     => When Phind will make it correct
 - [ ] ~~Export to different file types? (PDF, Word, etc.)~~
