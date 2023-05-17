@@ -8,6 +8,8 @@ This project uses the following third-party libraries:
 ## Roadmap
 ### Features :
 - [ ] Code type specified in codeblocks
+    => When Phind will make it correct
+- [ ] ~~Export to different file types? (PDF, Word, etc.)~~
 - [ ] Make a Firefox extension (multi-browser development approach?)
 - [ ] Reduce file title length and move the next as the subtitle
 ```md
