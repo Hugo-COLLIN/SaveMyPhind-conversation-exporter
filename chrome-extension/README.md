@@ -7,7 +7,7 @@ This project uses the following third-party libraries:
 
 ## Roadmap
 ### Features :
-- [ ] Include AI response quotes after the response
+- [x] Include AI response quotes after the response
 - [ ] Code type specified in codeblocks
 - [ ] Make a Firefox extension (multi-browser development approach?)
 - [ ] Reduce file title length and move the next as the subtitle
@@ -21,7 +21,7 @@ This project uses the following third-party libraries:
 
 
 ### Bugs :
-- [ ] Fix broken quotes links
+- [x] Fix broken quotes links
 - [x] Fix bug not exporting correctly (AI begins with backtite?, citations so the HTML structure is different?)
   https://www.phind.com/search?cache=3dc3a9e2-6841-4ca0-9110-8ee9b11c327b
 - [x] Icons instead of sources
