@@ -1,6 +1,6 @@
 /**
- * SaveMyPhind v0.12.3
- * Hugo COLLIN - 2023-05-14
+ * SaveMyPhind v0.12.4
+ * Hugo COLLIN - 2023-05-17
  */
 
 /*
@@ -92,7 +92,8 @@ function exportConversation() {
   messages.forEach(content => {
     let p1 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div');
     let p2 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div.mb-3');
-    let p3 = content.querySelectorAll(".col-lg-4.col-xl-4 > .container-xl > .position-relative > div > div:not(:has(> .pagination))"); //.container-xl > .position-relative > div > div:not([class*='col'])
+    let p3 = content.querySelectorAll(".col-lg-4.col-xl-4 > div > div > div > div:not(:has(> .pagination))"); // .col-lg-4.col-xl-4 > div > div > div > div:not(:has(> .pagination))
+    let aiQuotes = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div > div > div')
 
     const messageText =
       p3.length > 0 ? (() => {
@@ -106,9 +107,11 @@ function exportConversation() {
       p2 ? `\n___\n**You:**\n` + formatMarkdown(p2.innerHTML) :
 
       p1 ? (() => {
-          let res = formatMarkdown(p1.innerHTML)
+          let res = formatMarkdown(p1.innerHTML);
+          if (aiQuotes) res += "\n\n**Citations:**\n" + formatMarkdown(aiQuotes.innerHTML);
+
           const index = res.indexOf('\n\n');
-          return `___\n**AI answer:**\n` + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
+          return `___\n**AI answer:**\n` + res.substring(index + 2).replaceAll("\\[", "(").replaceAll("\\]", ")"); //+ 2 : index is at the start (first character) of the \n\n
         })() :
 
       '';
