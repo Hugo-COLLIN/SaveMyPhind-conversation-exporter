@@ -1,5 +1,5 @@
 /**
- * SaveMyPhind v0.13.0
+ * SaveMyPhind v0.13.2
  * Hugo COLLIN - 2023-05-17
  */
 
@@ -111,7 +111,7 @@ function exportConversation() {
           if (aiCitations && aiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + formatMarkdown(aiCitations.innerHTML);
 
           const index = res.indexOf('\n\n');
-          return `___\n**AI answer:**\n` + res.substring(index + 2).replaceAll("\\[", "(").replaceAll("\\]", ")"); //+ 2 : index is at the start (first character) of the \n\n
+          return `___\n**AI answer:**\n` + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
         })() :
 
       '';
@@ -155,6 +155,8 @@ if (window.location.href.includes('www.phind.com/search')) {
   {
     case turndownChoice:
       turndownService = new TurndownService();
+
+      // --- Turndown custom rules ---
       turndownService.addRule('preserveLineBreaksInPre', {
         filter: function (node) {
           return node.nodeName === 'PRE' && node.querySelector('div');
@@ -165,6 +167,16 @@ if (window.location.href.includes('www.phind.com/search')) {
           return ('\n```\n' + codeContent + '\n```');
         }
       });
+
+      turndownService.addRule('replaceEscapedBracketsInLinks', {
+        filter: 'a',
+        replacement: function (content, node) {
+          const href = node.getAttribute('href');
+          const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')');
+          return '[' + linkText + '](' + href + ')';
+        }
+      });
+
       break;
     case showdownChoice:
       showdown = new showdown.Converter();
