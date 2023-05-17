@@ -1,10 +1,10 @@
-# v0.12.5
+# v0.13.2
 ### Features:
 - Export citations
 
 ### Bugs fixed:
 - Fix not exporting AI response when citations are present
-- Fix broken citation links
+- Fix broken links with square brackets
 
 # v0.12.2
 ### Bugs fixed:
