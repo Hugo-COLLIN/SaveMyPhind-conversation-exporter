@@ -24,6 +24,7 @@ This project uses the following third-party libraries:
 
 
 ### Bugs:
+- [ ] Make extension icon with transparent background
 - [ ] Special characters in title are not correctly formatted (e.g. "\n" should be "\\n")
 - [ ] Long user question are cut off in the middle so are not entirely exported
     => temporary solution: drop the question by using "v" button before exporting.
