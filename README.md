@@ -19,7 +19,8 @@ You can also install it manually following these steps:
 ___
 ## Roadmap
 ### Features:
-- [ ] Citation numbers next to the source links
+- [ ] Model name instead of "AI Answer" (e.g. "GPT-3.5 Answer", "Phind Answer")
+- [ ] Citation numbers next to the source links (numbered list)
 - [ ] ~~Export to different file types? (PDF, Word, etc.)~~
 - [ ] Make a Firefox extension (multi-browser development approach?)
 - [ ] Reduce file title length and move the next as the subtitle
