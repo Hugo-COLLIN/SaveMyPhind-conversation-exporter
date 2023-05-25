@@ -37,6 +37,7 @@ ___
 ### Security and maintenance:
 - [ ] Use the Phind (official/unofficial?) API instead of scraping the HTML?
 - [ ] Comment code
+- [ ] Make unit/e2e tests
 - [ ] Remove unused libraries
 - [x] Sanitize HTML code
 
