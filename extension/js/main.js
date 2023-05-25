@@ -1,6 +1,5 @@
 /**
- * SaveMyPhind v0.13.2
- * Hugo COLLIN - 2023-05-17
+ * SaveMyPhind v0.14.0 - 2023-05-25
  */
 
 /*
