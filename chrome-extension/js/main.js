@@ -164,7 +164,8 @@ if (window.location.href.includes('www.phind.com/search')) {
         replacement: function (content, node) {
           const codeBlock = node.querySelector('code');
           const codeContent = codeBlock.textContent.trim();
-          return ('\n```\n' + codeContent + '\n```');
+          const codeLang =  codeBlock.className.split("-", 2)[1];
+          return ('\n```' + codeLang + '\n' + codeContent + '\n```');
         }
       });
 
