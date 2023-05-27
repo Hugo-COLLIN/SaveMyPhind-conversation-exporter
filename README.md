@@ -8,7 +8,9 @@
 
 ## ❓ Extension usage
 ### How to install?
-Simply go to the Chrome Web Store and click on the install button: [⏩click here](https://chrome.google.com/webstore/detail/save-my-phind/agklnagmfeooogcppjccdnoallkhgkod)
+Simply go to the Chrome Web Store and click on the install button: 
+#### [⏩click here to install Save My Phind](https://chrome.google.com/webstore/detail/save-my-phind/agklnagmfeooogcppjccdnoallkhgkod)
+<br>
 
 You can also install it manually following these steps:
 1. Download the latest version : on GitHub, click on Releases (in the right side menu), go on the latest version and download the `save-my-phind_x.y.z.crx` file.
@@ -22,6 +24,7 @@ You can also install it manually following these steps:
 3. It will automatically download a structured markdown file containing the conversation.
 
 ## 🗺️ Roadmap
+See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Features:
 - [ ] Model name instead of "AI Answer" (e.g. "GPT-3.5 Answer", "Phind Answer")
 - [ ] Citation numbers next to the source links (numbered list)
