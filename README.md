@@ -1,5 +1,5 @@
 # Save My Phind 
-### Conversation exporter for the AI search engine Phind.com
+### Conversation exporter for the Phind.com search engine
 
 ## Extension usage
 ### How to install?
@@ -58,8 +58,15 @@ You can also install it manually following these steps:
 - [x] File title is the last followup question (= tab title)
   => title taken from search bar
 
-## Contribution and copyrigth notice
-You are free to contribute to this project by forking it and making a pull request. You can also open an issue if you find a bug or have any suggestion.
-However, you can't distribute this project without my permission. Please see the [LICENSE](extension/LICENSE.md) file for more details.
+## Copyrigth notice
+### Contribution and usage
+Feel free to contribute to this project by forking it and making a pull request. You can also open an issue if you find a bug or have any suggestion.
+However, you can't distribute this project without my permission. Please see the [LICENSE](LICENSE.md) file for more details.
 
 Please note that this project is not affiliated with Phind.com and is not an official extension.
+
+### Libraries
+This project uses the following third-party libraries:
+- DOMPurify: Licensed under the Apache License Version 2.0 or the Mozilla Public License Version 2.0. See js/libs/purify_license.txt for details.
+- Turndown: Licensed under the MIT License. See js/libs/turndown_license.txt for details.
+- Showdown: Licensed under the MIT License. See js/libs/showdown_license.txt for details.
