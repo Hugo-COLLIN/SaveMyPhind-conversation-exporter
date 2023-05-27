@@ -1,7 +1,12 @@
-# Save My Phind 
-### Conversation exporter for the Phind.com search engine
+# <img alt="SaveMyPhind logo" src="img/logo_128_cut.png" style="width:50px"> Save My Phind - AI Conversation Exporter
+### 🚀 Export your Phind.com search threads into markdown files!
+👉 When you are on a Phind thread, simply click on the extension icon. It will automatically export the thread you are currently on into a formatted markdown file.
 
-## Extension usage
+🕰️ No annoying popup, no loss of time!
+
+✅ Enjoy!
+
+## ❓ Extension usage
 ### How to install?
 Simply go to the Chrome Web Store and click on the install button : [click here](https://chrome.google.com/webstore/detail/save-my-phind/agklnagmfeooogcppjccdnoallkhgkod)
 
@@ -16,7 +21,7 @@ You can also install it manually following these steps:
 2. Click on the extension icon.
 3. It will automatically download a structured markdown file containing the conversation.
 
-## Roadmap
+## 🗺️ Roadmap
 ### Features:
 - [ ] Model name instead of "AI Answer" (e.g. "GPT-3.5 Answer", "Phind Answer")
 - [ ] Citation numbers next to the source links (numbered list)
@@ -58,7 +63,7 @@ You can also install it manually following these steps:
 - [x] File title is the last followup question (= tab title)
   => title taken from search bar
 
-## Copyrigth notice
+## ⌨️ Copyrigth notice
 ### Contribution and usage
 Feel free to contribute to this project by forking it and making a pull request. You can also open an issue if you find a bug or have any suggestion.
 However, you can't distribute this project without my permission. Please see the [LICENSE](LICENSE.md) file for more details.
