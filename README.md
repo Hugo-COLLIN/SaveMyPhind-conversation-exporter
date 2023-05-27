@@ -8,7 +8,7 @@
 
 ## ❓ Extension usage
 ### How to install?
-Simply go to the Chrome Web Store and click on the install button : [click here](https://chrome.google.com/webstore/detail/save-my-phind/agklnagmfeooogcppjccdnoallkhgkod)
+Simply go to the Chrome Web Store and click on the install button: [⏩ click here](https://chrome.google.com/webstore/detail/save-my-phind/agklnagmfeooogcppjccdnoallkhgkod)
 
 You can also install it manually following these steps:
 1. Download the latest version : on GitHub, click on Releases (in the right side menu), go on the latest version and download the `save-my-phind_x.y.z.crx` file.
@@ -43,6 +43,7 @@ You can also install it manually following these steps:
 - [ ] Comment code
 - [ ] Make unit/e2e tests
 - [ ] Remove unused libraries
+- [x] Update repo structure and README: extension focus
 - [x] Add a license
 - [x] Sanitize HTML code
 
