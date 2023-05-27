@@ -1,7 +1,7 @@
 # Save My Phind 
 ### Conversation exporter for the AI search engine Phind.com
 
-## Chrome extension
+## Extension usage
 ### How to install?
 Simply go to the Chrome Web Store and click on the install button : [click here](https://chrome.google.com/webstore/detail/save-my-phind/agklnagmfeooogcppjccdnoallkhgkod)
 
@@ -16,7 +16,6 @@ You can also install it manually following these steps:
 2. Click on the extension icon.
 3. It will automatically download a structured markdown file containing the conversation.
 
-___
 ## Roadmap
 ### Features:
 - [ ] Model name instead of "AI Answer" (e.g. "GPT-3.5 Answer", "Phind Answer")
@@ -39,6 +38,7 @@ ___
 - [ ] Comment code
 - [ ] Make unit/e2e tests
 - [ ] Remove unused libraries
+- [x] Add a license
 - [x] Sanitize HTML code
 
 ### Bugs:
@@ -58,3 +58,8 @@ ___
 - [x] File title is the last followup question (= tab title)
   => title taken from search bar
 
+## Contribution and copyrigth notice
+You are free to contribute to this project by forking it and making a pull request. You can also open an issue if you find a bug or have any suggestion.
+However, you can't distribute this project without my permission. Please see the [LICENSE](extension/LICENSE.md) file for more details.
+
+Please note that this project is not affiliated with Phind.com and is not an official extension.
