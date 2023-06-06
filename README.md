@@ -5,6 +5,7 @@
 🕰️ No annoying popup, no loss of time!
 
 ✅ Enjoy!
+
 <br>
 
 ## ❓ Extension usage
@@ -23,9 +24,10 @@ You can also install it manually following these steps:
 1. Go to a Phind search thread.
 2. Click on the extension icon.
 3. It will automatically download a structured markdown file containing the conversation.
+
 <br>
 
-## ⌨️ Copyrigth notice
+## 🪶 Copyrigth notice
 ### Contribution and usage
 Feel free to contribute to this project by forking it and making a pull request. You can also open an issue if you find a bug or have any suggestion.
 However, you can't distribute this project without my permission. Please see the [LICENSE](LICENSE.md) file for more details.
@@ -37,6 +39,7 @@ This project uses the following third-party libraries:
 - DOMPurify: Licensed under the Apache License Version 2.0 or the Mozilla Public License Version 2.0. See js/libs/purify_license.txt for details.
 - Turndown: Licensed under the MIT License. See js/libs/turndown_license.txt for details.
 - Showdown: Licensed under the MIT License. See js/libs/showdown_license.txt for details.
+
 <br>
 
 ## 🗺️ Roadmap
