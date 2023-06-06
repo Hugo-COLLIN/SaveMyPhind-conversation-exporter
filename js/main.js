@@ -86,6 +86,8 @@ function exportConversation() {
 
   messages.forEach(content => {
     let p1 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div');
+    let aiModel = content.querySelector('.col-lg-8.col-xl-7 > div > div > h6');
+
     let p2 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div.mb-3');
     let p3 = content.querySelectorAll(".col-lg-4.col-xl-4 > div > div > div > div:not(:has(> .pagination))"); // .col-lg-4.col-xl-4 > div > div > div > div:not(:has(> .pagination))
     let aiCitations = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div > div > div');
@@ -111,10 +113,12 @@ function exportConversation() {
 
       p1 ? (() => {
           let res = formatMarkdown(p1.innerHTML);
+          // res = (aiModel && aiModel.innerHTML.length > 0) ? res = "\n\n**Model:**\n" + formatMarkdown(aiModel.innerHTML) : "";
           if (aiCitations && aiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + formatMarkdown(aiCitations.innerHTML);
 
+          const aiIndicator = (aiModel && aiModel.innerHTML.length > 0) ? "**"+ capitalizeFirst(formatMarkdown(aiModel.innerHTML).split(" | ")[1]) +":**\n" : `**AI answer:**\n`
           const index = res.indexOf('\n\n');
-          return `___\n**AI answer:**\n` + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
+          return `___\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
         })() :
 
       '';
