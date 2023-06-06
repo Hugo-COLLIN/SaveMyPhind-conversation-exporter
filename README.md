@@ -41,7 +41,6 @@ This project uses the following third-party libraries:
 ## 🗺️ Roadmap
 See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Features:
-- [ ] Model name instead of "AI Answer" (e.g. "GPT-3.5 Answer", "Phind Answer")
 - [ ] ~~Export to different file types? (PDF, Word, etc.)~~
 - [ ] Make a Firefox extension (multi-browser development approach?)
 - [ ] Reduce file title length and move the next as the subtitle
@@ -49,6 +48,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 # My title...
 ### ... is too long
 ```
+- [x] Model name instead of "AI Answer" (e.g. "GPT-3.5 Answer", "Phind Answer")
 - [x] Source numbers next to the source links (numbered list corresponding to citations)
 - [x] Export question above citations
 - [x] Code type (language) specified in codeblocks (👍 Thanks to @nhuhoang0701)
