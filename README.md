@@ -76,8 +76,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
   => temporary solution: drop the question by using "v" button before exporting.
 - [x] Special characters in title are not correctly formatted (e.g. "\n" should be "\\n")
 - [x] Fix broken quotes links
-- [x] Fix bug not exporting correctly (AI begins with backtite?, citations so the HTML structure is different?)
-  https://www.phind.com/search?cache=3dc3a9e2-6841-4ca0-9110-8ee9b11c327b
+- [x] Fix bug not exporting correctly (AI begins with backtick?, citations so the HTML structure is different?)
 - [x] Icons instead of sources
 - [x] Code is not correctly formatted when converting Html to md
 - [x] Not longer exporting AI answers and source links
