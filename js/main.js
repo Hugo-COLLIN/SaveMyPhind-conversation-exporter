@@ -116,7 +116,9 @@ function exportConversation() {
           // res = (aiModel && aiModel.innerHTML.length > 0) ? res = "\n\n**Model:**\n" + formatMarkdown(aiModel.innerHTML) : "";
           if (aiCitations && aiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + formatMarkdown(aiCitations.innerHTML);
 
-          const aiIndicator = (aiModel && aiModel.innerHTML.length > 0) ? "**"+ capitalizeFirst(formatMarkdown(aiModel.innerHTML).split(" | ")[1]) +":**\n" : `**AI answer:**\n`
+          const aiIndicator = "**" +
+            capitalizeFirst((aiModel && aiModel.innerHTML.length > 0) ? formatMarkdown(aiModel.innerHTML).split(" ")[2] : "AI") +
+            " answer:**\n"
           const index = res.indexOf('\n\n');
           return `___\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
         })() :
