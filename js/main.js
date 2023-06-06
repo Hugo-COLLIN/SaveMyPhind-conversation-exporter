@@ -54,12 +54,6 @@ function formatMarkdown(message)
   {
     return  converterChoice === turndownChoice ? turndownService.turndown(message) :
             converterChoice === showdownChoice ? showdown.makeMarkdown(message) :
-            // converterChoice === markedChoice ? marked.parse(message) :
-            // converterChoice === html2MarkChoice ? HTML2Markdown(message) :
-            // converterChoice === html2mdChoice ? window.html2Md(message) :
-            // converterChoice === reMarkedChoice ? reMarker.render(message) :
-            // converterChoice === htmlArkChoice ? htmlArk.convert(message) :
-            // converterChoice === htmlToMdChoice ? converter.convert(message) :
             '';
   }
   return '';
@@ -86,6 +80,7 @@ function capitalizeFirst(string)
 }
 
 function exportConversation() {
+  let sourceQuestion = "";
   const messages = document.querySelectorAll('[name^="answer-"] > div > div');
   let markdown = setFileHeader();
 
@@ -93,14 +88,22 @@ function exportConversation() {
     let p1 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div');
     let p2 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div.mb-3');
     let p3 = content.querySelectorAll(".col-lg-4.col-xl-4 > div > div > div > div:not(:has(> .pagination))"); // .col-lg-4.col-xl-4 > div > div > div > div:not(:has(> .pagination))
-    let aiCitations = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div > div > div')
+    let aiCitations = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div > div > div');
+    let p4 = content.querySelector('.col-lg-4.col-xl-4 > div > span');
 
+    sourceQuestion = p4 ? formatMarkdown(p4.innerHTML) : sourceQuestion;
     const messageText =
+      p4 ? "" :
       p3.length > 0 ? (() => {
         let res = "**Sources:**";
+        res += sourceQuestion ? "\n" + sourceQuestion : "";
+
+        let i = 0;
         p3.forEach((elt) => {
-          res += "\n" + formatMarkdown(elt.querySelector("a").outerHTML);
+          res += `\n(${i}) ` + formatMarkdown(elt.querySelector("a").outerHTML);
+          i ++;
         });
+        sourceQuestion = "";
         return res;
       })() :
 
