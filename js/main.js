@@ -96,6 +96,7 @@ function exportConversation() {
     sourceQuestion = p4 ? formatMarkdown(p4.innerHTML) : sourceQuestion;
     const messageText =
       p4 ? "" :
+
       p3.length > 0 ? (() => {
         let res = "**Sources:**";
         res += sourceQuestion ? "\n" + sourceQuestion : "";
@@ -149,12 +150,6 @@ function download(text, filename) {
 //Global variables
 turndownChoice = "turndown";
 showdownChoice = "showdown";
-// markedChoice = "marked";
-// html2MarkChoice = "html2Mark";
-// html2mdChoice = "html2md";
-// reMarkedChoice = "reMarked";
-// htmlArkChoice = "htmlArk";
-// htmlToMdChoice = "htmlToMd";
 
 converterChoice = turndownChoice;
 
@@ -190,21 +185,6 @@ if (window.location.href.includes('www.phind.com/search')) {
     case showdownChoice:
       showdown = new showdown.Converter();
       break;
-    // case markedChoice: //import statement outside module
-    //   marked = window.marked();
-    //   break;
-    // case html2MarkChoice: //error HTMLParser is not defined
-    // case html2mdChoice: //error require
-    //   break;
-    // case reMarkedChoice: //error Refused to evaluate a string : 'unsafe-eval' not allowed source of scripts
-    //   reMarker = new reMarked();
-    //   break;
-    // case htmlArkChoice : //need to import directory
-    //   htmlArk = new HTMLarkdown();
-    //   break;
-    // case htmlToMdChoice : //need to import directory
-    //   converter = window.htmltomarkdown();
-    //   break;
   }
   markdownContent = exportConversation();
   download(markdownContent, formatFilename() + '.md');
