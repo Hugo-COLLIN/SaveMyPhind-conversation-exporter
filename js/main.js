@@ -100,7 +100,7 @@ function exportConversation() {
 
         let i = 0;
         p3.forEach((elt) => {
-          res += `\n(${i}) ` + formatMarkdown(elt.querySelector("a").outerHTML);
+          res += "\n- " + formatMarkdown(elt.querySelector("a").outerHTML).replace("[", `[(${i}) `);
           i ++;
         });
         sourceQuestion = "";
