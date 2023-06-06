@@ -1,3 +1,13 @@
+# v0.16.2
+### Features:
+- Model name instead of "AI Answer" (e.g. "GPT-3.5 Answer", "Phind Answer")
+- Source numbers next to the source links (numbered list corresponding to citations)
+- Export question above sources
+- Code type (language) specified in codeblocks
+
+### Bugs fixed:
+- Special characters in title were not correctly formatted (e.g. "\n" should be "\\n")
+
 # v0.13.2
 ### Features:
 - Export citations
