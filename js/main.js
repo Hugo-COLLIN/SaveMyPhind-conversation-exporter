@@ -1,5 +1,5 @@
 /**
- * SaveMyPhind v0.16.1
+ * SaveMyPhind v0.16.2
  * Hugo COLLIN - 2023-06-06
  */
 
@@ -61,7 +61,7 @@ function formatMarkdown(message)
 
 function setFileHeader()
 {
-  return "# " + capitalizeFirst(getPageTitle()) + "\n" + "Exported on " + formatDate(1) + " " + formatUrl(getUrl(), "from Phind.com") + " - with SaveMyPhind" + "\n\n";
+  return "# " + formatMarkdown(capitalizeFirst(getPageTitle())) + "\n" + "Exported on " + formatDate(1) + " " + formatUrl(getUrl(), "from Phind.com") + " - with SaveMyPhind" + "\n\n";
 }
 
 function formatUrl(url, message)
