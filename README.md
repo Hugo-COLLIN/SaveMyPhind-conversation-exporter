@@ -5,6 +5,7 @@
 🕰️ No annoying popup, no loss of time!
 
 ✅ Enjoy!
+<br>
 
 ## ❓ Extension usage
 ### How to install?
@@ -22,7 +23,7 @@ You can also install it manually following these steps:
 1. Go to a Phind search thread.
 2. Click on the extension icon.
 3. It will automatically download a structured markdown file containing the conversation.
-
+<br>
 
 ## ⌨️ Copyrigth notice
 ### Contribution and usage
@@ -36,7 +37,7 @@ This project uses the following third-party libraries:
 - DOMPurify: Licensed under the Apache License Version 2.0 or the Mozilla Public License Version 2.0. See js/libs/purify_license.txt for details.
 - Turndown: Licensed under the MIT License. See js/libs/turndown_license.txt for details.
 - Showdown: Licensed under the MIT License. See js/libs/showdown_license.txt for details.
-
+<br>
 
 ## 🗺️ Roadmap
 See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
@@ -66,11 +67,11 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Add a license
 - [x] Sanitize HTML code
 
-### Bugs:
+### Bugs/Issues:
 - [ ] Make extension icon with transparent background
-- [ ] Special characters in title are not correctly formatted (e.g. "\n" should be "\\n")
 - [ ] Long user question are cut off in the middle so are not entirely exported
   => temporary solution: drop the question by using "v" button before exporting.
+- [x] Special characters in title are not correctly formatted (e.g. "\n" should be "\\n")
 - [x] Fix broken quotes links
 - [x] Fix bug not exporting correctly (AI begins with backtite?, citations so the HTML structure is different?)
   https://www.phind.com/search?cache=3dc3a9e2-6841-4ca0-9110-8ee9b11c327b
