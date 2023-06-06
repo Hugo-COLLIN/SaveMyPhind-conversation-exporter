@@ -113,7 +113,6 @@ function exportConversation() {
 
       p1 ? (() => {
           let res = formatMarkdown(p1.innerHTML);
-          // res = (aiModel && aiModel.innerHTML.length > 0) ? res = "\n\n**Model:**\n" + formatMarkdown(aiModel.innerHTML) : "";
           if (aiCitations && aiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + formatMarkdown(aiCitations.innerHTML);
 
           const aiIndicator = "**" +
