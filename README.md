@@ -9,7 +9,7 @@
 
 🕰️ No annoying popup, no loss of time! Enjoy!
 
-(Please note that this project is not affiliated with Phind.com and is not an official extension).
+✏️ Please note that this project is not affiliated with Phind.com and is not an official extension.
 
 <br>
 
@@ -21,12 +21,13 @@ Simply go to the Chrome Web Store and click on the install button:
 
 You can also install it manually following these steps:
 1. On GitHub, click on Releases (in the right side menu), go on the latest version and download the `save-my-phind_x.y.z.crx` file.
-2. Go on chrome://extensions (or \[yourChromiumBasedBrowser]://extensions), then enable "Developer mode" (toggle on the top right) and reload the page.
+2. Go on `chrome://extensions` (or `[yourChromiumBasedBrowser]://extensions`), then enable "Developer mode" (toggle on the top right) and reload the page.
 3. Drag and drop the .crx file on the page, then click on "Add extension" in the appearing popup window.
 
 ✅ You're done!
 
 ### How to use?
+Simple!
 1. Go to a Phind search thread.
 2. Click on the extension icon. 
 
