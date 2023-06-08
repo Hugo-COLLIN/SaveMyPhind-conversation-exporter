@@ -9,6 +9,8 @@
 
 🕰️ No annoying popup, no loss of time! Enjoy!
 
+(Please note that this project is not affiliated with Phind.com and is not an official extension).
+
 <br>
 
 ## ❓ Extension usage
@@ -30,12 +32,10 @@ You can also install it manually following these steps:
 
 <br>
 
-## 🪶 Copyrigth notice
-### Contribution and usage
-Feel free to contribute to this project by forking it and making a pull request. You can also open an issue if you find a bug or have any suggestion.
-However, you can't distribute this project without my permission. Please see the [LICENSE](LICENSE.md) file for more details.
-
-Please note that this project is not affiliated with Phind.com and is not an official extension.
+## 🪶 Contribution and usages
+### Copyrigth notice
+Feel free to contribute to this project by forking it and making pull requests. You can also open an issue if you find a bug or have any suggestion.
+However, you can't distribute this project without contacting me first. Please see the [LICENSE](LICENSE.md) file for more details.
 
 ### Libraries
 This project uses the following third-party libraries:
@@ -74,6 +74,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Sanitize HTML code
 
 ### Bugs/Issues:
+- [ ] Too long file names can cause issues with OS or Git
 - [ ] Make extension icon with transparent background
 - [ ] Long user question are cut off in the middle so are not entirely exported
   => temporary solution: drop the question by using "v" button before exporting.
