@@ -20,15 +20,15 @@ Simply go to the Chrome Web Store and click on the install button:
 <br>
 
 You can also install it manually following these steps:
-1. Download the latest version : on GitHub, click on Releases (in the right side menu), go on the latest version and download the `save-my-phind_x.y.z.crx` file.
-2. Go on chrome://extensions (or \[yourChromiumBasedBrowser]://extensions), then drag and drop the .crx file on the page.
-3. Click on "Add extension" in the appearing popup window.
-4. You're done!
+1. On GitHub, click on Releases (in the right side menu), go on the latest version and download the `save-my-phind_x.y.z.crx` file.
+2. Go on chrome://extensions (or \[yourChromiumBasedBrowser]://extensions), then enable "Developer mode" (toggle on the top right) and reload the page.
+3. Drag and drop the .crx file on the page, then click on "Add extension" in the appearing popup window.
+✅ You're done!
 
 ### How to use?
 1. Go to a Phind search thread.
 2. Click on the extension icon.
-3. It will automatically download a structured markdown file containing the conversation.
+👉 It will automatically download a structured markdown file containing the conversation.
 
 <br>
 
