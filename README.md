@@ -51,13 +51,14 @@ This project uses the following third-party libraries:
 ## 🗺️ Roadmap
 See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Features:
-- [ ] ~~Export to different file types? (PDF, Word, etc.)~~
 - [ ] Make a Firefox extension (multi-browser development approach?)
+- [ ] Copy to clipboard when clicking on the extension icon (in addition to markdown export)
 - [ ] Reduce file title length and move the next as the subtitle
 ```md
 # My title...
 ### ... is too long
 ```
+- [ ] ~~Export to different file types? (PDF, Word, etc.)~~
 - [x] Model name instead of "AI Answer" (e.g. "GPT-3.5 Answer", "Phind Answer")
 - [x] Source numbers next to the source links (numbered list corresponding to citations)
 - [x] Export question above sources
@@ -77,7 +78,8 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Sanitize HTML code
 
 ### Bugs/Issues:
-- [ ] Too long file names can cause issues with OS or Git
+- [ ] Import line breaks in user questions (Phind uses spaces as line breaks)
+- [ ] Too long file names can cause issues with OS or Git (cf. Reduce title length feature)
 - [ ] Make extension icon with transparent background
 - [ ] Long user question are cut off in the middle so are not entirely exported
   => temporary solution: drop the question by using "v" button before exporting.
