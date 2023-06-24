@@ -1,5 +1,5 @@
 /**
- * SaveMyPhind v0.16.2
+ * SaveMyPhind v0.16.3
  * Hugo COLLIN - 2023-06-06
  */
 
@@ -21,7 +21,7 @@ if (window.location.href.includes('www.phind.com/search')) {
 
 
 /*
---- CONVERTER SETUP ---
+--- MD CONVERTER SETUP ---
  */
 
 function initConverter() {
@@ -63,7 +63,7 @@ function setTurndownRules() {
 
 
 /*
---- CONVERTER ---
+--- CONVERT ---
  */
 function formatMarkdown(message)
 {
@@ -147,7 +147,7 @@ function download(text, filename) {
 
 
 /*
---- FORMATTING ---
+--- FORMAT ---
  */
 function formatDate(format = 0)
 {
