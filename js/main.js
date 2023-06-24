@@ -143,6 +143,31 @@ function download(text, filename) {
   URL.revokeObjectURL(url);
 }
 
+function setTurndownRules() {
+  // --- Turndown custom rules ---
+  turndownService.addRule('preserveLineBreaksInPre', {
+    filter: function (node) {
+      return node.nodeName === 'PRE' && node.querySelector('div');
+    },
+    replacement: function (content, node) {
+      const codeBlock = node.querySelector('code');
+      const codeContent = codeBlock.textContent.trim();
+      const codeLang = codeBlock.className.split("-", 2)[1];
+      return ('\n```' + codeLang + '\n' + codeContent + '\n```');
+    }
+  });
+
+  turndownService.addRule('replaceEscapedBracketsInLinks', {
+    filter: 'a',
+    replacement: function (content, node) {
+      const href = node.getAttribute('href');
+      const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')');
+      return '[' + linkText + '](' + href + ')';
+    }
+  });
+}
+
+
 /*
 --- Main ---
  */
@@ -158,28 +183,7 @@ if (window.location.href.includes('www.phind.com/search')) {
   {
     case turndownChoice:
       turndownService = new TurndownService();
-
-      // --- Turndown custom rules ---
-      turndownService.addRule('preserveLineBreaksInPre', {
-        filter: function (node) {
-          return node.nodeName === 'PRE' && node.querySelector('div');
-        },
-        replacement: function (content, node) {
-          const codeBlock = node.querySelector('code');
-          const codeContent = codeBlock.textContent.trim();
-          const codeLang =  codeBlock.className.split("-", 2)[1];
-          return ('\n```' + codeLang + '\n' + codeContent + '\n```');
-        }
-      });
-
-      turndownService.addRule('replaceEscapedBracketsInLinks', {
-        filter: 'a',
-        replacement: function (content, node) {
-          const href = node.getAttribute('href');
-          const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')');
-          return '[' + linkText + '](' + href + ')';
-        }
-      });
+      setTurndownRules();
 
       break;
     case showdownChoice:
