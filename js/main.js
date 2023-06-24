@@ -4,6 +4,32 @@
  */
 
 /*
+--- Main ---
+ */
+
+//Global variables
+TURNDOWN_CHOICE = "turndown";
+SHOWDOWN_CHOICE = "showdown";
+
+converterChoice = TURNDOWN_CHOICE;
+
+if (window.location.href.includes('www.phind.com/search')) {
+  switch (converterChoice) //make function chooseHeader
+  {
+    case TURNDOWN_CHOICE:
+      turndownService = new TurndownService();
+      setTurndownRules();
+      break;
+    case SHOWDOWN_CHOICE:
+      showdown = new showdown.Converter();
+      break;
+  }
+  markdownContent = exportConversation();
+  download(markdownContent, formatFilename() + '.md');
+}
+
+
+/*
 --- Formatting ---
  */
 function formatDate(format = 0)
@@ -37,26 +63,9 @@ function formatDate(format = 0)
   return res;
 }
 
-function getPageTitle()
-{
-  return document.querySelector('textarea').innerHTML;
-}
-
 function formatFilename()
 {
   return formatDate() + ' ' + getPageTitle().replace(/[\/:*?"<>|]/g, '');
-}
-
-function formatMarkdown(message)
-{
-  message = DOMPurify.sanitize(message);
-  if (message !== '' && message !== ' ')
-  {
-    return  converterChoice === turndownChoice ? turndownService.turndown(message) :
-            converterChoice === showdownChoice ? showdown.makeMarkdown(message) :
-            '';
-  }
-  return '';
 }
 
 function setFileHeader()
@@ -69,14 +78,39 @@ function formatUrl(url, message)
   return "[" + message + "](" + url + ")";
 }
 
+function capitalizeFirst(string)
+{
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+
+/*
+--- GETTERS ---
+ */
+
+function getPageTitle()
+{
+  return document.querySelector('textarea').innerHTML;
+}
+
 function getUrl()
 {
   return window.location.href;
 }
 
-function capitalizeFirst(string)
+/*
+--- Converter ---
+ */
+function formatMarkdown(message)
 {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+  message = DOMPurify.sanitize(message);
+  if (message !== '' && message !== ' ')
+  {
+    return  converterChoice === TURNDOWN_CHOICE ? turndownService.turndown(message) :
+      converterChoice === SHOWDOWN_CHOICE ? showdown.makeMarkdown(message) :
+        '';
+  }
+  return '';
 }
 
 function exportConversation() {
@@ -131,18 +165,6 @@ function exportConversation() {
   return markdown;
 }
 
-function download(text, filename) {
-  const blob = new Blob([text], { type: 'text/markdown' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-
 function setTurndownRules() {
   // --- Turndown custom rules ---
   turndownService.addRule('preserveLineBreaksInPre', {
@@ -167,29 +189,14 @@ function setTurndownRules() {
   });
 }
 
-
-/*
---- Main ---
- */
-
-//Global variables
-turndownChoice = "turndown";
-showdownChoice = "showdown";
-
-converterChoice = turndownChoice;
-
-if (window.location.href.includes('www.phind.com/search')) {
-  switch (converterChoice) //make function chooseHeader
-  {
-    case turndownChoice:
-      turndownService = new TurndownService();
-      setTurndownRules();
-
-      break;
-    case showdownChoice:
-      showdown = new showdown.Converter();
-      break;
-  }
-  markdownContent = exportConversation();
-  download(markdownContent, formatFilename() + '.md');
+function download(text, filename) {
+  const blob = new Blob([text], { type: 'text/markdown' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
