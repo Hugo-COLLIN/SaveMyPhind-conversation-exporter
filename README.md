@@ -59,7 +59,9 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### ... is too long
 ```
 - [ ] ~~Export to different file types? (PDF, Word, etc.)~~
-- [ ] Unfold user questions before exporting and refold them after
+- [ ] Save ChatGPT conversations
+- [ ] Make icon adapted to each site (Phind, ChatGPT, etc.)
+- [x] Unfold user questions before exporting and refold them after
 - [x] Model name instead of "AI Answer" (e.g. "GPT-3.5 Answer", "Phind Answer")
 - [x] Source numbers next to the source links (numbered list corresponding to citations)
 - [x] Export question above sources
@@ -79,11 +81,10 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Sanitize HTML code
 
 ### Bugs/Issues:
-- [ ] Import line breaks in user questions (Phind uses spaces as line breaks)
+- [ ] Import line breaks in user questions and search bar (Phind uses spaces as line breaks)
 - [ ] Too long file names can cause issues with OS or Git (cf. Reduce title length feature)
 - [ ] Make extension icon with transparent background
-- [ ] Long user question are cut off in the middle so are not entirely exported
-  => temporary solution: drop the question by using "v" button before exporting.
+- [x] Long user question are cut off in the middle so are not entirely exported
 - [x] Special characters in title are not correctly formatted (e.g. "\n" should be "\\n")
 - [x] Fix broken quotes links
 - [x] Fix bug not exporting correctly (AI begins with backtick?, citations so the HTML structure is different?)
