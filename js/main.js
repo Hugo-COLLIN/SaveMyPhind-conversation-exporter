@@ -1,6 +1,6 @@
 /**
- * SaveMyPhind v0.17.1
- * Hugo COLLIN - 2023-06-06
+ * SaveMyPhind v0.17.3
+ * Hugo COLLIN - 2023-06-24
  */
 
 /*
@@ -68,7 +68,7 @@ function setTurndownRules() {
 --- CONVERT ---
  */
 async function exportConversation() {
-  // Unfold user question before export
+  // Unfold user questions before export
   const chevronDown = document.querySelector('[name^="answer-"] .col-lg-8.col-xl-7:not(:has(.fixed-bottom)) .fe-chevron-down');
   if (chevronDown !== null) await chevronDown.click();
 
@@ -119,6 +119,13 @@ async function exportConversation() {
 
     if (messageText !== "") markdown += messageText + "\n\n";
   });
+
+  // Fold user questions after export if they were originally folded
+  if (chevronDown !== null)
+  {
+    const chevronUp = document.querySelector('[name^="answer-"] .col-lg-8.col-xl-7:not(:has(.fixed-bottom)) .fe-chevron-up');
+    if (chevronUp !== null) await chevronUp.click();
+  }
 
   return markdown;
 }
