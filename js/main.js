@@ -68,20 +68,9 @@ function setTurndownRules() {
 --- CONVERT ---
  */
 async function exportConversation() {
-  // document.querySelector(".fe-chevron-down").dispatchEvent(new Event("click"));
-  const chevron = document.querySelector('[name^="answer-"] .fe-chevron-down');
-  await chevron.click(); //.dispatchEvent(new Event("click"))
-  // bouton.dispatchEvent(new Event("click"));
-  console.log(chevron);
-  // await new Promise(r => setTimeout(r, 100));
-  console.log("waited 1s");
-
-
-// // Créer un nouvel événement 'click'
-//   const evenementClick = new Event('click');
-//
-// // Émettre l'événement 'click' sur l'élément bouton
-//   bouton.dispatchEvent(evenementClick);
+  // Unfold user question before export
+  const chevronDown = document.querySelector('[name^="answer-"] .col-lg-8.col-xl-7:not(:has(.fixed-bottom)) .fe-chevron-down');
+  if (chevronDown !== null) await chevronDown.click();
 
   let sourceQuestion = "";
   const messages = document.querySelectorAll('[name^="answer-"] > div > div');

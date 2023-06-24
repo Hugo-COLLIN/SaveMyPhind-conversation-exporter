@@ -59,6 +59,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### ... is too long
 ```
 - [ ] ~~Export to different file types? (PDF, Word, etc.)~~
+- [ ] Unfold user questions before exporting and refold them after
 - [x] Model name instead of "AI Answer" (e.g. "GPT-3.5 Answer", "Phind Answer")
 - [x] Source numbers next to the source links (numbered list corresponding to citations)
 - [x] Export question above sources
