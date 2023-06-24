@@ -4,7 +4,7 @@
  */
 
 /*
---- Main ---
+--- MAIN ---
  */
 
 //Global variables
@@ -14,6 +14,17 @@ SHOWDOWN_CHOICE = "showdown";
 converterChoice = TURNDOWN_CHOICE;
 
 if (window.location.href.includes('www.phind.com/search')) {
+  initConverter();
+  markdownContent = exportConversation();
+  download(markdownContent, formatFilename() + '.md');
+}
+
+
+/*
+--- CONVERTER SETUP ---
+ */
+
+function initConverter() {
   switch (converterChoice) //make function chooseHeader
   {
     case TURNDOWN_CHOICE:
@@ -24,13 +35,119 @@ if (window.location.href.includes('www.phind.com/search')) {
       showdown = new showdown.Converter();
       break;
   }
-  markdownContent = exportConversation();
-  download(markdownContent, formatFilename() + '.md');
+}
+
+function setTurndownRules() {
+  // --- Turndown custom rules ---
+  turndownService.addRule('preserveLineBreaksInPre', {
+    filter: function (node) {
+      return node.nodeName === 'PRE' && node.querySelector('div');
+    },
+    replacement: function (content, node) {
+      const codeBlock = node.querySelector('code');
+      const codeContent = codeBlock.textContent.trim();
+      const codeLang = codeBlock.className.split("-", 2)[1];
+      return ('\n```' + codeLang + '\n' + codeContent + '\n```');
+    }
+  });
+
+  turndownService.addRule('replaceEscapedBracketsInLinks', {
+    filter: 'a',
+    replacement: function (content, node) {
+      const href = node.getAttribute('href');
+      const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')');
+      return '[' + linkText + '](' + href + ')';
+    }
+  });
 }
 
 
 /*
---- Formatting ---
+--- CONVERTER ---
+ */
+function formatMarkdown(message)
+{
+  message = DOMPurify.sanitize(message);
+  if (message !== '' && message !== ' ')
+  {
+    return  converterChoice === TURNDOWN_CHOICE ? turndownService.turndown(message) :
+      converterChoice === SHOWDOWN_CHOICE ? showdown.makeMarkdown(message) :
+        '';
+  }
+  return '';
+}
+
+function exportConversation() {
+  let sourceQuestion = "";
+  const messages = document.querySelectorAll('[name^="answer-"] > div > div');
+  let markdown = setFileHeader();
+
+  messages.forEach(content => {
+    let p1 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div');
+    let aiModel = content.querySelector('.col-lg-8.col-xl-7 > div > div > h6');
+
+    let p2 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div.mb-3');
+    let p3 = content.querySelectorAll(".col-lg-4.col-xl-4 > div > div > div > div:not(:has(> .pagination))"); // .col-lg-4.col-xl-4 > div > div > div > div:not(:has(> .pagination))
+    let aiCitations = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div > div > div');
+    let p4 = content.querySelector('.col-lg-4.col-xl-4 > div > span');
+
+    sourceQuestion = p4 ? formatMarkdown(p4.innerHTML) : sourceQuestion;
+    const messageText =
+      p4 ? "" :
+
+        p3.length > 0 ? (() => {
+            let res = "**Sources:**";
+            res += sourceQuestion ? "\n" + sourceQuestion : "";
+
+            let i = 0;
+            p3.forEach((elt) => {
+              res += "\n- " + formatMarkdown(elt.querySelector("a").outerHTML).replace("[", `[(${i}) `);
+              i ++;
+            });
+            sourceQuestion = "";
+            return res;
+          })() :
+
+          p2 ? `\n___\n**You:**\n` + formatMarkdown(p2.innerHTML) :
+
+            p1 ? (() => {
+                let res = formatMarkdown(p1.innerHTML);
+                if (aiCitations && aiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + formatMarkdown(aiCitations.innerHTML);
+
+                const aiIndicator = "**" +
+                  capitalizeFirst((aiModel && aiModel.innerHTML.length > 0) ? formatMarkdown(aiModel.innerHTML).split(" ")[2] : "AI") +
+                  " answer:**\n"
+                const index = res.indexOf('\n\n');
+                return `___\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
+              })() :
+
+              '';
+
+    if (messageText !== "") markdown += messageText + "\n\n";
+  });
+
+  return markdown;
+}
+
+
+/*
+--- DOWNLOAD ---
+ */
+function download(text, filename) {
+  const blob = new Blob([text], { type: 'text/markdown' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+
+/*
+--- FORMATTING ---
  */
 function formatDate(format = 0)
 {
@@ -96,107 +213,4 @@ function getPageTitle()
 function getUrl()
 {
   return window.location.href;
-}
-
-/*
---- Converter ---
- */
-function formatMarkdown(message)
-{
-  message = DOMPurify.sanitize(message);
-  if (message !== '' && message !== ' ')
-  {
-    return  converterChoice === TURNDOWN_CHOICE ? turndownService.turndown(message) :
-      converterChoice === SHOWDOWN_CHOICE ? showdown.makeMarkdown(message) :
-        '';
-  }
-  return '';
-}
-
-function exportConversation() {
-  let sourceQuestion = "";
-  const messages = document.querySelectorAll('[name^="answer-"] > div > div');
-  let markdown = setFileHeader();
-
-  messages.forEach(content => {
-    let p1 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div');
-    let aiModel = content.querySelector('.col-lg-8.col-xl-7 > div > div > h6');
-
-    let p2 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div.mb-3');
-    let p3 = content.querySelectorAll(".col-lg-4.col-xl-4 > div > div > div > div:not(:has(> .pagination))"); // .col-lg-4.col-xl-4 > div > div > div > div:not(:has(> .pagination))
-    let aiCitations = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div > div > div');
-    let p4 = content.querySelector('.col-lg-4.col-xl-4 > div > span');
-
-    sourceQuestion = p4 ? formatMarkdown(p4.innerHTML) : sourceQuestion;
-    const messageText =
-      p4 ? "" :
-
-      p3.length > 0 ? (() => {
-        let res = "**Sources:**";
-        res += sourceQuestion ? "\n" + sourceQuestion : "";
-
-        let i = 0;
-        p3.forEach((elt) => {
-          res += "\n- " + formatMarkdown(elt.querySelector("a").outerHTML).replace("[", `[(${i}) `);
-          i ++;
-        });
-        sourceQuestion = "";
-        return res;
-      })() :
-
-      p2 ? `\n___\n**You:**\n` + formatMarkdown(p2.innerHTML) :
-
-      p1 ? (() => {
-          let res = formatMarkdown(p1.innerHTML);
-          if (aiCitations && aiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + formatMarkdown(aiCitations.innerHTML);
-
-          const aiIndicator = "**" +
-            capitalizeFirst((aiModel && aiModel.innerHTML.length > 0) ? formatMarkdown(aiModel.innerHTML).split(" ")[2] : "AI") +
-            " answer:**\n"
-          const index = res.indexOf('\n\n');
-          return `___\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
-        })() :
-
-      '';
-
-    if (messageText !== "") markdown += messageText + "\n\n";
-  });
-
-  return markdown;
-}
-
-function setTurndownRules() {
-  // --- Turndown custom rules ---
-  turndownService.addRule('preserveLineBreaksInPre', {
-    filter: function (node) {
-      return node.nodeName === 'PRE' && node.querySelector('div');
-    },
-    replacement: function (content, node) {
-      const codeBlock = node.querySelector('code');
-      const codeContent = codeBlock.textContent.trim();
-      const codeLang = codeBlock.className.split("-", 2)[1];
-      return ('\n```' + codeLang + '\n' + codeContent + '\n```');
-    }
-  });
-
-  turndownService.addRule('replaceEscapedBracketsInLinks', {
-    filter: 'a',
-    replacement: function (content, node) {
-      const href = node.getAttribute('href');
-      const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')');
-      return '[' + linkText + '](' + href + ')';
-    }
-  });
-}
-
-function download(text, filename) {
-  const blob = new Blob([text], { type: 'text/markdown' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
 }
