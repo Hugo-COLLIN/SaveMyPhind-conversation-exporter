@@ -1,5 +1,5 @@
 /**
- * SaveMyPhind v0.16.3
+ * SaveMyPhind v0.17.0
  * Hugo COLLIN - 2023-06-06
  */
 
@@ -15,8 +15,10 @@ converterChoice = TURNDOWN_CHOICE;
 
 if (window.location.href.includes('www.phind.com/search')) {
   initConverter();
-  markdownContent = exportConversation();
-  download(markdownContent, formatFilename() + '.md');
+  (async () => {
+    markdownContent = await exportConversation();
+    download(markdownContent, formatFilename() + '.md');
+  })();
 }
 
 
@@ -65,19 +67,22 @@ function setTurndownRules() {
 /*
 --- CONVERT ---
  */
-function formatMarkdown(message)
-{
-  message = DOMPurify.sanitize(message);
-  if (message !== '' && message !== ' ')
-  {
-    return  converterChoice === TURNDOWN_CHOICE ? turndownService.turndown(message) :
-      converterChoice === SHOWDOWN_CHOICE ? showdown.makeMarkdown(message) :
-        '';
-  }
-  return '';
-}
+async function exportConversation() {
+  // document.querySelector(".fe-chevron-down").dispatchEvent(new Event("click"));
+  const chevron = document.querySelector('[name^="answer-"] .fe-chevron-down');
+  await chevron.click(); //.dispatchEvent(new Event("click"))
+  // bouton.dispatchEvent(new Event("click"));
+  console.log(chevron);
+  // await new Promise(r => setTimeout(r, 100));
+  console.log("waited 1s");
 
-function exportConversation() {
+
+// // Créer un nouvel événement 'click'
+//   const evenementClick = new Event('click');
+//
+// // Émettre l'événement 'click' sur l'élément bouton
+//   bouton.dispatchEvent(evenementClick);
+
   let sourceQuestion = "";
   const messages = document.querySelectorAll('[name^="answer-"] > div > div');
   let markdown = setFileHeader();
@@ -102,7 +107,7 @@ function exportConversation() {
             let i = 0;
             p3.forEach((elt) => {
               res += "\n- " + formatMarkdown(elt.querySelector("a").outerHTML).replace("[", `[(${i}) `);
-              i ++;
+              i++;
             });
             sourceQuestion = "";
             return res;
@@ -127,6 +132,18 @@ function exportConversation() {
   });
 
   return markdown;
+}
+
+function formatMarkdown(message)
+{
+  message = DOMPurify.sanitize(message);
+  if (message !== '' && message !== ' ')
+  {
+    return  converterChoice === TURNDOWN_CHOICE ? turndownService.turndown(message) :
+      converterChoice === SHOWDOWN_CHOICE ? showdown.makeMarkdown(message) :
+        '';
+  }
+  return '';
 }
 
 
