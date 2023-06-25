@@ -52,18 +52,20 @@ This project uses the following third-party libraries:
 See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Features:
 - [ ] Make a Firefox extension (multi-browser development approach?)
-- [ ] Export the "extra code or context" textarea content
 - [ ] Export tables into markdown tables
+- [ ] Link to the downloaded file in the currently opened note in Obsidian
+- [ ] Export the "extra code or context" textarea content
 - [ ] Save ChatGPT conversations
 - [ ] Make icon adapted to each site (Phind, ChatGPT, etc.)
 - [ ] ~~Export to different file types? (PDF, Word, etc.)~~
+- [x] Title stops at the first line break (and ending whitespaces are removed)
 - [x] Copy to clipboard when clicking on the extension icon (in addition to file download)
 - [x] Reduce file title length and move the next as the subtitle
 ```md
 # My title...
 ### ... is too long
 ```
-- [x] Unfold user questions before exporting and refold them after
+- [x] Export complete user questions unfolding and refolding them (Unfold user questions before exporting and refold them after)
 - [x] Model name instead of "AI Answer" (e.g. "GPT-3.5 Answer", "Phind Answer")
 - [x] Source numbers next to the source links (numbered list corresponding to citations)
 - [x] Export question above sources
@@ -75,7 +77,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 
 ### Security and maintenance:
 - [ ] Use the Phind (official/unofficial?) API instead of scraping the HTML?
-- [ ] Comment code
+- [~] Comment code
 - [ ] Make unit/e2e tests
 - [ ] Remove unused libraries
 - [x] Update repo structure and README: extension focus

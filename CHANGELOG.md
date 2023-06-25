@@ -1,7 +1,8 @@
 # v0.19.1
 ### Features:
 - Reduce file title length and move the next as the subtitle
-- Unfold user questions before exporting and refold them after
+- Title stops at the first line break (and ending whitespaces are removed)
+- Export complete user questions unfolding and refolding them
 - Copy to clipboard when clicking on the extension icon (in addition to file download 😉)
 
 ### Bugs fixed:
