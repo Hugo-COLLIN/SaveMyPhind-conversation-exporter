@@ -1,4 +1,4 @@
-# v0.19.1
+# v0.20.1
 ### Features:
 - Reduce file title length and move the next as the subtitle
 - Title stops at the first line break (and ending whitespaces are removed)
