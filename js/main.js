@@ -25,6 +25,7 @@ if (window.location.href.includes('www.phind.com/search')) {
   })();
 }
 
+
 /*
 --- CONVERT ---
  */
@@ -50,33 +51,33 @@ async function exportConversation() {
     const messageText =
       p4 ? "" :
 
-      p3.length > 0 ? (() => {
-          let res = "**Sources:**";
-          res += sourceQuestion ? "\n" + sourceQuestion : "";
+        p3.length > 0 ? (() => {
+            let res = "**Sources:**";
+            res += sourceQuestion ? "\n" + sourceQuestion : "";
 
-          let i = 0;
-          p3.forEach((elt) => {
-            res += "\n- " + formatMarkdown(elt.querySelector("a").outerHTML).replace("[", `[(${i}) `);
-            i++;
-          });
-          sourceQuestion = "";
-          return res;
-        })() :
+            let i = 0;
+            p3.forEach((elt) => {
+              res += "\n- " + formatMarkdown(elt.querySelector("a").outerHTML).replace("[", `[(${i}) `);
+              i++;
+            });
+            sourceQuestion = "";
+            return res;
+          })() :
 
-      p2 ? `\n___\n**You:**\n` + formatMarkdown(p2.innerHTML) :
+          p2 ? `\n___\n**You:**\n` + formatMarkdown(p2.innerHTML) :
 
-      p1 ? (() => {
-          let res = formatMarkdown(p1.innerHTML);
-          if (aiCitations && aiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + formatMarkdown(aiCitations.innerHTML);
+            p1 ? (() => {
+                let res = formatMarkdown(p1.innerHTML);
+                if (aiCitations && aiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + formatMarkdown(aiCitations.innerHTML);
 
-          const aiIndicator = "**" +
-            capitalizeFirst((aiModel && aiModel.innerHTML.length > 0) ? formatMarkdown(aiModel.innerHTML).split(" ")[2] : "AI") +
-            " answer:**\n"
-          const index = res.indexOf('\n\n');
-          return `___\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
-        })() :
+                const aiIndicator = "**" +
+                  capitalizeFirst((aiModel && aiModel.innerHTML.length > 0) ? formatMarkdown(aiModel.innerHTML).split(" ")[2] : "AI") +
+                  " answer:**\n"
+                const index = res.indexOf('\n\n');
+                return `___\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
+              })() :
 
-      '';
+              '';
 
     if (messageText !== "") markdown += messageText + "\n\n";
   });
@@ -91,26 +92,9 @@ async function exportConversation() {
   return markdown;
 }
 
-function formatMarkdown(message)
-{
-  message = formatLineBreaks(message);
-
-  // Samitize HTML
-  message = DOMPurify.sanitize(message);
-
-  // Convert HTML to Markdown
-  if (message !== '' && message !== ' ')
-  {
-    return  converterChoice === TURNDOWN_CHOICE ? turndownService.turndown(message) :
-      converterChoice === SHOWDOWN_CHOICE ? showdown.makeMarkdown(message) :
-        '';
-  }
-  return '';
-}
-
 
 /*
---- FORMAT MARKDOWN ---
+--- MARKDOWN FORMAT ---
  */
 
 function initConverter() {
@@ -148,119 +132,7 @@ function setTurndownRules() {
       return '[' + linkText + '](' + href + ')';
     }
   });
-
-  // turndownService.addRule('replaceSpaces', {
-  //   filter: () => true,
-  //   replacement: (content) => {
-  //     const regex = /^<br>{{(\d+)}}/;
-  //     const match = content.match(regex);
-  //     console.log(content)
-  //     console.log(match)
-  //
-  //     if (match) {
-  //       const numberOfSpaces = parseInt(match[1], 10);
-  //       const spaces = ' '.repeat(numberOfSpaces);
-  //       return content.replace(regex, spaces);
-  //     }
-  //
-  //     return content;
-  //   },
-  // });
-
-  // turndownService.addRule('brToNewline', {
-  //   filter: 'br',
-  //   replacement: function(content, node) {
-  //     const previousSibling = node.nextSibling;
-  //     if (previousSibling && previousSibling.nodeType === Node.TEXT_NODE) {
-  //       const spaceCount = (JSON.stringify(previousSibling).match(/ *$/) || ['']).length;
-  //       console.log(node.parentElement);
-  //       return "\n" + " ".repeat(spaceCount);
-  //     }
-  //     return "\n";
-  //     // const previousSibling = node.previousSibling;
-  //     // // if (previousSibling && previousSibling.nodeType === Node.TEXT_NODE) {
-  //     // //   const spaceCount = previousSibling.textContent.match(/ *$/)[0].length;
-  //     // //   return "\n" + " ".repeat(spaceCount);
-  //     // // }
-  //     // // return "\n";
-  //     //
-  //     // const spaceCount = previousSibling.textContent.match(/ *$/)[0].length;
-  //     // return "\n" + " ".repeat(spaceCount);
-  //
-  //     // return "\n" + node.previousSibling.toString().split(/[^\s*]/).join("")
-  //
-  //     // console.log(node.previousSibling);
-  //     // console.log(node);
-  //     // try {
-  //     //   let x = node.previousSibling.toString().split(/[^\s]/).join("")
-  //     // }
-  //     // catch (e) {
-  //     //   console.log(e);
-  //     // }
-  //     // // console.log(x);
-  //     // // Check if the <br> element is followed by whitespace
-  //     // // if (node.nextSibling && node.nextSibling.nodeType === 3 && /^\s*$/.test(node.nextSibling.textContent)) {
-  //     // //   return '<br>' + node.nextSibling.textContent;
-  //     // // }
-  //     // return "\n" + content;
-  //   }
-  // });
-
-  // turndownService.addRule('customLineBreaksWithSpaces', {
-  //   filter: 'br',
-  //   replacement: (content, node, options) => {
-  //     // Get the previous sibling of the current node
-  //     const prevSibling = node.previousSibling;
-  //
-  //     // Check if the previous sibling is a text node and ends with spaces
-  //     if (prevSibling && prevSibling.nodeType === 3 && /\s$/.test(prevSibling.textContent)) {
-  //       // If true, keep the spaces and return a newline character
-  //       return '\n';
-  //     }
-  //
-  //     // If the previous sibling is not a text node or doesn't end with spaces, return the default line break
-  //     return options.br;
-  //   },
-  // });
-
-  // turndownService.addRule('custom-span', {
-  //   filter: function (node) {
-  //     if (node.nodeName === 'SPAN' &&
-  //       node.getAttribute('style') ===
-  //       'white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;')
-  //       // document.querySelector('[class="form-control"]').innerHTML += node;
-  //       console.log(node);
-  //     // console.log(node.nodeName === 'SPAN' &&
-  //     //   node.getAttribute('style') ===
-  //     //   'white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;');
-  //     return (
-  //       node.nodeName === 'SPAN' &&
-  //       node.getAttribute('style') ===
-  //       'white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;'
-  //     );
-  //   },
-  //   replacement: function (content, node) {
-  //     console.log(content);
-  //
-  //     const originalContent = node.textContent;
-  //
-  //     // Add two spaces at the end of each line for Markdown line breaks
-  //     const lines = originalContent.split('\n');
-  //     const formattedLines = lines.map((line) => line + '  ');
-  //     return formattedLines.join('<br>');
-  //   },
-  // });
-
-  // DOMPurify.addHook('uponSanitizeElement', (node) => {
-  //   if (node.nodeType === Node.TEXT_NODE && /(?:<span class="fs-5 mb-3 font-monospace" style="white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;">([\s\S]*?)<\/span>|<textarea tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="q" class="form-control bg-white darkmode-light searchbox-textarea" rows="1" placeholder="" aria-label="" style="resize: none; height: 512px;">([\s\S]*?)<\/textarea>)/) {
-  //     const textContent = node.textContent;
-  //     node.textContent = textContent.replace(/\n/g, `<br>`);
-  //     console.log(node.textContent);
-  //   }
-  // });
-
 }
-
 
 function formatLineBreaks(html) {
   const regex = /(?:<span class="fs-5 mb-3 font-monospace" style="white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;">([\s\S]*?)<\/span>|<textarea tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="q" class="form-control bg-white darkmode-light searchbox-textarea" rows="1" placeholder="" aria-label="" style="resize: none; height: 512px;">([\s\S]*?)<\/textarea>)/;
@@ -271,42 +143,35 @@ function formatLineBreaks(html) {
     const lines = match[1].split('\n');
 
     // Replace newline characters with <br> tags and join the lines back into a single string
-    const formattedHtml = lines.map(line => {
+    return lines.map(line => {
       const spaces = line.match(/^\s*/)[0];
-      console.log(spaces)
-      console.log(line)
-      console.log("<br>{" + spaces.length + "}" + line.trim())
       return (spaces.length > 0 ? "<br>" + '\u00A0'.repeat(spaces.length) : "<br>") + line.trim();
     }).join('');
-
-    return formattedHtml;
   }
 
   return html;
 }
 
-// function formatLineBreaks(html) {
-//   const regex = /(?:<span class="fs-5 mb-3 font-monospace" style="white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;">([\s\S]*?)<\/span>|<textarea tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="q" class="form-control bg-white darkmode-light searchbox-textarea" rows="1" placeholder="" aria-label="" style="resize: none; height: 512px;">([\s\S]*?)<\/textarea>)/;
-//   const match = html.match(regex);
-//
-//   if (match)
-//     return match[1].replaceAll(/(\s*)\n/, (match, spaces) => `<br>${spaces}` + match.slice(-1))
-//   return html;
-//
-//   // if (match) {
-//   //   const regex2 = /(\s*)\n/;
-//   //   let breaks = match[1].replaceAll(/(\s*)\n/, (match, spaces) => `<br>${spaces}` + match.slice(-1));
-//   //
-//   // }
-//   // return match ? match[1].replaceAll('\n', "<br>") : html;
-//   // return match ?
-//   //   match[1].replaceAll(/(\s*)\n/, (match, spaces) => `<br>${spaces}` + match.slice(-1))
-//   //   :
-//   //   html;
-// }
+function formatMarkdown(message)
+{
+  message = formatLineBreaks(message);
+
+  // Samitize HTML
+  message = DOMPurify.sanitize(message);
+
+  // Convert HTML to Markdown
+  if (message !== '' && message !== ' ')
+  {
+    return  converterChoice === TURNDOWN_CHOICE ? turndownService.turndown(message) :
+      converterChoice === SHOWDOWN_CHOICE ? showdown.makeMarkdown(message) :
+        '';
+  }
+  return '';
+}
+
 
 /*
---- FORMAT ---
+--- FORMATTING UTILITY FUNCTIONS ---
  */
 function formatDate(format = 0)
 {
