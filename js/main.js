@@ -51,33 +51,33 @@ async function exportConversation() {
     const messageText =
       p4 ? "" :
 
-        p3.length > 0 ? (() => {
-            let res = "**Sources:**";
-            res += sourceQuestion ? "\n" + sourceQuestion : "";
+      p3.length > 0 ? (() => {
+          let res = "**Sources:**";
+          res += sourceQuestion ? "\n" + sourceQuestion : "";
 
-            let i = 0;
-            p3.forEach((elt) => {
-              res += "\n- " + formatMarkdown(elt.querySelector("a").outerHTML).replace("[", `[(${i}) `);
-              i++;
-            });
-            sourceQuestion = "";
-            return res;
-          })() :
+          let i = 0;
+          p3.forEach((elt) => {
+            res += "\n- " + formatMarkdown(elt.querySelector("a").outerHTML).replace("[", `[(${i}) `);
+            i++;
+          });
+          sourceQuestion = "";
+          return res;
+        })() :
 
-          p2 ? `\n___\n**You:**\n` + formatMarkdown(p2.innerHTML) :
+      p2 ? `\n___\n**You:**\n` + formatMarkdown(p2.innerHTML) :
 
-            p1 ? (() => {
-                let res = formatMarkdown(p1.innerHTML);
-                if (aiCitations && aiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + formatMarkdown(aiCitations.innerHTML);
+      p1 ? (() => {
+          let res = formatMarkdown(p1.innerHTML);
+          if (aiCitations && aiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + formatMarkdown(aiCitations.innerHTML);
 
-                const aiIndicator = "**" +
-                  capitalizeFirst((aiModel && aiModel.innerHTML.length > 0) ? formatMarkdown(aiModel.innerHTML).split(" ")[2] : "AI") +
-                  " answer:**\n"
-                const index = res.indexOf('\n\n');
-                return `___\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
-              })() :
+          const aiIndicator = "**" +
+            capitalizeFirst((aiModel && aiModel.innerHTML.length > 0) ? formatMarkdown(aiModel.innerHTML).split(" ")[2] : "AI") +
+            " answer:**\n"
+          const index = res.indexOf('\n\n');
+          return `___\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
+        })() :
 
-              '';
+      '';
 
     if (messageText !== "") markdown += messageText + "\n\n";
   });
