@@ -62,7 +62,7 @@ async function exportConversation() {
           return res;
         })() :
 
-      p2 ? `\n___\n**You:**\n` + formatMarkdown(p2.innerHTML) :
+      p2 ? `\n___\n**You:**` + formatMarkdown(p2.innerHTML) :
 
       p1 ? (() => {
           let res = formatMarkdown(p1.innerHTML);
@@ -213,7 +213,7 @@ function setFileHeader()
     const titles = formatMarkdown(capitalizeFirst(titleShortener(getPageTitle())[0]));
     return "# " + titles + "\n" + "Exported on " + formatDate(1) + " " + formatUrl(getUrl(), "from Phind.com") + " - with SaveMyPhind" + "\n\n";
   } catch (e) {
-    console.log(e)
+    console.error(e)
   }
 }
 
@@ -265,9 +265,6 @@ function titleShortener(title)
 
     res[1] += words[i] + " ";
   }
-
-  console.log(res[1])
-
   return res;
 }
 
