@@ -1,7 +1,8 @@
 /**
- * SaveMyPhind v0.19.0
+ * SaveMyPhind v0.19.1
  * Hugo COLLIN - 2023-06-24
  */
+
 
 /*
 --- MAIN ---
@@ -13,9 +14,6 @@ SHOWDOWN_CHOICE = "showdown";
 
 converterChoice = TURNDOWN_CHOICE;
 
-PURIFY_CONFIG = {
-  ADD_MARKUP: /[\n]/g
-};
 
 if (window.location.href.includes('www.phind.com/search')) {
   initConverter();
@@ -211,8 +209,12 @@ function formatFilename()
 
 function setFileHeader()
 {
-  const titles = titleShortener(getPageTitle());
-  return "# " + formatMarkdown(capitalizeFirst(titles[0])) + "\n" + "Exported on " + formatDate(1) + " " + formatUrl(getUrl(), "from Phind.com") + " - with SaveMyPhind" + "\n\n";
+  try {
+    const titles = formatMarkdown(capitalizeFirst(titleShortener(getPageTitle())[0]));
+    return "# " + titles + "\n" + "Exported on " + formatDate(1) + " " + formatUrl(getUrl(), "from Phind.com") + " - with SaveMyPhind" + "\n\n";
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 function formatUrl(url, message)
@@ -227,6 +229,7 @@ function capitalizeFirst(string)
 
 function titleShortener(title)
 {
+  const TITLE_LENGTH = 77;
   const words = title.split(" ");
   let res = ["", ""];
   let next;
@@ -234,14 +237,14 @@ function titleShortener(title)
   // Catch a title less than 50 characters
   for (let i = 0; i < words.length; i++)
   {
-    if ((res[0] + words[i]).length > 50)
+    if ((res[0] + words[i]).length > TITLE_LENGTH)
     {
-      res[0] += (res[0] === "") ? title.substring(0, 50) : ""; // If title does not contain spaces, cut it to 50 characters
+      res[0] += (res[0] === "") ? title.substring(0, TITLE_LENGTH) : ""; // If title does not contain spaces, cut it to 50 characters
       next = i;
       break;
     }
 
-    res[0] += words[i] + " ";
+    res[0] += (i !== 0 ? " " : "") + words[i];
   }
 
   // The next words are added to the subtitle
@@ -253,10 +256,17 @@ function titleShortener(title)
       res[1] += "...";
     }
 
+    // If the next word is the only one, add the second part of it to the subtitle
+    if (next === 0)
+    {
+      res[1] += title.substring(TITLE_LENGTH);
+      break;
+    }
+
     res[1] += words[i] + " ";
   }
 
-  console.log(res[0])
+  console.log(res[1])
 
   return res;
 }
