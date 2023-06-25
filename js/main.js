@@ -1,6 +1,6 @@
 /**
- * SaveMyPhind v0.20.0
- * Hugo COLLIN - 2023-06-24
+ * SaveMyPhind v0.20.1
+ * Hugo COLLIN - 2023-06-26
  */
 
 
@@ -213,7 +213,9 @@ function formatDate(format = 0)
 
 function formatFilename()
 {
-  return formatDate() + ' ' + titleShortener(getPageTitle())[0].replace(/[\/:*?"<>|]/g, '');
+  const test = formatDate() + ' ' + titleShortener(getPageTitle())[0].replace(/[\n\/:*?"<>|]/g, '').replace(/\s*...$/, '...');
+  console.log(test.split("").map((c) => c));
+  return test;
 }
 
 function setFileHeader()
@@ -239,14 +241,20 @@ function capitalizeFirst(string)
 function titleShortener(title)
 {
   const TITLE_LENGTH = 77;
+
+  title = title.replaceAll("\n", " \n ");
   const words = title.split(" ");
   let res = ["", ""];
   let next;
+  let cut = false;
+
+  console.log(words);
 
   // Catch a title less than 50 characters
   for (let i = 0; i < words.length; i++)
   {
-    if ((res[0] + words[i]).length > TITLE_LENGTH)
+    // If the next word makes the title too long or is a line break, don't add it to the title and break the loop
+    if ((res[0] + words[i]).length > TITLE_LENGTH || words[i].match(/\n/g))
     {
       res[0] += (res[0] === "") ? title.substring(0, TITLE_LENGTH) : ""; // If title does not contain spaces, cut it to 50 characters
       next = i;
@@ -254,6 +262,8 @@ function titleShortener(title)
     }
 
     res[0] += (i !== 0 ? " " : "") + words[i];
+
+    console.log(words[i])
   }
 
   // The next words are added to the subtitle
