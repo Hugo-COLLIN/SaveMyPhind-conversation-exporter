@@ -1,5 +1,5 @@
 /**
- * SaveMyPhind v0.17.3
+ * SaveMyPhind v0.18.0
  * Hugo COLLIN - 2023-06-24
  */
 
@@ -12,6 +12,10 @@ TURNDOWN_CHOICE = "turndown";
 SHOWDOWN_CHOICE = "showdown";
 
 converterChoice = TURNDOWN_CHOICE;
+
+PURIFY_CONFIG = {
+  ADD_MARKUP: /[\n]/g
+};
 
 if (window.location.href.includes('www.phind.com/search')) {
   initConverter();
@@ -61,8 +65,44 @@ function setTurndownRules() {
       return '[' + linkText + '](' + href + ')';
     }
   });
-}
 
+  // turndownService.addRule('custom-span', {
+  //   filter: function (node) {
+  //     if (node.nodeName === 'SPAN' &&
+  //       node.getAttribute('style') ===
+  //       'white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;')
+  //       // document.querySelector('[class="form-control"]').innerHTML += node;
+  //       console.log(node);
+  //     // console.log(node.nodeName === 'SPAN' &&
+  //     //   node.getAttribute('style') ===
+  //     //   'white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;');
+  //     return (
+  //       node.nodeName === 'SPAN' &&
+  //       node.getAttribute('style') ===
+  //       'white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;'
+  //     );
+  //   },
+  //   replacement: function (content, node) {
+  //     console.log(content);
+  //
+  //     const originalContent = node.textContent;
+  //
+  //     // Add two spaces at the end of each line for Markdown line breaks
+  //     const lines = originalContent.split('\n');
+  //     const formattedLines = lines.map((line) => line + '  ');
+  //     return formattedLines.join('<br>');
+  //   },
+  // });
+
+  // DOMPurify.addHook('uponSanitizeElement', (node) => {
+  //   if (node.nodeType === Node.TEXT_NODE && /(?:<span class="fs-5 mb-3 font-monospace" style="white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;">([\s\S]*?)<\/span>|<textarea tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="q" class="form-control bg-white darkmode-light searchbox-textarea" rows="1" placeholder="" aria-label="" style="resize: none; height: 512px;">([\s\S]*?)<\/textarea>)/) {
+  //     const textContent = node.textContent;
+  //     node.textContent = textContent.replace(/\n/g, `<br>`);
+  //     console.log(node.textContent);
+  //   }
+  // });
+
+}
 
 /*
 --- CONVERT ---
@@ -89,33 +129,33 @@ async function exportConversation() {
     const messageText =
       p4 ? "" :
 
-        p3.length > 0 ? (() => {
-            let res = "**Sources:**";
-            res += sourceQuestion ? "\n" + sourceQuestion : "";
+      p3.length > 0 ? (() => {
+          let res = "**Sources:**";
+          res += sourceQuestion ? "\n" + sourceQuestion : "";
 
-            let i = 0;
-            p3.forEach((elt) => {
-              res += "\n- " + formatMarkdown(elt.querySelector("a").outerHTML).replace("[", `[(${i}) `);
-              i++;
-            });
-            sourceQuestion = "";
-            return res;
-          })() :
+          let i = 0;
+          p3.forEach((elt) => {
+            res += "\n- " + formatMarkdown(elt.querySelector("a").outerHTML).replace("[", `[(${i}) `);
+            i++;
+          });
+          sourceQuestion = "";
+          return res;
+        })() :
 
-          p2 ? `\n___\n**You:**\n` + formatMarkdown(p2.innerHTML) :
+      p2 ? `\n___\n**You:**\n` + formatMarkdown(p2.innerHTML) :
 
-            p1 ? (() => {
-                let res = formatMarkdown(p1.innerHTML);
-                if (aiCitations && aiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + formatMarkdown(aiCitations.innerHTML);
+      p1 ? (() => {
+          let res = formatMarkdown(p1.innerHTML);
+          if (aiCitations && aiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + formatMarkdown(aiCitations.innerHTML);
 
-                const aiIndicator = "**" +
-                  capitalizeFirst((aiModel && aiModel.innerHTML.length > 0) ? formatMarkdown(aiModel.innerHTML).split(" ")[2] : "AI") +
-                  " answer:**\n"
-                const index = res.indexOf('\n\n');
-                return `___\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
-              })() :
+          const aiIndicator = "**" +
+            capitalizeFirst((aiModel && aiModel.innerHTML.length > 0) ? formatMarkdown(aiModel.innerHTML).split(" ")[2] : "AI") +
+            " answer:**\n"
+          const index = res.indexOf('\n\n');
+          return `___\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
+        })() :
 
-              '';
+      '';
 
     if (messageText !== "") markdown += messageText + "\n\n";
   });
@@ -132,7 +172,12 @@ async function exportConversation() {
 
 function formatMarkdown(message)
 {
+  message = formatLineBreaks(message);
+
+  // Samitize HTML
   message = DOMPurify.sanitize(message);
+
+  // Convert HTML to Markdown
   if (message !== '' && message !== ' ')
   {
     return  converterChoice === TURNDOWN_CHOICE ? turndownService.turndown(message) :
@@ -162,6 +207,32 @@ function download(text, filename) {
 /*
 --- FORMAT ---
  */
+function formatLineBreaks(html) {
+  const regex = /(?:<span class="fs-5 mb-3 font-monospace" style="white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;">([\s\S]*?)<\/span>|<textarea tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="q" class="form-control bg-white darkmode-light searchbox-textarea" rows="1" placeholder="" aria-label="" style="resize: none; height: 512px;">([\s\S]*?)<\/textarea>)/;
+  const match = html.match(regex);
+
+  if (match)
+  {
+    // return match ? match[1] : '';
+    console.log(html)
+    console.dir(match)
+    // console.log(match[1].replaceAll('\n', "<br>"));
+    // const jsonStr = JSON.stringify(match)
+    // const JSONArr = JSON.parse(jsonStr);
+    // console.log(JSONArr)
+    // console.log(JSONArr[1].replace('\n', /<br>/g))
+
+    // for (let i = 0; i < JSONArr[1].length; i++) {
+    //   console.log(JSONArr[1][i]);
+    // }
+
+    // console.log(typeof match[1]);
+    // let tab = match[1].split('\n')
+    // console.log(tab)
+  }
+  return match ? match[1].replaceAll('\n', "<br>") : html;
+}
+
 function formatDate(format = 0)
 {
   dc = new Date();
