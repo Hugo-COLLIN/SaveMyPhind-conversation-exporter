@@ -1,3 +1,13 @@
+# v0.19.1
+### Features:
+- Reduce file title length and move the next as the subtitle
+- Unfold user questions before exporting and refold them after
+- Copy to clipboard when clicking on the extension icon (in addition to file download 😉)
+
+### Bugs fixed:
+- Reduced filename length (too long titles can cause problems with OS or Git)
+- Import line breaks in user questions and search bar (Phind uses spaces as line breaks)
+
 # v0.16.2
 ### Features:
 - Model name instead of "AI Answer" (e.g. "GPT-3.5 Answer", "Phind Answer")

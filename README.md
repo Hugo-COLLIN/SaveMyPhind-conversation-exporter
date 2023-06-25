@@ -52,15 +52,17 @@ This project uses the following third-party libraries:
 See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Features:
 - [ ] Make a Firefox extension (multi-browser development approach?)
-- [ ] Copy to clipboard when clicking on the extension icon (in addition to markdown export)
-- [ ] Reduce file title length and move the next as the subtitle
+- [ ] Export the "extra code or context" textarea content
+- [ ] Export tables into markdown tables
+- [ ] Save ChatGPT conversations
+- [ ] Make icon adapted to each site (Phind, ChatGPT, etc.)
+- [ ] ~~Export to different file types? (PDF, Word, etc.)~~
+- [x] Copy to clipboard when clicking on the extension icon (in addition to file download)
+- [x] Reduce file title length and move the next as the subtitle
 ```md
 # My title...
 ### ... is too long
 ```
-- [ ] ~~Export to different file types? (PDF, Word, etc.)~~
-- [ ] Save ChatGPT conversations
-- [ ] Make icon adapted to each site (Phind, ChatGPT, etc.)
 - [x] Unfold user questions before exporting and refold them after
 - [x] Model name instead of "AI Answer" (e.g. "GPT-3.5 Answer", "Phind Answer")
 - [x] Source numbers next to the source links (numbered list corresponding to citations)
@@ -81,9 +83,9 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Sanitize HTML code
 
 ### Bugs/Issues:
-- [ ] Import line breaks in user questions and search bar (Phind uses spaces as line breaks)
-- [ ] Too long file names can cause issues with OS or Git (cf. Reduce title length feature)
 - [ ] Make extension icon with transparent background
+- [x] Too long file names can cause issues with OS or Git (cf. Reduce title length feature)
+- [x] Import line breaks in user questions and search bar (Phind uses spaces as line breaks)
 - [x] Long user question are cut off in the middle so are not entirely exported
 - [x] Special characters in title are not correctly formatted (e.g. "\n" should be "\\n")
 - [x] Fix broken quotes links
