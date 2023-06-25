@@ -1,5 +1,5 @@
 /**
- * SaveMyPhind v0.19.1
+ * SaveMyPhind v0.20.0
  * Hugo COLLIN - 2023-06-24
  */
 
@@ -20,6 +20,7 @@ if (window.location.href.includes('www.phind.com/search')) {
   (async () => {
     markdownContent = await exportConversation();
     download(markdownContent, formatFilename() + '.md');
+    await navigator.clipboard.writeText(markdownContent);
   })();
 }
 
