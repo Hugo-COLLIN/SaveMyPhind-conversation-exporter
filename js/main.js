@@ -15,17 +15,20 @@ SHOWDOWN_CHOICE = "showdown";
 converterChoice = TURNDOWN_CHOICE;
 
 
+async function saveToClipboard(markdownContent) {
+  try {
+    await navigator.clipboard.writeText(markdownContent);
+  } catch (e) {
+    console.error("Failed to save in the clipboard");
+  }
+}
+
 if (window.location.href.includes('www.phind.com/search')) {
   initConverter();
   (async () => {
     markdownContent = await exportConversation();
     download(markdownContent, formatFilename() + '.md');
-    try {
-      await navigator.clipboard.writeText(markdownContent);
-    }
-    catch (e) {
-      console.error("Failed to save in the clipboard");
-    }
+    await saveToClipboard(markdownContent);
   })();
 }
 
