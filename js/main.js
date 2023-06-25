@@ -20,7 +20,12 @@ if (window.location.href.includes('www.phind.com/search')) {
   (async () => {
     markdownContent = await exportConversation();
     download(markdownContent, formatFilename() + '.md');
-    await navigator.clipboard.writeText(markdownContent);
+    try {
+      await navigator.clipboard.writeText(markdownContent);
+    }
+    catch (e) {
+      console.error("Failed to save in the clipboard");
+    }
   })();
 }
 
