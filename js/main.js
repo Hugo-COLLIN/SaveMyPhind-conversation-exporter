@@ -172,17 +172,24 @@ async function exportConversation() {
 
 function formatMarkdown(message)
 {
-  message = formatLineBreaks(message);
-
-  // Samitize HTML
-  message = DOMPurify.sanitize(message);
-
-  // Convert HTML to Markdown
   if (message !== '' && message !== ' ')
   {
-    return  converterChoice === TURNDOWN_CHOICE ? turndownService.turndown(message) :
-      converterChoice === SHOWDOWN_CHOICE ? showdown.makeMarkdown(message) :
-        '';
+    const regex = /(?:<span class="fs-5 mb-3 font-monospace" style="white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;">([\s\S]*?)<\/span>|<textarea tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="q" class="form-control bg-white darkmode-light searchbox-textarea" rows="1" placeholder="" aria-label="" style="resize: none; height: 512px;">([\s\S]*?)<\/textarea>)/;
+    const match = message.match(regex);
+
+    if (match)
+      // Split the string by newline characters
+      return showdown.makeMarkdown(formatLineBreaks(match[1]));
+    else
+    {
+      // Sanitize HTML
+      message = DOMPurify.sanitize(message);
+
+      // Convert HTML to Markdown
+      return  converterChoice === TURNDOWN_CHOICE ? turndownService.turndown(message) :
+        converterChoice === SHOWDOWN_CHOICE ? showdown.makeMarkdown(message) :
+          '';
+    }
   }
   return '';
 }
@@ -207,31 +214,40 @@ function download(text, filename) {
 /*
 --- FORMAT ---
  */
-function formatLineBreaks(html) {
-  const regex = /(?:<span class="fs-5 mb-3 font-monospace" style="white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;">([\s\S]*?)<\/span>|<textarea tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="q" class="form-control bg-white darkmode-light searchbox-textarea" rows="1" placeholder="" aria-label="" style="resize: none; height: 512px;">([\s\S]*?)<\/textarea>)/;
-  const match = html.match(regex);
+function formatLineBreaks(content) {
+  const lines = content.split('\n');
+  console.log(lines)
+  // Replace newline characters with <br> tags and join the lines back into a single string
+  const formattedHtml = lines.map(line => {
+    const spaces = line.match(/^\s*/)[0];
+    console.log(spaces)
+    console.log(line)
+    return `${spaces}` + line.trim() + '<br>';
+  }).join('');
 
-  if (match)
-  {
-    // return match ? match[1] : '';
-    console.log(html)
-    console.dir(match)
-    // console.log(match[1].replaceAll('\n', "<br>"));
-    // const jsonStr = JSON.stringify(match)
-    // const JSONArr = JSON.parse(jsonStr);
-    // console.log(JSONArr)
-    // console.log(JSONArr[1].replace('\n', /<br>/g))
-
-    // for (let i = 0; i < JSONArr[1].length; i++) {
-    //   console.log(JSONArr[1][i]);
-    // }
-
-    // console.log(typeof match[1]);
-    // let tab = match[1].split('\n')
-    // console.log(tab)
-  }
-  return match ? match[1].replaceAll('\n', "<br>") : html;
+  return formattedHtml;
+  // return content ? match[1].replaceAll('\n', "<br>") : content.join("");
 }
+
+// function formatLineBreaks(html) {
+//   const regex = /(?:<span class="fs-5 mb-3 font-monospace" style="white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;">([\s\S]*?)<\/span>|<textarea tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="q" class="form-control bg-white darkmode-light searchbox-textarea" rows="1" placeholder="" aria-label="" style="resize: none; height: 512px;">([\s\S]*?)<\/textarea>)/;
+//   const match = html.match(regex);
+//
+//   if (match)
+//     return match[1].replaceAll(/(\s*)\n/, (match, spaces) => `<br>${spaces}` + match.slice(-1))
+//   return html;
+//
+//   // if (match) {
+//   //   const regex2 = /(\s*)\n/;
+//   //   let breaks = match[1].replaceAll(/(\s*)\n/, (match, spaces) => `<br>${spaces}` + match.slice(-1));
+//   //
+//   // }
+//   // return match ? match[1].replaceAll('\n', "<br>") : html;
+//   // return match ?
+//   //   match[1].replaceAll(/(\s*)\n/, (match, spaces) => `<br>${spaces}` + match.slice(-1))
+//   //   :
+//   //   html;
+// }
 
 function formatDate(format = 0)
 {
