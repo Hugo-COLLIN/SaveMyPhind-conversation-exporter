@@ -1,5 +1,5 @@
 /**
- * SaveMyPhind v0.18.1
+ * SaveMyPhind v0.19.0
  * Hugo COLLIN - 2023-06-24
  */
 
@@ -206,12 +206,13 @@ function formatDate(format = 0)
 
 function formatFilename()
 {
-  return formatDate() + ' ' + getPageTitle().replace(/[\/:*?"<>|]/g, '');
+  return formatDate() + ' ' + titleShortener(getPageTitle())[0].replace(/[\/:*?"<>|]/g, '');
 }
 
 function setFileHeader()
 {
-  return "# " + formatMarkdown(capitalizeFirst(getPageTitle())) + "\n" + "Exported on " + formatDate(1) + " " + formatUrl(getUrl(), "from Phind.com") + " - with SaveMyPhind" + "\n\n";
+  const titles = titleShortener(getPageTitle());
+  return "# " + formatMarkdown(capitalizeFirst(titles[0])) + "\n" + "Exported on " + formatDate(1) + " " + formatUrl(getUrl(), "from Phind.com") + " - with SaveMyPhind" + "\n\n";
 }
 
 function formatUrl(url, message)
@@ -222,6 +223,42 @@ function formatUrl(url, message)
 function capitalizeFirst(string)
 {
   return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function titleShortener(title)
+{
+  const words = title.split(" ");
+  let res = ["", ""];
+  let next;
+
+  // Catch a title less than 50 characters
+  for (let i = 0; i < words.length; i++)
+  {
+    if ((res[0] + words[i]).length > 50)
+    {
+      res[0] += (res[0] === "") ? title.substring(0, 50) : ""; // If title does not contain spaces, cut it to 50 characters
+      next = i;
+      break;
+    }
+
+    res[0] += words[i] + " ";
+  }
+
+  // The next words are added to the subtitle
+  for (let i = next; i < words.length; i++)
+  {
+    if (i === next)
+    {
+      res[0] += "...";
+      res[1] += "...";
+    }
+
+    res[1] += words[i] + " ";
+  }
+
+  console.log(res[0])
+
+  return res;
 }
 
 
