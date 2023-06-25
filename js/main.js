@@ -1,5 +1,5 @@
 /**
- * SaveMyPhind v0.18.0
+ * SaveMyPhind v0.18.1
  * Hugo COLLIN - 2023-06-24
  */
 
@@ -23,85 +23,6 @@ if (window.location.href.includes('www.phind.com/search')) {
     markdownContent = await exportConversation();
     download(markdownContent, formatFilename() + '.md');
   })();
-}
-
-
-/*
---- MD CONVERTER SETUP ---
- */
-
-function initConverter() {
-  switch (converterChoice) //make function chooseHeader
-  {
-    case TURNDOWN_CHOICE:
-      turndownService = new TurndownService();
-      setTurndownRules();
-      break;
-    case SHOWDOWN_CHOICE:
-      showdown = new showdown.Converter();
-      break;
-  }
-}
-
-function setTurndownRules() {
-  // --- Turndown custom rules ---
-  turndownService.addRule('preserveLineBreaksInPre', {
-    filter: function (node) {
-      return node.nodeName === 'PRE' && node.querySelector('div');
-    },
-    replacement: function (content, node) {
-      const codeBlock = node.querySelector('code');
-      const codeContent = codeBlock.textContent.trim();
-      const codeLang = codeBlock.className.split("-", 2)[1];
-      return ('\n```' + codeLang + '\n' + codeContent + '\n```');
-    }
-  });
-
-  turndownService.addRule('replaceEscapedBracketsInLinks', {
-    filter: 'a',
-    replacement: function (content, node) {
-      const href = node.getAttribute('href');
-      const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')');
-      return '[' + linkText + '](' + href + ')';
-    }
-  });
-
-  // turndownService.addRule('custom-span', {
-  //   filter: function (node) {
-  //     if (node.nodeName === 'SPAN' &&
-  //       node.getAttribute('style') ===
-  //       'white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;')
-  //       // document.querySelector('[class="form-control"]').innerHTML += node;
-  //       console.log(node);
-  //     // console.log(node.nodeName === 'SPAN' &&
-  //     //   node.getAttribute('style') ===
-  //     //   'white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;');
-  //     return (
-  //       node.nodeName === 'SPAN' &&
-  //       node.getAttribute('style') ===
-  //       'white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;'
-  //     );
-  //   },
-  //   replacement: function (content, node) {
-  //     console.log(content);
-  //
-  //     const originalContent = node.textContent;
-  //
-  //     // Add two spaces at the end of each line for Markdown line breaks
-  //     const lines = originalContent.split('\n');
-  //     const formattedLines = lines.map((line) => line + '  ');
-  //     return formattedLines.join('<br>');
-  //   },
-  // });
-
-  // DOMPurify.addHook('uponSanitizeElement', (node) => {
-  //   if (node.nodeType === Node.TEXT_NODE && /(?:<span class="fs-5 mb-3 font-monospace" style="white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;">([\s\S]*?)<\/span>|<textarea tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="q" class="form-control bg-white darkmode-light searchbox-textarea" rows="1" placeholder="" aria-label="" style="resize: none; height: 512px;">([\s\S]*?)<\/textarea>)/) {
-  //     const textContent = node.textContent;
-  //     node.textContent = textContent.replace(/\n/g, `<br>`);
-  //     console.log(node.textContent);
-  //   }
-  // });
-
 }
 
 /*
@@ -172,61 +93,196 @@ async function exportConversation() {
 
 function formatMarkdown(message)
 {
+  message = formatLineBreaks(message);
+
+  // Samitize HTML
+  message = DOMPurify.sanitize(message);
+
+  // Convert HTML to Markdown
   if (message !== '' && message !== ' ')
   {
-    const regex = /(?:<span class="fs-5 mb-3 font-monospace" style="white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;">([\s\S]*?)<\/span>|<textarea tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="q" class="form-control bg-white darkmode-light searchbox-textarea" rows="1" placeholder="" aria-label="" style="resize: none; height: 512px;">([\s\S]*?)<\/textarea>)/;
-    const match = message.match(regex);
-
-    if (match)
-      // Split the string by newline characters
-      return showdown.makeMarkdown(formatLineBreaks(match[1]));
-    else
-    {
-      // Sanitize HTML
-      message = DOMPurify.sanitize(message);
-
-      // Convert HTML to Markdown
-      return  converterChoice === TURNDOWN_CHOICE ? turndownService.turndown(message) :
-        converterChoice === SHOWDOWN_CHOICE ? showdown.makeMarkdown(message) :
-          '';
-    }
+    return  converterChoice === TURNDOWN_CHOICE ? turndownService.turndown(message) :
+      converterChoice === SHOWDOWN_CHOICE ? showdown.makeMarkdown(message) :
+        '';
   }
   return '';
 }
 
 
 /*
---- DOWNLOAD ---
+--- FORMAT MARKDOWN ---
  */
-function download(text, filename) {
-  const blob = new Blob([text], { type: 'text/markdown' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+
+function initConverter() {
+  switch (converterChoice) //make function chooseHeader
+  {
+    case TURNDOWN_CHOICE:
+      turndownService = new TurndownService();
+      setTurndownRules();
+      break;
+    case SHOWDOWN_CHOICE:
+      showdown = new showdown.Converter();
+      break;
+  }
+}
+
+function setTurndownRules() {
+  // --- Turndown custom rules ---
+  turndownService.addRule('preserveLineBreaksInPre', {
+    filter: function (node) {
+      return node.nodeName === 'PRE' && node.querySelector('div');
+    },
+    replacement: function (content, node) {
+      const codeBlock = node.querySelector('code');
+      const codeContent = codeBlock.textContent.trim();
+      const codeLang = codeBlock.className.split("-", 2)[1];
+      return ('\n```' + codeLang + '\n' + codeContent + '\n```');
+    }
+  });
+
+  turndownService.addRule('replaceEscapedBracketsInLinks', {
+    filter: 'a',
+    replacement: function (content, node) {
+      const href = node.getAttribute('href');
+      const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')');
+      return '[' + linkText + '](' + href + ')';
+    }
+  });
+
+  // turndownService.addRule('replaceSpaces', {
+  //   filter: () => true,
+  //   replacement: (content) => {
+  //     const regex = /^<br>{{(\d+)}}/;
+  //     const match = content.match(regex);
+  //     console.log(content)
+  //     console.log(match)
+  //
+  //     if (match) {
+  //       const numberOfSpaces = parseInt(match[1], 10);
+  //       const spaces = ' '.repeat(numberOfSpaces);
+  //       return content.replace(regex, spaces);
+  //     }
+  //
+  //     return content;
+  //   },
+  // });
+
+  // turndownService.addRule('brToNewline', {
+  //   filter: 'br',
+  //   replacement: function(content, node) {
+  //     const previousSibling = node.nextSibling;
+  //     if (previousSibling && previousSibling.nodeType === Node.TEXT_NODE) {
+  //       const spaceCount = (JSON.stringify(previousSibling).match(/ *$/) || ['']).length;
+  //       console.log(node.parentElement);
+  //       return "\n" + " ".repeat(spaceCount);
+  //     }
+  //     return "\n";
+  //     // const previousSibling = node.previousSibling;
+  //     // // if (previousSibling && previousSibling.nodeType === Node.TEXT_NODE) {
+  //     // //   const spaceCount = previousSibling.textContent.match(/ *$/)[0].length;
+  //     // //   return "\n" + " ".repeat(spaceCount);
+  //     // // }
+  //     // // return "\n";
+  //     //
+  //     // const spaceCount = previousSibling.textContent.match(/ *$/)[0].length;
+  //     // return "\n" + " ".repeat(spaceCount);
+  //
+  //     // return "\n" + node.previousSibling.toString().split(/[^\s*]/).join("")
+  //
+  //     // console.log(node.previousSibling);
+  //     // console.log(node);
+  //     // try {
+  //     //   let x = node.previousSibling.toString().split(/[^\s]/).join("")
+  //     // }
+  //     // catch (e) {
+  //     //   console.log(e);
+  //     // }
+  //     // // console.log(x);
+  //     // // Check if the <br> element is followed by whitespace
+  //     // // if (node.nextSibling && node.nextSibling.nodeType === 3 && /^\s*$/.test(node.nextSibling.textContent)) {
+  //     // //   return '<br>' + node.nextSibling.textContent;
+  //     // // }
+  //     // return "\n" + content;
+  //   }
+  // });
+
+  // turndownService.addRule('customLineBreaksWithSpaces', {
+  //   filter: 'br',
+  //   replacement: (content, node, options) => {
+  //     // Get the previous sibling of the current node
+  //     const prevSibling = node.previousSibling;
+  //
+  //     // Check if the previous sibling is a text node and ends with spaces
+  //     if (prevSibling && prevSibling.nodeType === 3 && /\s$/.test(prevSibling.textContent)) {
+  //       // If true, keep the spaces and return a newline character
+  //       return '\n';
+  //     }
+  //
+  //     // If the previous sibling is not a text node or doesn't end with spaces, return the default line break
+  //     return options.br;
+  //   },
+  // });
+
+  // turndownService.addRule('custom-span', {
+  //   filter: function (node) {
+  //     if (node.nodeName === 'SPAN' &&
+  //       node.getAttribute('style') ===
+  //       'white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;')
+  //       // document.querySelector('[class="form-control"]').innerHTML += node;
+  //       console.log(node);
+  //     // console.log(node.nodeName === 'SPAN' &&
+  //     //   node.getAttribute('style') ===
+  //     //   'white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;');
+  //     return (
+  //       node.nodeName === 'SPAN' &&
+  //       node.getAttribute('style') ===
+  //       'white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;'
+  //     );
+  //   },
+  //   replacement: function (content, node) {
+  //     console.log(content);
+  //
+  //     const originalContent = node.textContent;
+  //
+  //     // Add two spaces at the end of each line for Markdown line breaks
+  //     const lines = originalContent.split('\n');
+  //     const formattedLines = lines.map((line) => line + '  ');
+  //     return formattedLines.join('<br>');
+  //   },
+  // });
+
+  // DOMPurify.addHook('uponSanitizeElement', (node) => {
+  //   if (node.nodeType === Node.TEXT_NODE && /(?:<span class="fs-5 mb-3 font-monospace" style="white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;">([\s\S]*?)<\/span>|<textarea tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="q" class="form-control bg-white darkmode-light searchbox-textarea" rows="1" placeholder="" aria-label="" style="resize: none; height: 512px;">([\s\S]*?)<\/textarea>)/) {
+  //     const textContent = node.textContent;
+  //     node.textContent = textContent.replace(/\n/g, `<br>`);
+  //     console.log(node.textContent);
+  //   }
+  // });
+
 }
 
 
-/*
---- FORMAT ---
- */
-function formatLineBreaks(content) {
-  const lines = content.split('\n');
-  console.log(lines)
-  // Replace newline characters with <br> tags and join the lines back into a single string
-  const formattedHtml = lines.map(line => {
-    const spaces = line.match(/^\s*/)[0];
-    console.log(spaces)
-    console.log(line)
-    return `${spaces}` + line.trim() + '<br>';
-  }).join('');
+function formatLineBreaks(html) {
+  const regex = /(?:<span class="fs-5 mb-3 font-monospace" style="white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;">([\s\S]*?)<\/span>|<textarea tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="q" class="form-control bg-white darkmode-light searchbox-textarea" rows="1" placeholder="" aria-label="" style="resize: none; height: 512px;">([\s\S]*?)<\/textarea>)/;
+  const match = html.match(regex);
 
-  return formattedHtml;
-  // return content ? match[1].replaceAll('\n', "<br>") : content.join("");
+  if (match) {
+    // Split the string by newline characters
+    const lines = match[1].split('\n');
+
+    // Replace newline characters with <br> tags and join the lines back into a single string
+    const formattedHtml = lines.map(line => {
+      const spaces = line.match(/^\s*/)[0];
+      console.log(spaces)
+      console.log(line)
+      console.log("<br>{" + spaces.length + "}" + line.trim())
+      return (spaces.length > 0 ? "<br>" + '\u00A0'.repeat(spaces.length) : "<br>") + line.trim();
+    }).join('');
+
+    return formattedHtml;
+  }
+
+  return html;
 }
 
 // function formatLineBreaks(html) {
@@ -249,6 +305,9 @@ function formatLineBreaks(content) {
 //   //   html;
 // }
 
+/*
+--- FORMAT ---
+ */
 function formatDate(format = 0)
 {
   dc = new Date();
@@ -313,4 +372,19 @@ function getPageTitle()
 function getUrl()
 {
   return window.location.href;
+}
+
+/*
+--- DOWNLOAD ---
+ */
+function download(text, filename) {
+  const blob = new Blob([text], { type: 'text/markdown' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
