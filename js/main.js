@@ -52,7 +52,7 @@ async function exportPhindSearch() {
 
   let sourceQuestion = "";
   const messages = document.querySelectorAll('[name^="answer-"] > div > div');
-  let markdown = setFileHeader();
+  let markdown = setFileHeader("Phind.com");
 
   messages.forEach(content => {
     let p1 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div');
@@ -109,17 +109,12 @@ async function exportPhindSearch() {
 }
 
 function exportPhindPair() {
-  let sourceQuestion = "";
   const messages = document.querySelectorAll('[name^="answer-"] > div > div');
-  console.log(messages)
-  let markdown = setFileHeader();
+  let markdown = setFileHeader("Phind.com");
 
   messages.forEach(content => {
-    console.log(content)
     let p1 = content.querySelectorAll('.card-body > p, .card-body > div');
-    console.log(p1)
     let p3 = content.querySelectorAll('.card-body > span');
-    console.log(p3)
 
     const messageText =
       p1.length > 0 ? (() => {
@@ -137,61 +132,16 @@ function exportPhindPair() {
             }
           });
           res += "\n";
-          console.log(res)
         }
 
         p1.forEach((elt) => {
-          console.log(elt)
           res += formatMarkdown(elt.innerHTML) + "\n";
-          console.log(res)
         });
 
         return res;
       })() :
 
       '';
-
-    // let p1 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div');
-    // let aiModel = content.querySelector('.col-lg-8.col-xl-7 > div > div > h6');
-    //
-    // let p2 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div.mb-3');
-    // let p3 = content.querySelectorAll(".col-lg-4.col-xl-4 > div > div > div > div:not(:has(> .pagination))"); // .col-lg-4.col-xl-4 > div > div > div > div:not(:has(> .pagination))
-    // let aiCitations = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div > div > div');
-    // let p4 = content.querySelector('.col-lg-4.col-xl-4 > div > span');
-    //
-    // sourceQuestion = p4 ? formatMarkdown(p4.innerHTML) : sourceQuestion;
-    // console.log(p1, p2, p3, p4, aiCitations, sourceQuestion, aiModel)
-    // const messageText =
-    //   p4 ? "" :
-    //
-    //     p3.length > 0 ? (() => {
-    //         let res = "**Sources:**";
-    //         res += sourceQuestion ? " " + sourceQuestion : "";
-    //
-    //         let i = 0;
-    //         p3.forEach((elt) => {
-    //           res += "\n- " + formatMarkdown(elt.querySelector("a").outerHTML).replace("[", `[(${i}) `);
-    //           i++;
-    //         });
-    //         sourceQuestion = "";
-    //         return res;
-    //       })() :
-    //
-    //       p2 ? `\n___\n**You:**\n` + formatMarkdown(p2.innerHTML).replace("  \n", "") :
-    //
-    //         p1 ? (() => {
-    //             let res = formatMarkdown(p1.innerHTML);
-    //             if (aiCitations && aiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + formatMarkdown(aiCitations.innerHTML);
-    //
-    //             const aiIndicator = "**" +
-    //               capitalizeFirst((aiModel && aiModel.innerHTML.length > 0) ? formatMarkdown(aiModel.innerHTML).split(" ")[2] : "AI") +
-    //               " answer:**\n"
-    //             const index = res.indexOf('\n\n');
-    //             return `___\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
-    //           })() :
-    //
-    //           '';
-    console.log(messageText)
 
     if (messageText !== "") markdown += messageText + "\n\n";
   });
@@ -353,11 +303,11 @@ function formatFilename()
  * Returns the header to put at the beginning of the markdown file
  * @returns {string} header
  */
-function setFileHeader()
+function setFileHeader(linkSite)
 {
   try {
     const titles = formatMarkdown(capitalizeFirst(titleShortener(getPageTitle())[0]));
-    return "# " + titles + "\n" + "Exported on " + formatDate(1) + " " + formatUrl(getUrl(), "from Phind.com") + " - with SaveMyPhind" + "\n\n";
+    return "# " + titles + "\n" + "Exported on " + formatDate(1) + " " + formatUrl(getUrl(), `from ${linkSite}`) + " - with SaveMyPhind" + "\n\n";
   } catch (e) {
     console.error(e)
   }
