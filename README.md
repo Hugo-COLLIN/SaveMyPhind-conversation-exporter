@@ -2,12 +2,14 @@
 ### 🚀 Export your Phind.com search threads into markdown files!
 👉 When you are on a Phind thread, simply click on the extension icon. It will automatically export the thread you are currently on into a formatted markdown file.
 
-✅ Useful if you want to:
+⏩ Useful if you want to:
 - Keep valuable generated information offline
 - Share threads content with others
 - Read them in a note-taking app like Obsidian
 
-🕰️ No annoying popup, no loss of time! Enjoy!
+🕰️ No annoying popup, no loss of time! 
+
+✅ Enjoy!
 
 ✏️ Please note that this project is not affiliated with Phind.com and is not an official extension.
 
