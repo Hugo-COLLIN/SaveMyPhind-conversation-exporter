@@ -19,10 +19,18 @@ function main() {
 
   converterChoice = TURNDOWN_CHOICE;
 
-  if (window.location.href.includes('www.phind.com/search')) {
+  url = window.location.href;
+  if (url.includes('www.phind.com')) {
     initConverter();
     (async () => {
-      markdownContent = await exportConversation();
+
+      if (url.includes('www.phind.com/search'))
+        markdownContent = await exportPhindSearch()
+      else if (url.includes('www.phind.com/agent'))
+        markdownContent = await exportPhindPair();
+      else
+        return
+
       download(markdownContent, formatFilename() + '.md');
       await saveToClipboard(markdownContent);
     })();
@@ -37,7 +45,7 @@ function main() {
  * Catch page interesting elements to convert the conversation into markdown
  * @returns {Promise<string>} markdown
  */
-async function exportConversation() {
+async function exportPhindSearch() {
   // Unfold user questions before export
   const chevronDown = document.querySelector('[name^="answer-"] .col-lg-8.col-xl-7:not(:has(.fixed-bottom)) .fe-chevron-down');
   if (chevronDown !== null) await chevronDown.click();
@@ -96,6 +104,67 @@ async function exportConversation() {
     const chevronUp = document.querySelector('[name^="answer-"] .col-lg-8.col-xl-7:not(:has(.fixed-bottom)) .fe-chevron-up');
     if (chevronUp !== null) await chevronUp.click();
   }
+
+  return markdown;
+}
+
+async function exportPhindPair() {
+  let sourceQuestion = "";
+  const messages = document.querySelectorAll('[name^="answer-"] > div > div');
+  console.log(messages)
+  let markdown = setFileHeader();
+
+  messages.forEach(content => {
+    console.log(content)
+    let p1 = content.querySelector('.card-body');
+
+    const messageText =
+      p1 ? formatMarkdown(p1.innerHTML) : '';
+
+    // let p1 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div');
+    // let aiModel = content.querySelector('.col-lg-8.col-xl-7 > div > div > h6');
+    //
+    // let p2 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div.mb-3');
+    // let p3 = content.querySelectorAll(".col-lg-4.col-xl-4 > div > div > div > div:not(:has(> .pagination))"); // .col-lg-4.col-xl-4 > div > div > div > div:not(:has(> .pagination))
+    // let aiCitations = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div > div > div');
+    // let p4 = content.querySelector('.col-lg-4.col-xl-4 > div > span');
+    //
+    // sourceQuestion = p4 ? formatMarkdown(p4.innerHTML) : sourceQuestion;
+    // console.log(p1, p2, p3, p4, aiCitations, sourceQuestion, aiModel)
+    // const messageText =
+    //   p4 ? "" :
+    //
+    //     p3.length > 0 ? (() => {
+    //         let res = "**Sources:**";
+    //         res += sourceQuestion ? " " + sourceQuestion : "";
+    //
+    //         let i = 0;
+    //         p3.forEach((elt) => {
+    //           res += "\n- " + formatMarkdown(elt.querySelector("a").outerHTML).replace("[", `[(${i}) `);
+    //           i++;
+    //         });
+    //         sourceQuestion = "";
+    //         return res;
+    //       })() :
+    //
+    //       p2 ? `\n___\n**You:**\n` + formatMarkdown(p2.innerHTML).replace("  \n", "") :
+    //
+    //         p1 ? (() => {
+    //             let res = formatMarkdown(p1.innerHTML);
+    //             if (aiCitations && aiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + formatMarkdown(aiCitations.innerHTML);
+    //
+    //             const aiIndicator = "**" +
+    //               capitalizeFirst((aiModel && aiModel.innerHTML.length > 0) ? formatMarkdown(aiModel.innerHTML).split(" ")[2] : "AI") +
+    //               " answer:**\n"
+    //             const index = res.indexOf('\n\n');
+    //             return `___\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
+    //           })() :
+    //
+    //           '';
+    console.log(messageText)
+
+    if (messageText !== "") markdown += messageText + "\n\n";
+  });
 
   return markdown;
 }
