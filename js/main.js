@@ -213,9 +213,11 @@ function formatDate(format = 0)
 
 function formatFilename()
 {
-  const test = formatDate() + ' ' + titleShortener(getPageTitle())[0].replace(/[\n\/:*?"<>|]/g, '').replace(/\s*...$/, '...');
-  console.log(test.split("").map((c) => c));
-  return test;
+  const filename = formatDate() + ' ' + titleShortener(getPageTitle())[0].replace(/[\n\/:*?"<>|]/g, '');
+  return filename.match(/\.{3}$/g) ?
+    filename.replace(/\s*\.{3}$/, '...')
+  :
+    filename.replace(/\s*$/, '');
 }
 
 function setFileHeader()
@@ -248,8 +250,6 @@ function titleShortener(title)
   let next;
   let cut = false;
 
-  console.log(words);
-
   // Catch a title less than 50 characters
   for (let i = 0; i < words.length; i++)
   {
@@ -263,7 +263,6 @@ function titleShortener(title)
 
     res[0] += (i !== 0 ? " " : "") + words[i];
 
-    console.log(words[i])
   }
 
   // The next words are added to the subtitle
