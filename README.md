@@ -1,11 +1,13 @@
 # <img alt="SaveMyPhind logo" src="img/logo_128_cut.png" style="width:50px"> Save My Phind - AI Conversation Exporter
 ### 🚀 Export your Phind.com search threads into markdown files!
-👉 When you are on a Phind thread, simply click on the extension icon. It will automatically export the thread you are currently on into a formatted markdown file.
+♨️ Now exports Phind "Pair Programming" threads!
+
+👉 When you are on Phind, simply click on the extension icon. It will automatically export the thread you are currently on into a formatted markdown file.
 
 😎 Why Save my Phind?
 - To keep AI generated information offline,
 - To share threads with others,
-- To read and process in a note-taking app like Obsidian.
+- To read and process in a knowledge base / note-taking app (like Obsidian).
 
 🕰️ No annoying popup, no loss of time! 
 
