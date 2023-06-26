@@ -57,6 +57,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [ ] Export the "extra code or context" textarea content
 - [ ] Save ChatGPT conversations
 - [ ] Make icon adapted to each site (Phind, ChatGPT, etc.)
+- [ ] Export next search result pages (sources side panel)
 - [ ] ~~Export to different file types? (PDF, Word, etc.)~~
 - [x] Title stops at the first line break (and ending whitespaces are removed)
 - [x] Copy to clipboard when clicking on the extension icon (in addition to file download)
