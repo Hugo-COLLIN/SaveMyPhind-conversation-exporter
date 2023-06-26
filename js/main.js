@@ -14,15 +14,6 @@ SHOWDOWN_CHOICE = "showdown";
 
 converterChoice = TURNDOWN_CHOICE;
 
-
-async function saveToClipboard(markdownContent) {
-  try {
-    await navigator.clipboard.writeText(markdownContent);
-  } catch (e) {
-    console.error("Failed to save in the clipboard");
-  }
-}
-
 if (window.location.href.includes('www.phind.com/search')) {
   initConverter();
   (async () => {
@@ -35,6 +26,10 @@ if (window.location.href.includes('www.phind.com/search')) {
 
 /*
 --- CONVERT ---
+ */
+/**
+ * Catch page interesting elements to convert the conversation into markdown
+ * @returns {Promise<string>} markdown
  */
 async function exportConversation() {
   // Unfold user questions before export
@@ -103,7 +98,9 @@ async function exportConversation() {
 /*
 --- MARKDOWN FORMAT ---
  */
-
+/**
+ * Select the converter to use
+ */
 function initConverter() {
   switch (converterChoice) //make function chooseHeader
   {
@@ -117,6 +114,9 @@ function initConverter() {
   }
 }
 
+/**
+ * Turndown rules to correctly convert the conversation content into markdown
+ */
 function setTurndownRules() {
   // --- Turndown custom rules ---
   turndownService.addRule('preserveLineBreaksInPre', {
@@ -141,6 +141,11 @@ function setTurndownRules() {
   });
 }
 
+/**
+ * Format the HTML containing special characters to be correctly converted into markdown
+ * @param html html to format
+ * @returns {*|string} formatted html
+ */
 function formatLineBreaks(html) {
   const regex = /(?:<span class="fs-5 mb-3 font-monospace" style="white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;">([\s\S]*?)<\/span>|<textarea tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="q" class="form-control bg-white darkmode-light searchbox-textarea" rows="1" placeholder="" aria-label="" style="resize: none; height: 512px;">([\s\S]*?)<\/textarea>)/;
   const match = html.match(regex);
@@ -159,18 +164,23 @@ function formatLineBreaks(html) {
   return html;
 }
 
-function formatMarkdown(message)
+/**
+ * Sanitize and format the selected HTML into markdown using the sanitizer and the selected converter
+ * @param html html to format
+ * @returns {*|string|string} formatted markdown
+ */
+function formatMarkdown(html)
 {
-  message = formatLineBreaks(message);
+  html = formatLineBreaks(html);
 
   // Samitize HTML
-  message = DOMPurify.sanitize(message);
+  html = DOMPurify.sanitize(html);
 
   // Convert HTML to Markdown
-  if (message !== '' && message !== ' ')
+  if (html !== '' && html !== ' ')
   {
-    return  converterChoice === TURNDOWN_CHOICE ? turndownService.turndown(message) :
-      converterChoice === SHOWDOWN_CHOICE ? showdown.makeMarkdown(message) :
+    return  converterChoice === TURNDOWN_CHOICE ? turndownService.turndown(html) :
+      converterChoice === SHOWDOWN_CHOICE ? showdown.makeMarkdown(html) :
         '';
   }
   return '';
@@ -179,6 +189,11 @@ function formatMarkdown(message)
 
 /*
 --- FORMATTING UTILITY FUNCTIONS ---
+ */
+/**
+ * Format the date to the selected format
+ * @param format format to use
+ * @returns {string} formatted date
  */
 function formatDate(format = 0)
 {
@@ -211,6 +226,10 @@ function formatDate(format = 0)
   return res;
 }
 
+/**
+ * Returns the filename to use for the export
+ * @returns {string} filename
+ */
 function formatFilename()
 {
   const filename = formatDate() + ' ' + titleShortener(getPageTitle())[0].replace(/[\n\/:*?"<>|]/g, '');
@@ -220,6 +239,10 @@ function formatFilename()
     filename.replace(/\s*$/, '');
 }
 
+/**
+ * Returns the header to put at the beginning of the markdown file
+ * @returns {string} header
+ */
 function setFileHeader()
 {
   try {
@@ -230,16 +253,32 @@ function setFileHeader()
   }
 }
 
+/**
+ * Format a url as a markdown link
+ * @param url url to format
+ * @param message text to display for the link
+ * @returns {string} formatted link
+ */
 function formatUrl(url, message)
 {
   return "[" + message + "](" + url + ")";
 }
 
+/**
+ * Capitalize the first letter of a string
+ * @param string string to process
+ * @returns {string} first-letter-capitalized string
+ */
 function capitalizeFirst(string)
 {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+/**
+ * Shorten the title and put the next as a subtitle
+ * @param title title to shorten
+ * @returns {string[]} array containing the title and the subtitle
+ */
 function titleShortener(title)
 {
   const TITLE_LENGTH = 77;
@@ -290,19 +329,31 @@ function titleShortener(title)
 /*
 --- GETTERS ---
  */
-
+/**
+ * Get the title of the page
+ * @returns {string} title
+ */
 function getPageTitle()
 {
   return document.querySelector('textarea').innerHTML;
 }
 
+/**
+ * Get the url of the page
+ * @returns {string} url
+ */
 function getUrl()
 {
   return window.location.href;
 }
 
 /*
---- DOWNLOAD ---
+--- SAVE ---
+ */
+/**
+ * Save the markdown file
+ * @param text markdown content
+ * @param filename name of the file
  */
 function download(text, filename) {
   const blob = new Blob([text], { type: 'text/markdown' });
@@ -314,4 +365,17 @@ function download(text, filename) {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
+}
+
+/**
+ * Save the markdown file in the clipboard
+ * @param markdownContent markdown content
+ * @returns {Promise<void>} nothing to be usable
+ */
+async function saveToClipboard(markdownContent) {
+  try {
+    await navigator.clipboard.writeText(markdownContent);
+  } catch (e) {
+    console.error("Failed to save in the clipboard");
+  }
 }
