@@ -27,7 +27,7 @@ function main() {
       if (url.includes('www.phind.com/search'))
         markdownContent = await exportPhindSearch()
       else if (url.includes('www.phind.com/agent'))
-        markdownContent = await exportPhindPair();
+        markdownContent = exportPhindPair();
       else
         return
 

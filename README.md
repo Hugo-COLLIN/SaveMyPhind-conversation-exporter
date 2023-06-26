@@ -57,10 +57,16 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [ ] Export tables into markdown tables
 - [ ] Link to the downloaded file in the currently opened note in Obsidian
 - [ ] Export the "extra code or context" textarea content
+- [ ] Copy the last response to the clipboard when clicking on the extension icon (instead of the entire response)
+    - Phind Search : click on the copy button
+    - Phind Pair : export the last answer div
+- [ ] Automatically download the conversation?
 - [ ] Save ChatGPT conversations
 - [ ] Make icon adapted to each site (Phind, ChatGPT, etc.)
 - [ ] Export next search result pages (sources side panel)
+- [ ] Automatically copy the last response to the clipboard (without clicking on the extension icon)
 - [ ] ~~Export to different file types? (PDF, Word, etc.)~~
+- [ ] Export Phind Pair Programming conversations
 - [x] Title stops at the first line break (and ending whitespaces are removed)
 - [x] Copy to clipboard when clicking on the extension icon (in addition to file download)
 - [x] Reduce file title length and move the next as the subtitle
