@@ -56,6 +56,7 @@ This project uses the following third-party libraries:
 See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Features:
 - [ ] Make a Firefox extension (multi-browser development approach?)
+- [ ] Add type (Phind Search, Phind Pair, ChatGPT) between date and title in filename + in header link
 - [ ] Export tables into markdown (Turndown rule)
 - [ ] Link to the downloaded file in the currently opened note in Obsidian
 - [ ] Copy the last response to the clipboard when clicking on the extension icon (instead of the entire response)
