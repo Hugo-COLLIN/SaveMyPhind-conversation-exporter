@@ -108,7 +108,7 @@ async function exportPhindSearch() {
   return markdown;
 }
 
-async function exportPhindPair() {
+function exportPhindPair() {
   let sourceQuestion = "";
   const messages = document.querySelectorAll('[name^="answer-"] > div > div');
   console.log(messages)
@@ -116,10 +116,40 @@ async function exportPhindPair() {
 
   messages.forEach(content => {
     console.log(content)
-    let p1 = content.querySelector('.card-body');
+    let p1 = content.querySelectorAll('.card-body > p, .card-body > div');
+    console.log(p1)
+    let p3 = content.querySelectorAll('.card-body > span');
+    console.log(p3)
 
     const messageText =
-      p1 ? formatMarkdown(p1.innerHTML) : '';
+      p1.length > 0 ? (() => {
+        let res = "";
+        if (p3.length > 0)
+        {
+          res += "#### ";
+          let putSeparator = true;
+          p3.forEach((elt) => {
+            res += formatMarkdown(elt.innerHTML);
+            if (p3.length > 1 && putSeparator)
+            {
+              res += " - ";
+              putSeparator = false;
+            }
+          });
+          res += "\n";
+          console.log(res)
+        }
+
+        p1.forEach((elt) => {
+          console.log(elt)
+          res += formatMarkdown(elt.innerHTML) + "\n";
+          console.log(res)
+        });
+
+        return res;
+      })() :
+
+      '';
 
     // let p1 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div');
     // let aiModel = content.querySelector('.col-lg-8.col-xl-7 > div > div > h6');
@@ -341,7 +371,7 @@ function setFileHeader()
  */
 function formatUrl(url, message)
 {
-  return "[" + message + "](" + url + ")";
+  return "[" + message + "](" + url.replace(/\)/g, "%29") + ")";
 }
 
 /**
