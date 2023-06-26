@@ -1,13 +1,17 @@
-# v0.20.1
+# v0.20.3
 ### Features:
 - Reduce file title length and move the next as the subtitle
 - Title stops at the first line break (and ending whitespaces are removed)
 - Export complete user questions unfolding and refolding them
 - Copy to clipboard when clicking on the extension icon (in addition to file download 😉)
 
+### Security and maintenance:
+- Comments + better code structuration
+
 ### Bugs fixed:
 - Reduced filename length (too long titles can cause problems with OS or Git)
 - Import line breaks in user questions and search bar (Phind uses spaces as line breaks)
+- Some structure improvements in markdown export
 
 # v0.16.2
 ### Features:
