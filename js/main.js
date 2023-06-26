@@ -1,5 +1,5 @@
 /**
- * SaveMyPhind v0.20.1
+ * SaveMyPhind v0.20.3
  * Hugo COLLIN - 2023-06-26
  */
 
@@ -7,20 +7,26 @@
 /*
 --- MAIN ---
  */
+main();
 
-//Global variables
-TURNDOWN_CHOICE = "turndown";
-SHOWDOWN_CHOICE = "showdown";
+/**
+ * Main function
+ */
+function main() {
+  //Global variables
+  TURNDOWN_CHOICE = "turndown";
+  SHOWDOWN_CHOICE = "showdown";
 
-converterChoice = TURNDOWN_CHOICE;
+  converterChoice = TURNDOWN_CHOICE;
 
-if (window.location.href.includes('www.phind.com/search')) {
-  initConverter();
-  (async () => {
-    markdownContent = await exportConversation();
-    download(markdownContent, formatFilename() + '.md');
-    await saveToClipboard(markdownContent);
-  })();
+  if (window.location.href.includes('www.phind.com/search')) {
+    initConverter();
+    (async () => {
+      markdownContent = await exportConversation();
+      download(markdownContent, formatFilename() + '.md');
+      await saveToClipboard(markdownContent);
+    })();
+  }
 }
 
 
@@ -55,7 +61,7 @@ async function exportConversation() {
 
       p3.length > 0 ? (() => {
           let res = "**Sources:**";
-          res += sourceQuestion ? "\n" + sourceQuestion : "";
+          res += sourceQuestion ? " " + sourceQuestion : "";
 
           let i = 0;
           p3.forEach((elt) => {
@@ -66,7 +72,7 @@ async function exportConversation() {
           return res;
         })() :
 
-      p2 ? `\n___\n**You:**\n` + formatMarkdown(p2.innerHTML) :
+      p2 ? `\n___\n**You:**\n` + formatMarkdown(p2.innerHTML).replace("  \n", "") :
 
       p1 ? (() => {
           let res = formatMarkdown(p1.innerHTML);
