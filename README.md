@@ -2,12 +2,14 @@
 ### 🚀 Export your Phind.com search threads into markdown files!
 👉 When you are on a Phind thread, simply click on the extension icon. It will automatically export the thread you are currently on into a formatted markdown file.
 
-✅ Useful if you want to:
+⏩ Useful if you want to:
 - Keep valuable generated information offline
 - Share threads content with others
 - Read them in a note-taking app like Obsidian
 
-🕰️ No annoying popup, no loss of time! Enjoy!
+🕰️ No annoying popup, no loss of time! 
+
+✅ Enjoy!
 
 ✏️ Please note that this project is not affiliated with Phind.com and is not an official extension.
 
@@ -52,13 +54,21 @@ This project uses the following third-party libraries:
 See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Features:
 - [ ] Make a Firefox extension (multi-browser development approach?)
-- [ ] Copy to clipboard when clicking on the extension icon (in addition to markdown export)
-- [ ] Reduce file title length and move the next as the subtitle
+- [ ] Export tables into markdown tables
+- [ ] Link to the downloaded file in the currently opened note in Obsidian
+- [ ] Export the "extra code or context" textarea content
+- [ ] Save ChatGPT conversations
+- [ ] Make icon adapted to each site (Phind, ChatGPT, etc.)
+- [ ] Export next search result pages (sources side panel)
+- [ ] ~~Export to different file types? (PDF, Word, etc.)~~
+- [x] Title stops at the first line break (and ending whitespaces are removed)
+- [x] Copy to clipboard when clicking on the extension icon (in addition to file download)
+- [x] Reduce file title length and move the next as the subtitle
 ```md
 # My title...
 ### ... is too long
 ```
-- [ ] ~~Export to different file types? (PDF, Word, etc.)~~
+- [x] Export complete user questions unfolding and refolding them (Unfold user questions before exporting and refold them after)
 - [x] Model name instead of "AI Answer" (e.g. "GPT-3.5 Answer", "Phind Answer")
 - [x] Source numbers next to the source links (numbered list corresponding to citations)
 - [x] Export question above sources
@@ -70,19 +80,18 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 
 ### Security and maintenance:
 - [ ] Use the Phind (official/unofficial?) API instead of scraping the HTML?
-- [ ] Comment code
 - [ ] Make unit/e2e tests
 - [ ] Remove unused libraries
+- [x] Comments + better code structuration
 - [x] Update repo structure and README: extension focus
 - [x] Add a license
 - [x] Sanitize HTML code
 
 ### Bugs/Issues:
-- [ ] Import line breaks in user questions (Phind uses spaces as line breaks)
-- [ ] Too long file names can cause issues with OS or Git (cf. Reduce title length feature)
 - [ ] Make extension icon with transparent background
-- [ ] Long user question are cut off in the middle so are not entirely exported
-  => temporary solution: drop the question by using "v" button before exporting.
+- [x] Too long file names can cause issues with OS or Git (cf. Reduce title length feature)
+- [x] Import line breaks in user questions and search bar (Phind uses spaces as line breaks)
+- [x] Long user question are cut off in the middle so are not entirely exported
 - [x] Special characters in title are not correctly formatted (e.g. "\n" should be "\\n")
 - [x] Fix broken quotes links
 - [x] Fix bug not exporting correctly (AI begins with backtick?, citations so the HTML structure is different?)
