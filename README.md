@@ -2,10 +2,10 @@
 ### 🚀 Export your Phind.com search threads into markdown files!
 👉 When you are on a Phind thread, simply click on the extension icon. It will automatically export the thread you are currently on into a formatted markdown file.
 
-⏩ Useful if you want to:
-- Keep valuable generated information offline
-- Share threads content with others
-- Read them in a note-taking app like Obsidian
+😎 Why Save my Phind?
+- To keep AI generated information offline,
+- To share threads with others,
+- To read and process in a note-taking app like Obsidian.
 
 🕰️ No annoying popup, no loss of time! 
 
@@ -54,19 +54,18 @@ This project uses the following third-party libraries:
 See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Features:
 - [ ] Make a Firefox extension (multi-browser development approach?)
-- [ ] Export tables into markdown tables
+- [ ] Export tables into markdown (Turndown rule)
 - [ ] Link to the downloaded file in the currently opened note in Obsidian
-- [ ] Export the "extra code or context" textarea content
 - [ ] Copy the last response to the clipboard when clicking on the extension icon (instead of the entire response)
-    - Phind Search : click on the copy button
-    - Phind Pair : export the last answer div
+      - Phind Search : click on the copy button
+      - Phind Pair : export the last answer div
 - [ ] Automatically download the conversation?
 - [ ] Save ChatGPT conversations
 - [ ] Make icon adapted to each site (Phind, ChatGPT, etc.)
+- [ ] Export the "extra code or context" textarea content
 - [ ] Export next search result pages (sources side panel)
-- [ ] Automatically copy the last response to the clipboard (without clicking on the extension icon)
-- [ ] ~~Export to different file types? (PDF, Word, etc.)~~
-- [ ] Export Phind Pair Programming conversations
+- [ ] Automatically copy the last response to the clipboard (without clicking on the extension icon)?
+- [x] Export Phind Pair Programming conversations
 - [x] Title stops at the first line break (and ending whitespaces are removed)
 - [x] Copy to clipboard when clicking on the extension icon (in addition to file download)
 - [x] Reduce file title length and move the next as the subtitle

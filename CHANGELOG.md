@@ -1,3 +1,7 @@
+# v0.21.1
+### Feature:
+- Export Phind Pair Programming threads!!!
+
 # v0.20.3
 ### Features:
 - Reduce file title length and move the next as the subtitle
