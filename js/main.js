@@ -66,7 +66,7 @@ async function exportConversation() {
           return res;
         })() :
 
-      p2 ? `\n___\n**You:**` + formatMarkdown(p2.innerHTML) :
+      p2 ? `\n___\n**You:**\n` + formatMarkdown(p2.innerHTML) :
 
       p1 ? (() => {
           let res = formatMarkdown(p1.innerHTML);
@@ -376,6 +376,6 @@ async function saveToClipboard(markdownContent) {
   try {
     await navigator.clipboard.writeText(markdownContent);
   } catch (e) {
-    console.error("Failed to save in the clipboard");
+    console.error("Failed to save content into clipboard.\nPlease try again in a few seconds.");
   }
 }
