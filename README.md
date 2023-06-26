@@ -38,7 +38,7 @@ Simple!
 <br>
 
 ## 🪶 Contribution and usages
-### Copyrigth notice
+### Copyright notice
 Feel free to contribute to this project by forking it and making pull requests. You can also open an issue if you find a bug or have any suggestion.
 However, you can't distribute this project without contacting me first. Please see the [LICENSE](LICENSE.md) file for more details.
 

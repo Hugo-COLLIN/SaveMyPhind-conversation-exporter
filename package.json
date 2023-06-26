@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "convert-manifest-format": "^0.4.0"
+  }
+}
