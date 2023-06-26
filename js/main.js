@@ -108,15 +108,20 @@ async function exportConversation() {
  * Select the converter to use
  */
 function initConverter() {
-  switch (converterChoice) //make function chooseHeader
-  {
-    case TURNDOWN_CHOICE:
-      turndownService = new TurndownService();
-      setTurndownRules();
-      break;
-    case SHOWDOWN_CHOICE:
-      showdown = new showdown.Converter();
-      break;
+  try {
+    switch (converterChoice) //make function chooseHeader
+    {
+      case TURNDOWN_CHOICE:
+        turndownService = new TurndownService();
+        setTurndownRules();
+        break;
+      case SHOWDOWN_CHOICE:
+        showdown = new showdown.Converter();
+        break;
+    }
+  }
+  catch (e) {
+    console.log(e);
   }
 }
 

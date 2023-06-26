@@ -7,15 +7,15 @@
     "128": "img/logo_128.png"
   },
   "permissions": [
-    "scripting", "activeTab"
+    "scripting",
+    "activeTab"
   ],
   "host_permissions": [
     "http://*.phind.com/*",
     "https://*.phind.com/*"
   ],
   "action": {
-    "default_icon": "img/logo.png",
-    "default_popup": ""
+    "default_icon": "img/logo.png"
   },
   "background": {
     "service_worker": "js/background.js"
