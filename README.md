@@ -96,6 +96,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Sanitize HTML code
 
 ### Bugs/Issues:
+- [ ] Title (filename + header) is not exported with Edge Chromium
 - [ ] Make extension icon with transparent background
 - [x] Too long file names can cause issues with OS or Git (cf. Reduce title length feature)
 - [x] Import line breaks in user questions and search bar (Phind uses spaces as line breaks)
@@ -111,3 +112,5 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Fix bug "AI Answer" with user question
 - [x] File title is the last followup question (= tab title)
   => title taken from search bar
+
+- [ ]: Fix browser alert "Do you want this site to open external application?"
