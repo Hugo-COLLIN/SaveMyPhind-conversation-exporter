@@ -112,5 +112,4 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Fix bug "AI Answer" with user question
 - [x] File title is the last followup question (= tab title)
   => title taken from search bar
-
-- [ ]: Fix browser alert "Do you want this site to open external application?"
+- [ ] ~~(Prevision) Fix browser alert "Do you want this site to open external application?"~~
