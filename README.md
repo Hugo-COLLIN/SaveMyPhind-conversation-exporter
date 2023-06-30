@@ -55,6 +55,7 @@ This project uses the following third-party libraries:
 ## 🗺️ Roadmap
 See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Features:
+- [ ] Option page : choose subfolder to save files in
 - [ ] Make a Firefox extension (multi-browser development approach?)
 - [ ] Add type (Phind Search, Phind Pair, ChatGPT) between date and title in filename + in header link
 - [ ] Export tables into markdown (Turndown rule)
@@ -97,6 +98,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 
 ### Bugs/Issues:
 - [ ] Title (filename + header) is not exported with Edge Chromium
+- [ ] Fix bug "charAt not a function" on some specific threads
 - [ ] Make extension icon with transparent background
 - [x] Too long file names can cause issues with OS or Git (cf. Reduce title length feature)
 - [x] Import line breaks in user questions and search bar (Phind uses spaces as line breaks)
