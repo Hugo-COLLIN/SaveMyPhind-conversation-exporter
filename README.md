@@ -55,7 +55,7 @@ This project uses the following third-party libraries:
 ## 🗺️ Roadmap
 See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Features:
-- [ ] Option page : choose subfolder to save files in
+- [ ] Option page : choose subfolder to save files in (or custom download location)
 - [ ] Make a Firefox extension (multi-browser development approach?)
 - [ ] Add type (Phind Search, Phind Pair, ChatGPT) between date and title in filename + in header link
 - [ ] Export tables into markdown (Turndown rule)
