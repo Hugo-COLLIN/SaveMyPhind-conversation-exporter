@@ -9,6 +9,7 @@
  */
 import {exportPhindPair, exportPhindSearch} from "./converters";
 import {initConverter} from "./convert";
+import {download, formatFilename, saveToClipboard} from "./utils";
 
 main();
 
@@ -24,7 +25,7 @@ function main() {
       if (url.includes('www.phind.com/search'))
         markdownContent = await exportPhindSearch(converter)
       else if (url.includes('www.phind.com/agent'))
-        markdownContent = exportPhindPair();
+        markdownContent = exportPhindPair(converter);
       else
         return
 

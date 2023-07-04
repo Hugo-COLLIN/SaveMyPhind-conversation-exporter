@@ -1,12 +1,14 @@
 /*
 --- FORMATTING UTILITY FUNCTIONS ---
  */
+import {formatMarkdown} from "./convert";
+
 /**
  * Format the date to the selected format
  * @param format format to use
  * @returns {string} formatted date
  */
-function formatDate(format = 0)
+export function formatDate(format = 0)
 {
   let dc = new Date();
   const yyyy = dc.getFullYear();
@@ -41,7 +43,7 @@ function formatDate(format = 0)
  * Returns the filename to use for the export
  * @returns {string} filename
  */
-function formatFilename()
+export function formatFilename()
 {
   const filename = formatDate() + ' ' + titleShortener(getPageTitle())[0].replace(/[\n\/:*?"<>|]/g, '');
   return filename.match(/\.{3}$/g) ?
@@ -54,10 +56,10 @@ function formatFilename()
  * Returns the header to put at the beginning of the markdown file
  * @returns {string} header
  */
-function setFileHeader(linkSite)
+export function setFileHeader(linkSite, converter)
 {
   try {
-    const titles = formatMarkdown(capitalizeFirst(titleShortener(getPageTitle())[0]));
+    const titles = formatMarkdown(capitalizeFirst(titleShortener(getPageTitle())[0]), converter);
     return "# " + titles + "\n" + "Exported on " + formatDate(1) + " " + formatUrl(getUrl(), `from ${linkSite}`) + " - with SaveMyPhind" + "\n\n";
   } catch (e) {
     console.error(e)
@@ -70,7 +72,7 @@ function setFileHeader(linkSite)
  * @param message text to display for the link
  * @returns {string} formatted link
  */
-function formatUrl(url, message)
+export function formatUrl(url, message)
 {
   return "[" + message + "](" + url.replace(/\)/g, "%29") + ")";
 }
@@ -80,7 +82,7 @@ function formatUrl(url, message)
  * @param string string to process
  * @returns {string} first-letter-capitalized string
  */
-function capitalizeFirst(string)
+export function capitalizeFirst(string)
 {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -90,7 +92,7 @@ function capitalizeFirst(string)
  * @param title title to shorten
  * @returns {string[]} array containing the title and the subtitle
  */
-function titleShortener(title)
+export function titleShortener(title)
 {
   const TITLE_LENGTH = 77;
 
@@ -98,7 +100,6 @@ function titleShortener(title)
   const words = title.split(" ");
   let res = ["", ""];
   let next;
-  let cut = false;
 
   // Catch a title less than 50 characters
   for (let i = 0; i < words.length; i++)
@@ -144,7 +145,7 @@ function titleShortener(title)
  * Get the title of the page
  * @returns {string} title
  */
-function getPageTitle()
+export function getPageTitle()
 {
   return document.querySelector('textarea').innerHTML;
 }
@@ -153,7 +154,7 @@ function getPageTitle()
  * Get the url of the page
  * @returns {string} url
  */
-function getUrl()
+export function getUrl()
 {
   return window.location.href;
 }
@@ -166,7 +167,7 @@ function getUrl()
  * @param text markdown content
  * @param filename name of the file
  */
-function download(text, filename) {
+export function download(text, filename) {
   const blob = new Blob([text], { type: 'text/markdown' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -183,7 +184,7 @@ function download(text, filename) {
  * @param markdownContent markdown content
  * @returns {Promise<void>} nothing to be usable
  */
-async function saveToClipboard(markdownContent) {
+export async function saveToClipboard(markdownContent) {
   try {
     await navigator.clipboard.writeText(markdownContent);
   } catch (e) {
