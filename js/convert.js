@@ -1,5 +1,5 @@
 
-export const turndownConverter = initConverter();
+const turndownConverter = initConverter();
 
 /*
 --- MARKDOWN FORMAT ---
@@ -43,10 +43,9 @@ export function setTurndownRules(turndownService) {
 /**
  * Sanitize and format the selected HTML into markdown using the sanitizer and the selected converter
  * @param html html to format
- * @param converter html to markdown converter
  * @returns {*|string|string} formatted markdown
  */
-export function formatMarkdown(html, converter)
+export function formatMarkdown(html)
 {
   html = formatLineBreaks(html);
 
@@ -56,7 +55,7 @@ export function formatMarkdown(html, converter)
   // Convert HTML to Markdown
   if (html !== '' && html !== ' ')
   {
-    return  converter.turndown(html);
+    return  turndownConverter.turndown(html);
   }
   return '';
 }

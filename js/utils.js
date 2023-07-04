@@ -56,10 +56,10 @@ export function formatFilename()
  * Returns the header to put at the beginning of the markdown file
  * @returns {string} header
  */
-export function setFileHeader(linkSite, converter)
+export function setFileHeader(linkSite)
 {
   try {
-    const titles = formatMarkdown(capitalizeFirst(titleShortener(getPageTitle())[0]), converter);
+    const titles = formatMarkdown(capitalizeFirst(titleShortener(getPageTitle())[0]));
     return "# " + titles + "\n" + "Exported on " + formatDate(1) + " " + formatUrl(getUrl(), `from ${linkSite}`) + " - with SaveMyPhind" + "\n\n";
   } catch (e) {
     console.error(e)

@@ -6,14 +6,14 @@ import {capitalizeFirst, setFileHeader} from "./utils";
  * Catch page interesting elements to convert the conversation into markdown
  * @returns {Promise<string>} markdown
  */
-export async function exportPhindSearch(converterChoice) {
+export async function exportPhindSearch() {
   // Unfold user questions before export
   const chevronDown = document.querySelector('[name^="answer-"] .col-lg-8.col-xl-7:not(:has(.fixed-bottom)) .fe-chevron-down');
   if (chevronDown !== null) await chevronDown.click();
 
   let sourceQuestion = "";
   const messages = document.querySelectorAll('[name^="answer-"] > div > div');
-  let markdown = setFileHeader("Phind.com", converterChoice);
+  let markdown = setFileHeader("Phind.com");
 
   messages.forEach(content => {
     let p1 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div');
@@ -34,21 +34,21 @@ export async function exportPhindSearch(converterChoice) {
 
             let i = 0;
             p3.forEach((elt) => {
-              res += "\n- " + formatMarkdown(elt.querySelector("a").outerHTML, converterChoice).replace("[", `[(${i}) `);
+              res += "\n- " + formatMarkdown(elt.querySelector("a").outerHTML).replace("[", `[(${i}) `);
               i++;
             });
             sourceQuestion = "";
             return res;
           })() :
 
-          p2 ? `\n___\n**You:**\n` + formatMarkdown(p2.innerHTML, converterChoice).replace("  \n", "") :
+          p2 ? `\n___\n**You:**\n` + formatMarkdown(p2.innerHTML).replace("  \n", "") :
 
             p1 ? (() => {
-                let res = formatMarkdown(p1.innerHTML, converterChoice);
-                if (aiCitations && aiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + formatMarkdown(aiCitations.innerHTML, converterChoice);
+                let res = formatMarkdown(p1.innerHTML);
+                if (aiCitations && aiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + formatMarkdown(aiCitations.innerHTML);
 
                 const aiIndicator = "**" +
-                  capitalizeFirst((aiModel && aiModel.innerHTML.length > 0) ? formatMarkdown(aiModel.innerHTML, converterChoice).split(" ")[2] : "AI") +
+                  capitalizeFirst((aiModel && aiModel.innerHTML.length > 0) ? formatMarkdown(aiModel.innerHTML).split(" ")[2] : "AI") +
                   " answer:**\n"
                 const index = res.indexOf('\n\n');
                 return `___\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
@@ -69,9 +69,9 @@ export async function exportPhindSearch(converterChoice) {
   return markdown;
 }
 
-export function exportPhindPair(converter) {
+export function exportPhindPair() {
   const messages = document.querySelectorAll('[name^="answer-"] > div > div');
-  let markdown = setFileHeader("Phind.com", converter);
+  let markdown = setFileHeader("Phind.com");
 
   messages.forEach(content => {
     let p1 = content.querySelectorAll('.card-body > p, .card-body > div');
@@ -85,7 +85,7 @@ export function exportPhindPair(converter) {
             res += "#### ";
             let putSeparator = true;
             p3.forEach((elt) => {
-              res += formatMarkdown(elt.innerHTML, converter);
+              res += formatMarkdown(elt.innerHTML);
               if (p3.length > 1 && putSeparator)
               {
                 res += " - ";
@@ -96,7 +96,7 @@ export function exportPhindPair(converter) {
           }
 
           p1.forEach((elt) => {
-            res += formatMarkdown(elt.innerHTML, converter) + "\n";
+            res += formatMarkdown(elt.innerHTML) + "\n";
           });
 
           return res;

@@ -1,5 +1,9 @@
 {
+  "scripts": {
+    "build": "esbuild js/main.js --bundle --minify --outdir=bundled"
+  },
   "devDependencies": {
-    "convert-manifest-format": "^0.4.0"
+    "convert-manifest-format": "^0.4.0",
+    "esbuild": "^0.18.11"
   }
 }

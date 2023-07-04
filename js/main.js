@@ -8,24 +8,27 @@
 --- MAIN ---
  */
 import {exportPhindPair, exportPhindSearch} from "./converters";
-import {initConverter} from "./convert";
 import {download, formatFilename, saveToClipboard} from "./utils";
 
+console.log("ok!")
 main();
 
 /**
  * Main function
  */
 function main() {
+  console.log("SaveMyPhind v0.21.1");
   const url = window.location.href;
   if (url.includes('www.phind.com')) {
-    const converter = initConverter();
+    console.log("Phind.com detected");
+    // const converter = initConverter();
     (async () => {
       let markdownContent;
+      console.log("in async")
       if (url.includes('www.phind.com/search'))
-        markdownContent = await exportPhindSearch(converter)
+        markdownContent = await exportPhindSearch()
       else if (url.includes('www.phind.com/agent'))
-        markdownContent = exportPhindPair(converter);
+        markdownContent = exportPhindPair();
       else
         return
 

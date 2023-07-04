@@ -10,6 +10,6 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 chrome.action.onClicked.addListener(async (tab) => {
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
-    files: ['js/main.js']
+    files: ['bundled/main.js']
   });
 });
