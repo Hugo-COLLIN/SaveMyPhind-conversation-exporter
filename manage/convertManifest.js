@@ -11,9 +11,9 @@ function convertManifest(manifest) {
 
   switch(targetBrowser) {
     case 'chrome':
-      if(manifest.background && manifest.background.tasks) {
+      if(manifest.background && manifest.background.scripts) {
         convertedManifest.background = {
-          service_worker: manifest.background.tasks[0]
+          service_worker: manifest.background.scripts[0]
         };
       }
       break;

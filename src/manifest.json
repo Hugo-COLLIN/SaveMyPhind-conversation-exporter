@@ -18,6 +18,8 @@
     "default_icon": "img/logo.png"
   },
   "background": {
-    "service_worker": "background.js"
+    "scripts": [
+      "background.js"
+    ]
   }
 }
