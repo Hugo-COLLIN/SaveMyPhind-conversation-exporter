@@ -1,22 +1,25 @@
 {
-  "version": "0.22.2",
+  "version": "1.0.0",
   "license": "SaveMyPhind License",
   "scripts": {
     "syncVersion": "node manage/syncVersions.js",
-    "licenses": "nlf -d > licenseList.md",
-    "updateLicences": "npm run syncVersion && npm run licenses",
-    "build": "node manage/initBuild.js && esbuild src/background.js --bundle --minify --outdir=dist && esbuild src/main.js --bundle --minify --outdir=dist",
-    "all": "npm updateLicences && npm run build",
+    "licenses": "nlf -d > licenseList.md && node manage/updateLicenseList.js",
+    "all": "npm run updateLicences && npm run build",
+    "watchAll": "nodemon --exec npm run all --watch",
+    "convert": "node manage/convertManifest.js",
+    "zip": "node manage/zip.js",
+    "---": "---",
+    "licenseList": "npm run syncVersion && npm run licenses",
     "chrome": "npm run convert chrome && npm run build",
     "firefox": "npm run convert firefox && npm run build",
-    "zip": "node manage/zip.js",
-    "prod": "npm run updateLicences && npm run chrome && npm run zip && npm run firefox && npm run zip",
-    "convert": "node manage/convertManifest.js",
-    "watch": "nodemon --exec npm run build --watch"
+    "build": "node manage/initBuild.js && esbuild src/background.js --bundle --minify --outdir=dist && esbuild src/main.js --bundle --minify --outdir=dist",
+    "watch": "nodemon --exec npm run build --watch",
+    "prod": "npm run updateLicences && npm run chrome && npm run zip && npm run firefox && npm run zip"
   },
   "devDependencies": {
     "esbuild": "^0.18.11",
-    "fs-extra": "^11.1.1"
+    "fs-extra": "^11.1.1",
+    "nlf": "^2.1.1"
   },
   "dependencies": {
     "adm-zip": "^0.5.10",
