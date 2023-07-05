@@ -100,7 +100,6 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Sanitize HTML code
 
 ### Bugs/Issues:
-- [ ] Title (filename + header) is not exported with Edge Chromium
 - [ ] Fix bug "charAt not a function" on some specific threads
 - [ ] Make extension icon with transparent background
 - [x] Too long file names can cause issues with OS or Git (cf. Reduce title length feature)
