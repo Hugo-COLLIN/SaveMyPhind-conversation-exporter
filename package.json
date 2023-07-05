@@ -5,7 +5,7 @@
     "syncVersion": "node manage/syncVersions.js",
     "licenses": "nlf -d > licenseList.md",
     "updateLicences": "npm run syncVersion && npm run licenses",
-    "build": "node manage/prebuild.js && esbuild src/background.js --bundle --minify --outdir=dist && esbuild src/main.js --bundle --minify --outdir=dist && node manage/postbuild.js",
+    "build": "node manage/initBuild.js && esbuild src/background.js --bundle --minify --outdir=dist && esbuild src/main.js --bundle --minify --outdir=dist",
     "all": "npm updateLicences && npm run build",
     "chrome": "convert-manifest-format --chrome && npm run build",
     "firefox": "convert-manifest-format --firefox && npm run build",

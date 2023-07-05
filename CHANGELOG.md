@@ -1,3 +1,12 @@
+# Changelog
+# v1.0.0
+### Security and maintenance:
+- Divide code into modules
+- Remove unused libraries
+- Use `npm` to manage dependencies
+- License list generation
+- Build automation
+
 # v0.21.1
 ### Feature:
 - Export Phind Pair Programming threads!!!

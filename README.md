@@ -89,7 +89,11 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Security and maintenance:
 - [ ] Use the Phind (official/unofficial?) API instead of scraping the HTML?
 - [ ] Make unit/e2e tests
-- [ ] Remove unused libraries
+- [x] Remove unused libraries
+- [x] Divide code into modules
+- [x] Use `npm` to manage dependencies
+- [x] License list generation
+- [x] Build automation
 - [x] Comments + better code structuration
 - [x] Update repo structure and README: extension focus
 - [x] Add a license
