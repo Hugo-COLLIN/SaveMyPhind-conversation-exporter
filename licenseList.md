@@ -1,4 +1,4 @@
-SaveMyPhind-conversation-exporter@1.0.0 [license(s): SaveMyPhind License]
+SaveMyPhind-conversation-exporter@0.22.2 [license(s): SaveMyPhind License]
 └── package.json:  SaveMyPhind License
 
 domino@2.1.6 [license(s): BSD-2-Clause]

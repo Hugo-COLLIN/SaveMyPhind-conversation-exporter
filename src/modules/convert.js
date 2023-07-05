@@ -7,7 +7,7 @@ const turndownConverter = initConverter();
 --- MARKDOWN FORMAT ---
  */
 /**
- * Select the converter to use
+ * Initialize the html-to-markdown-converter
  */
 export function initConverter() {
   let turndownService = new TurndownService();

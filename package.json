@@ -1,9 +1,11 @@
 {
-  "version": "1.0.0",
+  "version": "0.22.2",
   "license": "SaveMyPhind License",
   "scripts": {
+    "syncVersion": "node manage/syncVersions.js",
     "licenses": "nlf -d > licenseList.md",
     "build": "node manage/prebuild.js && esbuild src/background.js --bundle --minify --outdir=dist && esbuild src/main.js --bundle --minify --outdir=dist && node manage/postbuild.js",
+    "all": "npm run syncVersion && npm run licenses && npm run build",
     "chrome": "convert-manifest-format --chrome && npm run build",
     "firefox": "convert-manifest-format --firefox && npm run build"
   },
