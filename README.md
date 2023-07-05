@@ -1,4 +1,4 @@
-# <img alt="SaveMyPhind logo" src="extension/media/logo_128_cut.png" style="width:50px"> Save My Phind - AI Conversation Exporter
+# <img alt="SaveMyPhind logo" src="./media/logo_128_cut.png" style="width:50px"> Save My Phind - AI Conversation Exporter
 ### 🚀 Export your Phind.com search threads into markdown files!
 ♨️ Now exports Phind "Pair Programming" threads!
 

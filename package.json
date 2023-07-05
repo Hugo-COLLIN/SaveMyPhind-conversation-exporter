@@ -14,7 +14,7 @@
     "firefox": "npm run convert firefox && npm run build",
     "build": "node manage/initBuild.js && esbuild src/background.js --bundle --minify --outdir=dist && esbuild src/main.js --bundle --minify --outdir=dist",
     "watch": "nodemon --exec npm run build --watch",
-    "prod": "npm run updateLicences && npm run chrome && npm run zip && npm run firefox && npm run zip"
+    "prod": "npm run licenseList && npm run chrome && npm run zip && npm run firefox && npm run zip"
   },
   "devDependencies": {
     "esbuild": "^0.18.11",

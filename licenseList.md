@@ -1,4 +1,4 @@
-# Library licenses list
+# Libraries licenses
 
 abbrev@1.1.1 [license(s): ISC, MIT]
 ├── package.json:  ISC

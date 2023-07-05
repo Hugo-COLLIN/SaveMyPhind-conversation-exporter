@@ -12,6 +12,7 @@ let browserVersion = '';
 if (manifestJson.background && manifestJson.background.service_worker) {
   browserVersion = 'chrome';
 } else if (manifestJson.background && manifestJson.background.scripts) {
+  console.log(manifestJson.background.scripts)
   browserVersion = 'firefox';
 }
 

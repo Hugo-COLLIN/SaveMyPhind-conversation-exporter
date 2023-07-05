@@ -20,7 +20,7 @@ function convertManifest(manifest) {
     case 'firefox':
       if(manifest.background && manifest.background.service_worker) {
         convertedManifest.background = {
-          tasks: [manifest.background.service_worker]
+          scripts: [manifest.background.service_worker]
         };
       }
       break;
