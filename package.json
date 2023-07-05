@@ -1,9 +1,15 @@
 {
   "scripts": {
-    "build": "esbuild js/main.js --bundle --minify --outdir=bundled"
+    "build": "node manage/prebuild.js && esbuild js/background.js --bundle --minify --outdir=dist && esbuild js/main.js --bundle --minify --outdir=dist && node manage/postbuild.js",
+    "chrome": "convert-manifest-format --chrome && npm run build",
+    "firefox": "convert-manifest-format --firefox && npm run build"
   },
   "devDependencies": {
     "convert-manifest-format": "^0.4.0",
     "esbuild": "^0.18.11"
+  },
+  "dependencies": {
+    "fs-extra": "^11.1.1",
+    "glob": "^10.3.1"
   }
 }

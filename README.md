@@ -1,4 +1,4 @@
-# <img alt="SaveMyPhind logo" src="img/logo_128_cut.png" style="width:50px"> Save My Phind - AI Conversation Exporter
+# <img alt="SaveMyPhind logo" src="extension/media/logo_128_cut.png" style="width:50px"> Save My Phind - AI Conversation Exporter
 ### 🚀 Export your Phind.com search threads into markdown files!
 ♨️ Now exports Phind "Pair Programming" threads!
 
@@ -48,7 +48,6 @@ However, you can't distribute this project without contacting me first. Please s
 This project uses the following third-party libraries:
 - DOMPurify: Licensed under the Apache License Version 2.0 or the Mozilla Public License Version 2.0. See the [DOMPurify Licence](js/libs/purify_license.txt) for details.
 - Turndown: Licensed under the MIT License. See the [Turndown Licence](js/libs/turndown_license.txt) for details.
-- Showdown: Licensed under the MIT License. See the [Showdown Licence](js/libs/showdown_license.txt) for details.
 
 <br>
 
