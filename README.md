@@ -55,19 +55,19 @@ This project uses third-party libraries. See the [license list](licenseList.md) 
 See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Features:
 - [ ] Option page : choose subfolder to save files in (or custom download location)
-- [ ] Make a Firefox extension (multi-browser development approach?)
 - [ ] Add type (Phind Search, Phind Pair, ChatGPT) between date and title in filename + in header link
 - [ ] Export tables into markdown (Turndown rule)
 - [ ] Link to the downloaded file in the currently opened note in Obsidian
 - [ ] Copy the last response to the clipboard when clicking on the extension icon (instead of the entire response)
-      - Phind Search : click on the copy button
-      - Phind Pair : export the last answer div
+  - Phind Search : click on the copy button
+  - Phind Pair : export the last answer div
 - [ ] Automatically download the conversation?
 - [ ] Save ChatGPT conversations
 - [ ] Make icon adapted to each site (Phind, ChatGPT, etc.)
 - [ ] Export the "extra code or context" textarea content
 - [ ] Export next search result pages (sources side panel)
 - [ ] Automatically copy the last response to the clipboard (without clicking on the extension icon)?
+- [x] Make Save my Phind available on Firefox
 - [x] Export Phind Pair Programming conversations
 - [x] Title stops at the first line break (and ending whitespaces are removed)
 - [x] Copy to clipboard when clicking on the extension icon (in addition to file download)

@@ -1,5 +1,8 @@
 # Changelog
-# v1.0.0
+# v1.0.1
+### Features:
+- Make Save my Phind available on Firefox
+
 ### Security and maintenance:
 - Divide code into modules
 - Remove unused libraries
