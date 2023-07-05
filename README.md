@@ -40,12 +40,14 @@ Simple!
 <br>
 
 ## 🪶 Contribution and usages
-### Copyright notice
+### The project
 Feel free to contribute to this project by forking it and making pull requests. You can also open an issue if you find a bug or have any suggestion.
-However, you can't distribute this project without contacting me first. Please see the [LICENSE](LICENSE.md) file for more details.
+However, you can't distribute this project without contacting me first. 
 
-### Libraries
-This project uses third-party libraries. See the [license list](licenses.md) for more details about libraries' licenses.
+This project is licensed under the [SaveMyPhind License](LICENSE.md). Please check for more details.
+
+### Libraries licenses
+This project uses third-party libraries. See the [license list](licenseList.md) for more details about libraries' licenses.
 
 <br>
 

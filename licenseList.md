@@ -1,3 +1,6 @@
+SaveMyPhind-conversation-exporter@1.0.0 [license(s): SaveMyPhind License]
+└── package.json:  SaveMyPhind License
+
 domino@2.1.6 [license(s): BSD-2-Clause]
 └── package.json:  BSD-2-Clause
 
@@ -28,5 +31,5 @@ universalify@2.0.0 [license(s): MIT]
 ├── license files: MIT
 └── readme files: MIT
 
-LICENSES: (MPL-2.0 OR Apache-2.0), Apache, BSD-2-Clause, ISC, MIT, MPL
+LICENSES: (MPL-2.0 OR Apache-2.0), Apache, BSD-2-Clause, ISC, MIT, MPL, SaveMyPhind License
 
