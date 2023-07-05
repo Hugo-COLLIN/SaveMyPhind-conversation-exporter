@@ -8,13 +8,11 @@ fs.removeSync(distPath);
 fs.mkdirSync(distPath);
 
 // 2. Copy files
-const manifestPath = path.join(__dirname, '../manifest.json');
-const imgPath = path.join(__dirname, '../img');
-// const libsPath = path.join(__dirname, '../js/libs');
+const manifestPath = path.join(__dirname, '../src/manifest.json');
+const imgPath = path.join(__dirname, '../src/img');
 
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 manifest.background.service_worker = 'background.js';
 
 fs.writeFileSync(path.join(distPath, 'manifest.json'), JSON.stringify(manifest, null, 2));
 fs.copySync(imgPath, path.join(distPath, 'img'));
-// fs.copySync(libsPath, path.join(distPath, 'libs'));

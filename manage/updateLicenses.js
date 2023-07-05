@@ -1,0 +1,1 @@
+require('fs').writeFileSync('licenses.md', require('fs').readFileSync('licenses.md', 'utf8').split('\n').slice(3).join('\n'))

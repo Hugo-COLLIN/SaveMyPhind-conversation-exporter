@@ -45,9 +45,7 @@ Feel free to contribute to this project by forking it and making pull requests. 
 However, you can't distribute this project without contacting me first. Please see the [LICENSE](LICENSE.md) file for more details.
 
 ### Libraries
-This project uses the following third-party libraries:
-- DOMPurify: Licensed under the Apache License Version 2.0 or the Mozilla Public License Version 2.0. See the [DOMPurify Licence](js/libs/purify_license.txt) for details.
-- Turndown: Licensed under the MIT License. See the [Turndown Licence](js/libs/turndown_license.txt) for details.
+This project uses third-party libraries. See the [license list](licenses.md) for more details about libraries' licenses.
 
 <br>
 
