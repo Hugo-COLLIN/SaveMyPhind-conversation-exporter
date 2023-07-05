@@ -25,7 +25,9 @@ export async function exportPhindSearch() {
     let aiModel = content.querySelector('.col-lg-8.col-xl-7 > div > div > h6');
 
     let p2 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div.mb-3');
-    let p3 = content.querySelectorAll(".col-lg-4.col-xl-4 > div > div > div > div:not(:has(> .pagination))"); // .col-lg-4.col-xl-4 > div > div > div > div:not(:has(> .pagination))
+    let p3 = Array.from(content.querySelectorAll(".col-lg-4.col-xl-4 > div > div > div > div")).filter((elem) => {
+      return !elem.querySelector('.pagination');
+    });
     let aiCitations = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div > div > div');
     let p4 = content.querySelector('.col-lg-4.col-xl-4 > div > span');
 

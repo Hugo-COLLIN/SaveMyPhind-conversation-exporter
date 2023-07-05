@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "SaveMyPhind License",
   "scripts": {
     "syncVersion": "node manage/syncVersions.js",
@@ -12,9 +12,9 @@
     "licenseList": "npm run syncVersion && npm run licenses",
     "chrome": "npm run convert chrome && npm run build",
     "firefox": "npm run convert firefox && npm run build",
-    "build": "node manage/initBuild.js && esbuild src/background.js --bundle --minify --outdir=dist && esbuild src/main.js --bundle --minify --outdir=dist",
+    "build": "npm run syncVersion && node manage/initBuild.js && esbuild src/background.js --bundle --minify --outdir=dist && esbuild src/main.js --bundle --minify --outdir=dist",
     "watch": "nodemon --exec npm run build --watch",
-    "prod": "npm run licenseList && npm run chrome && npm run zip && npm run firefox && npm run zip"
+    "prod": "npm run licenseList && npm run firefox && npm run zip && npm run chrome && npm run zip"
   },
   "devDependencies": {
     "esbuild": "^0.18.11",
