@@ -4,16 +4,20 @@
   "scripts": {
     "syncVersion": "node manage/syncVersions.js",
     "licenses": "nlf -d > licenseList.md",
+    "updateLicences": "npm run syncVersion && npm run licenses",
     "build": "node manage/prebuild.js && esbuild src/background.js --bundle --minify --outdir=dist && esbuild src/main.js --bundle --minify --outdir=dist && node manage/postbuild.js",
-    "all": "npm run syncVersion && npm run licenses && npm run build",
+    "all": "npm updateLicences && npm run build",
     "chrome": "convert-manifest-format --chrome && npm run build",
-    "firefox": "convert-manifest-format --firefox && npm run build"
+    "firefox": "convert-manifest-format --firefox && npm run build",
+    "zip": "node manage/zip.js",
+    "prod": "npm run updateLicences && npm run chrome && npm run zip && npm run firefox && npm run zip"
   },
   "devDependencies": {
     "convert-manifest-format": "^0.4.0",
     "esbuild": "^0.18.11"
   },
   "dependencies": {
+    "adm-zip": "^0.5.10",
     "dompurify": "^3.0.4",
     "fs-extra": "^11.1.1",
     "turndown": "^7.1.2"
