@@ -8,9 +8,14 @@ import {capitalizeFirst, setFileHeader} from "./utils";
  */
 export async function exportPhindSearch() {
   // Unfold user questions before export
-  const chevronDown = document.querySelector('[name^="answer-"] .col-lg-8.col-xl-7:not(:has(.fixed-bottom)) .fe-chevron-down');
-  if (chevronDown !== null) await chevronDown.click();
+  const possibleElements = document.querySelectorAll('[name^="answer-"] .col-lg-8.col-xl-7 .fe-chevron-down');
+  const filteredElements = Array.from(possibleElements).filter( (elem) => {
+    return !elem.closest('.col-lg-8.col-xl-7').querySelector('.fixed-bottom');
+  });
+  const chevronDown = filteredElements[0];
+  if (chevronDown !== undefined) await chevronDown.click();
 
+  // Catch page interesting elements
   let sourceQuestion = "";
   const messages = document.querySelectorAll('[name^="answer-"] > div > div');
   let markdown = setFileHeader("Phind.com");
@@ -60,10 +65,15 @@ export async function exportPhindSearch() {
   });
 
   // Fold user questions after export if they were originally folded
-  if (chevronDown !== null)
+  if (chevronDown !== undefined)
   {
-    const chevronUp = document.querySelector('[name^="answer-"] .col-lg-8.col-xl-7:not(:has(.fixed-bottom)) .fe-chevron-up');
-    if (chevronUp !== null) await chevronUp.click();
+    const possibleElements = document.querySelectorAll('[name^="answer-"] .col-lg-8.col-xl-7 .fe-chevron-up');
+    const filteredElements = Array.from(possibleElements).filter( (elem) => {
+      return !elem.closest('.col-lg-8.col-xl-7').querySelector('.fixed-bottom');
+    });
+    const chevronUp = filteredElements[0];
+
+    if (chevronUp !== undefined) await chevronUp.click();
   }
 
   return markdown;
