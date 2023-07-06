@@ -1,9 +1,10 @@
 {
-  "version": "1.0.1",
+  "name": "save-my-phind",
+  "version": "1.0.1.1",
   "license": "SaveMyPhind License",
   "scripts": {
     "syncVersion": "node manage/syncVersions.js",
-    "licenses": "nlf -d > licenseList.md && node manage/updateLicenseList.js",
+    "licenses": "nlf -d > licenseList.md",
     "all": "npm run updateLicences && npm run build",
     "watchAll": "nodemon --exec npm run all --watch",
     "convert": "node manage/convertManifest.js",
@@ -18,12 +19,12 @@
   },
   "devDependencies": {
     "esbuild": "^0.18.11",
-    "fs-extra": "^11.1.1"
+    "fs-extra": "^11.1.1",
+    "nodemon": "^2.0.22",
+    "adm-zip": "^0.5.10"
   },
   "dependencies": {
-    "adm-zip": "^0.5.10",
     "dompurify": "^3.0.4",
-    "nodemon": "^2.0.22",
     "turndown": "^7.1.2"
   }
 }

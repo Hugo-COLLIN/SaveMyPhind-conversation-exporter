@@ -100,6 +100,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Sanitize HTML code
 
 ### Bugs/Issues:
+- [ ] Pair programmer: Line breaks in user questions (Phind uses spaces as line breaks)
 - [ ] Fix bug "charAt not a function" on some specific threads
 - [ ] Make extension icon with transparent background
 - [x] Too long file names can cause issues with OS or Git (cf. Reduce title length feature)

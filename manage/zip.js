@@ -18,9 +18,10 @@ if (manifestJson.background && manifestJson.background.service_worker) {
 
 // Get the package version
 const version = packageJson.version;
+const name = packageJson.name;
 
 // Create the archive name
-const archiveName = `save-my-phind_${version}_${browserVersion}.zip`;
+const archiveName = `${name}_${version}_${browserVersion}.zip`;
 
 // Create a new zip object
 const zip = new AdmZip();
