@@ -8,10 +8,12 @@ console.log(licenses)
 
 let formatted = '';
 for (let dep in licenses) {
-  formatted += `├─ ${dep}\n`;
-  for (let prop in licenses[dep]) {
+  formatted += `${dep}\n`;
+  let props = Object.keys(licenses[dep]);
+  for (let i = 0; i < props.length; i++) {
+    let prop = props[i];
     if (prop !== 'path' && prop !== 'licenseFile') {
-      let prefix = (prop === 'url' || prop === 'repository') ? '└─' : '│  ├─';
+      let prefix = (i === props.length - 1) ? '└─' : '├─';
       formatted += `${prefix} ${prop}: ${licenses[dep][prop]}\n`;
     }
   }
