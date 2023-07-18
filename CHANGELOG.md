@@ -1,4 +1,16 @@
 # Changelog
+# v1.2.4
+### Features:
+- Icon is adapted to each site (Phind, disabled, etc.)
+- Now exports webpages
+
+### Security and maintenance:
+- Module structure improvements
+
+### Bugs fixed:
+- Make extension icon with transparent background
+- Web: Exported links beginning with / prepended by page url
+
 # v1.0.1
 ### Features:
 - Make Save my Phind available on Firefox
