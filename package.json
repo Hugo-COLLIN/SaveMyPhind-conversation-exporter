@@ -4,7 +4,9 @@
   "license": "SaveMyPhind License",
   "scripts": {
     "syncVersion": "node manage/syncVersions.js",
-    "licenses": "nlf -d > licenseList.md",
+    "licenses": "npx license-checker --production --json | node manage/updateLicenseList.js",
+    "licenses3": "node manage/updateLicenseList.js",
+    "licenses2": "node manage/updateLicenseList.js \"$(npx license-checker --production --json)\" &&  npx license-checker --production --summary >> licenses.txt",
     "all": "npm run updateLicences && npm run build",
     "watchAll": "nodemon --exec npm run all --watch",
     "convert": "node manage/convertManifest.js",
