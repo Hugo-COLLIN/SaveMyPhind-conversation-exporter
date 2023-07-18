@@ -8,11 +8,15 @@ chrome.action.onClicked.addListener(async (tab) => {
   });
 });
 
+
 /*
 --- This is the code for the extension icon to change depending on the website ---
  */
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-  setIcon(changeInfo, tabId);
+  // Enables the icon to be set when the tab is reloaded
+  chrome.tabs.get(tabId, function(tab) {
+    setIcon({url: tab.url}, tabId);
+  });
 });
 
 chrome.runtime.onInstalled.addListener(async function () {
