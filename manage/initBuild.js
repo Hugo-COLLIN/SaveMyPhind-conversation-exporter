@@ -13,7 +13,7 @@ const imgPath = path.join(__dirname, '../src/img');
 const logPath = path.join(__dirname, '../CHANGELOG.md');
 const licensePath = path.join(__dirname, '../LICENSE.md');
 const readmePath = path.join(__dirname, '../README.md');
-const licenseListPath = path.join(__dirname, '../licenseList.md');
+const licenseListPath = path.join(__dirname, '../licenses.txt');
 const infosPath = path.join(__dirname, '../src/infos.json');
 
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
@@ -27,5 +27,5 @@ fs.copySync(imgPath, path.join(distPath, 'img'));
 fs.copySync(logPath, path.join(distPath, 'doc/CHANGELOG.md'));
 fs.copySync(licensePath, path.join(distPath, 'doc/LICENSE.md'));
 fs.copySync(readmePath, path.join(distPath, 'doc/README.md'));
-fs.copySync(licenseListPath, path.join(distPath, 'doc/licenseList.md'));
+fs.copySync(licenseListPath, path.join(distPath, 'doc/licenses.txt'));
 fs.copySync(infosPath, path.join(distPath, 'infos.json'));
