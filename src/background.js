@@ -1,3 +1,6 @@
+/*
+--- This is the code for the extension to run when the icon is clicked ---
+ */
 chrome.action.onClicked.addListener(async (tab) => {
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
@@ -5,16 +8,16 @@ chrome.action.onClicked.addListener(async (tab) => {
   });
 });
 
+/*
+--- This is the code for the extension icon to change depending on the website ---
+ */
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   setIcon(changeInfo, tabId);
 });
 
 chrome.runtime.onInstalled.addListener(async function () {
   const tabsWindow = await chrome.tabs.query({currentWindow: false});
-  console.log(tabsWindow)
   for (const tab of tabsWindow) {
-    console.log(tab)
-    console.log(tab.url)
     setIcon({url: tab.url}, tab.id)
   }
 }
@@ -23,11 +26,16 @@ chrome.runtime.onInstalled.addListener(async function () {
 function setIcon(changeInfo, tabId) {
   if (changeInfo.url) {
     if (changeInfo.url.includes("phind.com")) {
-      chrome.action.setIcon({ path: { "32": "img/download_icons/icon_phind-32.png"}, tabId: tabId });
+      chrome.action.setIcon({ path: { "32": "img/icons/icon_phind-32.png"}, tabId: tabId });
       console.log("passed1")
-    } else {
-      chrome.action.setIcon({ path: { "32": "img/download_icons/icon_web-32.png"}, tabId: tabId });
+    } else if (changeInfo.url.startsWith('http://') || changeInfo.url.startsWith('https://')) {
+      chrome.action.setIcon({ path: { "32": "img/icons/icon_web-32.png"}, tabId: tabId });
       console.log("passed2")
+    }
+    else
+    {
+      chrome.action.setIcon({ path: { "32": "img/icons/icon_local-32.png"}, tabId: tabId });
+      console.log("passed3")
     }
   }
 }

@@ -4,6 +4,10 @@
   "version": "1.2.1",
   "description": "🚀 Export your Phind.com search threads into markdown files!\n",
   "icons": {
+    "16": "img/icons/icon-16.png",
+    "32": "img/icons/icon-32.png",
+    "48": "img/icons/icon-48.png",
+    "64": "img/icons/icon-64.png",
     "128": "img/logo_128.png"
   },
   "permissions": [
@@ -15,7 +19,7 @@
     "https://*.phind.com/*"
   ],
   "action": {
-    "default_icon": "img/logo.png"
+    "default_icon": "img/icons/icon-500.png"
   },
   "background": {
     "service_worker": "background.js"
