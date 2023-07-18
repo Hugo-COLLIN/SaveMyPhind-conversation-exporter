@@ -75,7 +75,7 @@ export async function setFileHeader(title, linkSite) {
   try {
     const titles = formatMarkdown(capitalizeFirst(titleShortener(title)[0]));
     const json = await fetchInfos();
-    return "# " + titles + "\n" + "Exported on " + formatDate(1) + " " + formatUrl(getUrl(), `from ${linkSite}`) + ` - with ${json.APP_SNAME}` + "\n\n";
+    return "# " + titles + "\n" + "Exported on " + formatDate(1) + " " + formatUrl(getUrl(), `from ${linkSite}`) + ` - with ` + formatUrl(`${json.APP_REPO_URL ?? ""}`,`${json.APP_SNAME ?? ""}`) + "\n\n";
   } catch (e) {
     console.error(e)
   }
