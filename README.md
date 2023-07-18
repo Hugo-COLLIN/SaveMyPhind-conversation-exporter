@@ -55,18 +55,21 @@ This project uses third-party libraries. See the [license list](licenses.txt) fo
 See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Features:
 - [ ] Option page : choose subfolder to save files in (or custom download location)
-- [ ] Add type (Phind Search, Phind Pair, ChatGPT) between date and title in filename + in header link
 - [ ] Export tables into markdown (Turndown rule)
-- [ ] Link to the downloaded file in the currently opened note in Obsidian
-- [ ] Copy the last response to the clipboard when clicking on the extension icon (instead of the entire response)
-  - Phind Search : click on the copy button
-  - Phind Pair : export the last answer div
-- [ ] Automatically download the conversation?
+- [ ] Add type (Phind Search, Phind Pair, ChatGPT) between date and title in filename + in header link
 - [ ] Save ChatGPT conversations
-- [ ] Make icon adapted to each site (Phind, ChatGPT, etc.)
-- [ ] Export the "extra code or context" textarea content
-- [ ] Export next search result pages (sources side panel)
-- [ ] Automatically copy the last response to the clipboard (without clicking on the extension icon)?
+- [ ] Link to the downloaded file in the currently opened note in Obsidian
+- [ ] (Copy the last response to the clipboard when clicking on the extension icon (instead of the entire response) )
+    - Phind Search : click on the copy button
+    - Phind Pair : export the last answer div
+- [ ] (Export the "extra code or context" textarea content)
+- [ ] (Export next search result pages (sources side panel))
+- [ ] ~~Automatically download the conversation?~~
+- [ ] ~~Automatically copy the last response to the clipboard (without clicking on the extension icon)?~~
+- [x] Make icon adapted to each site (Phind, ChatGPT, etc.)
+- [x] Web: Export if tag main, article,
+  => Need to think about the behavior enabling to choose if we need to export the content and what to export
+- [x] Export webpages : Turndown rules to filter interesting content
 - [x] Make Save my Phind available on Firefox
 - [x] Export Phind Pair Programming conversations
 - [x] Title stops at the first line break (and ending whitespaces are removed)
@@ -100,9 +103,11 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Sanitize HTML code
 
 ### Bugs/Issues:
+- [ ] Web: Exported links beginning with # prepended by page url
 - [ ] Pair programmer: Line breaks in user questions (Phind uses spaces as line breaks)
 - [ ] Fix bug "charAt not a function" on some specific threads
-- [ ] Make extension icon with transparent background
+- [x] Make extension icon with transparent background
+- [x] Web: Exported links beginning with / prepended by page url
 - [x] Too long file names can cause issues with OS or Git (cf. Reduce title length feature)
 - [x] Import line breaks in user questions and search bar (Phind uses spaces as line breaks)
 - [x] Long user question are cut off in the middle so are not entirely exported
