@@ -80,11 +80,11 @@ export function setRandomPageRules() {
           markdown += child.textContent;
         }
       }
-      markdown += "\n" + formatUrl(
-        node.getAttribute('href').startsWith("/") ?
-            window.location.protocol + "//" + window.location.host + node.getAttribute('href') :
-            node.getAttribute('href'),
-        "Open link ⨠") + "\n";
+      // markdown += "\n" + formatUrl(
+      //   node.getAttribute('href').startsWith("/") ?
+      //       window.location.protocol + "//" + window.location.host + node.getAttribute('href') :
+      //       node.getAttribute('href'),
+      //   "Open link ⨠") + "\n";
       return markdown;
     },
   });
