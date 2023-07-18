@@ -26,16 +26,11 @@ chrome.runtime.onInstalled.addListener(async function () {
 function setIcon(changeInfo, tabId) {
   if (changeInfo.url) {
     if (changeInfo.url.includes("phind.com")) {
-      chrome.action.setIcon({ path: { "32": "img/icons/icon_phind-32.png"}, tabId: tabId });
-      console.log("passed1")
+      chrome.action.setIcon({ path: { "48": "img/icons/icon_phind-48.png"}, tabId: tabId });
     } else if (changeInfo.url.startsWith('http://') || changeInfo.url.startsWith('https://')) {
-      chrome.action.setIcon({ path: { "32": "img/icons/icon_web-32.png"}, tabId: tabId });
-      console.log("passed2")
-    }
-    else
-    {
-      chrome.action.setIcon({ path: { "32": "img/icons/icon_local-32.png"}, tabId: tabId });
-      console.log("passed3")
+      chrome.action.setIcon({ path: { "48": "img/icons/icon_web-48.png"}, tabId: tabId });
+    } else {
+      chrome.action.setIcon({ path: { "48": "img/icons/icon_disabled-48.png"}, tabId: tabId });
     }
   }
 }
