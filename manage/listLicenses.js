@@ -1,7 +1,4 @@
-// require('fs').writeFileSync('licenseList.md', "# Libraries licenses\n" + require('fs').readFileSync('licenseList.md', 'utf8').split('\n').slice(3).join('\n'))
-
 const fs = require('fs');
-
 const { exec } = require('child_process');
 
 exec('npx license-checker --production --json', (error, stdout, stderr) => {
@@ -11,8 +8,6 @@ exec('npx license-checker --production --json', (error, stdout, stderr) => {
   }
 
   const licenses = JSON.parse(stdout);
-
-  console.log(licenses)
 
   let formatted = '';
   for (let dep in licenses) {
