@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Save my Phind - AI Conversation Exporter",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "🚀 Export your Phind.com search threads into markdown files!\n",
   "icons": {
     "128": "img/logo_128.png"
@@ -18,14 +18,12 @@
     "default_icon": "img/logo.png"
   },
   "background": {
-    "scripts": [
-      "background.js"
-    ]
+    "service_worker": "background.js"
   },
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "savemyphind@hugocollin.com",
-      "strict_min_version": "109.0"
+  "web_accessible_resources": [
+    {
+      "resources": ["infos.json"],
+      "matches": ["<all_urls>"]
     }
-  }
+  ]
 }

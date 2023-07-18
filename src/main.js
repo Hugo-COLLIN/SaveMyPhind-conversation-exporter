@@ -1,34 +1,19 @@
-/**
- * SaveMyPhind v0.21.1
- * Hugo COLLIN - 2023-06-26
- */
-
-// import
 /*
 --- MAIN ---
  */
-import {exportPhindPair, exportPhindSearch} from "./modules/converters";
-import {download, formatFilename, saveToClipboard} from "./modules/utils";
 
-main();
+
+import {welcome} from "./modules/welcome/welcome";
+import {catchContent} from "./modules/extractor/extractor";
+import {exporter} from "./modules/exporter/exporter";
+
+main().then(r => console.log("Export done!"));
 
 /**
  * Main function
  */
-function main() {
-  const url = window.location.href;
-  if (url.includes('www.phind.com')) {
-    (async () => {
-      let markdownContent;
-      if (url.includes('www.phind.com/search'))
-        markdownContent = await exportPhindSearch()
-      else if (url.includes('www.phind.com/agent'))
-        markdownContent = exportPhindPair();
-      else
-        return
-
-      download(markdownContent, formatFilename() + '.md');
-      await saveToClipboard(markdownContent);
-    })();
-  }
+async function main() {
+  await welcome();
+  const caught = await catchContent();
+  await exporter(caught.markdownContent, caught.title);
 }

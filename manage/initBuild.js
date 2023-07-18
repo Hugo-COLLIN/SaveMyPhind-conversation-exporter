@@ -14,6 +14,7 @@ const logPath = path.join(__dirname, '../CHANGELOG.md');
 const licensePath = path.join(__dirname, '../LICENSE.md');
 const readmePath = path.join(__dirname, '../README.md');
 const licenseListPath = path.join(__dirname, '../licenseList.md');
+const infosPath = path.join(__dirname, '../src/infos.json');
 
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 if (manifest.background.service_worker)
@@ -27,3 +28,4 @@ fs.copySync(logPath, path.join(distPath, 'doc/CHANGELOG.md'));
 fs.copySync(licensePath, path.join(distPath, 'doc/LICENSE.md'));
 fs.copySync(readmePath, path.join(distPath, 'doc/README.md'));
 fs.copySync(licenseListPath, path.join(distPath, 'doc/licenseList.md'));
+fs.copySync(infosPath, path.join(distPath, 'infos.json'));

@@ -16,12 +16,23 @@ function convertManifest(manifest) {
           service_worker: manifest.background.scripts[0]
         };
       }
+      if (manifest.browser_specific_settings) {
+        delete convertedManifest.browser_specific_settings;
+      }
       break;
     case 'firefox':
-      if(manifest.background && manifest.background.service_worker) {
+      if (manifest.background && manifest.background.service_worker) {
         convertedManifest.background = {
           scripts: [manifest.background.service_worker]
         };
+      }
+      // Add the id and the strict_min_version to the manifest
+      const infosJson = JSON.parse(fs.readFileSync('./src/infos.json', 'utf8'));
+      convertedManifest.browser_specific_settings = {
+        gecko: {
+          id: infosJson.APP_ID,
+          strict_min_version: "109.0"
+        }
       }
       break;
     default:

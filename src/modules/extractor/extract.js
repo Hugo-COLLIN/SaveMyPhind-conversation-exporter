@@ -1,12 +1,23 @@
 import {formatMarkdown} from "./convert";
-import {capitalizeFirst, setFileHeader} from "./utils";
+import {capitalizeFirst, getPhindPageTitle, setFileHeader} from "../utils/utils";
+import {setPhindRules, setRandomPageRules} from "./ruler";
 
+
+export async function exportRandomPage() {
+  setRandomPageRules();
+
+  let markdown = await setFileHeader(document.title, window.location.hostname)
+  const html = document.querySelector("body").innerHTML;
+  markdown += formatMarkdown(html);
+  return markdown;
+}
 
 /**
  * Catch page interesting elements to convert the conversation into markdown
  * @returns {Promise<string>} markdown
  */
 export async function exportPhindSearch() {
+  setPhindRules();
   // Unfold user questions before export
   const possibleElements = document.querySelectorAll('[name^="answer-"] .col-lg-8.col-xl-7 .fe-chevron-down');
   const filteredElements = Array.from(possibleElements).filter( (elem) => {
@@ -18,7 +29,7 @@ export async function exportPhindSearch() {
   // Catch page interesting elements
   let sourceQuestion = "";
   const messages = document.querySelectorAll('[name^="answer-"] > div > div');
-  let markdown = setFileHeader("Phind.com");
+  let markdown = await setFileHeader(getPhindPageTitle(), "Phind.com");
 
   messages.forEach(content => {
     let p1 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div');
@@ -81,9 +92,10 @@ export async function exportPhindSearch() {
   return markdown;
 }
 
-export function exportPhindPair() {
+export async function exportPhindPair() {
+  setPhindRules();
   const messages = document.querySelectorAll('[name^="answer-"] > div > div');
-  let markdown = setFileHeader("Phind.com");
+  let markdown = await setFileHeader(getPhindPageTitle(), "Phind.com");
 
   messages.forEach(content => {
     let p1 = content.querySelectorAll('.card-body > p, .card-body > div');
@@ -92,14 +104,12 @@ export function exportPhindPair() {
     const messageText =
       p1.length > 0 ? (() => {
           let res = "";
-          if (p3.length > 0)
-          {
+          if (p3.length > 0) {
             res += "#### ";
             let putSeparator = true;
             p3.forEach((elt) => {
               res += formatMarkdown(elt.innerHTML);
-              if (p3.length > 1 && putSeparator)
-              {
+              if (p3.length > 1 && putSeparator) {
                 res += " - ";
                 putSeparator = false;
               }

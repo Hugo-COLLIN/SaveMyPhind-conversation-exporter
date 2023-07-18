@@ -1,7 +1,22 @@
 /*
 --- FORMATTING UTILITY FUNCTIONS ---
  */
-import {formatMarkdown} from "./convert";
+import {formatMarkdown} from "../extractor/convert";
+
+/**
+ * Get application infos
+ * @returns {Promise<any|undefined>}
+ */
+export function fetchInfos() {
+  return (async () => {
+    try {
+      const response = await fetch(chrome.runtime.getURL('infos.json'));
+      return await response.json().then(json => json);
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  })();
+}
 
 /**
  * Format the date to the selected format
@@ -43,9 +58,9 @@ export function formatDate(format = 0)
  * Returns the filename to use for the export
  * @returns {string} filename
  */
-export function formatFilename()
+export function formatFilename(title)
 {
-  const filename = formatDate() + ' ' + titleShortener(getPageTitle())[0].replace(/[\n\/:*?"<>|]/g, '');
+  const filename = formatDate() + ' ' + titleShortener(title)[0].replace(/[\n\/:*?"<>|]/g, '');
   return filename.match(/\.{3}$/g) ?
     filename.replace(/\s*\.{3}$/, '...')
     :
@@ -56,15 +71,16 @@ export function formatFilename()
  * Returns the header to put at the beginning of the markdown file
  * @returns {string} header
  */
-export function setFileHeader(linkSite)
-{
+export async function setFileHeader(title, linkSite) {
   try {
-    const titles = formatMarkdown(capitalizeFirst(titleShortener(getPageTitle())[0]));
-    return "# " + titles + "\n" + "Exported on " + formatDate(1) + " " + formatUrl(getUrl(), `from ${linkSite}`) + " - with SaveMyPhind" + "\n\n";
+    const titles = formatMarkdown(capitalizeFirst(titleShortener(title)[0]));
+    const json = await fetchInfos();
+    return "# " + titles + "\n" + "Exported on " + formatDate(1) + " " + formatUrl(getUrl(), `from ${linkSite}`) + ` - with ${json.APP_SNAME}` + "\n\n";
   } catch (e) {
     console.error(e)
   }
 }
+
 
 /**
  * Format a url as a markdown link
@@ -94,8 +110,8 @@ export function capitalizeFirst(string)
  */
 export function titleShortener(title)
 {
+  if (!title) return ["", ""];
   const TITLE_LENGTH = 77;
-
   title = title.replaceAll("\n", " \n ");
   const words = title.split(" ");
   let res = ["", ""];
@@ -145,9 +161,10 @@ export function titleShortener(title)
  * Get the title of the page
  * @returns {string} title
  */
-export function getPageTitle()
+export function getPhindPageTitle()
 {
-  return document.querySelector('textarea').innerHTML;
+  const textarea = document.querySelector('textarea').innerHTML;
+  return textarea !== "" ? textarea : document.querySelector(".card-body p").innerHTML;
 }
 
 /**
@@ -159,35 +176,16 @@ export function getUrl()
   return window.location.href;
 }
 
+
 /*
---- SAVE ---
+--- OTHERS ---
  */
-/**
- * Save the markdown file
- * @param text markdown content
- * @param filename name of the file
- */
-export function download(text, filename) {
-  const blob = new Blob([text], { type: 'text/markdown' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+
+function sanitize(filename) {
+  return filename.replace(/[^a-z0-9]/gi, '_').toLowerCase();
 }
 
-/**
- * Save the markdown file in the clipboard
- * @param markdownContent markdown content
- * @returns {Promise<void>} nothing to be usable
- */
-export async function saveToClipboard(markdownContent) {
-  try {
-    await navigator.clipboard.writeText(markdownContent);
-  } catch (e) {
-    console.error("Failed to save content into clipboard.\nPlease try again in a few seconds.");
-  }
+function hasSubpages(urlString) {
+  const regex = /^(https?|ftp|ssh|mailto):\/\/[a-z0-9:%_+.,#?!@&=-]+\/?$/;
+  return !regex.test(urlString);
 }

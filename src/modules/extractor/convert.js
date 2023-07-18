@@ -1,46 +1,15 @@
 import TurndownService from 'turndown';
 import DOMPurify from 'dompurify';
 
-const turndownConverter = initConverter();
-
 /*
 --- MARKDOWN FORMAT ---
- */
+*/
+
 /**
  * Initialize the html-to-markdown-converter
  */
-export function initConverter() {
-  let turndownService = new TurndownService();
-  setTurndownRules(turndownService);
-  return turndownService;
-}
+export const turndownConverter = new TurndownService();
 
-/**
- * Turndown rules to correctly convert the conversation content into markdown
- */
-export function setTurndownRules(turndownService) {
-  // --- Turndown custom rules ---
-  turndownService.addRule('preserveLineBreaksInPre', {
-    filter: function (node) {
-      return node.nodeName === 'PRE' && node.querySelector('div');
-    },
-    replacement: function (content, node) {
-      const codeBlock = node.querySelector('code');
-      const codeContent = codeBlock.textContent.trim();
-      const codeLang = codeBlock.className.split("-", 2)[1];
-      return ('\n```' + codeLang + '\n' + codeContent + '\n```');
-    }
-  });
-
-  turndownService.addRule('replaceEscapedBracketsInLinks', {
-    filter: 'a',
-    replacement: function (content, node) {
-      const href = node.getAttribute('href');
-      const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')');
-      return '[' + linkText + '](' + href + ')';
-    }
-  });
-}
 
 /**
  * Sanitize and format the selected HTML into markdown using the sanitizer and the selected converter
@@ -51,7 +20,7 @@ export function formatMarkdown(html)
 {
   html = formatLineBreaks(html);
 
-  // Samitize HTML
+  // Sanitize HTML
   html = DOMPurify.sanitize(html);
 
   // Convert HTML to Markdown
