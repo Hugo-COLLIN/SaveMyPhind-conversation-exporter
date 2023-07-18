@@ -47,7 +47,7 @@ However, you can't distribute this project without contacting me first.
 This project is licensed under the [SaveMyPhind License](LICENSE.md). Please check for more details.
 
 ### Libraries licenses
-This project uses third-party libraries. See the [license list](licenseList.md) for more details about libraries' licenses.
+This project uses third-party libraries. See the [license list](licenses.txt) for more details about libraries' licenses.
 
 <br>
 
