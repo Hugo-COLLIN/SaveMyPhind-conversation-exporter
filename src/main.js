@@ -3,9 +3,9 @@
  */
 
 
-import {welcome} from "./modules/welcome/welcome";
-import {catchContent} from "./modules/extractor/extractor";
-import {exporter} from "./modules/exporter/exporter";
+import {welcome} from "./activeTab/welcome/welcome";
+import {catchContent} from "./activeTab/extractor/extractor";
+import {exporter} from "./activeTab/exporter/exporter";
 
 main();
 
