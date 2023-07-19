@@ -91,6 +91,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Security and maintenance:
 - [ ] Use the Phind (official/unofficial?) API instead of scraping the HTML?
 - [ ] Make unit/e2e tests
+- [ ] Externalize background.js functions into modules
 - [x] Module structure improvements
 - [x] Remove unused libraries
 - [x] Divide code into modules
@@ -105,7 +106,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Bugs/Issues:
 - [ ] Web: Exported links beginning with # prepended by page url
 - [ ] Pair programmer: Line breaks in user questions (Phind uses spaces as line breaks)
-- [ ] Fix bug "charAt not a function" on some specific threads
+- [x] Fix bug "charAt not a function" on some specific threads
 - [x] File title error in "Pair programmer" due to removed textbox
 - [x] Make extension icon with transparent background
 - [x] Web: Exported links beginning with / prepended by page url

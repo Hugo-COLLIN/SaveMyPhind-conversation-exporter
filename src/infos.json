@@ -3,7 +3,7 @@
   "APP_SNAME": "SaveMyPhind",
   "APP_LNAME": "Save my Phind - AI Conversation Exporter",
   "APP_ID": "savemyphind@hugocollin.com",
-  "APP_VERSION": "1.2.8",
+  "APP_VERSION": "1.2.9",
   "APP_REPO_URL": "https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter",
   "COPY_MODE": "tab"
 }
