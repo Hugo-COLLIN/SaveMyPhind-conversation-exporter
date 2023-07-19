@@ -15,5 +15,6 @@ main().then(r => console.log("Export done!"));
 async function main() {
   await welcome();
   const caught = await catchContent();
-  await exporter(caught.markdownContent, caught.title);
+  if (caught != null)
+    await exporter(caught.markdownContent, caught.title);
 }

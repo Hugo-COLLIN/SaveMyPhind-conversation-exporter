@@ -16,8 +16,9 @@ export async function catchContent() {
       title = getPhindPageTitle();
       break;
     default: {
-      markdownContent = await exportRandomPage();
-      title = document.title;
+      return null;
+      // markdownContent = await exportRandomPage();
+      // title = document.title;
     }
   }
   return {markdownContent, title};
