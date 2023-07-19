@@ -16,9 +16,9 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   setIconForCurrentTab(tabId);
 });
 
-chrome.runtime.onInstalled.addListener(async function () {
-  setIconForCurrentTab((await chrome.tabs.query({ active: true, currentWindow: true }))[0].id);
-});
+// chrome.runtime.onInstalled.addListener(async function () {
+//   setIconForCurrentTab((await chrome.tabs.query({ active: true, currentWindow: true }))[0].id);
+// });
 
 chrome.tabs.onActivated.addListener((activeInfo) => {
   setIconForCurrentTab(activeInfo.tabId);
@@ -42,7 +42,10 @@ function setIconForCurrentTab(tabId)
  * @param tabId the id of the tab
  */
 function setIcon(url, tabId) {
-  if (url.includes("phind.com")) {
-    chrome.action.setIcon({ path: { "48": "img/icons/icon_phind-48.png"}, tabId: tabId });
+  if (url)
+  {
+    if (url.includes("phind.com")) {
+      chrome.action.setIcon({ path: { "48": "img/icons/icon_phind-48.png"}, tabId: tabId });
+    }
   }
 }
