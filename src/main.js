@@ -16,7 +16,9 @@ async function main() {
   if (document.URL.includes("phind.com")) {
     await welcome();
     const caught = await catchContent();
-    await exporter(caught.markdownContent, caught.title);
-    console.log("Export done!")
+    if (caught !== null) {
+      await exporter(caught.markdownContent, caught.title);
+      console.log("Export done!")
+    }
   }
 }
