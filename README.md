@@ -91,7 +91,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Security and maintenance:
 - [ ] Use the Phind (official/unofficial?) API instead of scraping the HTML?
 - [ ] Make unit/e2e tests
-- [ ] Externalize background.js functions into modules
+- [x] Externalize background.js functions into modules
 - [x] Module structure improvements
 - [x] Remove unused libraries
 - [x] Divide code into modules
@@ -104,6 +104,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Sanitize HTML code
 
 ### Bugs/Issues:
+- [ ] Extension icon not updated on Firefox
 - [ ] Web: Exported links beginning with # prepended by page url
 - [ ] Pair programmer: Line breaks in user questions (Phind uses spaces as line breaks)
 - [x] Fix bug "charAt not a function" on some specific threads
