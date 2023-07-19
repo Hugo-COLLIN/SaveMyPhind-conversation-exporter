@@ -1,15 +1,14 @@
 # Changelog
-# v1.2.4
+# v1.2.7
 ### Features:
 - Icon is adapted to each site (Phind, disabled, etc.)
-- Now exports webpages
 
 ### Security and maintenance:
 - Module structure improvements
 
 ### Bugs fixed:
+- File title error in "Pair programmer" due to removed textbox
 - Make extension icon with transparent background
-- Web: Exported links beginning with / prepended by page url
 
 # v1.0.1
 ### Features:
