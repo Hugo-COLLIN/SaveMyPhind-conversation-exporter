@@ -22,7 +22,7 @@ Simply go to the Chrome Web Store and click on the install button:
 #### [⏩click here to install Save My Phind](https://chrome.google.com/webstore/detail/save-my-phind/agklnagmfeooogcppjccdnoallkhgkod)
 <br>
 
-You can also install it manually following these steps:
+You can also install it manually following these steps (Chromium browsers only):
 1. On GitHub, click on Releases (in the right side menu), go on the latest version and download the `save-my-phind_x.y.z.crx` file.
 2. Go on `chrome://extensions` (or `[yourChromiumBasedBrowser]://extensions`), then enable "Developer mode" (toggle on the top right) and reload the page.
 3. Drag and drop the .crx file on the page, then click on "Add extension" in the appearing popup window.
@@ -53,10 +53,10 @@ This project uses third-party libraries. See the [license list](licenses.txt) fo
 ## 🗺️ Roadmap
 See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Features:
-- [ ] Option page : choose subfolder to save files in (or custom download location)
-- [ ] Export tables into markdown (Turndown rule)
 - [ ] Add type (Phind Search, Phind Pair, ChatGPT) between date and title in filename + in header link
 - [ ] Save ChatGPT conversations
+- [ ] Export tables into markdown (Turndown rule)
+- [ ] Option page : choose subfolder to save files in (or custom download location)
 - [ ] Link to the downloaded file in the currently opened note in Obsidian
 - [ ] (Copy the last response to the clipboard when clicking on the extension icon (instead of the entire response) )
     - Phind Search : click on the copy button
@@ -106,7 +106,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [ ] Web: Exported links beginning with # prepended by page url
 - [ ] Pair programmer: Line breaks in user questions (Phind uses spaces as line breaks)
 - [ ] Fix bug "charAt not a function" on some specific threads
-- [ ] File title error in "Pair programmer" due to removed textbox
+- [x] File title error in "Pair programmer" due to removed textbox
 - [x] Make extension icon with transparent background
 - [x] Web: Exported links beginning with / prepended by page url
 - [x] Too long file names can cause issues with OS or Git (cf. Reduce title length feature)
