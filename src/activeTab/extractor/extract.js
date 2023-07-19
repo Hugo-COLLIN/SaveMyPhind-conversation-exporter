@@ -65,8 +65,15 @@ export async function exportPhindSearch() {
                 let res = formatMarkdown(p1.innerHTML);
                 if (aiCitations && aiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + formatMarkdown(aiCitations.innerHTML);
 
+                console.log(aiModel)
+                console.log(aiModel.innerHTML)
+                console.log(aiModel.innerHTML.length)
+                const aiName = (aiModel && aiModel.innerHTML.length > 0) ?
+                  formatMarkdown(aiModel.innerHTML).split(" ")[2] ?? "AI" :
+                  "";
+                console.log(aiName ?? "AI")
                 const aiIndicator = "**" +
-                  capitalizeFirst((aiModel && aiModel.innerHTML.length > 0) ? formatMarkdown(aiModel.innerHTML).split(" ")[2] : "AI") +
+                  capitalizeFirst(aiName ?? "AI") +
                   " answer:**\n"
                 const index = res.indexOf('\n\n');
                 return `___\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
