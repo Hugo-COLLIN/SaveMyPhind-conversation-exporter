@@ -1,6 +1,5 @@
 # <img alt="SaveMyPhind logo" src="./media/logo_128_cut.png" style="width:50px"> Save My Phind - AI Conversation Exporter
 ### 🚀 Export your Phind.com search threads into markdown files!
-♨️ Now exports any Web pages in addition to Phind threads!
 
 👉 When you are on Phind, simply click on the extension icon. It will automatically export the thread you are currently on into a formatted markdown file.
 
