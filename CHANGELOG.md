@@ -1,5 +1,5 @@
 # Changelog
-# v1.2.7
+# v1.2.8
 ### Features:
 - Icon is adapted to each site (Phind, disabled, etc.)
 
