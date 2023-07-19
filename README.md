@@ -61,7 +61,6 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [ ] (Copy the last response to the clipboard when clicking on the extension icon (instead of the entire response) )
     - Phind Search : click on the copy button
     - Phind Pair : export the last answer div
-- [ ] (Export the "extra code or context" textarea content)
 - [ ] (Export next search result pages (sources side panel))
 - [ ] ~~Automatically download the conversation?~~
 - [ ] ~~Automatically copy the last response to the clipboard (without clicking on the extension icon)?~~
@@ -104,10 +103,11 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Sanitize HTML code
 
 ### Bugs/Issues:
+- [ ] Pair programmer: Export Search results correctly
 - [ ] Extension icon not updated on Firefox
 - [ ] Web: Exported links beginning with # prepended by page url
-- [ ] Update icon for already opened tabs in windows
 - [ ] Pair programmer: Line breaks in user questions (Phind uses spaces as line breaks)
+- [x] Update icon for already opened tabs in windows
 - [x] Fix bug "charAt not a function" on some specific threads
 - [x] File title error in "Pair programmer" due to removed textbox
 - [x] Make extension icon with transparent background
