@@ -106,6 +106,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Bugs/Issues:
 - [ ] Extension icon not updated on Firefox
 - [ ] Web: Exported links beginning with # prepended by page url
+- [ ] Update icon for already opened tabs in windows
 - [ ] Pair programmer: Line breaks in user questions (Phind uses spaces as line breaks)
 - [x] Fix bug "charAt not a function" on some specific threads
 - [x] File title error in "Pair programmer" due to removed textbox
