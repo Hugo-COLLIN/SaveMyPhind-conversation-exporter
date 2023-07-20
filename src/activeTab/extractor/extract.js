@@ -136,7 +136,6 @@ export async function exportPhindPair() {
 
             // Export all search results
             const buttons = p1[1].querySelectorAll("button");
-            console.log(buttons)
 
             for (const btn of buttons) {
               if (btn.textContent.toLowerCase() === "view all search results") {
@@ -160,15 +159,6 @@ export async function exportPhindPair() {
 
             res += "\n";
 
-            // for(let i = 0; i < buttons.length; i++) {
-            //   if(buttons[i].textContent == "View all search results") {
-            //     // Button found, apply your operations here
-            //     buttons[i].style.color = "red"; // Example: change button text color to red
-            //     break;
-            //   }
-            // }
-
-            // res += "\n**All search results:**";
           } else // If there are no search results
             p1.forEach((elt) => {
               res += formatMarkdown(elt.innerHTML) + "\n";
