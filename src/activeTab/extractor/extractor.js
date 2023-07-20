@@ -8,8 +8,6 @@ export async function catchContent() {
     case url.includes('www.phind.com/search'):
       markdownContent = await exportPhindSearch();
       title = getPhindPageTitle();
-      // download(markdownContent, getPhindPageTitle());
-      // await saveToClipboard(markdownContent);
       break;
     case url.includes('www.phind.com/agent'):
       markdownContent = await exportPhindPair();

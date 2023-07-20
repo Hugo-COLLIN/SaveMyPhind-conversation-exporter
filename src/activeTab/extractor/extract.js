@@ -99,12 +99,15 @@ export async function exportPhindPair() {
   let markdown = await setFileHeader(getPhindPageTitle(), "Phind.com");
 
   messages.forEach(content => {
-    let p1 = content.querySelectorAll('.card-body > p, .card-body > div');
-    let p3 = content.querySelectorAll('.card-body > span');
+    const p1 = content.querySelectorAll('.card-body > p, .card-body > div');
+    const p2 = content.querySelectorAll('.card-body > div:nth-of-type(2) a');
+    const p3 = content.querySelectorAll('.card-body > span');
 
     const messageText =
       p1.length > 0 ? (() => {
           let res = "";
+
+          // Extract writer name
           if (p3.length > 0) {
             res += "#### ";
             let putSeparator = true;
@@ -118,9 +121,23 @@ export async function exportPhindPair() {
             res += "\n";
           }
 
-          p1.forEach((elt) => {
-            res += formatMarkdown(elt.innerHTML) + "\n";
-          });
+          // Extract message
+          if (p2.length > 0) // If there are search results
+          {
+            res += formatMarkdown(p1[0].innerHTML) + "\n";
+
+            res += "___\n**Search results:**";
+            let i = 0;
+            p2.forEach((elt) => {
+              res += "\n- " + formatMarkdown(elt.outerHTML).replace("[", `[(${i}) `);
+              i++;
+            });
+            res += "\n\n";
+          }
+          else // If there are no search results
+            p1.forEach((elt) => {
+              res += formatMarkdown(elt.innerHTML) + "\n";
+            });
 
           return res;
         })() :

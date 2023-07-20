@@ -64,6 +64,8 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [ ] (Export next search result pages (sources side panel))
 - [ ] ~~Automatically download the conversation?~~
 - [ ] ~~Automatically copy the last response to the clipboard (without clicking on the extension icon)?~~
+- [x] Pair programmer: Export Search results correctly
+  => https://www.phind.com/agent?cache=clk8kpsu00011jq08l0gi6a0m
 - [x] Make icon adapted to each site (Phind, ChatGPT, etc.)
 - [x] Web: Export if tag main, article,
   => Need to think about the behavior enabling to choose if we need to export the content and what to export
@@ -103,7 +105,6 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Sanitize HTML code
 
 ### Bugs/Issues:
-- [ ] Pair programmer: Export Search results correctly
 - [ ] Extension icon not updated on Firefox
 - [ ] Web: Exported links beginning with # prepended by page url
 - [ ] Pair programmer: Line breaks in user questions (Phind uses spaces as line breaks)
