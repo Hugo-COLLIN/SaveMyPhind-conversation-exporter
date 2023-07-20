@@ -181,6 +181,10 @@ export function getUrl()
 --- OTHERS ---
  */
 
+export  function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function sanitize(filename) {
   return filename.replace(/[^a-z0-9]/gi, '_').toLowerCase();
 }

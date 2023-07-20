@@ -1,5 +1,5 @@
 import {formatMarkdown} from "./convert";
-import {capitalizeFirst, getPhindPageTitle, setFileHeader} from "../utils/utils";
+import {capitalizeFirst, getPhindPageTitle, setFileHeader, sleep} from "../utils/utils";
 import {setPhindRules, setRandomPageRules} from "./ruler";
 
 
@@ -98,13 +98,13 @@ export async function exportPhindPair() {
   const messages = document.querySelectorAll('[name^="answer-"] > div > div');
   let markdown = await setFileHeader(getPhindPageTitle(), "Phind.com");
 
-  messages.forEach(content => {
+  for (const content of messages) {
     const p1 = content.querySelectorAll('.card-body > p, .card-body > div');
     const p2 = content.querySelectorAll('.card-body > div:nth-of-type(2) a');
     const p3 = content.querySelectorAll('.card-body > span');
 
     const messageText =
-      p1.length > 0 ? (() => {
+      p1.length > 0 ? await (async () => {
           let res = "";
 
           // Extract writer name
@@ -124,16 +124,52 @@ export async function exportPhindPair() {
           // Extract message
           if (p2.length > 0) // If there are search results
           {
+            // Message
             res += formatMarkdown(p1[0].innerHTML) + "\n";
 
+            // Export sources
             res += "___\n**Sources:**";
-            p2.forEach((elt) => {
-              res += "\n- " + formatMarkdown(elt.outerHTML);
+            p2.forEach((link) => {
+              res += "\n- " + formatMarkdown(link.outerHTML);
             });
             res += "\n\n";
+
+            // Export all search results
+            const buttons = p1[1].querySelectorAll("button");
+            console.log(buttons)
+
+            for (const btn of buttons) {
+              if (btn.textContent.toLowerCase() === "view all search results") {
+                res += "**All search results:**";
+
+                // Open modal
+                btn.click();
+                await sleep(0); // Needed to wait for the modal to open (even if it's 0!)
+
+                // Export all search results
+                document.querySelectorAll("[role='dialog'] a").forEach((link) => {
+                  res += "\n- " + formatMarkdown(link.outerHTML);
+                });
+
+                // Close modal
+                document.querySelectorAll("[role='dialog'] [type='button']").forEach((btn) => {
+                  if (btn.textContent.toLowerCase() === "close") btn.click();
+                });
+              }
+            }
+
+            res += "\n";
+
+            // for(let i = 0; i < buttons.length; i++) {
+            //   if(buttons[i].textContent == "View all search results") {
+            //     // Button found, apply your operations here
+            //     buttons[i].style.color = "red"; // Example: change button text color to red
+            //     break;
+            //   }
+            // }
+
             // res += "\n**All search results:**";
-          }
-          else // If there are no search results
+          } else // If there are no search results
             p1.forEach((elt) => {
               res += formatMarkdown(elt.innerHTML) + "\n";
             });
@@ -144,7 +180,7 @@ export async function exportPhindPair() {
         '';
 
     if (messageText !== "") markdown += messageText + "\n\n";
-  });
+  }
 
   return markdown;
 }
