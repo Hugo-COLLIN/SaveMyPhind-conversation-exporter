@@ -336,32 +336,24 @@ export function setPhindRules() {
     }
   });
 
+  // turndownConverter.addRule('codeInsideP', {
+  //   filter: function(node) {
+  //     return node.nodeName === 'CODE' && node.parentNode.nodeName === 'P';
+  //   },
+  //   replacement: function(content) {
+  //     // Custom processing logic for <code> tags inside <p> tags
+  //     console.log(content)
+  //     return "`" + content.replace(/</g, '<?').replace(/>/g, '>!') + "`";
+  //   }
+  // });
+
   turndownConverter.addRule('reformatLinksContainingTags', {
     filter: function (node) {
       return node.querySelectorAll('p').length > 0;
     },
     replacement: function (content, node) {
-      console.log(node)
-      // if (node.querySelectorAll('p'))
-      // {
-      //   let md = '';
-      //   node.querySelectorAll('p').forEach((paragraph) => {
-      //     md += turndownConverter.turndown(paragraph.outerHTML).replace(/</g, '').replace(/>/g, '');
-      //   });
-      //   return md;
-      // }
-      // else
-        return "\n" + turndownConverter.turndown(node.innerHTML).replace(/</g, '{{@LT}}').replace(/>/g, '{{@GT}}') + "\n\n";
-      // let markdown = '';
-      // for (let i = 0; i < node.childNodes.length; i++) {
-      //   let child = node.childNodes[i];
-      //   if (child.nodeType === Node.ELEMENT_NODE) {
-      //     markdown += turndownConverter.turndown(child.outerHTML);
-      //   } else if (child.nodeType === Node.TEXT_NODE) {
-      //     markdown += child.textContent;
-      //   }
-      // }
-      // return markdown;
+      console.log(content)
+      return "\n" + turndownConverter.turndown(node.innerHTML).replace(/(?<!`)<(?!`)/g, '{{@LT}}').replace(/(?<!`)>(?!`)/g, '{{@GT}}') + "\n\n";
     },
   });
 }
