@@ -103,19 +103,53 @@ export function setRandomPageRules() {
  * Turndown rules to correctly convert the Phind conversation content into markdown
  */
 export function setPhindRules() {
-  turndownConverter.addRule('specialCharsBackslashedIfNotLink', {
+  // turndownConverter.addRule('specialCharsBackslashedIfNotLink', {
+  //   filter: function(node) {
+  //     // Check if the node is a text node and a child of an anchor tag
+  //     return node.nodeName !== 'A';
+  //   },
+  //   replacement: function(content, node) {
+  //     // console.log(node);
+  //     // Replace '<' and '>' with their HTML entity equivalents
+  //     const c = content.replace(/</g, `{{@LT}}`).replace(/>/g, `{{@GT}}`);
+  //     console.log(c)
+  //     return c;
+  //   }
+  // });
+
+  turndownConverter.addRule('specialCharsBackslashed', {
     filter: function(node) {
-      // Check if the node is a text node and a child of an anchor tag
-      return node.nodeName !== 'A';
+      // Apply this rule to all elements
+      return true;
     },
-    replacement: function(content, node) {
-      // console.log(node);
-      // Replace '<' and '>' with their HTML entity equivalents
-      const c = content.replace(/</g, `{{@LT}}`).replace(/>/g, `{{@GT}}`);
-      console.log(c)
-      return c;
+    replacement: function(content) {
+      // Only modify the content if it's not part of a link
+      if (!/<a[^>]*>.*?<\/a>/i.test(content)) {
+        content = content.replace(/</g, `{{@LT}}`).replace(/>/g, `{{@GT}}`);
+      }
+      return content;
     }
   });
+
+
+
+  turndownConverter.addRule('unorderedList', {
+      filter: 'ul',
+      replacement: function (content) {
+        return '\n' + content + '\n';
+      }
+    });
+
+  turndownConverter.addRule('listItem', {
+      filter: 'li',
+      replacement: function (content) {
+        return '* ' + content + '\n';
+      }
+    });
+
+
+
+
 
   turndownConverter.addRule('preserveLineBreaksInPre', {
     filter: function (node) {
