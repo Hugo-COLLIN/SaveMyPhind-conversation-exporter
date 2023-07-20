@@ -127,20 +127,11 @@ export async function exportPhindPair() {
             // Message
             res += formatMarkdown(p1[0].innerHTML) + "\n";
 
-            // Export sources
-            res += "___\n**Sources:**";
-            // p2.forEach((link) => {
-            //   res += "\n- " + formatMarkdown(link.outerHTML);
-            // });
-            // res += "\n\n";
-
             // Export search results
+            res += "___\n**Sources:**";
             const buttonsInCard = p1[1].querySelectorAll("button");
-
             for (const btn of buttonsInCard) {
               if (btn.textContent.toLowerCase() === "view all search results") {
-                // res += "**All search results:**";
-
                 // Open modal
                 btn.click();
                 await sleep(0); // Needed to wait for the modal to open (even if it's 0!)
@@ -151,15 +142,18 @@ export async function exportPhindPair() {
 
                 const dialogLinks = Array.from(document.querySelectorAll("[role='dialog'] a"));
                 dialogLinks.forEach((link) => {
+                  // If the link is in the sources, add it to the sources with the correct index
                   const p2Array = Array.from(p2);
                   if (p2Array.find((elt) => elt.getAttribute("href") === link.getAttribute("href"))) {
                     res += "\n- " + formatMarkdown(link.outerHTML).replace("[", `[(${i}) `);
                   }
 
+                  // Add the link to the all search results with the correct index
                   allResults += "\n- " + formatMarkdown(link.outerHTML).replace("[", `[(${i}) `);
                   i++;
                 });
 
+                // Append all search results after the sources
                 res += "\n\n" + allResults;
 
                 // Close modal
