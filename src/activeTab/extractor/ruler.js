@@ -103,6 +103,32 @@ export function setRandomPageRules() {
  * Turndown rules to correctly convert the Phind conversation content into markdown
  */
 export function setPhindRules() {
+  // turndownConverter.addRule('removeAngleBrackets', {
+  //   filter: function(node) {
+  //     return node.parentNode.nodeName === 'A';
+  //   },
+  //   replacement: function(content, node) {
+  //     console.log(node)
+  //     return content.replace(/&lt;/g, 'b').replace(/&gt;/g, 'b');
+  //   }
+  // });
+
+  // turndownConverter.addRule('specialCharsBackslashed', {
+  //   filter: ['a'],
+  //   replacement: function(content, node) {
+  //     return content.replace(/</g, '').replace(/>/g, '');
+  //   }
+  // });
+  //
+  // function yesTags(node) {
+  //   let excludedTags = ['a'];
+  //   return excludedTags.includes(node.tagName.toLowerCase());
+  // }
+
+
+
+
+
   // turndownConverter.addRule('specialCharsBackslashedIfNotLink', {
   //   filter: function(node) {
   //     // Check if the node is a text node and a child of an anchor tag
@@ -229,34 +255,20 @@ export function setPhindRules() {
   //     return markdown;
   //   }
   // });
-
-  turndownConverter.addRule('specialCharsBackslashed', {
-    filter: function(node) {
-      return !isExcludedTag(node.parentNode);
-    },
-    replacement: function(content, node) {
-      if(node.nodeType === 1){// 1 stands for Node.ELEMENT_NODE
-        // content has already been processed by the built-in rules
-        return content;
-      } else if(node.nodeType === 3){ // 3 stands for Node.TEXT_NODE
-        return content.replace(/</g, '{{@LT}}').replace(/>/g, '{{@GT}}');
-      }
-    }
-  });
-
-  function isExcludedTag(node) {
-    let excludedTags = ['code', 'pre', 'a'];
-    return excludedTags.includes(node.tagName.toLowerCase());
-  }
-
-  turndownConverter.addRule('preserveFormatting', {
-    filter: function(node) {
-      return node.nodeType === 3; //Node.TEXT_NODE
-    },
-    replacement: function(content) {
-      return content;
-    }
-  });
+  //
+  // function isExcludedTag(node) {
+  //   let excludedTags = ['code', 'pre', 'a'];
+  //   return excludedTags.includes(node.tagName.toLowerCase());
+  // }
+  //
+  // turndownConverter.addRule('preserveFormatting', {
+  //   filter: function(node) {
+  //     return node.nodeType === 3; //Node.TEXT_NODE
+  //   },
+  //   replacement: function(content) {
+  //     return content;
+  //   }
+  // });
 
 
 
@@ -315,12 +327,41 @@ export function setPhindRules() {
     }
   });
 
-  turndownConverter.addRule('replaceEscapedBracketsInLinks', {
+  turndownConverter.addRule('formatLinks', {
     filter: 'a',
     replacement: function (content, node) {
       const href = node.getAttribute('href');
-      const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')');
+      const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '');
       return '[' + linkText + '](' + href + ')';
     }
+  });
+
+  turndownConverter.addRule('reformatLinksContainingTags', {
+    filter: function (node) {
+      return node.querySelectorAll('p').length > 0;
+    },
+    replacement: function (content, node) {
+      console.log(node)
+      // if (node.querySelectorAll('p'))
+      // {
+      //   let md = '';
+      //   node.querySelectorAll('p').forEach((paragraph) => {
+      //     md += turndownConverter.turndown(paragraph.outerHTML).replace(/</g, '').replace(/>/g, '');
+      //   });
+      //   return md;
+      // }
+      // else
+        return "\n" + turndownConverter.turndown(node.innerHTML).replace(/</g, '{{@LT}}').replace(/>/g, '{{@GT}}') + "\n\n";
+      // let markdown = '';
+      // for (let i = 0; i < node.childNodes.length; i++) {
+      //   let child = node.childNodes[i];
+      //   if (child.nodeType === Node.ELEMENT_NODE) {
+      //     markdown += turndownConverter.turndown(child.outerHTML);
+      //   } else if (child.nodeType === Node.TEXT_NODE) {
+      //     markdown += child.textContent;
+      //   }
+      // }
+      // return markdown;
+    },
   });
 }
