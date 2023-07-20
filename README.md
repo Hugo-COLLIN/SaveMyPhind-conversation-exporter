@@ -65,7 +65,8 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [ ] ~~Automatically download the conversation?~~
 - [ ] ~~Automatically copy the last response to the clipboard (without clicking on the extension icon)?~~
 - [x] Pair programmer: Put correct index before links both in sources and all search results list
-- [x] Pair programmer: Export Search results correctly
+- [x] Pair programmer: Export All Search results correctly
+- [x] Pair programmer: Export Sources correctly
   => https://www.phind.com/agent?cache=clk8kpsu00011jq08l0gi6a0m
 - [x] Make icon adapted to each site (Phind, ChatGPT, etc.)
 - [x] Web: Export if tag main, article,
@@ -106,11 +107,12 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Sanitize HTML code
 
 ### Bugs/Issues:
-- [ ] Fix link formatting with < and > characters
-- [ ] Fix text formatting with < and > characters
 - [ ] Extension icon not updated on Firefox
+  => User needs to click or manually allow the extension to access websites
 - [ ] Web: Exported links beginning with # prepended by page url
 - [ ] Pair programmer: Line breaks in user questions (Phind uses spaces as line breaks)
+- [x] Fix link formatting with < and > characters
+- [x] Fix text formatting with < and > characters
 - [x] Update icon for already opened tabs in windows
 - [x] Fix bug "charAt not a function" on some specific threads
 - [x] File title error in "Pair programmer" due to removed textbox

@@ -1,5 +1,5 @@
 
-import {formatMarkdown, turndownConverter} from "./convert";
+import {turndownConverter} from "./convert";
 import {formatUrl} from "../utils/utils";
 
 export function setRandomPageRules() {

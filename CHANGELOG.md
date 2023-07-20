@@ -1,4 +1,15 @@
 # Changelog
+# v1.5.3
+### Features:
+- Pair programmer: 
+  - Export Sources correctly
+  - Export All Search results correctly
+  - Put correct index before links both in sources and all search results list
+
+### Bugs fixed:
+- Fix link formatting with < and > characters
+- Fix text formatting with < and > characters
+
 # v1.2.8
 ### Features:
 - Icon is adapted to each site (Phind, disabled, etc.)
