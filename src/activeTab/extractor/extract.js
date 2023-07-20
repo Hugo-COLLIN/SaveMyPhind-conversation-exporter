@@ -126,13 +126,12 @@ export async function exportPhindPair() {
           {
             res += formatMarkdown(p1[0].innerHTML) + "\n";
 
-            res += "___\n**Search results:**";
-            let i = 0;
+            res += "___\n**Sources:**";
             p2.forEach((elt) => {
-              res += "\n- " + formatMarkdown(elt.outerHTML).replace("[", `[(${i}) `);
-              i++;
+              res += "\n- " + formatMarkdown(elt.outerHTML);
             });
             res += "\n\n";
+            // res += "\n**All search results:**";
           }
           else // If there are no search results
             p1.forEach((elt) => {
