@@ -7,8 +7,13 @@
   - Put correct index before links both in sources and all search results list
 
 ### Bugs fixed:
+- Extension icon updated for already opened tabs in windows
+- AI name bug solved (error charAt not a function when no AI name)
 - Fix link formatting with < and > characters
 - Fix text formatting with < and > characters
+
+### Security and maintenance:
+- Module structure improvements
 
 # v1.2.8
 ### Features:
