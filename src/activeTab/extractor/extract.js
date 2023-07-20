@@ -141,9 +141,9 @@ export async function exportPhindPair() {
                 let allResults = "**All search results:**";
 
                 const dialogLinks = Array.from(document.querySelectorAll("[role='dialog'] a"));
+                const p2Array = Array.from(p2);
                 dialogLinks.forEach((link) => {
                   // If the link is in the sources, add it to the sources with the correct index
-                  const p2Array = Array.from(p2);
                   if (p2Array.find((elt) => elt.getAttribute("href") === link.getAttribute("href"))) {
                     res += "\n- " + formatMarkdown(link.outerHTML).replace("[", `[(${i}) `);
                   }
