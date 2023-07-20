@@ -129,12 +129,12 @@ export async function exportPhindPair() {
 
             // Export sources
             res += "___\n**Sources:**";
-            p2.forEach((link) => {
-              res += "\n- " + formatMarkdown(link.outerHTML);
-            });
-            res += "\n\n";
+            // p2.forEach((link) => {
+            //   res += "\n- " + formatMarkdown(link.outerHTML);
+            // });
+            // res += "\n\n";
 
-            // Export all search results
+            // Export search results
             const buttonsInCard = p1[1].querySelectorAll("button");
 
             for (const btn of buttonsInCard) {
@@ -145,18 +145,22 @@ export async function exportPhindPair() {
                 btn.click();
                 await sleep(0); // Needed to wait for the modal to open (even if it's 0!)
 
-                // Export all search results
+                // Export sources and all search results, put correct index in front of each link
                 let i = 1;
                 let allResults = "**All search results:**";
 
-                document.querySelectorAll("[role='dialog'] a").forEach((link) => {
-                  // res += "\n- " + formatMarkdown(link.outerHTML);
-                  // if (p2.find((elt) => elt.getAttribute("href") === link.getAttribute("href")))
-                  //   console.log(link)
+                const dialogLinks = Array.from(document.querySelectorAll("[role='dialog'] a"));
+                dialogLinks.forEach((link) => {
+                  const p2Array = Array.from(p2);
+                  if (p2Array.find((elt) => elt.getAttribute("href") === link.getAttribute("href"))) {
+                    res += "\n- " + formatMarkdown(link.outerHTML).replace("[", `[(${i}) `);
+                  }
+
                   allResults += "\n- " + formatMarkdown(link.outerHTML).replace("[", `[(${i}) `);
                   i++;
                 });
-                res += allResults;
+
+                res += "\n\n" + allResults;
 
                 // Close modal
                 document.querySelectorAll("[role='dialog'] [type='button']").forEach((btn) => {
