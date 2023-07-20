@@ -64,6 +64,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [ ] (Export next search result pages (sources side panel))
 - [ ] ~~Automatically download the conversation?~~
 - [ ] ~~Automatically copy the last response to the clipboard (without clicking on the extension icon)?~~
+- [x] Pair programmer: Put correct index before links both in sources and all search results list
 - [x] Pair programmer: Export Search results correctly
   => https://www.phind.com/agent?cache=clk8kpsu00011jq08l0gi6a0m
 - [x] Make icon adapted to each site (Phind, ChatGPT, etc.)
@@ -106,6 +107,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 
 ### Bugs/Issues:
 - [ ] Fix link formatting with < and > characters
+- [ ] Fix text formatting with < and > characters
 - [ ] Extension icon not updated on Firefox
 - [ ] Web: Exported links beginning with # prepended by page url
 - [ ] Pair programmer: Line breaks in user questions (Phind uses spaces as line breaks)

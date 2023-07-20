@@ -103,6 +103,20 @@ export function setRandomPageRules() {
  * Turndown rules to correctly convert the Phind conversation content into markdown
  */
 export function setPhindRules() {
+  turndownConverter.addRule('specialCharsBackslashedIfNotLink', {
+    filter: function(node) {
+      // Check if the node is a text node and a child of an anchor tag
+      return node.nodeName !== 'A';
+    },
+    replacement: function(content, node) {
+      // console.log(node);
+      // Replace '<' and '>' with their HTML entity equivalents
+      const c = content.replace(/</g, `{{@LT}}`).replace(/>/g, `{{@GT}}`);
+      console.log(c)
+      return c;
+    }
+  });
+
   turndownConverter.addRule('preserveLineBreaksInPre', {
     filter: function (node) {
       return node.nodeName === 'PRE' && node.querySelector('div');
