@@ -135,20 +135,28 @@ export async function exportPhindPair() {
             res += "\n\n";
 
             // Export all search results
-            const buttons = p1[1].querySelectorAll("button");
+            const buttonsInCard = p1[1].querySelectorAll("button");
 
-            for (const btn of buttons) {
+            for (const btn of buttonsInCard) {
               if (btn.textContent.toLowerCase() === "view all search results") {
-                res += "**All search results:**";
+                // res += "**All search results:**";
 
                 // Open modal
                 btn.click();
                 await sleep(0); // Needed to wait for the modal to open (even if it's 0!)
 
                 // Export all search results
+                let i = 1;
+                let allResults = "**All search results:**";
+
                 document.querySelectorAll("[role='dialog'] a").forEach((link) => {
-                  res += "\n- " + formatMarkdown(link.outerHTML);
+                  // res += "\n- " + formatMarkdown(link.outerHTML);
+                  // if (p2.find((elt) => elt.getAttribute("href") === link.getAttribute("href")))
+                  //   console.log(link)
+                  allResults += "\n- " + formatMarkdown(link.outerHTML).replace("[", `[(${i}) `);
+                  i++;
                 });
+                res += allResults;
 
                 // Close modal
                 document.querySelectorAll("[role='dialog'] [type='button']").forEach((btn) => {
