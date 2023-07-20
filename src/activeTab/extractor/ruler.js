@@ -1,5 +1,5 @@
 
-import {turndownConverter} from "./convert";
+import {formatMarkdown, turndownConverter} from "./convert";
 import {formatUrl} from "../utils/utils";
 
 export function setRandomPageRules() {
@@ -197,32 +197,108 @@ export function setPhindRules() {
   //   }
   // });
 
-  //Not working
-  // turndownConverter.addRule('escapedSpecialChars', {
-  //   filter: function (node) {
-  //     return node.nodeType === Node.ELEMENT_NODE && node.tagName !== 'A';
+  // turndownConverter.addRule('specialCharsBackslashed', {
+  //   filter: function(node) {
+  //     return node.nodeType === Node.TEXT_NODE;
   //   },
-  //
-  //   replacement: (content, node, options) => {
-  //
-  //     function escapeHtml(html) {
-  //       return html
-  //         .replace(/</g, '&lt;')
-  //         .replace(/>/g, '&gt;');
-  //     }
-  //
-  //     // Depending on the type of node, we'll do different types of processing.
-  //     if (node.nodeType === Node.ELEMENT_NODE) {
-  //       return Array.from(node.childNodes).map(childNode => {
-  //         // The reference to this.options.rules is changed to options.rules
-  //         return options.rules.replacement(content, childNode, options)
-  //       }).join('');
-  //     } else if (node.nodeType === Node.TEXT_NODE) {
-  //       return escapeHtml(node.data);
-  //     }
+  //   replacement: function(content) {
+  //     // Replace < and > by {{@LT}} and {{@GT}}
+  //     console.log(content);
+  //     return content.replace(/</g, '{{@LT}}').replace(/>/g, '{{@GT}}');
   //   }
   // });
 
+  // don't keep formatting
+  // turndownConverter.addRule('specialCharsBackslashed', {
+  //   filter: function(node) {
+  //     return !isExcludedTag(node.parentNode);
+  //   },
+  //   replacement: function(content, node) {
+  //     // console.log(content)
+  //     // return turndownConverter.turndown(content).replace(/</g, '{{@LT}}').replace(/>/g, '{{@GT}}');
+  //     let markdown = '';
+  //     for (let i = 0; i < node.childNodes.length; i++) {
+  //       let child = node.childNodes[i];
+  //       console.log(child)
+  //       if (child.nodeType === Node.ELEMENT_NODE) {
+  //         markdown += turndownConverter.turndown(child.outerHTML);
+  //       } else if (child.nodeType === Node.TEXT_NODE) {
+  //         markdown += child.textContent.replace(/</g, '{{@LT}}').replace(/>/g, '{{@GT}}');
+  //       }
+  //     }
+  //     return markdown;
+  //   }
+  // });
+
+  turndownConverter.addRule('specialCharsBackslashed', {
+    filter: function(node) {
+      return !isExcludedTag(node.parentNode);
+    },
+    replacement: function(content, node) {
+      if(node.nodeType === 1){// 1 stands for Node.ELEMENT_NODE
+        // content has already been processed by the built-in rules
+        return content;
+      } else if(node.nodeType === 3){ // 3 stands for Node.TEXT_NODE
+        return content.replace(/</g, '{{@LT}}').replace(/>/g, '{{@GT}}');
+      }
+    }
+  });
+
+  function isExcludedTag(node) {
+    let excludedTags = ['code', 'pre', 'a'];
+    return excludedTags.includes(node.tagName.toLowerCase());
+  }
+
+  turndownConverter.addRule('preserveFormatting', {
+    filter: function(node) {
+      return node.nodeType === 3; //Node.TEXT_NODE
+    },
+    replacement: function(content) {
+      return content;
+    }
+  });
+
+
+
+  // function replaceSpecialSymbols(input) {
+  //   let output = "";
+  //   let temp = "";
+  //
+  //   let insideTag = false;
+  //
+  //   for (let chr of input) {
+  //     if (chr === '<') {
+  //       insideTag = true;
+  //       // Here we convert the previous accumulated text node, taking care not to disturb the tags.
+  //       output += temp.replace(/</g, '{{@LT}}').replace(/>/g, '{{@GT}}');
+  //       temp = "<";
+  //     }
+  //     else if (chr === '>') {
+  //       insideTag = false;
+  //       // Add the complete tag to the output
+  //       temp += ">";
+  //       output += temp;
+  //       temp = "";
+  //     }
+  //     else {
+  //       temp += chr;
+  //     }
+  //   }
+  //
+  //   // If there's any leftover text, add it to the output
+  //   if (!insideTag) {
+  //     output += temp.replace(/</g, '{{@LT}}').replace(/>/g, '{{@GT}}');
+  //   }
+  //
+  //   return output;
+  // }
+  //
+  // turndownConverter.addRule('replaceAngleBrackets', {
+  //   filter: ['text'],
+  //   replacement: function(content) {
+  //     return replaceSpecialSymbols(content);
+  //   }
+  // });
 
 
 

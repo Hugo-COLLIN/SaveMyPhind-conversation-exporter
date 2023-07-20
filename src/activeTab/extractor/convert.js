@@ -26,7 +26,8 @@ export function formatMarkdown(html)
   // Convert HTML to Markdown
   if (html !== '' && html !== ' ')
   {
-    return  turndownConverter.turndown(html).replaceAll(/{{@LT}}/g, '\\<').replace(/{{@GT}}/g, '\\>');
+    return  turndownConverter.turndown(html);
+    // return  turndownConverter.turndown(html).replaceAll(/{{@LT}}/g, '\\<').replace(/{{@GT}}/g, '\\>');
   }
   return '';
 }
