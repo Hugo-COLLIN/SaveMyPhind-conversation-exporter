@@ -117,35 +117,111 @@ export function setPhindRules() {
   //   }
   // });
 
-  turndownConverter.addRule('specialCharsBackslashed', {
-    filter: function(node) {
-      // Apply this rule to all elements
-      return true;
-    },
-    replacement: function(content) {
-      // Only modify the content if it's not part of a link
-      if (!/<a[^>]*>.*?<\/a>/i.test(content)) {
-        content = content.replace(/</g, `{{@LT}}`).replace(/>/g, `{{@GT}}`);
-      }
-      return content;
-    }
-  });
+  // turndownConverter.addRule('specialCharsBackslashed', {
+  //   filter: function(node) {
+  //     // Apply this rule to all elements
+  //     return true;
+  //   },
+  //   replacement: function(content) {
+  //     // Only modify the content if it's not part of a link
+  //     if (!/<a[^>]*>.*?<\/a>/i.test(content)) {
+  //       content = content.replace(/</g, `{{@LT}}`).replace(/>/g, `{{@GT}}`);
+  //     }
+  //     return content;
+  //   }
+  // });
+  //
+  //
+  //
+  // turndownConverter.addRule('unorderedList', {
+  //     filter: 'ul',
+  //     replacement: function (content) {
+  //       return '\n' + content + '\n';
+  //     }
+  //   });
+  //
+  // turndownConverter.addRule('listItem', {
+  //     filter: 'li',
+  //     replacement: function (content) {
+  //       return '* ' + content + '\n';
+  //     }
+  //   });
+
+  // turndownConverter.addRule('specialCharsBackslashed', {
+  //   filter: function(node) {
+  //     // Apply this rule to all node types except for Links
+  //     return node.nodeName !== 'A';
+  //   },
+  //   replacement: function(content, node) {
+  //     // Parse the content as HTML
+  //     const parser = new DOMParser();
+  //     const doc = parser.parseFromString(content, 'text/html');
+  //
+  //     // Create a TreeWalker to iterate over text nodes
+  //     const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT);
+  //     var textNode;
+  //
+  //     while (textNode = walker.nextNode()) {
+  //       // Replace '<' and '>' with their HTML entity equivalents
+  //       textNode.nodeValue = textNode.nodeValue.replace(/</g, `{{@LT}}`).replace(/>/g, `{{@GT}}`);
+  //     }
+  //
+  //     // Serialize the modified HTML back to a string
+  //     content = new XMLSerializer().serializeToString(doc.body);
+  //     // Remove the added <body> and </body> tags
+  //     content = content.replace(/^<body>|<\/body>$/g, '');
+  //     return content;
+  //   }
+  // });
 
 
+  // turndownConverter.addRule('specialCharsBackslashed', {
+  //   filter: function(node, options) {
+  //     // Apply this rule to all text nodes except for those which are descendants of 'A' nodes
+  //     if(node.nodeType === 3) {
+  //       let parent = node.parentNode;
+  //       while(parent) {
+  //         if(parent.nodeName === 'A') {
+  //           return false;
+  //         }
+  //         parent = parent.parentNode;
+  //       }
+  //       return true;
+  //     }
+  //     else {
+  //       return false;
+  //     }
+  //   },
+  //   replacement: function(content, node, options) {
+  //     return content.replace(/</g, '{{@LT}}').replace(/>/g, '{{@GT}}');
+  //   }
+  // });
 
-  turndownConverter.addRule('unorderedList', {
-      filter: 'ul',
-      replacement: function (content) {
-        return '\n' + content + '\n';
-      }
-    });
-
-  turndownConverter.addRule('listItem', {
-      filter: 'li',
-      replacement: function (content) {
-        return '* ' + content + '\n';
-      }
-    });
+  //Not working
+  // turndownConverter.addRule('escapedSpecialChars', {
+  //   filter: function (node) {
+  //     return node.nodeType === Node.ELEMENT_NODE && node.tagName !== 'A';
+  //   },
+  //
+  //   replacement: (content, node, options) => {
+  //
+  //     function escapeHtml(html) {
+  //       return html
+  //         .replace(/</g, '&lt;')
+  //         .replace(/>/g, '&gt;');
+  //     }
+  //
+  //     // Depending on the type of node, we'll do different types of processing.
+  //     if (node.nodeType === Node.ELEMENT_NODE) {
+  //       return Array.from(node.childNodes).map(childNode => {
+  //         // The reference to this.options.rules is changed to options.rules
+  //         return options.rules.replacement(content, childNode, options)
+  //       }).join('');
+  //     } else if (node.nodeType === Node.TEXT_NODE) {
+  //       return escapeHtml(node.data);
+  //     }
+  //   }
+  // });
 
 
 
