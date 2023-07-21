@@ -1,4 +1,4 @@
-import {download, saveToClipboard} from "./export";
+import {download, saveToClipboard} from "./exportMethods";
 
 export async function exporter(markdownContent, title) {
   download(markdownContent, title);
