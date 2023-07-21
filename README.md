@@ -58,6 +58,9 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [ ] Export tables into markdown (Turndown rule)
 - [ ] Option page : choose subfolder to save files in (or custom download location)
 - [ ] Link to the downloaded file in the currently opened note in Obsidian
+- [ ] Donation popup when user reaches a certain number of clicks (Paypal, BuyMeACoffee, etc.)
+  - Redirect link to confirm donation (variable "donation level" in sessionStorage: no popup if recurrely donating, no popup during x time if single donation, popup if not)
+- [ ] "Export All Threads": Downloading several threads at once, as text files, into as a zip file.
 - [ ] (Copy the last response to the clipboard when clicking on the extension icon (instead of the entire response) )
     - Phind Search : click on the copy button
     - Phind Pair : export the last answer div
@@ -109,8 +112,8 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Bugs/Issues:
 - [ ] Extension icon not updated on Firefox
   => User needs to click or manually allow the extension to access websites
-- [ ] Web: Exported links beginning with # prepended by page url
 - [ ] Pair programmer: Line breaks in user questions (Phind uses spaces as line breaks)
+- [ ] Web: Exported links beginning with # prepended by page url
 - [x] Fix link formatting with < and > characters
 - [x] Fix text formatting with < and > characters
 - [x] Update icon for already opened tabs in windows
