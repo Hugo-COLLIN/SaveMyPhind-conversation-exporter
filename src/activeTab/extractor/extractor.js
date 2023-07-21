@@ -1,5 +1,6 @@
-import {exportPhindPair, exportPhindSearch, exportRandomPage} from "./extract";
-import {getPhindPageTitle} from "../utils/utils";
+import {exportPhindPair, exportPhindSearch, exportRandomPage} from "./extractPages";
+
+import {getPhindPageTitle} from "./getters";
 
 export async function catchContent() {
   const url = window.location.href;

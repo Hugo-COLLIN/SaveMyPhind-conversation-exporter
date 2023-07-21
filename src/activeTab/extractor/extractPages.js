@@ -1,6 +1,8 @@
-import {formatMarkdown} from "./convert";
-import {capitalizeFirst, getPhindPageTitle, setFileHeader, sleep} from "../utils/utils";
-import {setPhindRules, setRandomPageRules} from "./ruler";
+import {formatMarkdown} from "../formatter/formatter";
+import {sleep} from "../utils/utils";
+import {setPhindRules, setRandomPageRules} from "../formatter/formatterRules";
+import {capitalizeFirst, setFileHeader} from "../formatter/format";
+import {getPhindPageTitle} from "./getters";
 
 
 export async function exportRandomPage() {

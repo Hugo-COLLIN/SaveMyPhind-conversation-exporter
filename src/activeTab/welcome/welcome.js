@@ -1,4 +1,4 @@
-import {fetchInfos} from "../utils/utils";
+import {fetchInfos} from "../extractor/getters";
 
 export async function welcome() {
   const appInfos = await fetchInfos();
