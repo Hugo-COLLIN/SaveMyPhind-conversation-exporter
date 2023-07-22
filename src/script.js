@@ -22,3 +22,21 @@ async function main() {
     }
   }
 }
+
+// Dans le contentScript
+document.addEventListener('DOMContentLoaded', function() {
+  // Créer un nouveau bouton
+  let button = document.createElement('button');
+  button.innerHTML = 'Send Message';
+
+  // Ajouter un écouteur d'événements au bouton
+  button.addEventListener('click', function() {
+    // Envoyer le message quand le bouton est cliqué
+    chrome.runtime.sendMessage({message: 'exportAllThreads', length: length}, function(response) {
+      console.log(response);
+    });
+  });
+
+  // Ajouter le bouton au corps du document
+  document.body.appendChild(button);
+});

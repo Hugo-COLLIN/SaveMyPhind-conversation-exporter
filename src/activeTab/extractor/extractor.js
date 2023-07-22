@@ -23,6 +23,9 @@ export async function catchContent() {
   return {markdownContent, title};
 }
 
+export function clickOnThread() {
+  document.querySelectorAll(".table-responsive tr")[sessionStorage.getItem("phindThreadIndex")].click();
+}
 
 export function catchAllThreads() {
   // for (let i = 0; i < document.querySelectorAll(".table-responsive tr").length; i++)
@@ -46,44 +49,44 @@ export function catchAllThreads() {
   //   });
   // });
 
-  // // Grab all the links
-  // let links = Array.from(document.querySelectorAll(".table-responsive tr"));
-  //
-  // // Function to process each link
-  // async function processLink(link) {
-  //   return new Promise((resolve, reject) => {
-  //     // Open link in a new window/tab
-  //     let newWindow = window.open(link);
-  //
-  //     // When the new window loads, call `catchContent`
-  //     newWindow.onload = async function() {
-  //       try {
-  //         await newWindow.catchContent();   // Should be defined in each new window
-  //         newWindow.close();
-  //         resolve();
-  //       } catch(error) {
-  //         reject(error);
-  //       }
-  //     }
-  //   });
-  // }
-  //
-  // // Function to process all links
-  // async function processAllLinks() {
-  //   for (let link of links) {
-  //     console.log(`Processing ${link}...`);
-  //     try {
-  //       await processLink(link);
-  //       console.log(`Done with ${link}`);
-  //     } catch(error) {
-  //       console.error(`Error with ${link}: ${error}`);
-  //     }
-  //   }
-  //   console.log(`Done with all links!`);
-  // }
-  //
-  // // Kick off the processing
-  // processAllLinks();
+  // Grab all the links
+  let links = Array.from(document.querySelectorAll(".table-responsive tr"));
+
+  // Function to process each link
+  async function processLink(link) {
+    return new Promise((resolve, reject) => {
+      // Open link in a new window/tab
+      let newWindow = window.open(link);
+
+      // When the new window loads, call `catchContent`
+      newWindow.onload = async function() {
+        try {
+          await newWindow.catchContent();   // Should be defined in each new window
+          newWindow.close();
+          resolve();
+        } catch(error) {
+          reject(error);
+        }
+      }
+    });
+  }
+
+  // Function to process all links
+  async function processAllLinks() {
+    for (let link of links) {
+      console.log(`Processing ${link}...`);
+      try {
+        await processLink(link);
+        console.log(`Done with ${link}`);
+      } catch(error) {
+        console.error(`Error with ${link}: ${error}`);
+      }
+    }
+    console.log(`Done with all links!`);
+  }
+
+  // Kick off the processing
+  processAllLinks();
 
   // // Get all the table rows
   // let rows = document.querySelectorAll(".table-responsive tr");
@@ -106,33 +109,68 @@ export function catchAllThreads() {
   //   });
   // }
 
-  // Get all the table rows
-  let rows = document.querySelectorAll(".table-responsive tr");
+  // not tested
+  // // Get all the table rows
+  // let rows = document.querySelectorAll(".table-responsive tr");
+  //
+  // // Add event listener to every row
+  // for (let i = 0; i < rows.length; i++) {
+  //   let row = rows[i];
+  //
+  //   // clicking event
+  //   row.onclick = function () {
+  //     // open a new window with the URL of your clicked item...
+  //     let URL = "";  // You will need to determine how the URL is formed or where it is stored.
+  //
+  //     let newTab = window.open(URL,'_blank');
+  //
+  //     // Add a load event listener to the new window
+  //     newTab.addEventListener('load', function () {
+  //       let remote = newTab.window;
+  //
+  //       // The code inside this will run once the new page has loaded
+  //       remote.console.log("loaded");
+  //       remote.alert(remote.document.title);
+  //
+  //       // You can call your "catchContent" function here
+  //       remote.catchContent();
+  //     });
+  //   }
+  // }
 
-  // Add event listener to every row
-  for (let i = 0; i < rows.length; i++) {
-    let row = rows[i];
+  // const puppeteer = require('puppeteer');
+  //
+  // (async () => {
+  //   const browser = await puppeteer.launch();
+  //   const page = await browser.newPage();
+  //
+  //   await page.goto('https://phind.com');
+  //
+  //   // Get all the table rows
+  //   const rows = await page.$$('.table-responsive tr');
+  //
+  //   for (let row of rows) {
+  //     // Click the row and wait for navigation
+  //     await Promise.all([
+  //       row.click(),
+  //       page.waitForNavigation({ waitUntil: 'networkidle0' }),
+  //     ]);
+  //
+  //     // Call your 'catchContent()' function here.
+  //     // Puppeteer can't call a function that is defined in your Node.js script.
+  //     // If 'catchContent()' function is defined in browser global scope on each page you navigate,
+  //     // you can call this function like...
+  //     await page.evaluate(() => {
+  //       catchContent();
+  //     });
+  //
+  //     // Go back to the original page to click the next row
+  //     await page.goBack({ waitUntil: 'networkidle0' });
+  //   }
+  //
+  //   await browser.close();
+  // })();
 
-    // clicking event
-    row.onclick = function () {
-      // open a new window with the URL of your clicked item...
-      let URL = "";  // You will need to determine how the URL is formed or where it is stored.
-
-      let newTab = window.open(URL,'_blank');
-
-      // Add a load event listener to the new window
-      newTab.addEventListener('load', function () {
-        let remote = newTab.window;
-
-        // The code inside this will run once the new page has loaded
-        remote.console.log("loaded");
-        remote.alert(remote.document.title);
-
-        // You can call your "catchContent" function here
-        remote.catchContent();
-      });
-    }
-  }
 
 }
 
