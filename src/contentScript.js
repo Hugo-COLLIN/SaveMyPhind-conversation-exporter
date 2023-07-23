@@ -1,13 +1,10 @@
 import {threadFromList} from "./threadFromList";
 
-let clickIndex = 0;
-
 document.addEventListener('DOMContentLoaded', function() {
   let button = document.createElement('button');
   button.innerHTML = 'Send Message';
 
   button.addEventListener('click', function() {
-    clickIndex = 0;
     chrome.runtime.sendMessage({message: 'exportAllThreads', length: document.querySelectorAll(".table-responsive tr").length}, function(response) {
       console.log(response);
     });
@@ -18,19 +15,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.message === 'executeScript') {
-    if(clickIndex === request.index) {
       threadFromList(request.index);
       setTimeout(function() {
         sendResponse({message: 'scriptExecuted'});
       }, 1);
-    }
   }
   return true; // will respond asynchronously
 });
 
 
 window.addEventListener('load', function() {
-  clickIndex++;
   chrome.runtime.sendMessage({message: 'LOAD_COMPLETE'}, function(response) {
     console.log(response);
   });
