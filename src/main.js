@@ -12,7 +12,7 @@ main();
 /**
  * Main function
  */
-async function main() {
+export async function main() {
   if (document.URL.includes("phind.com")) {
     await welcome();
     const caught = await catchContent();
@@ -22,3 +22,22 @@ async function main() {
     }
   }
 }
+
+// (function() {
+//   var oldAddEventListener = EventTarget.prototype.addEventListener;
+//   var listeners = [];
+//
+//   EventTarget.prototype.addEventListener = function(eventName, eventHandler) {
+//     listeners.push({eventName, eventHandler});
+//     console.log(listeners);
+//     // oldAddEventListener.call(this, eventName, eventHandler);
+//   }
+//
+//   const element = document.querySelector('.table-responsive tr');
+//   element.click();
+//
+//
+//   // window.postMessage({ type: 'FROM_PAGE', text: JSON.stringify(listeners) }, '*');
+//
+//   EventTarget.prototype.addEventListener = oldAddEventListener;
+// })();

@@ -10,8 +10,7 @@
   },
   "permissions": [
     "scripting",
-    "activeTab",
-    "webNavigation"
+    "tabs"
   ],
   "host_permissions": [
     "https://*.phind.com/*"
