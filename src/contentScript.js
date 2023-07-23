@@ -1,3 +1,5 @@
+import {threadFromList} from "./threadFromList";
+
 document.addEventListener('DOMContentLoaded', function() {
   chrome.runtime.sendMessage({message: 'READY'}, function (response) {
     console.log(response);
@@ -28,6 +30,44 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 });
 
 
+
+
+
+
+
+
+
+
+// document.addEventListener('DOMContentLoaded', function() {
+//   chrome.runtime.sendMessage({message: 'READY'}, function (response) {
+//     console.log(response);
+//   });
+// });
+//
+//
+//
+// document.addEventListener('DOMContentLoaded', function() {
+//   let button = document.createElement('button');
+//   button.innerHTML = 'Send Message';
+//
+//   button.addEventListener('click', function() {
+//     chrome.runtime.sendMessage({message: 'exportAllThreads', length: document.querySelectorAll(".table-responsive tr").length}, function(response) {
+//       console.log(response);
+//     });
+//   });
+//
+//   document.body.appendChild(button);
+// });
+//
+// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+//   if (request.message === 'executeScript') {
+//     threadFromList(request.index);
+//     sendResponse({message: 'scriptExecuted'});
+//   }
+//   return true; // will respond asynchronously
+// });
+//
+//
 
 
 
