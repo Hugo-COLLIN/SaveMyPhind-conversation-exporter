@@ -13,30 +13,29 @@ let currentIndex = 0;
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.message === 'exportAllThreads') {
-    console.log("exportAllThreads");
+
     currentIndex = 0;
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
       chrome.tabs.sendMessage(tabs[0].id, {message: 'executeScript', index: currentIndex}, function(response) {
         console.log(response);
       });
     });
+    sendResponse({message: 'exportAllThreads started'});
   }
 
   if (request.message === 'LOAD_COMPLETE') {
     currentIndex++;
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, {message: 'executeScript', index: currentIndex}, function(response) {
-        console.log(response);
-      });
+    chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+      if (currentIndex < request.length) { // prevents sending 'executeScript' message if last tr was already clicked
+        chrome.tabs.sendMessage(tabs[0].id, {message: 'executeScript', index: currentIndex}, function (response) {
+          console.log(response);
+        });
+      }
     });
   }
-
-  if (request.message === 'READY') {
-    // Handle READY message
-  }
-
   return true; // will respond asynchronously
 });
+
 
 
 

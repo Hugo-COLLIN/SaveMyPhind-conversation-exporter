@@ -3,16 +3,11 @@ import {threadFromList} from "./threadFromList";
 let clickIndex = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
-  chrome.runtime.sendMessage({message: 'READY'}, function (response) {
-    console.log(response);
-  });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
   let button = document.createElement('button');
   button.innerHTML = 'Send Message';
 
   button.addEventListener('click', function() {
+    clickIndex = 0; // Reset the click index each time the button is clicked
     chrome.runtime.sendMessage({message: 'exportAllThreads', length: document.querySelectorAll(".table-responsive tr").length}, function(response) {
       console.log(response);
     });
@@ -31,7 +26,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   return true; // will respond asynchronously
 });
 
-// Listening to page load event and sending a message to background.js to proceed to next click
+// Listening to page load event and sending a message to background.js to proceed to the next click
 window.addEventListener('load', function() {
   clickIndex++;
   chrome.runtime.sendMessage({message: 'LOAD_COMPLETE'}, function(response) {
