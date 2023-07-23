@@ -3,7 +3,7 @@ import {sleep} from "./activeTab/utils/utils";
 
 chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
   if (request.message === 'executeScript') {
-    if (request.index !== 0) threadFromList(request.index);
+    if (request.index !== 0) threadFromList();
     clickOnListElt(request.index)
     setTimeout(function () {
       sendResponse({message: 'scriptExecuted'});
@@ -12,46 +12,7 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
   return true; // will respond asynchronously
 });
 
-function createTopBtn(title, icon) {
-  let buttonElement = document.createElement('button');
-
-// Step 3: Set the type and class attributes of the button.
-  buttonElement.setAttribute('type', 'button');
-  buttonElement.classList.add('btn', 'btn-primary', 'btn-sm');
-
-// Step 4: Create the i element and set its class.
-  var iElement = document.createElement('i');
-  iElement.classList.add('mx-2', 'fe', icon);
-
-// Step 5: Set the button's innerHTML.
-  buttonElement.innerHTML = title;
-
-  buttonElement.style.margin = '2px';
-
-// Step 6: Append the iElement to the button before the text.
-  buttonElement.insertBefore(iElement, buttonElement.childNodes[0]);
-
-  return buttonElement;
-}
-
-function setBtnsExport(exporting, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn) {
-  if (exporting) {
-    exportAllThreadsSideBtn.style.display = 'none';
-    exportAllThreadsTopBtn.style.display = 'none';
-    stopExportAllThreadsSideBtn.style.display = 'block';
-    stopExportAllThreadsTopBtn.style.display = 'inline-block';
-  }
-  else
-  {
-    exportAllThreadsSideBtn.style.display = 'block';
-    exportAllThreadsTopBtn.style.display = 'inline-block';
-    stopExportAllThreadsSideBtn.style.display = 'none';
-    stopExportAllThreadsTopBtn.style.display = 'none';
-  }
-}
-
 window.addEventListener('load', function() {
-  console.log(document.readyState)
   chrome.runtime.sendMessage({message: 'LOAD_COMPLETE'}, function(response) {
     console.log(response);
     if (response.message === 'LOAD_COMPLETE processed' || response.message === 'exportAllThreads in progress') {
@@ -122,6 +83,22 @@ window.addEventListener('load', function() {
   });
 });
 
+function setBtnsExport(exporting, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn) {
+  if (exporting) {
+    exportAllThreadsSideBtn.style.display = 'none';
+    exportAllThreadsTopBtn.style.display = 'none';
+    stopExportAllThreadsSideBtn.style.display = 'block';
+    stopExportAllThreadsTopBtn.style.display = 'inline-block';
+  }
+  else
+  {
+    exportAllThreadsSideBtn.style.display = 'block';
+    exportAllThreadsTopBtn.style.display = 'inline-block';
+    stopExportAllThreadsSideBtn.style.display = 'none';
+    stopExportAllThreadsTopBtn.style.display = 'none';
+  }
+}
+
 async function waitAppend(select, htmlTableSectionElements, mode= 'append') {
   let nester = null;
   if (typeof select === 'string') {
@@ -165,6 +142,10 @@ async function waitAppend(select, htmlTableSectionElements, mode= 'append') {
   return true;
 }
 
+
+/*
+--- ELTS CREATION ---
+ */
 function createSideMenuBtn(title, icon, display = 'block') {
 // Step 2: Create the tbody element.
   var button = document.createElement('tbody');
@@ -211,272 +192,27 @@ function createSideMenuBtn(title, icon, display = 'block') {
 // Step 14: Append tr to tbody.
   button.appendChild(tr);
 
-  // button.style.display = display;
-
   return button;
 }
 
+function createTopBtn(title, icon) {
+  let buttonElement = document.createElement('button');
 
+// Step 3: Set the type and class attributes of the button.
+  buttonElement.setAttribute('type', 'button');
+  buttonElement.classList.add('btn', 'btn-primary', 'btn-sm');
 
+// Step 4: Create the i element and set its class.
+  var iElement = document.createElement('i');
+  iElement.classList.add('mx-2', 'fe', icon);
 
+// Step 5: Set the button's innerHTML.
+  buttonElement.innerHTML = title;
 
-// BEGINS TO WORK vvvvv
-// import {threadFromList} from "./threadFromList";
-//
-// document.addEventListener('DOMContentLoaded', function() {
-//   chrome.runtime.sendMessage({message: 'READY'}, function (response) {
-//     console.log(response);
-//   });
-// });
-//
-//
-//
-// document.addEventListener('DOMContentLoaded', function() {
-//   let button = document.createElement('button');
-//   button.innerHTML = 'Send Message';
-//
-//   button.addEventListener('click', function() {
-//     chrome.runtime.sendMessage({message: 'exportAllThreads', length: document.querySelectorAll(".table-responsive tr").length}, function(response) {
-//       console.log(response);
-//     });
-//   });
-//
-//   document.body.appendChild(button);
-// });
-//
-// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-//   if (request.message === 'executeScript') {
-//     threadFromList(request.index);
-//     sendResponse({message: 'scriptExecuted'});
-//   }
-//   return true; // will respond asynchronously
-// });
+  buttonElement.style.margin = '2px';
 
+// Step 6: Append the iElement to the button before the text.
+  buttonElement.insertBefore(iElement, buttonElement.childNodes[0]);
 
-
-
-
-
-
-
-
-
-// document.addEventListener('DOMContentLoaded', function() {
-//   chrome.runtime.sendMessage({message: 'READY'}, function (response) {
-//     console.log(response);
-//   });
-// });
-//
-//
-//
-// document.addEventListener('DOMContentLoaded', function() {
-//   let button = document.createElement('button');
-//   button.innerHTML = 'Send Message';
-//
-//   button.addEventListener('click', function() {
-//     chrome.runtime.sendMessage({message: 'exportAllThreads', length: document.querySelectorAll(".table-responsive tr").length}, function(response) {
-//       console.log(response);
-//     });
-//   });
-//
-//   document.body.appendChild(button);
-// });
-//
-// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-//   if (request.message === 'executeScript') {
-//     threadFromList(request.index);
-//     sendResponse({message: 'scriptExecuted'});
-//   }
-//   return true; // will respond asynchronously
-// });
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function listAllEventListeners() {
-//   const allElements = Array.prototype.slice.call(document.querySelectorAll('*'));
-//   allElements.push(document);
-//   allElements.push(window);
-//
-//   const types = [];
-//
-//   for (let ev in window) {
-//     if (/^on/.test(ev)) types[types.length] = ev;
-//   }
-//
-//   let elements = [];
-//   for (let i = 0; i < allElements.length; i++) {
-//     const currentElement = allElements[i];
-//     for (let j = 0; j < types.length; j++) {
-//       if (typeof currentElement[types[j]] === 'function') {
-//         elements.push({
-//           "node": currentElement,
-//           "type": types[j],
-//           "func": currentElement[types[j]].toString(),
-//         });
-//       }
-//     }
-//   }
-//
-//   return elements.sort(function(a,b) {
-//     return a.type.localeCompare(b.type);
-//   });
-// }
-//
-// document.addEventListener('DOMContentLoaded', function() {
-//   console.log(listAllEventListeners());
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function getEventListenersForElement(element) {
-//   const listeners = getEventListeners(element);
-//   return listeners;
-// }
-//
-// // Example usage:
-// const element = document.querySelector('#myElement');
-// const listeners = getEventListenersForElement(element);
-//
-// console.log(listeners)
-//
-// // Send the listeners to the background script
-// // chrome.runtime.sendMessage({listeners: listeners}, function(response) {
-// //   console.log(response);
-// // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import {catchContent} from "./activeTab/extractor/extractor";
-//
-// document.addEventListener('DOMContentLoaded', function() {
-//   let button = document.createElement('button');
-//   button.innerHTML = 'Send Message';
-//
-//   button.addEventListener('click', function() {
-//     chrome.runtime.sendMessage({message: 'exportAllThreads', length: document.querySelectorAll(".table-responsive tr").length}, function(response) {
-//       console.log(response);
-//     });
-//   });
-//
-//   document.body.appendChild(button);
-// });
-//
-// chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
-//   if (request.message === 'clickOnThread') {
-//     document.querySelectorAll(".table-responsive tr")[request.index].click();
-//   }
-//
-//   if (request.message === 'exportCurrentThread') {
-//     // export method
-//     console.log("exportCurrentThread");
-//   }
-//   return true;  // will respond asynchronously
-// });
-//
-// // vvvvvvvvvvvvv TODO: test
-// //document.addEventListener('DOMContentLoaded', function() {
-// //   chrome.runtime.sendMessage({message: 'READY'}, function(response) {
-// //     console.log(response);
-// //   });
-// //
-// //   chrome.runtime.sendMessage({message: 'exportAllThreads', length: document.querySelectorAll(".table-responsive tr").length}, function(response) {
-// //     console.log(response);
-// //   });
-// // });
-// //
-// // chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-// //   if (request.message === 'clickOnThread') {
-// //     document.querySelectorAll(".table-responsive tr")[request.index].click();
-// //     return true;  // will respond asynchronously
-// //   }
-// //   if (request.message === 'exportCurrentThread') {
-// //     // Add your code here to export the current thread
-// //     return true;  // will respond asynchronously
-// //   }
-// //   if (request.message === 'checkIfContentExists') {
-// //     // Add your code here to check if the content exists and return true if so
-// //     return true;  // will respond asynchronously
-// //   }
-// //   return true;  // will respond asynchronously
-// // });
+  return buttonElement;
+}

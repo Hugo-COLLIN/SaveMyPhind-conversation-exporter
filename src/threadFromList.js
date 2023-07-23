@@ -3,7 +3,7 @@ import {catchContent} from "./activeTab/extractor/extractor";
 import {exporter} from "./activeTab/exporter/exporter";
 import {sleep} from "./activeTab/utils/utils";
 
-export async function threadFromList(index) {
+export async function threadFromList() {
   if (document.URL.includes("phind.com")) {
     await welcome();
     const caught = await catchContent();
