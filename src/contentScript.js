@@ -14,7 +14,9 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
 
 window.addEventListener('load', function() {
   chrome.runtime.sendMessage({message: 'LOAD_COMPLETE'}, function(response) {
-    console.log(response);
+    if (response.message === 'exportAllThreads finished')
+      window.location.href = "https://www.phind.com";
+    else
     if (response.message === 'LOAD_COMPLETE processed' || response.message === 'exportAllThreads in progress') {
       // Create buttons
       let exportAllThreadsSideBtn = createSideMenuBtn('Export All Threads', 'fe-share');
@@ -35,9 +37,9 @@ window.addEventListener('load', function() {
       stopExportAllThreadsSideBtn.addEventListener('click', function() {
         chrome.runtime.sendMessage({message: 'stopExportingThreads'}, function(response) {
           console.log(response);
-          document.URL = "https://www.phind.com";
         });
         setBtnsExport(false, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
+        window.location.href = "https://www.phind.com";
       });
 
       exportAllThreadsTopBtn.addEventListener('click', function() {
@@ -53,6 +55,7 @@ window.addEventListener('load', function() {
           // document.URL = "https://www.phind.com";
         });
         setBtnsExport(false, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
+        window.location.href = "https://www.phind.com";
       });
 
 

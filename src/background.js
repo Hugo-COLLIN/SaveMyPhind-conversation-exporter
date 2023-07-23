@@ -45,7 +45,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
           return;
         }
 
-        // sleep(2000).then(() => {
         currentIndex++;
         chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
           if (currentIndex < lengthList) {
@@ -58,7 +57,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
           sendResponse({message: 'exportAllThreads in progress'});
         }, 1);
 
-        // });
       }
       else
       {
