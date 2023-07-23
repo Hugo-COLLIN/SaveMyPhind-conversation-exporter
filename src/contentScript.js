@@ -1,23 +1,12 @@
 import {threadFromList} from "./threadFromList";
 import {sleep} from "./activeTab/utils/utils";
 
-let exportAllThreadsBtn, stopExportAllThreadsBtn;
-
 chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
   if (request.message === 'executeScript') {
-    while (exportAllThreadsBtn === undefined && stopExportAllThreadsBtn === undefined) {
-      console.log("waiting for buttons")
-      await sleep(1000);
-    }
-    exportAllThreadsBtn.style.display = 'none';
-    stopExportAllThreadsBtn.style.display = 'block';
-
     threadFromList(request.index);
     setTimeout(function () {
       sendResponse({message: 'scriptExecuted'});
     }, 1);
-
-
   }
   return true; // will respond asynchronously
 });
@@ -27,8 +16,8 @@ window.addEventListener('load', function() {
   chrome.runtime.sendMessage({message: 'LOAD_COMPLETE'}, function(response) {
     console.log(response);
     if (response.message === 'LOAD_COMPLETE processed' || response.message === 'exportAllThreads in progress') {
-      exportAllThreadsBtn = createBtn('Export All Threads', 'fe-share');
-      stopExportAllThreadsBtn = createBtn('Stop Exporting Threads', 'fe-x', 'none');
+      let exportAllThreadsBtn = createBtn('Export All Threads', 'fe-share');
+      let stopExportAllThreadsBtn = createBtn('Stop Exporting Threads', 'fe-x', 'none');
 
       exportAllThreadsBtn.addEventListener('click', function() {
         chrome.runtime.sendMessage({message: 'exportAllThreads', length: document.querySelectorAll(".table-responsive tr").length}, function(response) {
@@ -45,6 +34,16 @@ window.addEventListener('load', function() {
         exportAllThreadsBtn.style.display = 'block';
         stopExportAllThreadsBtn.style.display = 'none';
       });
+
+      if (response.message === 'exportAllThreads in progress') {
+        exportAllThreadsBtn.style.display = 'none';
+        stopExportAllThreadsBtn.style.display = 'block';
+      }
+      else
+      {
+        exportAllThreadsBtn.style.display = 'block';
+        stopExportAllThreadsBtn.style.display = 'none';
+      }
 
       waitAppend([exportAllThreadsBtn, stopExportAllThreadsBtn]);
     }
@@ -97,7 +96,7 @@ function createBtn(title, icon, display = 'block') {
 // Step 14: Append tr to tbody.
   button.appendChild(tr);
 
-  button.style.display = display;
+  // button.style.display = display;
 
   return button;
 }
