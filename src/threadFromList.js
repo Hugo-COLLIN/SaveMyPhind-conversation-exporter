@@ -13,6 +13,9 @@ export async function threadFromList(index) {
     }
   }
   console.log("main done");
+}
+
+export async function clickOnListElt(index) {
   let list = document.querySelectorAll('.table-responsive tr');
   while (list.length === 0) {
     console.log("waiting for list")

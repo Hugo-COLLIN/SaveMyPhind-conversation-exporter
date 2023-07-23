@@ -1,9 +1,10 @@
-import {threadFromList} from "./threadFromList";
+import {clickOnListElt, threadFromList} from "./threadFromList";
 import {sleep} from "./activeTab/utils/utils";
 
 chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
   if (request.message === 'executeScript') {
-    threadFromList(request.index);
+    if (request.index !== 0) threadFromList(request.index);
+    clickOnListElt(request.index)
     setTimeout(function () {
       sendResponse({message: 'scriptExecuted'});
     }, 1);
