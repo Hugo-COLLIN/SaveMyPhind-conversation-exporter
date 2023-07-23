@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
   button.innerHTML = 'Send Message';
 
   button.addEventListener('click', function() {
-    clickIndex = 0; // Reset the click index each time the button is clicked
+    clickIndex = 0;
     chrome.runtime.sendMessage({message: 'exportAllThreads', length: document.querySelectorAll(".table-responsive tr").length}, function(response) {
       console.log(response);
     });
@@ -20,19 +20,22 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.message === 'executeScript') {
     if(clickIndex === request.index) {
       threadFromList(request.index);
-      sendResponse({message: 'scriptExecuted'});
+      setTimeout(function() {
+        sendResponse({message: 'scriptExecuted'});
+      }, 1);
     }
   }
   return true; // will respond asynchronously
 });
 
-// Listening to page load event and sending a message to background.js to proceed to the next click
+
 window.addEventListener('load', function() {
   clickIndex++;
   chrome.runtime.sendMessage({message: 'LOAD_COMPLETE'}, function(response) {
     console.log(response);
   });
 });
+
 
 
 
