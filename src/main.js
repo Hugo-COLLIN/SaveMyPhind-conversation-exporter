@@ -21,6 +21,7 @@ export async function main() {
       console.log("Export done!")
     }
   }
+  return Promise.resolve('Main done');
 }
 
 // (function() {
