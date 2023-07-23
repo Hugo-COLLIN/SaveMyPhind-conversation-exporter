@@ -12,27 +12,80 @@ iconListeners();
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.message === 'exportAllThreads') {
     console.log("exportAllThreads");
-    for (let i = 0; i < request.length; i++)
-    {
-      chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-        if (request.message === 'READY') {
-          chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-            chrome.tabs.sendMessage(tabs[0].id, {message: 'executeScript', index: i}, function(response) {
-              console.log(response);
-            });
+    let promises = [];
+    for (let i = 0; i < request.length; i++) {
+      let promise = new Promise((resolve, reject) => {
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+          chrome.tabs.sendMessage(tabs[0].id, {message: 'executeScript', index: i}, function(response) {
+            console.log(response);
+            resolve();
           });
-          // chrome.scripting.executeScript({
-          //   args: [i],
-          //   target: {tabId: getTabId(), allFrames : true},
-          //   func: threadFromList
-          // });
-        }
-        return true;
+        });
       });
+      promises.push(promise);
     }
+    Promise.all(promises).then(() => sendResponse({message: 'All scripts executed'}));
     return true; // will respond asynchronously
   }
+  if (request.message === 'READY') {
+    // Handle READY message
+  }
+  return true; // will respond asynchronously
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+//   if (request.message === 'exportAllThreads') {
+//     console.log("exportAllThreads");
+//     for (let i = 0; i < request.length; i++)
+//     {
+//       chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+//         if (request.message === 'READY') {
+//           chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+//             chrome.tabs.sendMessage(tabs[0].id, {message: 'executeScript', index: i}, function(response) {
+//               console.log(response);
+//             });
+//           });
+//           // chrome.scripting.executeScript({
+//           //   args: [i],
+//           //   target: {tabId: getTabId(), allFrames : true},
+//           //   func: threadFromList
+//           // });
+//         }
+//         return true;
+//       });
+//     }
+//     return true; // will respond asynchronously
+//   }
+// });
 
 
 
