@@ -31,6 +31,13 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.message === 'LOAD_COMPLETE') {
     if (isExporting)
     {
+      if (currentIndex >= lengthList)
+      {
+        isExporting = false;
+        sendResponse({message: 'exportAllThreads finished'});
+        return;
+      }
+
       currentIndex++;
       chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
         if (currentIndex < lengthList) {

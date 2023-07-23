@@ -1,6 +1,7 @@
 import {welcome} from "./activeTab/welcome/welcome";
 import {catchContent} from "./activeTab/extractor/extractor";
 import {exporter} from "./activeTab/exporter/exporter";
+import {sleep} from "./activeTab/utils/utils";
 
 export async function threadFromList(index) {
   if (document.URL.includes("phind.com")) {
@@ -11,9 +12,12 @@ export async function threadFromList(index) {
       console.log("Export done!")
     }
   }
-  // main().then(r =>{
   console.log("main done");
-  document.querySelectorAll('.table-responsive tr')[index].click();
-  // });
-
+  let list = document.querySelectorAll('.table-responsive tr');
+  while (list.length === 0) {
+    console.log("waiting for list")
+    await sleep(1000);
+    list = document.querySelectorAll('.table-responsive tr');
+  }
+  list[index].click();
 }
