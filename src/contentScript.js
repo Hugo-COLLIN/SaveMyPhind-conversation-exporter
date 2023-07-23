@@ -12,46 +12,160 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
   return true; // will respond asynchronously
 });
 
+function createTopBtn(title, icon) {
+  let buttonElement = document.createElement('button');
+
+// Step 3: Set the type and class attributes of the button.
+  buttonElement.setAttribute('type', 'button');
+  buttonElement.classList.add('btn', 'btn-primary', 'btn-sm');
+
+// Step 4: Create the i element and set its class.
+  var iElement = document.createElement('i');
+  iElement.classList.add('mx-2', 'fe', icon);
+
+// Step 5: Set the button's innerHTML.
+  buttonElement.innerHTML = title;
+
+  buttonElement.style.margin = '2px';
+
+// Step 6: Append the iElement to the button before the text.
+  buttonElement.insertBefore(iElement, buttonElement.childNodes[0]);
+
+  return buttonElement;
+}
+
+function setBtnsExport(exporting, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn) {
+  if (exporting) {
+    exportAllThreadsSideBtn.style.display = 'none';
+    exportAllThreadsTopBtn.style.display = 'none';
+    stopExportAllThreadsSideBtn.style.display = 'block';
+    stopExportAllThreadsTopBtn.style.display = 'inline-block';
+  }
+  else
+  {
+    exportAllThreadsSideBtn.style.display = 'block';
+    exportAllThreadsTopBtn.style.display = 'inline-block';
+    stopExportAllThreadsSideBtn.style.display = 'none';
+    stopExportAllThreadsTopBtn.style.display = 'none';
+  }
+}
+
 window.addEventListener('load', function() {
   console.log(document.readyState)
   chrome.runtime.sendMessage({message: 'LOAD_COMPLETE'}, function(response) {
     console.log(response);
     if (response.message === 'LOAD_COMPLETE processed' || response.message === 'exportAllThreads in progress') {
-      let exportAllThreadsBtn = createBtn('Export All Threads', 'fe-share');
-      let stopExportAllThreadsBtn = createBtn('Stop Exporting Threads', 'fe-x', 'none');
+      // Create buttons
+      let exportAllThreadsSideBtn = createSideMenuBtn('Export All Threads', 'fe-share');
+      let stopExportAllThreadsSideBtn = createSideMenuBtn('Stop Exporting Threads', 'fe-x', 'none');
 
-      exportAllThreadsBtn.addEventListener('click', function() {
+      let exportAllThreadsTopBtn = createTopBtn('Export All Threads', 'fe-share');
+      let stopExportAllThreadsTopBtn = createTopBtn('Stop Exporting Threads', 'fe-x');
+
+
+      // Events on buttons
+      exportAllThreadsSideBtn.addEventListener('click', function() {
         chrome.runtime.sendMessage({message: 'exportAllThreads', length: document.querySelectorAll(".table-responsive tr").length}, function(response) {
           console.log(response);
         });
-        exportAllThreadsBtn.style.display = 'none';
-        stopExportAllThreadsBtn.style.display = 'block';
+        setBtnsExport(true, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
       });
 
-      stopExportAllThreadsBtn.addEventListener('click', function() {
+      stopExportAllThreadsSideBtn.addEventListener('click', function() {
         chrome.runtime.sendMessage({message: 'stopExportingThreads'}, function(response) {
           console.log(response);
+          document.URL = "https://www.phind.com";
         });
-        exportAllThreadsBtn.style.display = 'block';
-        stopExportAllThreadsBtn.style.display = 'none';
+        setBtnsExport(false, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
       });
 
+      exportAllThreadsTopBtn.addEventListener('click', function() {
+        chrome.runtime.sendMessage({message: 'exportAllThreads', length: document.querySelectorAll(".table-responsive tr").length}, function(response) {
+          console.log(response);
+        });
+        setBtnsExport(true, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
+      });
+
+      stopExportAllThreadsTopBtn.addEventListener('click', function() {
+        chrome.runtime.sendMessage({message: 'stopExportingThreads'}, function(response) {
+          console.log(response);
+          // document.URL = "https://www.phind.com";
+        });
+        setBtnsExport(false, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
+      });
+
+
+      // Show/hide buttons
       if (response.message === 'exportAllThreads in progress') {
-        exportAllThreadsBtn.style.display = 'none';
-        stopExportAllThreadsBtn.style.display = 'block';
+        setBtnsExport(true, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn)
       }
       else
       {
-        exportAllThreadsBtn.style.display = 'block';
-        stopExportAllThreadsBtn.style.display = 'none';
+        setBtnsExport(false, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn)
       }
 
-      waitAppend([exportAllThreadsBtn, stopExportAllThreadsBtn]);
+      // Append buttons
+      waitAppend(".col-lg-2 > div > div > table", [exportAllThreadsSideBtn, stopExportAllThreadsSideBtn], 'appendChild');
+
+      let doublePlace = [
+        {
+          selector: ".row.justify-content-center > div > .container-xl",
+          mode: 'append'
+        },
+        {
+          selector: ":not(.row.justify-content-center) > div > .container-xl",
+          mode: 'prepend'
+        }
+      ];
+      waitAppend(doublePlace, [exportAllThreadsTopBtn, stopExportAllThreadsTopBtn]);
     }
   });
 });
 
-function createBtn(title, icon, display = 'block') {
+async function waitAppend(select, htmlTableSectionElements, mode= 'append') {
+  let nester = null;
+  if (typeof select === 'string') {
+    nester = document.querySelector(select);
+    while (nester === null) {
+      console.log("waiting for adding elements")
+      await sleep(1000)
+      nester = document.querySelector(select);
+    }
+  }
+  else if (typeof select === 'object') {
+    let added = false;
+    let res = select.filter(elt => document.querySelector(elt.selector))
+    while (res === []) {
+      console.log("waiting for adding elements")
+      await sleep(1000)
+      res = select.filter(selector => document.querySelector(selector))
+    }
+    mode = res[0].mode;
+    nester = document.querySelector(res[0].selector);
+  }
+  else return false;
+
+  if (mode === 'prepend') {
+    for (let button of htmlTableSectionElements) {
+      nester.prepend(button);
+    }
+  }
+  else if (mode === 'appendChild')
+  {
+    for (let button of htmlTableSectionElements) {
+      nester.appendChild(button);
+    }
+  }
+  else
+  {
+    for (let button of htmlTableSectionElements) {
+      nester.append(button);
+    }
+  }
+  return true;
+}
+
+function createSideMenuBtn(title, icon, display = 'block') {
 // Step 2: Create the tbody element.
   var button = document.createElement('tbody');
 
@@ -100,19 +214,6 @@ function createBtn(title, icon, display = 'block') {
   // button.style.display = display;
 
   return button;
-}
-
-async function waitAppend(htmlTableSectionElements) {
-  let btnList = document.querySelector(".col-lg-2 > div > div > table");
-  while (btnList === null) {
-    console.log("waiting for list")
-    await sleep(1000)
-    btnList = document.querySelector(".col-lg-2 > div > div > table");
-  }
-
-  for (let button of htmlTableSectionElements) {
-    btnList.appendChild(button);
-  }
 }
 
 
