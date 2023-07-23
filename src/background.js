@@ -12,6 +12,7 @@ iconListeners();
 let currentIndex = 0;
 let lengthList = 0;
 let isExporting = false;
+let eventCount = 0;
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.message === 'exportAllThreads') {
@@ -29,7 +30,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   }
 
   if (request.message === 'LOAD_COMPLETE') {
-    if (isExporting)
+    eventCount++;
+    if (isExporting && eventCount % 2 === 0)
     {
       if (currentIndex >= lengthList)
       {

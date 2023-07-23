@@ -23,8 +23,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   return true; // will respond asynchronously
 });
 
+// window.dispatchEvent(new Event('contentLoaded'));
 
 window.addEventListener('load', function() {
+  console.log(document.readyState)
   chrome.runtime.sendMessage({message: 'LOAD_COMPLETE'}, function(response) {
     console.log(response);
   });
