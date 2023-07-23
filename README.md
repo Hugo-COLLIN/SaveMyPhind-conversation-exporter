@@ -111,6 +111,8 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Sanitize HTML code
 
 ### Bugs/Issues:
+- [ ] Page title bug: 
+    https://www.phind.com/agent?cache=clkf6wi1n000djx074ar4fpfo
 - [ ] Extension icon not updated on Firefox
   => User needs to click or manually allow the extension to access websites
 - [ ] Pair programmer: Line breaks in user questions (Phind uses spaces as line breaks)

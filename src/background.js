@@ -1,5 +1,6 @@
 import {iconListeners} from "./background/icon/iconMain";
 import {clickActionListener} from "./background/action/actionMain";
+import {sleep} from "./activeTab/utils/utils";
 
 clickActionListener();
 iconListeners();
@@ -31,25 +32,40 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
   if (request.message === 'LOAD_COMPLETE') {
     eventCount++;
-    if (isExporting && eventCount % 2 === 0)
-    {
-      if (currentIndex >= lengthList)
-      {
-        isExporting = false;
-        sendResponse({message: 'exportAllThreads finished'});
-        return;
-      }
-
-      currentIndex++;
-      chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-        if (currentIndex < lengthList) {
-          chrome.tabs.sendMessage(tabs[0].id, {message: 'executeScript', index: currentIndex}, function (response) {
-            console.log(response);
-          });
+    if (eventCount % 2 === 0) {
+      if (isExporting) {
+        if (currentIndex >= lengthList) {
+          isExporting = false;
+          sendResponse({message: 'exportAllThreads finished'});
+          return;
         }
-      });
+
+        // sleep(2000).then(() => {
+        currentIndex++;
+        chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+          if (currentIndex < lengthList) {
+            chrome.tabs.sendMessage(tabs[0].id, {message: 'executeScript', index: currentIndex}, function (response) {
+              console.log(response);
+            });
+          }
+        });
+        setTimeout(function () {
+          sendResponse({message: 'LOAD_COMPLETE processed'});
+        }, 1);
+
+        // });
+      }
+      else
+      {
+        setTimeout(function() {
+          sendResponse({message: 'LOAD_COMPLETE processed'});
+        }, 1);
+      }
+    }
+    else
+    {
       setTimeout(function() {
-        sendResponse({message: 'LOAD_COMPLETE processed'});
+        sendResponse({message: 'Before load complete'});
       }, 1);
     }
   }
