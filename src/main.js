@@ -23,22 +23,3 @@ export async function main() {
   }
   return Promise.resolve('Main done');
 }
-
-// (function() {
-//   var oldAddEventListener = EventTarget.prototype.addEventListener;
-//   var listeners = [];
-//
-//   EventTarget.prototype.addEventListener = function(eventName, eventHandler) {
-//     listeners.push({eventName, eventHandler});
-//     console.log(listeners);
-//     // oldAddEventListener.call(this, eventName, eventHandler);
-//   }
-//
-//   const element = document.querySelector('.table-responsive tr');
-//   element.click();
-//
-//
-//   // window.postMessage({ type: 'FROM_PAGE', text: JSON.stringify(listeners) }, '*');
-//
-//   EventTarget.prototype.addEventListener = oldAddEventListener;
-// })();
