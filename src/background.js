@@ -30,6 +30,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     }, 1);
   }
 
+  if (request.message === 'stopExportingThreads') {
+    isExporting = false;
+    sendResponse({message: 'exportAllThreads stopped'});
+  }
+
   if (request.message === 'LOAD_COMPLETE') {
     eventCount++;
     if (eventCount % 2 === 0) {
@@ -50,7 +55,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
           }
         });
         setTimeout(function () {
-          sendResponse({message: 'LOAD_COMPLETE processed'});
+          sendResponse({message: 'exportAllThreads in progress'});
         }, 1);
 
         // });
