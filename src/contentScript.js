@@ -1,6 +1,5 @@
 import {launchExport} from "./activeTab/orchestrator";
 import {sleep} from "./activeTab/utils/utils";
-import {logWaitElts} from "./activeTab/console/consoleMessages";
 import {clickOnListElt} from "./activeTab/interact/interact";
 import {fetchInfos} from "./activeTab/extractor/getters";
 
@@ -309,7 +308,7 @@ function createModalUpdate(modalBackground)
   innerDivImage.style.marginRight = '10px';
   var innerDivImageImg = document.createElement('img');
   innerDivImageImg.src = chrome.runtime.getURL('img/icons/icon-48.png');
-  innerDivImageImg.alt = 'favicon-stackoverflow.com';
+  innerDivImageImg.alt = `${appInfos.APP_SNAME} icon`;
   innerDivImageImg.width = '48';
   innerDivImageImg.height = '48';
   innerDivImage.appendChild(innerDivImageImg);
@@ -330,11 +329,20 @@ function createModalUpdate(modalBackground)
   let innerDiv2 = createModalTextGroup("⨠ Export all your threads in 1 click!", "Just click on the \"Export All Threads\" button! It could be long, so you have time to drink your triple coffee dose 🙃.");
   let innerDiv3 = createModalTextGroup("⨠ Some bugs solved", "Filename, title bugs, these kind of things...");
 
-  let innerDiv4 = createModalTextGroup(`Enjoy!<br>Hugo <small>- ${appInfos.APP_NAME} creator</small>`, "I'm not affiliated with the Phind.com developers, I just love this website and I wanted to make it even better."); //I'm not affiliated with Phind, I just love this website and I wanted to make it better for me and for you. If you want to support me, you can donate at https://www.paypal.com/paypalme/${appInfos.APP_SNAME}
+  var innerDivLink = document.createElement('a');
+  innerDivLink.target = '_blank';
+  innerDivLink.classList.add('mb-0');
+  innerDivLink.href = appInfos.APP_WEBSTORE_URL + "/reviews";
+  innerDivLink.innerHTML = "⭐ If this extension helps you, please leave it a review on the Chrome Web Store! ⭐";
+
+  let innerDiv4 = createModalTextGroup(`Enjoy!<br>Hugo <small>- ${appInfos.APP_SNAME} creator</small>`, "I'm not affiliated with the Phind.com developers, I just love this website and I wanted to make it even better."); //I'm not affiliated with Phind, I just love this website and I wanted to make it better for me and for you. If you want to support me, you can donate at https://www.paypal.com/paypalme/${appInfos.APP_SNAME}
 
   modalBodyDiv.appendChild(innerDiv1);
   modalBodyDiv.appendChild(innerDiv2);
   modalBodyDiv.appendChild(innerDiv3);
+  modalBodyDiv.appendChild(document.createElement('br'));
+  modalBodyDiv.appendChild(innerDivLink);
+  modalBodyDiv.appendChild(document.createElement('br'));
   modalBodyDiv.appendChild(document.createElement('br'));
   modalBodyDiv.appendChild(innerDiv4);
 

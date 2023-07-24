@@ -61,12 +61,14 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [ ] Donation popup when user reaches a certain number of clicks (Paypal, BuyMeACoffee, etc.)
   - Redirect link to confirm donation (variable "donation level" in sessionStorage: no popup if recurrely donating, no popup during x time if single donation, popup if not)
 - [ ] "Export All Threads": into as a zip file.
+- [ ] "Export All Threads": Modal when export is finished or stopped (with stats + CTA review/donation)
 - [ ] (Copy the last response to the clipboard when clicking on the extension icon (instead of the entire response) )
       - Phind Search : click on the copy button
       - Phind Pair : export the last answer div
 - [ ] (Export next search result pages (sources side panel))
 - [ ] ~~Automatically download the conversation?~~
 - [ ] ~~Automatically copy the last response to the clipboard (without clicking on the extension icon)?~~
+- [x] Update modal to inform users about the new features
 - [x] "Export All Threads": Downloading several threads at once, as text files, (into as a zip file - later).
     - All in one tab (with a "loading" message?) or open each thread in a new tab (permission tabs? + browser resources lags?)
 - [x] Pair programmer: Put correct index before links both in sources and all search results list

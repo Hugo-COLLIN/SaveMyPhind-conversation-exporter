@@ -1,8 +1,9 @@
 # Changelog
 # v1.7.6
 ### Features:
-- New "Export All Threads" button into the Phind interface to export all search results at once!
 - "Export This Thread" button into the Phind interface to export the current thread
+- New "Export All Threads" button into the Phind interface to export all threads!
+- Update modal to inform users about the new features
 
 ### Bugs fixed:
 - Fix filename export error

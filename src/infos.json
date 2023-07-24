@@ -5,6 +5,7 @@
   "APP_ID": "savemyphind@hugocollin.com",
   "APP_VERSION": "1.5.3",
   "APP_REPO_URL": "https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter",
+  "APP_WEBSTORE_URL": "https://chrome.google.com/webstore/detail/agklnagmfeooogcppjccdnoallkhgkod",
   "COPY_MODE": "tab",
   "CONTACT_EMAIL": "hcollin.dev@gmail.com"
 }
