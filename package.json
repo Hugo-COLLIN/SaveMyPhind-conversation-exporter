@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "dompurify": "^3.0.4",
-    "puppeteer": "^20.9.0",
     "turndown": "^7.1.2"
   }
 }

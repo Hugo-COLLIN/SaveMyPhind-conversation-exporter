@@ -20,9 +20,7 @@
     "default_icon": "img/icons/icon_disabled-500.png"
   },
   "background": {
-    "scripts": [
-      "background.js"
-    ]
+    "service_worker": "background.js"
   },
   "content_scripts": [
     {
@@ -44,11 +42,5 @@
         "<all_urls>"
       ]
     }
-  ],
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "savemyphind@hugocollin.com",
-      "strict_min_version": "109.0"
-    }
-  }
+  ]
 }
