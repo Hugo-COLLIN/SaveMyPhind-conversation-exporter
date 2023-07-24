@@ -60,14 +60,15 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [ ] Link to the downloaded file in the currently opened note in Obsidian
 - [ ] Donation popup when user reaches a certain number of clicks (Paypal, BuyMeACoffee, etc.)
   - Redirect link to confirm donation (variable "donation level" in sessionStorage: no popup if recurrely donating, no popup during x time if single donation, popup if not)
-- [ ] "Export All Threads": Downloading several threads at once, as text files, into as a zip file.
-  - All in one tab (with a "loading" message?) or open each thread in a new tab (permission tabs? + browser resources lags?)
+- [ ] "Export All Threads": into as a zip file.
 - [ ] (Copy the last response to the clipboard when clicking on the extension icon (instead of the entire response) )
-    - Phind Search : click on the copy button
-    - Phind Pair : export the last answer div
+      - Phind Search : click on the copy button
+      - Phind Pair : export the last answer div
 - [ ] (Export next search result pages (sources side panel))
 - [ ] ~~Automatically download the conversation?~~
 - [ ] ~~Automatically copy the last response to the clipboard (without clicking on the extension icon)?~~
+- [x] "Export All Threads": Downloading several threads at once, as text files, (into as a zip file - later).
+    - All in one tab (with a "loading" message?) or open each thread in a new tab (permission tabs? + browser resources lags?)
 - [x] Pair programmer: Put correct index before links both in sources and all search results list
 - [x] Pair programmer: Export All Search results correctly
 - [x] Pair programmer: Export Sources correctly
@@ -111,12 +112,12 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Sanitize HTML code
 
 ### Bugs/Issues:
-- [ ] Page title bug: 
-    https://www.phind.com/agent?cache=clkf6wi1n000djx074ar4fpfo
 - [ ] Extension icon not updated on Firefox
   => User needs to click or manually allow the extension to access websites
 - [ ] Pair programmer: Line breaks in user questions (Phind uses spaces as line breaks)
 - [ ] Web: Exported links beginning with # prepended by page url
+- [x] Page title bug:
+  https://www.phind.com/agent?cache=clkf6wi1n000djx074ar4fpfo
 - [x] Fix link formatting with < and > characters
 - [x] Fix text formatting with < and > characters
 - [x] Update icon for already opened tabs in windows

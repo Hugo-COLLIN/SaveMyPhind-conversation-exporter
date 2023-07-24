@@ -1,9 +1,11 @@
-import {clickOnListElt, threadFromList} from "./threadFromList";
+import {launchExport} from "./activeTab/orchestrator";
 import {sleep} from "./activeTab/utils/utils";
+import {logWaitElts} from "./activeTab/console/consoleMessages";
+import {clickOnListElt} from "./activeTab/interact/interact";
 
 chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
   if (request.message === 'executeScript') {
-    if (request.index !== 0) threadFromList();
+    if (request.index !== 0) launchExport();
     clickOnListElt(request.index)
     setTimeout(function () {
       sendResponse({message: 'scriptExecuted'});
@@ -29,7 +31,7 @@ window.addEventListener('load', function() {
 
       // Events on buttons
       exportThreadTopBtn.addEventListener('click', function() {
-        threadFromList();
+        launchExport();
       });
 
       exportAllThreadsSideBtn.addEventListener('click', function() {
@@ -114,7 +116,7 @@ async function waitAppend(select, htmlTableSectionElements, mode= 'append') {
   if (typeof select === 'string') {
     nester = document.querySelector(select);
     while (nester === null) {
-      console.log("waiting for adding elements")
+      logWaitElts();
       await sleep(1000)
       nester = document.querySelector(select);
     }
