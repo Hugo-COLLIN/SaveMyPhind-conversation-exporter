@@ -15,96 +15,114 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
 });
 
 window.addEventListener('load', function() {
-  chrome.runtime.sendMessage({message: 'LOAD_COMPLETE'}, function(response) {
-    if (response.message === 'exportAllThreads finished')
-      window.location.href = "https://www.phind.com";
-    else
-    if (response.message === 'LOAD_COMPLETE processed' || response.message === 'exportAllThreads in progress') {
-      // Create buttons
-      let exportAllThreadsSideBtn = createSideMenuBtn('Export All Threads', 'fe-share');
-      let stopExportAllThreadsSideBtn = createSideMenuBtn('Stop Exporting Threads', 'fe-x', 'none');
-
-      let exportAllThreadsTopBtn = createTopBtn('Export All Threads', 'fe-share');
-      let stopExportAllThreadsTopBtn = createTopBtn('Stop Exporting Threads', 'fe-x');
-      let exportThreadTopBtn = createTopBtn('Save This Thread', 'fe-save');
-
-
-      // Events on buttons
-      exportThreadTopBtn.addEventListener('click', function() {
-        launchExport();
-      });
-
-      exportAllThreadsSideBtn.addEventListener('click', function() {
-        let redirect = false;
-        if (window.location.href !== "https://www.phind.com/" && window.location.href !== "https://www.phind.com")
-        {
-          window.location.href = "https://www.phind.com";
-          redirect = true;
-        }
-        chrome.runtime.sendMessage({message: 'exportAllThreads', length: document.querySelectorAll(".table-responsive tr").length}, function(response) {
-          console.log(response.message);
-        });
-        setBtnsExport(true, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
-      });
-
-      stopExportAllThreadsSideBtn.addEventListener('click', function() {
-        chrome.runtime.sendMessage({message: 'stopExportingThreads'}, function(response) {
-          console.log(response.message);
-        });
-        setBtnsExport(false, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
+  if (window.location.href.includes("phind.com"))
+  {
+    chrome.runtime.sendMessage({message: 'LOAD_COMPLETE'}, function(response) {
+      if (response.message === 'exportAllThreads finished')
         window.location.href = "https://www.phind.com";
-      });
-
-      exportAllThreadsTopBtn.addEventListener('click', function() {
-        let redirect = false;
-        if (window.location.href !== "https://www.phind.com/" && window.location.href !== "https://www.phind.com")
-        {
-          window.location.href = "https://www.phind.com";
-          redirect = true;
-        }
-
-        chrome.runtime.sendMessage({message: 'exportAllThreads', length: document.querySelectorAll(".table-responsive tr").length, redirect: redirect}, function(response) {
-          console.log(response.message);
-        });
-        setBtnsExport(true, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
-      });
-
-      stopExportAllThreadsTopBtn.addEventListener('click', function() {
-        chrome.runtime.sendMessage({message: 'stopExportingThreads'}, function(response) {
-          console.log(response.message);
-        });
-        setBtnsExport(false, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
-        window.location.href = "https://www.phind.com";
-      });
-
-
-      // Show/hide buttons
-      if (response.message === 'exportAllThreads in progress') {
-        setBtnsExport(true, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn)
-      }
       else
-      {
-        setBtnsExport(false, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn)
-      }
+      if (response.message === 'LOAD_COMPLETE processed' || response.message === 'exportAllThreads in progress') {
+        // Create elements to add to the page
+        let exportAllThreadsSideBtn = createSideMenuBtn('Export All Threads', 'fe-share');
+        let stopExportAllThreadsSideBtn = createSideMenuBtn('Stop Exporting Threads', 'fe-x', 'none');
 
-      // Append buttons
-      waitAppend(".col-lg-2 > div > div > table", [exportAllThreadsSideBtn, stopExportAllThreadsSideBtn], 'appendChild');
+        let exportAllThreadsTopBtn = createTopBtn('Export All Threads', 'fe-share');
+        let stopExportAllThreadsTopBtn = createTopBtn('Stop Exporting Threads', 'fe-x');
+        let exportThreadTopBtn = createTopBtn('Save This Thread', 'fe-save');
 
-      waitAppend(":not(.row.justify-content-center) > div > .container-xl", [exportThreadTopBtn], 'prepend')
+        // Events on buttons
+        exportThreadTopBtn.addEventListener('click', function() {
+          launchExport();
+        });
 
-      let doublePlace = [
-        {
-          selector: ".row.justify-content-center > div > .container-xl",
-          mode: 'append'
-        },
-        {
-          selector: ":not(.row.justify-content-center) > div > .container-xl",
-          mode: 'prepend'
+        exportAllThreadsSideBtn.addEventListener('click', function() {
+          let redirect = false;
+          if (window.location.href !== "https://www.phind.com/" && window.location.href !== "https://www.phind.com")
+          {
+            window.location.href = "https://www.phind.com";
+            redirect = true;
+          }
+          chrome.runtime.sendMessage({message: 'exportAllThreads', length: document.querySelectorAll(".table-responsive tr").length}, function(response) {
+            console.log(response.message);
+          });
+          setBtnsExport(true, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
+        });
+
+        stopExportAllThreadsSideBtn.addEventListener('click', function() {
+          chrome.runtime.sendMessage({message: 'stopExportingThreads'}, function(response) {
+            console.log(response.message);
+          });
+          setBtnsExport(false, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
+          window.location.href = "https://www.phind.com";
+        });
+
+        exportAllThreadsTopBtn.addEventListener('click', function() {
+          let redirect = false;
+          if (window.location.href !== "https://www.phind.com/" && window.location.href !== "https://www.phind.com")
+          {
+            window.location.href = "https://www.phind.com";
+            redirect = true;
+          }
+
+          chrome.runtime.sendMessage({message: 'exportAllThreads', length: document.querySelectorAll(".table-responsive tr").length, redirect: redirect}, function(response) {
+            console.log(response.message);
+          });
+          setBtnsExport(true, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
+        });
+
+        stopExportAllThreadsTopBtn.addEventListener('click', function() {
+          chrome.runtime.sendMessage({message: 'stopExportingThreads'}, function(response) {
+            console.log(response.message);
+          });
+          setBtnsExport(false, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
+          window.location.href = "https://www.phind.com";
+        });
+
+
+        // Show/hide buttons
+        if (response.message === 'exportAllThreads in progress') {
+          setBtnsExport(true, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn)
         }
-      ];
-      waitAppend(doublePlace, [exportAllThreadsTopBtn, stopExportAllThreadsTopBtn]);
-    }
-  });
+        else
+        {
+          setBtnsExport(false, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn)
+        }
+
+        // Append buttons
+        waitAppend(".col-lg-2 > div > div > table", [exportAllThreadsSideBtn, stopExportAllThreadsSideBtn], 'appendChild');
+
+        waitAppend(":not(.row.justify-content-center) > div > .container-xl", [exportThreadTopBtn], 'prepend')
+
+        let doublePlace = [
+          {
+            selector: ".row.justify-content-center > div > .container-xl",
+            mode: 'append'
+          },
+          {
+            selector: ":not(.row.justify-content-center) > div > .container-xl",
+            mode: 'prepend'
+          }
+        ];
+        waitAppend(doublePlace, [exportAllThreadsTopBtn, stopExportAllThreadsTopBtn]);
+
+        chrome.storage.sync.get(['displayModalUpdate'], function (result) {
+          if (result.displayModalUpdate) {
+            // Create modal
+            let modalbg = createModalBg()
+            let modalUpdateLogs = createModalUpdate(modalbg);
+
+            // Append modal
+            waitAppend("body", [modalbg, modalUpdateLogs], 'appendChild');
+
+            // Update storage
+            chrome.storage.sync.set({displayModalUpdate: false}, function () {
+              console.log("Last update modal will not be displayed anymore");
+            });
+          }
+        });
+      }
+    });
+  }
 });
 
 function setBtnsExport(exporting, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn) {
@@ -238,4 +256,100 @@ function createTopBtn(title, icon) {
   buttonElement.insertBefore(iElement, buttonElement.childNodes[0]);
 
   return buttonElement;
+}
+
+function createModalUpdate(modalBackground)
+{
+  var outerDiv = document.createElement('div');
+  outerDiv.setAttribute('role', 'dialog');
+  outerDiv.setAttribute('aria-modal', 'true');
+  outerDiv.classList.add('fade', 'modal', 'show');
+  outerDiv.style.display = 'block';
+
+// Step 3: Create the modal-dialog div element.
+  var modalDialogDiv = document.createElement('div');
+  modalDialogDiv.classList.add('modal-dialog');
+
+// Step 4: Create the modal-content div element.
+  var modalContentDiv = document.createElement('div');
+  modalContentDiv.classList.add('modal-content');
+
+// Step 5: Create the modal-body div element.
+  var modalBodyDiv = document.createElement('div');
+  modalBodyDiv.classList.add('bg-light', 'modal-body');
+
+// Step 6: Create and append the modal-title div element.
+  var modalTitleDiv = document.createElement('div');
+  modalTitleDiv.classList.add('mb-5', 'modal-title', 'h4');
+  modalTitleDiv.innerHTML = 'All search results';
+  modalBodyDiv.appendChild(modalTitleDiv);
+
+// Step 7: Create and append the inner div elements.
+  var innerDiv1 = document.createElement('div');
+  innerDiv1.classList.add('pb-2');
+  innerDiv1.style.opacity = '1';
+
+  var innerDiv2 = document.createElement('div');
+  innerDiv2.classList.add('d-flex');
+
+  var innerDivImage = document.createElement('span');
+  innerDivImage.style.marginRight = '10px';
+  var innerDivImageImg = document.createElement('img');
+  innerDivImageImg.src = 'https://www.google.com/s2/favicons?domain=stackoverflow.com';
+  innerDivImageImg.alt = 'favicon-stackoverflow.com';
+  innerDivImageImg.width = '16';
+  innerDivImageImg.height = '16';
+  innerDivImage.appendChild(innerDivImageImg);
+
+  var innerDivText = document.createElement('span');
+  innerDivText.classList.add('fs-6', 'text-gray-600', 'text-truncate', 'd-inline', 'align-self-center');
+  innerDivText.innerHTML = 'stackoverflow.com > questions > 52910831 > typeerror-failed-to-execute-appendchild-on-node-parameter-1-is-not-of-type';
+  innerDiv2.appendChild(innerDivImage);
+  innerDiv2.appendChild(innerDivText);
+
+  var innerDivLink = document.createElement('a');
+  innerDivLink.target = '_blank';
+  innerDivLink.classList.add('mb-0');
+  innerDivLink.rel = 'noreferrer';
+  innerDivLink.href = 'https://stackoverflow.com/questions/52910831/typeerror-failed-to-execute-appendchild-on-node-parameter-1-is-not-of-type';
+  innerDivLink.innerHTML = "TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is ...";
+
+  var innerDivParagraph = document.createElement('p');
+  innerDivParagraph.classList.add('mb-0', 'fs-6');
+  innerDivParagraph.innerHTML = '3 Answers Sorted by: 2 Your function is returning a string rather than the div node. appendChild can only append a node var d= document.createElement..';
+
+  innerDiv1.appendChild(innerDiv2);
+  innerDiv1.appendChild(innerDivLink);
+  innerDiv1.appendChild(innerDivParagraph);
+
+// Step 8: Create the Close button.
+  var closeButton = document.createElement('button');
+  closeButton.type = 'button';
+  closeButton.classList.add('m-1', 'btn', 'btn-secondary');
+  closeButton.innerHTML = 'Close';
+
+// Step 9: Append the inner divs and the Close button to the modal-content div.
+  modalContentDiv.appendChild(modalBodyDiv);
+  modalBodyDiv.appendChild(innerDiv1);
+  modalContentDiv.appendChild(closeButton);
+
+// Step 10: Append the modal-dialog div to the outer div.
+  modalDialogDiv.appendChild(modalContentDiv);
+
+// Step 11: Append the outer div to the body.
+  outerDiv.appendChild(modalDialogDiv);
+
+  closeButton.addEventListener('click', function() {
+    outerDiv.remove();
+    modalBackground.remove();
+  });
+
+  return outerDiv;
+}
+
+function createModalBg() {
+  var divElement = document.createElement('div');
+  divElement.classList.add('fade', 'modal-backdrop', 'show');
+
+  return divElement;
 }
