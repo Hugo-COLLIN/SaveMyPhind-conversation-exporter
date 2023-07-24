@@ -322,12 +322,12 @@ function createModalUpdate(modalBackground)
 
   var modalSubtitleDiv = document.createElement('div');
   modalSubtitleDiv.classList.add('mb-5', 'modal-title', 'h3');
-  modalSubtitleDiv.innerHTML = `Latest updates of your ${appInfos.APP_NAME} extension:`;
+  modalSubtitleDiv.innerHTML = `Latest updates of the ${appInfos.APP_NAME} extension:`;
   modalBodyDiv.appendChild(modalSubtitleDiv);
 
-  let innerDiv1 = createModalTextGroup("⨠ Now inside the Phind interface!", "Now you can export a Phind thread directly using the button inside the interface (but you always can click on the extension icon).");
+  let innerDiv1 = createModalTextGroup("⨠ Now inside the Phind interface!", "You can now export a Phind thread using the button inside the page (but you always can click on the extension icon).");
   let innerDiv2 = createModalTextGroup("⨠ Export all your threads in 1 click!", "Just click on the \"Export All Threads\" button! It could be long, so you have time to drink your triple coffee dose 🙃.");
-  let innerDiv3 = createModalTextGroup("⨠ Some bugs solved", "Filename, title bugs, these kind of things...");
+  let innerDiv3 = createModalTextGroup("⨠ Some bugs solved", "File names, title bugs, these kind of things...");
 
   var innerDivLink = document.createElement('a');
   innerDivLink.target = '_blank';
@@ -350,7 +350,7 @@ function createModalUpdate(modalBackground)
   var closeButton = document.createElement('button');
   closeButton.type = 'button';
   closeButton.classList.add('m-1', 'btn', 'btn-primary');
-  closeButton.innerHTML = "Let's search!";
+  closeButton.innerHTML = "Let's Phind!";
 
 // Step 9: Append the inner divs and the Close button to the modal-content div.
   modalContentDiv.appendChild(modalBodyDiv);
