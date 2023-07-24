@@ -128,7 +128,7 @@ async function waitAppend(select, htmlTableSectionElements, mode= 'append') {
   if (typeof select === 'string') {
     nester = document.querySelector(select);
     while (nester === null) {
-      logWaitElts();
+      // logWaitElts();
       await sleep(1000)
       nester = document.querySelector(select);
     }

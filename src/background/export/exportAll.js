@@ -7,7 +7,7 @@ export function exportAllThreadsListener() {
   chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.message === 'exportAllThreads') {
       isExporting = true;
-      currentIndex = 0;
+      currentIndex = request.redirect ? -1 : 0;
       lengthList = request.length;
       if (!request.redirect)
       {
