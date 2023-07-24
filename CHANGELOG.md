@@ -1,5 +1,5 @@
 # Changelog
-# v1.7.6
+# v1.8.2
 ### Features:
 - "Export This Thread" button into the Phind interface to export the current thread
 - New "Export All Threads" button into the Phind interface to export all threads!
