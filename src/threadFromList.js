@@ -12,7 +12,7 @@ export async function threadFromList() {
       console.log("Export done!")
     }
   }
-  console.log("main done");
+  console.log("Export done");
 }
 
 export async function clickOnListElt(index) {
