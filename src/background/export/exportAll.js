@@ -9,11 +9,14 @@ export function exportAllThreadsListener() {
       isExporting = true;
       currentIndex = 0;
       lengthList = request.length;
-      chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {message: 'executeScript', index: currentIndex}, function (response) {
-          console.log(response);
+      if (!request.redirect)
+      {
+        chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+          chrome.tabs.sendMessage(tabs[0].id, {message: 'executeScript', index: currentIndex}, function (response) {
+            console.log(response.message);
+          });
         });
-      });
+      }
       setTimeout(function () {
         sendResponse({message: 'exportAllThreads started'});
       }, 1);
@@ -38,7 +41,7 @@ export function exportAllThreadsListener() {
           chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
             if (currentIndex < lengthList) {
               chrome.tabs.sendMessage(tabs[0].id, {message: 'executeScript', index: currentIndex}, function (response) {
-                console.log(response);
+                console.log(response.message);
               });
             }
           });

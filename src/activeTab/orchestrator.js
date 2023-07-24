@@ -4,7 +4,7 @@ import {logWelcome} from "./console/consoleMessages";
 
 export async function launchExport() {
   if (document.URL.includes("phind.com")) {
-    await logWelcome();
+    logWelcome();
     const caught = await catchContent();
     if (caught !== null) {
       await exporter(caught.markdownContent, caught.title);
