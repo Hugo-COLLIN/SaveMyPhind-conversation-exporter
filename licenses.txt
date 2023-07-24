@@ -11,7 +11,7 @@ dompurify@3.0.4
 ├─ email: mario@cure53.de
 └─ url: https://cure53.de/
 
-save-my-phind@1.5.3
+save-my-phind@1.8.4
 └─ licenses: Custom: https://chrome.google.com/webstore/detail/save-my-phind/agklnagmfeooogcppjccdnoallkhgkod
 
 turndown@7.1.2

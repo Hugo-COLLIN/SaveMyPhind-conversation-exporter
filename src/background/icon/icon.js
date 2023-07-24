@@ -1,4 +1,4 @@
-import {setIconForCurrentTab} from "./setIcon";
+import {setIconForCurrentTab} from "./iconSetter";
 
 /**
  * This is the code for the extension icon to change depending on the website

@@ -1,4 +1,16 @@
 # Changelog
+# v1.8.4
+### Features:
+- "Export This Thread" button into the Phind interface to export the current thread
+- New "Export All Threads" button into the Phind interface to export all threads!
+- Update modal to inform users about the new features
+
+### Bugs fixed:
+- Fix filename export error
+
+### Security and maintenance:
+- Module structure improvements
+
 # v1.5.3
 ### Features:
 - Pair programmer: 

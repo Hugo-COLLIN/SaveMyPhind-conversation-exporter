@@ -3,7 +3,9 @@
   "APP_SNAME": "SaveMyPhind",
   "APP_LNAME": "Save my Phind - AI Conversation Exporter",
   "APP_ID": "savemyphind@hugocollin.com",
-  "APP_VERSION": "1.5.3",
+  "APP_VERSION": "1.8.4",
   "APP_REPO_URL": "https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter",
-  "COPY_MODE": "tab"
+  "APP_WEBSTORE_URL": "https://chrome.google.com/webstore/detail/agklnagmfeooogcppjccdnoallkhgkod",
+  "COPY_MODE": "tab",
+  "CONTACT_EMAIL": "hcollin.dev@gmail.com"
 }

@@ -21,8 +21,8 @@ export function fetchInfos() {
  * @returns {string} title
  */
 export function getPhindPageTitle() {
-  const textarea = document.querySelector('textarea').innerHTML;
-  return textarea !== "" ? textarea : document.querySelector(".card-body p").innerHTML;
+  const textarea = document.querySelector('textarea');
+  return textarea !== null && textarea.innerHTML !== "" ? textarea.innerHTML : document.querySelector(".card-body p").innerHTML ?? "";
 }
 
 /**
