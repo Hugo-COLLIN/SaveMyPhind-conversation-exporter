@@ -18,6 +18,15 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
   return true; // will respond asynchronously
 });
 
+function addStyle() {
+  let styleTag = document.createElement('style');
+  document.querySelector("body").appendChild(styleTag);
+  let stylesheet = styleTag.sheet;
+
+  stylesheet.insertRule(".smallScreens { display: none!important; }", 0);
+  stylesheet.insertRule("@media screen and (max-width: 1025px) { .smallScreens { display: inline-block!important; } }", 1);
+}
+
 window.addEventListener('load', function() {
   if (window.location.href.includes("phind.com"))
   {
@@ -26,12 +35,15 @@ window.addEventListener('load', function() {
         window.location.href = "https://www.phind.com";
       else
       if (response.message === 'LOAD_COMPLETE processed' || response.message === 'exportAllThreads in progress') {
+        let isExporting = response.message === 'exportAllThreads in progress';
+        // addStyle();
+
         // Create elements to add to the page
         let exportAllThreadsSideBtn = createSideMenuBtn('Export All Threads', 'fe-share');
         let stopExportAllThreadsSideBtn = createSideMenuBtn('Stop Exporting Threads', 'fe-x', 'none');
 
-        let exportAllThreadsTopBtn = createTopBtn('Export All Threads', 'fe-share');
-        let stopExportAllThreadsTopBtn = createTopBtn('Stop Exporting Threads', 'fe-x');
+        let exportAllThreadsTopBtn = createTopBtn('Export All Threads', 'fe-share', 'smallScreens');
+        let stopExportAllThreadsTopBtn = createTopBtn('Stop Exporting Threads', 'fe-x', 'smallScreens');
         let exportThreadTopBtn = createTopBtn('Save This Thread', 'fe-save');
 
         // Events on buttons
@@ -46,7 +58,7 @@ window.addEventListener('load', function() {
             window.location.href = "https://www.phind.com";
             redirect = true;
           }
-          chrome.runtime.sendMessage({message: 'exportAllThreads', length: document.querySelectorAll(".table-responsive tr").length}, function(response) {
+          chrome.runtime.sendMessage({message: 'exportAllThreads', length: document.querySelectorAll(".table-responsive tr").length, redirect: redirect}, function(response) {
             console.log(response.message);
           });
           setBtnsExport(true, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
@@ -124,6 +136,10 @@ window.addEventListener('load', function() {
             });
           }
         });
+
+        window.addEventListener('resize', function() {
+          setBtnsExport(isExporting, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn)
+        });
       }
     });
   }
@@ -134,12 +150,12 @@ function setBtnsExport(exporting, exportAllThreadsSideBtn, exportAllThreadsTopBt
     exportAllThreadsSideBtn.style.display = 'none';
     exportAllThreadsTopBtn.style.display = 'none';
     stopExportAllThreadsSideBtn.style.display = 'block';
-    stopExportAllThreadsTopBtn.style.display = 'inline-block';
+    stopExportAllThreadsTopBtn.style.display = window.innerWidth < 1025 ? 'inline-block' : 'none';
   }
   else
   {
     exportAllThreadsSideBtn.style.display = 'block';
-    exportAllThreadsTopBtn.style.display = 'inline-block';
+    exportAllThreadsTopBtn.style.display = window.innerWidth < 1025 ? 'inline-block' : 'none';
     stopExportAllThreadsSideBtn.style.display = 'none';
     stopExportAllThreadsTopBtn.style.display = 'none';
   }
@@ -237,10 +253,12 @@ function createSideMenuBtn(title, icon, display = 'block') {
 // Step 14: Append tr to tbody.
   button.appendChild(tr);
 
+  button.setAttribute("extension", appInfos.APP_SNAME);
+
   return button;
 }
 
-function createTopBtn(title, icon) {
+function createTopBtn(title, icon, classElt = '') {
   let buttonElement = document.createElement('button');
 
 // Step 3: Set the type and class attributes of the button.
@@ -259,13 +277,15 @@ function createTopBtn(title, icon) {
 // Step 6: Append the iElement to the button before the text.
   buttonElement.insertBefore(iElement, buttonElement.childNodes[0]);
 
+  if (classElt !== '') buttonElement.classList.add(classElt);
+
+  buttonElement.setAttribute("extension", appInfos.APP_SNAME);
+
   return buttonElement;
 }
 
 function createModalUpdate(modalBackground)
 {
-
-
   var outerDiv = document.createElement('div');
   outerDiv.setAttribute('role', 'dialog');
   outerDiv.setAttribute('aria-modal', 'true');
@@ -306,58 +326,23 @@ function createModalUpdate(modalBackground)
   modalSubtitleDiv.innerHTML = `Latest updates of your ${appInfos.APP_NAME} extension:`;
   modalBodyDiv.appendChild(modalSubtitleDiv);
 
-// First point
-  var innerDiv1 = document.createElement('div');
-  innerDiv1.classList.add('pb-2');
-  innerDiv1.style.opacity = '1';
+  let innerDiv1 = createModalTextGroup("⨠ Now inside the Phind interface!", "Now you can export a Phind thread directly using the button inside the interface (but you always can click on the extension icon).");
+  let innerDiv2 = createModalTextGroup("⨠ Export all your threads in 1 click!", "Just click on the \"Export All Threads\" button! It could be long, so you have time to drink your triple coffee dose 🙃.");
+  let innerDiv3 = createModalTextGroup("⨠ Some bugs solved", "Filename, title bugs, these kind of things...");
 
-  // var innerDivLink = document.createElement('a');
-  // innerDivLink.target = '_blank';
-  // innerDivLink.classList.add('mb-0');
-  // innerDivLink.rel = 'noreferrer';
-  // innerDivLink.href = 'https://stackoverflow.com/questions/52910831/typeerror-failed-to-execute-appendchild-on-node-parameter-1-is-not-of-type';
-  // innerDivLink.innerHTML = "TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is ...";
-
-  let p1 = document.createElement('p');
-  p1.classList.add('mb-0', 'fs-4');
-  p1.innerHTML = "⨠ Now inside the Phind interface!";
-
-  let desc1 = document.createElement('p');
-  desc1.classList.add('mb-0', 'fs-5');
-  desc1.innerHTML = "Now you can export a Phind thread directly using the button inside the interface (but you always can click on the extension icon).";
-
-  innerDiv1.appendChild(p1);
-  innerDiv1.appendChild(desc1);
-
-  // Second point
-  var innerDiv2 = document.createElement('div');
-  innerDiv2.classList.add('pb-2');
-  innerDiv2.style.opacity = '1';
-
-  let p2 = document.createElement('p');
-  p2.classList.add('mb-0', 'fs-4');
-  p2.innerHTML = "⨠ Export all your threads in 1 click!";
-
-  let desc2 = document.createElement('p');
-  desc2.classList.add('mb-0', 'fs-5');
-  // desc2.innerHTML = "Just click on the button \"Export All Threads\" and wait for the export to finish.";
-  desc2.innerHTML = "It could be long, so you have time to drink your triple coffee dose 🙃.";
-
-  innerDiv2.appendChild(p2);
-  innerDiv2.appendChild(desc2);
-
-  // Third point
-
-
+  let innerDiv4 = createModalTextGroup(`Enjoy!<br>Hugo <small>- ${appInfos.APP_NAME} creator</small>`, "I'm not affiliated with the Phind.com developers, I just love this website and I wanted to make it even better."); //I'm not affiliated with Phind, I just love this website and I wanted to make it better for me and for you. If you want to support me, you can donate at https://www.paypal.com/paypalme/${appInfos.APP_SNAME}
 
   modalBodyDiv.appendChild(innerDiv1);
   modalBodyDiv.appendChild(innerDiv2);
+  modalBodyDiv.appendChild(innerDiv3);
+  modalBodyDiv.appendChild(document.createElement('br'));
+  modalBodyDiv.appendChild(innerDiv4);
 
 // Step 8: Create the Close button.
   var closeButton = document.createElement('button');
   closeButton.type = 'button';
-  closeButton.classList.add('m-1', 'btn', 'btn-secondary');
-  closeButton.innerHTML = 'Close';
+  closeButton.classList.add('m-1', 'btn', 'btn-primary');
+  closeButton.innerHTML = "Let's search!";
 
 // Step 9: Append the inner divs and the Close button to the modal-content div.
   modalContentDiv.appendChild(modalBodyDiv);
@@ -374,7 +359,29 @@ function createModalUpdate(modalBackground)
     modalBackground.remove();
   });
 
+  outerDiv.setAttribute("extension", appInfos.APP_SNAME);
+
   return outerDiv;
+}
+
+function createModalTextGroup(bigText, smallText) {
+  let innerDiv = document.createElement('div');
+  innerDiv.classList.add('pb-2');
+  innerDiv.style.opacity = '1';
+
+  let p2 = document.createElement('p');
+  p2.classList.add('mb-0', 'fs-4');
+  p2.innerHTML = bigText;
+
+  let desc2 = document.createElement('p');
+  desc2.classList.add('mb-0', 'fs-5');
+  // desc2.innerHTML = "Just click on the button \"Export All Threads\" and wait for the export to finish.";
+  desc2.innerHTML = smallText;
+
+  innerDiv.appendChild(p2);
+  innerDiv.appendChild(desc2);
+
+  return innerDiv;
 }
 
 function createModalBg() {
