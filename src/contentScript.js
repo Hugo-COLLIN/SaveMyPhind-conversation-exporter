@@ -2,6 +2,10 @@ import {launchExport} from "./activeTab/orchestrator";
 import {sleep} from "./activeTab/utils/utils";
 import {logWaitElts} from "./activeTab/console/consoleMessages";
 import {clickOnListElt} from "./activeTab/interact/interact";
+import {fetchInfos} from "./activeTab/extractor/getters";
+
+let appInfos = null;
+fetchInfos().then(res => appInfos = res);
 
 chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
   if (request.message === 'executeScript') {
@@ -260,6 +264,8 @@ function createTopBtn(title, icon) {
 
 function createModalUpdate(modalBackground)
 {
+
+
   var outerDiv = document.createElement('div');
   outerDiv.setAttribute('role', 'dialog');
   outerDiv.setAttribute('aria-modal', 'true');
@@ -278,49 +284,74 @@ function createModalUpdate(modalBackground)
   var modalBodyDiv = document.createElement('div');
   modalBodyDiv.classList.add('bg-light', 'modal-body');
 
-// Step 6: Create and append the modal-title div element.
+  // Title
+  var innerDivImage = document.createElement('span');
+  innerDivImage.style.marginRight = '10px';
+  var innerDivImageImg = document.createElement('img');
+  innerDivImageImg.src = chrome.runtime.getURL('img/icons/icon-48.png');
+  innerDivImageImg.alt = 'favicon-stackoverflow.com';
+  innerDivImageImg.width = '48';
+  innerDivImageImg.height = '48';
+  innerDivImage.appendChild(innerDivImageImg);
+
   var modalTitleDiv = document.createElement('div');
-  modalTitleDiv.classList.add('mb-5', 'modal-title', 'h4');
-  modalTitleDiv.innerHTML = 'All search results';
+  modalTitleDiv.classList.add('mb-5', 'modal-title', 'h2');
+  modalTitleDiv.innerHTML = "Hey, what's up?";
   modalBodyDiv.appendChild(modalTitleDiv);
 
-// Step 7: Create and append the inner div elements.
+  modalTitleDiv.prepend(innerDivImage);
+
+  var modalSubtitleDiv = document.createElement('div');
+  modalSubtitleDiv.classList.add('mb-5', 'modal-title', 'h3');
+  modalSubtitleDiv.innerHTML = `Latest updates of your ${appInfos.APP_NAME} extension:`;
+  modalBodyDiv.appendChild(modalSubtitleDiv);
+
+// First point
   var innerDiv1 = document.createElement('div');
   innerDiv1.classList.add('pb-2');
   innerDiv1.style.opacity = '1';
 
+  // var innerDivLink = document.createElement('a');
+  // innerDivLink.target = '_blank';
+  // innerDivLink.classList.add('mb-0');
+  // innerDivLink.rel = 'noreferrer';
+  // innerDivLink.href = 'https://stackoverflow.com/questions/52910831/typeerror-failed-to-execute-appendchild-on-node-parameter-1-is-not-of-type';
+  // innerDivLink.innerHTML = "TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is ...";
+
+  let p1 = document.createElement('p');
+  p1.classList.add('mb-0', 'fs-4');
+  p1.innerHTML = "⨠ Now inside the Phind interface!";
+
+  let desc1 = document.createElement('p');
+  desc1.classList.add('mb-0', 'fs-5');
+  desc1.innerHTML = "Now you can export a Phind thread directly using the button inside the interface (but you always can click on the extension icon).";
+
+  innerDiv1.appendChild(p1);
+  innerDiv1.appendChild(desc1);
+
+  // Second point
   var innerDiv2 = document.createElement('div');
-  innerDiv2.classList.add('d-flex');
+  innerDiv2.classList.add('pb-2');
+  innerDiv2.style.opacity = '1';
 
-  var innerDivImage = document.createElement('span');
-  innerDivImage.style.marginRight = '10px';
-  var innerDivImageImg = document.createElement('img');
-  innerDivImageImg.src = 'https://www.google.com/s2/favicons?domain=stackoverflow.com';
-  innerDivImageImg.alt = 'favicon-stackoverflow.com';
-  innerDivImageImg.width = '16';
-  innerDivImageImg.height = '16';
-  innerDivImage.appendChild(innerDivImageImg);
+  let p2 = document.createElement('p');
+  p2.classList.add('mb-0', 'fs-4');
+  p2.innerHTML = "⨠ Export all your threads in 1 click!";
 
-  var innerDivText = document.createElement('span');
-  innerDivText.classList.add('fs-6', 'text-gray-600', 'text-truncate', 'd-inline', 'align-self-center');
-  innerDivText.innerHTML = 'stackoverflow.com > questions > 52910831 > typeerror-failed-to-execute-appendchild-on-node-parameter-1-is-not-of-type';
-  innerDiv2.appendChild(innerDivImage);
-  innerDiv2.appendChild(innerDivText);
+  let desc2 = document.createElement('p');
+  desc2.classList.add('mb-0', 'fs-5');
+  // desc2.innerHTML = "Just click on the button \"Export All Threads\" and wait for the export to finish.";
+  desc2.innerHTML = "It could be long, so you have time to drink your triple coffee dose 🙃.";
 
-  var innerDivLink = document.createElement('a');
-  innerDivLink.target = '_blank';
-  innerDivLink.classList.add('mb-0');
-  innerDivLink.rel = 'noreferrer';
-  innerDivLink.href = 'https://stackoverflow.com/questions/52910831/typeerror-failed-to-execute-appendchild-on-node-parameter-1-is-not-of-type';
-  innerDivLink.innerHTML = "TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is ...";
+  innerDiv2.appendChild(p2);
+  innerDiv2.appendChild(desc2);
 
-  var innerDivParagraph = document.createElement('p');
-  innerDivParagraph.classList.add('mb-0', 'fs-6');
-  innerDivParagraph.innerHTML = '3 Answers Sorted by: 2 Your function is returning a string rather than the div node. appendChild can only append a node var d= document.createElement..';
+  // Third point
 
-  innerDiv1.appendChild(innerDiv2);
-  innerDiv1.appendChild(innerDivLink);
-  innerDiv1.appendChild(innerDivParagraph);
+
+
+  modalBodyDiv.appendChild(innerDiv1);
+  modalBodyDiv.appendChild(innerDiv2);
 
 // Step 8: Create the Close button.
   var closeButton = document.createElement('button');
@@ -330,7 +361,6 @@ function createModalUpdate(modalBackground)
 
 // Step 9: Append the inner divs and the Close button to the modal-content div.
   modalContentDiv.appendChild(modalBodyDiv);
-  modalBodyDiv.appendChild(innerDiv1);
   modalContentDiv.appendChild(closeButton);
 
 // Step 10: Append the modal-dialog div to the outer div.

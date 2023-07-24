@@ -12,12 +12,3 @@ chrome.runtime.onInstalled.addListener(function () {
     console.log("Last update modal will be displayed");
   });
 });
-
-
-// chrome.storage.sync.get(['displayModalUpdate'], function (result) {
-//   if (result.displayModalUpdate) {
-//     chrome.tabs.sendMessage(0, {message: 'displayModalUpdate'}, function (response) {
-//       console.log(response.message);
-//     }
-//     );
-// }
