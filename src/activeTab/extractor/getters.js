@@ -22,7 +22,7 @@ export function fetchInfos() {
  */
 export function getPhindPageTitle() {
   const textarea = document.querySelector('textarea');
-  return textarea !== null ? textarea.innerHTML : document.querySelector(".card-body p").innerHTML;
+  return textarea !== null ? textarea.innerHTML : document.querySelector(".card-body p").innerHTML ?? "";
 }
 
 /**
