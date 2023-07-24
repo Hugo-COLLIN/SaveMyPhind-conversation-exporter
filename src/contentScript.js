@@ -24,9 +24,14 @@ window.addEventListener('load', function() {
 
       let exportAllThreadsTopBtn = createTopBtn('Export All Threads', 'fe-share');
       let stopExportAllThreadsTopBtn = createTopBtn('Stop Exporting Threads', 'fe-x');
+      let exportThreadTopBtn = createTopBtn('Save This Thread', 'fe-save');
 
 
       // Events on buttons
+      exportThreadTopBtn.addEventListener('click', function() {
+        threadFromList();
+      });
+
       exportAllThreadsSideBtn.addEventListener('click', function() {
         chrome.runtime.sendMessage({message: 'exportAllThreads', length: document.querySelectorAll(".table-responsive tr").length}, function(response) {
           console.log(response);
@@ -70,6 +75,8 @@ window.addEventListener('load', function() {
 
       // Append buttons
       waitAppend(".col-lg-2 > div > div > table", [exportAllThreadsSideBtn, stopExportAllThreadsSideBtn], 'appendChild');
+
+      waitAppend(":not(.row.justify-content-center) > div > .container-xl", [exportThreadTopBtn], 'prepend')
 
       let doublePlace = [
         {
@@ -116,7 +123,6 @@ async function waitAppend(select, htmlTableSectionElements, mode= 'append') {
     let added = false;
     let res = select.filter(elt => document.querySelector(elt.selector))
     while (res === []) {
-      console.log("waiting for adding elements")
       await sleep(1000)
       res = select.filter(selector => document.querySelector(selector))
     }
