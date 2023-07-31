@@ -20,14 +20,22 @@
 
 ## ❓ Extension usage
 ### How to install?
-Simply go to the Chrome Web Store and click on the install button: 
-#### [⏩click here to install Save My Phind](https://chrome.google.com/webstore/detail/save-my-phind/agklnagmfeooogcppjccdnoallkhgkod)
+Simply go to the store and click on the install button: 
+#### [⏩click here to install Save My Phind on Chromium browsers (Chrome, Edge, Opera, Brave, etc.)](https://chrome.google.com/webstore/detail/save-my-phind/agklnagmfeooogcppjccdnoallkhgkod)
+#### [⏩click here to install Save My Phind on Firefox](https://addons.mozilla.org/fr/firefox/addon/save-my-phind)
 <br>
 
-You can also install it manually following these steps (Chromium browsers only):
+You can also install it manually following these steps 
+- Chromium browsers:
 1. On GitHub, click on Releases (in the right side menu), go on the latest version and download the `save-my-phind_x.y.z.crx` file.
 2. Go on `chrome://extensions` (or `[yourChromiumBasedBrowser]://extensions`), then enable "Developer mode" (toggle on the top right) and reload the page.
 3. Drag and drop the .crx file on the page, then click on "Add extension" in the appearing popup window.
+
+- Firefox:
+1. On GitHub, click on Releases (in the right side menu), go on the latest version and download the `save-my-phind_x.y.z.xpi` file.
+2. Go on `about:addons`, then click on the gear icon on the top right and select "Install Add-on From File...".
+3. Select the .xpi file you just downloaded and click on "Add" in the appearing popup window.
+4. Right-click on the extension icon and select "Always allow for www.phind.com".
 
 ✅ You're done!
 
