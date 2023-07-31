@@ -67,8 +67,8 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [ ] Donation popup when user reaches a certain number of clicks (Paypal, BuyMeACoffee, etc.)
 - [ ] Export tables into markdown (Turndown rule)
 - [ ] Open a form when uninstalled to ask for feedback
-- [ ] Search bar above threads list to filter threads
 - [ ] Save ChatGPT conversations
+- [ ] Search bar above threads list to filter threads
 - [ ] Side buttons for each response card to export it individually
 - [ ] Option page : choose file format (markdown, html, txt)
 - [ ] Option page : choose subfolder to save files in (or custom download location)
@@ -113,8 +113,9 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Export conversation to markdown
 
 ### Security and maintenance:
-- [ ] Use the Phind (official/unofficial?) API instead of scraping the HTML?
 - [ ] Divide contentScript code into modules
+- [ ] Externalize popup text into an external file (txt, JSON?)
+- [ ] Use the Phind (official/unofficial?) API instead of scraping the HTML?
 - [ ] Make unit/e2e tests
 - [ ] CI/CD pipeline?
 - [x] Externalize background.js functions into modules
