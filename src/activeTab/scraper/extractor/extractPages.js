@@ -1,20 +1,26 @@
-import {formatMarkdown} from "../../formatUtils/converter";
 import {sleep} from "../../utils/utils";
 import {capitalizeFirst} from "../../formatUtils/formatText";
 import {setFileHeader} from "../../formatUtils/formatMarkdown";
 import {getPhindPageTitle} from "./extractMetadata";
 import {foldQuestions, unfoldQuestions} from "../../webpage/interact";
 
+/**
+ * Exported functions
+ */
 export default {
   extractArbitraryPage,
-  extractPhindSearch,
-  extractPhindAgent
+  extractPhindSearchPage,
+  extractPhindAgentPage
 }
 
-export async function extractArbitraryPage() {
+/**
+ * Catch page interesting elements to convert the content into markdown
+ * @returns {Promise<string>} markdown
+ */
+export async function extractArbitraryPage(format) {
   let markdown = await setFileHeader(document.title, window.location.hostname)
   const html = document.querySelector("body").innerHTML;
-  markdown += formatMarkdown(html);
+  markdown += format(html);
   return markdown;
 }
 
@@ -22,7 +28,7 @@ export async function extractArbitraryPage() {
  * Catch page interesting elements to convert the conversation into markdown
  * @returns {Promise<string>} markdown
  */
-export async function extractPhindSearch() {
+export async function extractPhindSearchPage(format) {
   // Unfold user questions before export
   const unfolded = await unfoldQuestions();
 
@@ -42,7 +48,7 @@ export async function extractPhindSearch() {
     let aiCitations = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div > div > div');
     let p4 = content.querySelector('.col-lg-4.col-xl-4 > div > span');
 
-    sourceQuestion = p4 ? formatMarkdown(p4.innerHTML) : sourceQuestion;
+    sourceQuestion = p4 ? format(p4.innerHTML) : sourceQuestion;
     const messageText =
       p4 ? "" :
 
@@ -52,20 +58,20 @@ export async function extractPhindSearch() {
 
             let i = 0;
             p3.forEach((elt) => {
-              res += "\n- " + formatMarkdown(elt.querySelector("a").outerHTML).replace("[", `[(${i}) `);
+              res += "\n- " + format(elt.querySelector("a").outerHTML).replace("[", `[(${i}) `);
               i++;
             });
             sourceQuestion = "";
             return res;
           })() :
 
-          p2 ? `\n___\n**You:**\n` + formatMarkdown(p2.innerHTML).replace("  \n", "") :
+          p2 ? `\n___\n**You:**\n` + format(p2.innerHTML).replace("  \n", "") :
 
             p1 ? (() => {
-                let res = formatMarkdown(p1.innerHTML);
-                if (aiCitations && aiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + formatMarkdown(aiCitations.innerHTML);
+                let res = format(p1.innerHTML);
+                if (aiCitations && aiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + format(aiCitations.innerHTML);
 
-                const aiName = formatMarkdown(aiModel.innerHTML).split(" ")[2];
+                const aiName = format(aiModel.innerHTML).split(" ")[2];
                 const aiIndicator = "**" +
                   capitalizeFirst((aiName ? aiName + " " : "") + "answer:") +
                   "**\n"
@@ -85,7 +91,7 @@ export async function extractPhindSearch() {
   return markdown;
 }
 
-export async function extractPhindAgent() {
+export async function extractPhindAgentPage(format) {
   const messages = document.querySelectorAll('[name^="answer-"] > div > div');
   let markdown = await setFileHeader(getPhindPageTitle(), "Phind Agent");
 
@@ -103,7 +109,7 @@ export async function extractPhindAgent() {
             res += "#### ";
             let putSeparator = true;
             p3.forEach((elt) => {
-              res += formatMarkdown(elt.innerHTML);
+              res += format(elt.innerHTML);
               if (p3.length > 1 && p3[1].innerHTML !== "" && putSeparator) {
                 res += " - ";
                 putSeparator = false;
@@ -116,7 +122,7 @@ export async function extractPhindAgent() {
           if (p2.length > 0) // If there are search results
           {
             // Message
-            res += formatMarkdown(p1[0].innerHTML) + "\n";
+            res += format(p1[0].innerHTML) + "\n";
 
             // Export search results
             res += "___\n**Sources:**";
@@ -136,11 +142,11 @@ export async function extractPhindAgent() {
                 dialogLinks.forEach((link) => {
                   // If the link is in the sources, add it to the sources with the correct index
                   if (p2Array.find((elt) => elt.getAttribute("href") === link.getAttribute("href"))) {
-                    res += "\n- " + formatMarkdown(link.outerHTML).replace("[", `[(${i}) `);
+                    res += "\n- " + format(link.outerHTML).replace("[", `[(${i}) `);
                   }
 
                   // Add the link to the all search results with the correct index
-                  allResults += "\n- " + formatMarkdown(link.outerHTML).replace("[", `[(${i}) `);
+                  allResults += "\n- " + format(link.outerHTML).replace("[", `[(${i}) `);
                   i++;
                 });
 
@@ -158,7 +164,7 @@ export async function extractPhindAgent() {
 
           } else // If there are no search results
             p1.forEach((elt) => {
-              res += formatMarkdown(elt.innerHTML) + "\n";
+              res += format(elt.innerHTML) + "\n";
             });
 
           return res;

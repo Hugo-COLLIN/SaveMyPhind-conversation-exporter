@@ -1,13 +1,29 @@
 import {turndownConverter} from "../../formatUtils/converter";
 import {formatUrl} from "../../formatUtils/formatMarkdown";
 
-
+/**
+ * Exported functions
+ */
 export default {
   setArbitraryPageRules,
   setPhindSearchRules,
   setPhindAgentRules,
 }
 
+
+/**
+ * Set format rules for Phind Search
+ */
+function setPhindSearchRules() {
+  setPhindRules();
+}
+
+/**
+ * Set format rules for Phind Agent
+ */
+function setPhindAgentRules() {
+  setPhindRules();
+}
 
 /**
  * Turndown rules to correctly convert the Phind conversation content into markdown
@@ -45,14 +61,9 @@ function setPhindRules() {
   });
 }
 
-function setPhindSearchRules() {
-  setPhindRules();
-}
-
-function setPhindAgentRules() {
-  setPhindRules();
-}
-
+/**
+ * Set format rules for arbitrary pages
+ */
 function setArbitraryPageRules() {
   let superfluousTags, superfluousClassIdOrAttribute;
   superfluousTags = ["header", "footer", "figure", "iframe", "nav", "aside", "style", "script", "link", "meta", "head", "svg", "img", "video", "audio", "canvas", "embed", "object", "param", "source", "track", "map", "area", "picture", "figcaption", "caption", "colgroup", "col", "tbody", "thead", "tfoot", "th", "form", "fieldset", "legend", "label", "input", "button", "select", "datalist", "optgroup", "option", "textarea", "output", "progress", "meter", "summary", "menuitem", "menu"];

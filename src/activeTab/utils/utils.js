@@ -17,10 +17,11 @@ export function sleep(ms) {
  * Supports async functions
  * @param object object where the function is
  * @param funcToCall function to call
+ * @param args
  */
-export function dynamicCall(object, funcToCall) {
+export function dynamicCall(object, funcToCall, ...args) {
   return typeof object[funcToCall] === 'function' ?
-    object[funcToCall]()
+    object[funcToCall](...args)
     : () => {
     console.error(`Function ${funcToCall} not found`);
     return null;

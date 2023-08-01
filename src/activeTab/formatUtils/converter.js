@@ -6,6 +6,10 @@ import {formatLineBreaks} from "./formatText";
 --- MARKDOWN FORMAT ---
 */
 
+export default {
+  formatMarkdown
+}
+
 /**
  * Initialize the html-to-markdown-converter
  */
