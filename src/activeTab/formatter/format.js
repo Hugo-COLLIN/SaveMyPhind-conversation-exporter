@@ -76,11 +76,12 @@ export function formatDate(format = 0, date = new Date()) {
 /**
  * Shorten the title and put the next as a subtitle
  * @param title title to shorten
+ * @param titleLength maximum length of the title
  * @returns {string[]} array containing the title and the subtitle
  */
-export function titleShortener(title) {
+export function titleShortener(title, titleLength = 100) {
   if (!title) return ["", ""];
-  const TITLE_LENGTH = 77;
+  // const TITLE_LENGTH = 100;
   title = title.replaceAll("\n", " \n ");
   const words = title.split(" ");
   let res = ["", ""];
@@ -89,8 +90,8 @@ export function titleShortener(title) {
   // Catch a title less than 50 characters
   for (let i = 0; i < words.length; i++) {
     // If the next word makes the title too long or is a line break, don't add it to the title and break the loop
-    if ((res[0] + words[i]).length > TITLE_LENGTH || words[i].match(/\n/g)) {
-      res[0] += (res[0] === "") ? title.substring(0, TITLE_LENGTH) : ""; // If title does not contain spaces, cut it to 50 characters
+    if ((res[0] + words[i]).length > titleLength || words[i].match(/\n/g)) {
+      res[0] += (res[0] === "") ? title.substring(0, titleLength) : ""; // If title does not contain spaces, cut it to 50 characters
       next = i;
       break;
     }
@@ -108,7 +109,7 @@ export function titleShortener(title) {
 
     // If the next word is the only one, add the second part of it to the subtitle
     if (next === 0) {
-      res[1] += title.substring(TITLE_LENGTH);
+      res[1] += title.substring(titleLength);
       break;
     }
 
@@ -122,7 +123,7 @@ export function titleShortener(title) {
  * @returns {string} filename
  */
 export function formatFilename(title, siteName) {
-  const filename = formatDate() + '_' + siteName + '_' + titleShortener(title)[0].replace(/[\n\/:*?"<>|]/g, '');
+  const filename = titleShortener(formatDate() + '_' + siteName + '_' + title)[0].replace(/[\n\/:*?"<>|]/g, '');
   return filename.match(/\.{3}$/g) ?
     filename.replace(/\s*\.{3}$/, '...')
     :
