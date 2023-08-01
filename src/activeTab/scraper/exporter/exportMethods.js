@@ -3,20 +3,17 @@
 --- SAVE ---
  */
 
-import {formatFilename} from "../../formatUtils/formatText";
-
 /**
  * Save the markdown file
  * @param text markdown content
  * @param filename name of the file
- * @param siteName name of the site
  */
-export function download(text, filename, siteName) {
+export function download(text, filename) {
   const blob = new Blob([text], { type: 'text/markdown' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = formatFilename(filename, siteName) + '.md';
+  a.download = filename + '.md';
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);

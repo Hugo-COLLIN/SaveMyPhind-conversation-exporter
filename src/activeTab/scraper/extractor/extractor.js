@@ -1,6 +1,6 @@
 import {exportPhindPair, exportPhindSearch, exportRandomPage} from "./extractPages";
-
 import {fetchInfos, getPhindPageTitle} from "../../webpage/getters";
+import {formatFilename} from "../../formatUtils/formatText";
 
 export async function catchContent() {
   try {
@@ -23,7 +23,8 @@ export async function catchContent() {
         // title = document.title;
       }
     }
-    return {markdownContent, title, siteName};
+    const fileName = formatFilename(title, siteName); //???
+    return {markdownContent, title, siteName, fileName};
   }
   catch (e) {
     console.log(e);

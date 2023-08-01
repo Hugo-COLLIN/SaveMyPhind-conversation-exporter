@@ -1,7 +1,7 @@
 import {download, saveToClipboard} from "./exportMethods";
 
-export async function exporter(markdownContent, title, siteName) {
-  download(markdownContent, title, siteName);
+export async function exporter(markdownContent, fileName) {
+  download(markdownContent, fileName);
   // await saveToClipboard(markdownContent);
   // linksToObsidian(markdownContent);
 }

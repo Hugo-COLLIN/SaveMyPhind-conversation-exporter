@@ -19,7 +19,7 @@ export async function launchExport() {
     logWelcome();
     const caught = await catchContent();
     if (caught !== null) {
-      await exporter(caught.markdownContent, caught.title, caught.siteName);
+      await exporter(caught.markdownContent, caught.fileName);
       console.log("Export done!")
     }
   }
