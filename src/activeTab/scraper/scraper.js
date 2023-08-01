@@ -1,5 +1,5 @@
 import {domainChecker} from "./checker/domainChecker";
-import {logWelcome} from "../storedData/consoleMessages";
+import {logWelcome} from "../utils/storedData/consoleMessages";
 import {setFormatRules} from "./ruler/ruler";
 import {extract} from "./extractor/extractor";
 import {exportContent} from "./exporter/exporter";

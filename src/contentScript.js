@@ -1,7 +1,7 @@
 import {launchExport} from "./activeTab/scraper/scraper";
 import {sleep} from "./activeTab/utils/utils";
-import {clickOnListElt} from "./activeTab/webpage/interact";
-import {fetchInfos} from "./activeTab/webpage/getters";
+import {clickOnListElt} from "./activeTab/utils/webpage/interact";
+import {fetchInfos} from "./activeTab/utils/webpage/getters";
 
 let appInfos = null;
 fetchInfos().then(res => appInfos = res);

@@ -1,5 +1,4 @@
-import {turndownConverter} from "../../formatUtils/converter";
-import {formatUrl} from "../../formatUtils/formatMarkdown";
+import {formatUrl, turndownConverter} from "../../utils/format/formatMarkdown";
 
 /**
  * Exported functions

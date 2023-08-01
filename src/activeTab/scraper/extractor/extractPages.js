@@ -1,8 +1,8 @@
 import {sleep} from "../../utils/utils";
-import {capitalizeFirst} from "../../formatUtils/formatText";
-import {setFileHeader} from "../../formatUtils/formatMarkdown";
+import {capitalizeFirst} from "../../utils/format/formatText";
+import {setFileHeader} from "../../utils/format/formatMarkdown";
 import {getPhindPageTitle} from "./extractMetadata";
-import {foldQuestions, unfoldQuestions} from "../../webpage/interact";
+import {foldQuestions, unfoldQuestions} from "../../utils/webpage/interact";
 
 /**
  * Exported functions
