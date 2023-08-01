@@ -1,4 +1,4 @@
-import {formatMarkdown} from "../formatter/formatter";
+import {formatMarkdown} from "../scraper/formatter/formatter";
 import {fetchInfos, getUrl} from "../webpage/getters";
 import {capitalizeFirst, formatDate, titleShortener} from "./formatText";
 

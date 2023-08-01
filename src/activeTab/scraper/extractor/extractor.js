@@ -1,6 +1,6 @@
 import {exportPhindPair, exportPhindSearch, exportRandomPage} from "./extractPages";
 
-import {fetchInfos, getPhindPageTitle} from "../webpage/getters";
+import {fetchInfos, getPhindPageTitle} from "../../webpage/getters";
 
 export async function catchContent() {
   try {

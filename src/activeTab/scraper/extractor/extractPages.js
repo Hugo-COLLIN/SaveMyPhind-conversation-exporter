@@ -1,9 +1,9 @@
 import {formatMarkdown} from "../formatter/formatter";
-import {sleep} from "../utils/utils";
+import {sleep} from "../../utils/utils";
 import {setPhindRules, setRandomPageRules} from "../formatter/formatterRules";
-import {capitalizeFirst} from "../formatUtils/formatText";
-import {getPhindPageTitle} from "../webpage/getters";
-import {setFileHeader} from "../formatUtils/formatMarkdown";
+import {capitalizeFirst} from "../../formatUtils/formatText";
+import {getPhindPageTitle} from "../../webpage/getters";
+import {setFileHeader} from "../../formatUtils/formatMarkdown";
 
 
 export async function exportRandomPage() {
