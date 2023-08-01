@@ -2,8 +2,22 @@
 --- OTHERS ---
  */
 
-export  function sleep(ms) {
+/**
+ * @description - Wait the corresponding time
+ * @param ms time to wait in milliseconds
+ * @returns {Promise<unknown>}
+ */
+export function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
+ * @description - Call the function of the object
+ * @param object object where the function is
+ * @param funcToCall function to call
+ */
+export function dynamicCall(object, funcToCall) {
+  typeof object[funcToCall] === 'function' ? object[funcToCall]() : console.error(`Function ${funcToCall} not found`);
 }
 
 function sanitize(filename) {

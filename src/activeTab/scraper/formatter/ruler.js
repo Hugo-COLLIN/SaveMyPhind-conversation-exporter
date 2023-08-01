@@ -1,16 +1,11 @@
-// import {setPhindRules, setRandomPageRules} from "./formatterRules";
 import formatterRules from "./formatterRules";
+import {dynamicCall} from "../../utils/utils";
 
-export function setFormatRules(domain) {
-  // formatterRules[`set${domain}Rules`] ?? null;
-  switch (domain) {
-    case "PhindSearch":
-      formatterRules.setPhindSearchRules();
-      break;
-    case "PhindAgent":
-      formatterRules.setPhindAgentRules();
-      break;
-    default:
-      // setRandomPageRules();
-  }
+
+/**
+ * @description - Set the format rules according to the domain
+ * @param domainName
+ */
+export function setFormatRules(domainName) {
+  dynamicCall(formatterRules, `set${domainName}Rules`);
 }
