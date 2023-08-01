@@ -5,3 +5,8 @@ export async function exporter(markdownContent, fileName) {
   // await saveToClipboard(markdownContent);
   // linksToObsidian(markdownContent);
 }
+
+export async function exportContent(domain, extracted) {
+  const {markdownContent, fileName} = extracted;
+  await exporter(markdownContent, fileName);
+}

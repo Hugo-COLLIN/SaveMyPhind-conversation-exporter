@@ -1,4 +1,4 @@
-import {formatMarkdown} from "../formatter/formatter";
+import {formatMarkdown} from "../formatter/converter";
 import {sleep} from "../../utils/utils";
 import {setPhindRules, setRandomPageRules} from "../formatter/formatterRules";
 import {capitalizeFirst} from "../../formatUtils/formatText";

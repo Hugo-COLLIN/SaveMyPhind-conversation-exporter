@@ -23,3 +23,7 @@ export function fetchInfos() {
 export function getUrl() {
   return window.location.href;
 }
+
+export function getHostAndPath() {
+  return window.location.host + window.location.pathname;
+}

@@ -1,10 +1,62 @@
 
-import {turndownConverter} from "./formatter";
+import {turndownConverter} from "./converter";
 
 
 import {formatUrl} from "../../formatUtils/formatMarkdown";
 
-export function setRandomPageRules() {
+
+export default {
+  setRandomPageRules,
+  setPhindSearchRules,
+  setPhindAgentRules,
+}
+
+
+/**
+ * Turndown rules to correctly convert the Phind conversation content into markdown
+ */
+function setPhindRules() {
+  turndownConverter.addRule('preserveLineBreaksInPre', {
+    filter: function (node) {
+      return node.nodeName === 'PRE' && node.querySelector('div');
+    },
+    replacement: function (content, node) {
+      const codeBlock = node.querySelector('code');
+      const codeContent = codeBlock.textContent.trim();
+      const codeLang = codeBlock.className.split("-", 2)[1];
+      return ('\n```' + codeLang + '\n' + codeContent + '\n```');
+    }
+  });
+
+  turndownConverter.addRule('formatLinks', {
+    filter: 'a',
+    replacement: function (content, node) {
+      const href = node.getAttribute('href');
+      const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '');
+      return '[' + linkText + '](' + href + ')';
+    }
+  });
+
+  turndownConverter.addRule('backslashAngleBracketsNotInBackticks', {
+    filter: function (node) {
+      return node.querySelectorAll('p').length > 0;
+    },
+    replacement: function (content, node) {
+      // Replace < and > characters in paragraphs but not in backticks
+      return "\n" + turndownConverter.turndown(node.innerHTML).replace(/(?<!`)<(?!`)/g, '{{@LT}}').replace(/(?<!`)>(?!`)/g, '{{@GT}}') + "\n\n";
+    },
+  });
+}
+
+function setPhindSearchRules() {
+  setPhindRules();
+}
+
+function setPhindAgentRules() {
+  setPhindRules();
+}
+
+function setRandomPageRules() {
   let superfluousTags, superfluousClassIdOrAttribute;
   superfluousTags = ["header", "footer", "figure", "iframe", "nav", "aside", "style", "script", "link", "meta", "head", "svg", "img", "video", "audio", "canvas", "embed", "object", "param", "source", "track", "map", "area", "picture", "figcaption", "caption", "colgroup", "col", "tbody", "thead", "tfoot", "th", "form", "fieldset", "legend", "label", "input", "button", "select", "datalist", "optgroup", "option", "textarea", "output", "progress", "meter", "summary", "menuitem", "menu"];
   superfluousClassIdOrAttribute = ["sidebar", "nav", "dropdown", "button", "authentication", "navigation", "menu", "read-next", "hamburger", "logo"];
@@ -97,42 +149,6 @@ export function setRandomPageRules() {
     },
     replacement: function (content, node) {
       return formatUrl(window.location.protocol + "//" + window.location.host + node.getAttribute('href'), content);
-    },
-  });
-}
-
-/**
- * Turndown rules to correctly convert the Phind conversation content into markdown
- */
-export function setPhindRules() {
-  turndownConverter.addRule('preserveLineBreaksInPre', {
-    filter: function (node) {
-      return node.nodeName === 'PRE' && node.querySelector('div');
-    },
-    replacement: function (content, node) {
-      const codeBlock = node.querySelector('code');
-      const codeContent = codeBlock.textContent.trim();
-      const codeLang = codeBlock.className.split("-", 2)[1];
-      return ('\n```' + codeLang + '\n' + codeContent + '\n```');
-    }
-  });
-
-  turndownConverter.addRule('formatLinks', {
-    filter: 'a',
-    replacement: function (content, node) {
-      const href = node.getAttribute('href');
-      const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '');
-      return '[' + linkText + '](' + href + ')';
-    }
-  });
-
-  turndownConverter.addRule('backslashAngleBracketsNotInBackticks', {
-    filter: function (node) {
-      return node.querySelectorAll('p').length > 0;
-    },
-    replacement: function (content, node) {
-      // Replace < and > characters in paragraphs but not in backticks
-      return "\n" + turndownConverter.turndown(node.innerHTML).replace(/(?<!`)<(?!`)/g, '{{@LT}}').replace(/(?<!`)>(?!`)/g, '{{@GT}}') + "\n\n";
     },
   });
 }
