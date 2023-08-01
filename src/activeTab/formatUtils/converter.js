@@ -1,6 +1,6 @@
 import TurndownService from 'turndown';
 import DOMPurify from 'dompurify';
-import {formatLineBreaks} from "../../formatUtils/formatText";
+import {formatLineBreaks} from "./formatText";
 
 /*
 --- MARKDOWN FORMAT ---

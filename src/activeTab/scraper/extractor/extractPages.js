@@ -1,15 +1,12 @@
-import {formatMarkdown} from "../formatter/converter";
+import {formatMarkdown} from "../../formatUtils/converter";
 import {sleep} from "../../utils/utils";
-import {setPhindRules, setRandomPageRules} from "../formatter/formatterRules";
 import {capitalizeFirst} from "../../formatUtils/formatText";
 import {setFileHeader} from "../../formatUtils/formatMarkdown";
 import {getPhindPageTitle} from "../catcher/catchMetadata";
 import {foldQuestions, unfoldQuestions} from "../../webpage/interact";
 
 
-export async function exportRandomPage() {
-  setRandomPageRules();
-
+export async function extractRandomPage() {
   let markdown = await setFileHeader(document.title, window.location.hostname)
   const html = document.querySelector("body").innerHTML;
   markdown += formatMarkdown(html);
@@ -20,8 +17,7 @@ export async function exportRandomPage() {
  * Catch page interesting elements to convert the conversation into markdown
  * @returns {Promise<string>} markdown
  */
-export async function exportPhindSearch() {
-  setPhindRules();
+export async function extractPhindSearch() {
   // Unfold user questions before export
   const unfolded = await unfoldQuestions();
 
@@ -84,8 +80,7 @@ export async function exportPhindSearch() {
   return markdown;
 }
 
-export async function exportPhindPair() {
-  setPhindRules();
+export async function extractPhindAgent() {
   const messages = document.querySelectorAll('[name^="answer-"] > div > div');
   let markdown = await setFileHeader(getPhindPageTitle(), "Phind.com");
 

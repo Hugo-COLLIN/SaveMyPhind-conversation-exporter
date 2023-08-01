@@ -1,4 +1,4 @@
-import {exportPhindPair, exportPhindSearch, exportRandomPage} from "./extractPages";
+import {extractPhindAgent, extractPhindSearch, extractRandomPage} from "./extractPages";
 import {fetchInfos, getUrl} from "../../webpage/getters";
 import {formatFilename} from "../../formatUtils/formatText";
 import {getPhindPageTitle} from "../catcher/catchMetadata";
@@ -9,12 +9,12 @@ export async function catchContent() {
     let markdownContent = "", title = "", siteName = "";
     switch (true) {
       case url.includes('www.phind.com/search'):
-        markdownContent = await exportPhindSearch();
+        markdownContent = await extractPhindSearch();
         title = getPhindPageTitle();
         siteName = "Phind-Search"
         break;
       case url.includes('www.phind.com/agent'):
-        markdownContent = await exportPhindPair();
+        markdownContent = await extractPhindAgent();
         title = getPhindPageTitle();
         siteName = "Phind-Agent";
         break;
@@ -38,14 +38,14 @@ export async function catchContent() {
 export async function extract(domain) {
 try {
     let markdownContent = "", title = "", siteName = "";
-    switch (domain) {
-      case "www.phind.com/search":
-        markdownContent = await exportPhindSearch();
+    switch (domain.name) {
+      case "PhindSearch":
+        markdownContent = await extractPhindSearch();
         title = getPhindPageTitle();
         siteName = "Phind-Search"
         break;
-      case "www.phind.com/agent":
-        markdownContent = await exportPhindPair();
+      case "PhindAgent":
+        markdownContent = await extractPhindAgent();
         title = getPhindPageTitle();
         siteName = "Phind-Agent";
         break;
@@ -55,8 +55,8 @@ try {
         // title = document.title;
       }
     }
-    const fileName = formatFilename(title, siteName); //???
-    return {markdownContent, title, siteName, fileName};
+    const fileName = formatFilename(title, domain.name.replace(/([a-z])([A-Z])/g, '\$1-\$2')); //???
+    return {markdownContent, title, fileName};
   }
   catch (e) {
     console.log(e);

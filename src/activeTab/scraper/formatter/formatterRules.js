@@ -1,5 +1,5 @@
 
-import {turndownConverter} from "./converter";
+import {turndownConverter} from "../../formatUtils/converter";
 
 
 import {formatUrl} from "../../formatUtils/formatMarkdown";
