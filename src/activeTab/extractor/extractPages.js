@@ -110,7 +110,6 @@ export async function exportPhindPair() {
           let res = "";
 
           // Extract writer name
-          console.log(p3, p3.length, p3[1].innerHTML)
           if (p3.length > 0) {
             res += "#### ";
             let putSeparator = true;
