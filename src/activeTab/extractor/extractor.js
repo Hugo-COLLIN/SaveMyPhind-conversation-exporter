@@ -5,15 +5,17 @@ import {fetchInfos, getPhindPageTitle} from "./getters";
 export async function catchContent() {
   try {
     const url = window.location.href;
-    let markdownContent = "", title = "";
+    let markdownContent = "", title = "", siteName = "";
     switch (true) {
       case url.includes('www.phind.com/search'):
         markdownContent = await exportPhindSearch();
         title = getPhindPageTitle();
+        siteName = "Phind-Search"
         break;
       case url.includes('www.phind.com/agent'):
         markdownContent = await exportPhindPair();
         title = getPhindPageTitle();
+        siteName = "Phind-Agent";
         break;
       default: {
         return null;
@@ -21,7 +23,7 @@ export async function catchContent() {
         // title = document.title;
       }
     }
-    return {markdownContent, title};
+    return {markdownContent, title, siteName};
   }
   catch (e) {
     console.log(e);

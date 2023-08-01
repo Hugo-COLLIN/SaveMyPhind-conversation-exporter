@@ -121,8 +121,8 @@ export function titleShortener(title) {
  * Returns the filename to use for the export
  * @returns {string} filename
  */
-export function formatFilename(title) {
-  const filename = formatDate() + ' ' + titleShortener(title)[0].replace(/[\n\/:*?"<>|]/g, '');
+export function formatFilename(title, siteName) {
+  const filename = formatDate() + '_' + siteName + '_' + titleShortener(title)[0].replace(/[\n\/:*?"<>|]/g, '');
   return filename.match(/\.{3}$/g) ?
     filename.replace(/\s*\.{3}$/, '...')
     :

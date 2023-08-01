@@ -1,4 +1,4 @@
-import {logWaitList} from "../console/consoleMessages";
+import {logWaitList} from "../useStoredData/consoleMessages";
 import {sleep} from "../utils/utils";
 
 export async function clickOnListElt(index) {
