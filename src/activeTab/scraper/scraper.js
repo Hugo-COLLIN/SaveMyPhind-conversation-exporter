@@ -2,48 +2,7 @@ import {extract} from "./extractor/extractor";
 import {exportContent} from "./exporter/exporter";
 import {logWelcome} from "../storedData/consoleMessages";
 import {getHostAndPath} from "../webpage/getters";
-import {setFormatRules} from "./formatter/ruler";
-
-function authorisedDomain() {
-  const url = window.location.href,
-        authorisedDomains = ["phind.com"];
-
-  for (let authorisedDomain of authorisedDomains) {
-    if (url.includes(authorisedDomain)) {
-      return true;
-    }
-  }
-  return false;
-}
-
-// export async function launchExport() {
-//   if (authorisedDomain()) {
-//     logWelcome();
-//     const caught = await catchContent();
-//     if (caught !== null) {
-//       await exporter(caught.markdownContent, caught.fileName);
-//       console.log("Export done!")
-//     }
-//   }
-// }
-
-// export async function launchExport() {
-//   const domains = ["www.phind.com/search", "www.phind.com/agent"];
-//   const hostAndPath = getHostAndPath();
-//   for (let domain of domains) {
-//     if (hostAndPath.startsWith(domain)) {
-//       logWelcome();
-//       setFormatRules(domain);
-//       const extracted = await extract(domain);
-//       if (extracted !== null)
-//       {
-//         await exportContent(extracted);
-//         console.log("Export done!")
-//       }
-//       break;
-//     }
-//   }
-// }
+import {setFormatRules} from "./formatRules/ruler";
 
 export async function domainChecker() {
   const domains = {

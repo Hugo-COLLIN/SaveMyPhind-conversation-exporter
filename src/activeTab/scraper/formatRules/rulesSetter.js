@@ -1,12 +1,9 @@
-
 import {turndownConverter} from "../../formatUtils/converter";
-
-
 import {formatUrl} from "../../formatUtils/formatMarkdown";
 
 
 export default {
-  setRandomPageRules,
+  setArbitraryPageRules,
   setPhindSearchRules,
   setPhindAgentRules,
 }
@@ -56,7 +53,7 @@ function setPhindAgentRules() {
   setPhindRules();
 }
 
-function setRandomPageRules() {
+function setArbitraryPageRules() {
   let superfluousTags, superfluousClassIdOrAttribute;
   superfluousTags = ["header", "footer", "figure", "iframe", "nav", "aside", "style", "script", "link", "meta", "head", "svg", "img", "video", "audio", "canvas", "embed", "object", "param", "source", "track", "map", "area", "picture", "figcaption", "caption", "colgroup", "col", "tbody", "thead", "tfoot", "th", "form", "fieldset", "legend", "label", "input", "button", "select", "datalist", "optgroup", "option", "textarea", "output", "progress", "meter", "summary", "menuitem", "menu"];
   superfluousClassIdOrAttribute = ["sidebar", "nav", "dropdown", "button", "authentication", "navigation", "menu", "read-next", "hamburger", "logo"];

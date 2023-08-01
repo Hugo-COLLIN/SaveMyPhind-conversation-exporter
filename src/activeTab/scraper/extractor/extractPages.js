@@ -2,11 +2,16 @@ import {formatMarkdown} from "../../formatUtils/converter";
 import {sleep} from "../../utils/utils";
 import {capitalizeFirst} from "../../formatUtils/formatText";
 import {setFileHeader} from "../../formatUtils/formatMarkdown";
-import {getPhindPageTitle} from "../catcher/catchMetadata";
+import {getPhindPageTitle} from "./extractMetadata";
 import {foldQuestions, unfoldQuestions} from "../../webpage/interact";
 
+export default {
+  extractArbitraryPage,
+  extractPhindSearch,
+  extractPhindAgent
+}
 
-export async function extractRandomPage() {
+export async function extractArbitraryPage() {
   let markdown = await setFileHeader(document.title, window.location.hostname)
   const html = document.querySelector("body").innerHTML;
   markdown += formatMarkdown(html);
@@ -24,7 +29,7 @@ export async function extractPhindSearch() {
   // Catch page interesting elements
   let sourceQuestion = "";
   const messages = document.querySelectorAll('[name^="answer-"] > div > div');
-  let markdown = await setFileHeader(getPhindPageTitle(), "Phind.com");
+  let markdown = await setFileHeader(getPhindPageTitle(), "Phind Search");
 
   messages.forEach(content => {
     let p1 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div');
@@ -82,7 +87,7 @@ export async function extractPhindSearch() {
 
 export async function extractPhindAgent() {
   const messages = document.querySelectorAll('[name^="answer-"] > div > div');
-  let markdown = await setFileHeader(getPhindPageTitle(), "Phind.com");
+  let markdown = await setFileHeader(getPhindPageTitle(), "Phind Agent");
 
   for (const content of messages) {
     const p1 = content.querySelectorAll('.card-body > p, .card-body > div');

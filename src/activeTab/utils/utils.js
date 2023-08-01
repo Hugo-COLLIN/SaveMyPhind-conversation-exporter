@@ -12,12 +12,19 @@ export function sleep(ms) {
 }
 
 /**
- * @description - Call the function of the object
+ * @description - Call the function of the object -
+ * if the function is not found, return an error
+ * Supports async functions
  * @param object object where the function is
  * @param funcToCall function to call
  */
 export function dynamicCall(object, funcToCall) {
-  typeof object[funcToCall] === 'function' ? object[funcToCall]() : console.error(`Function ${funcToCall} not found`);
+  return typeof object[funcToCall] === 'function' ?
+    object[funcToCall]()
+    : () => {
+    console.error(`Function ${funcToCall} not found`);
+    return null;
+  };
 }
 
 function sanitize(filename) {

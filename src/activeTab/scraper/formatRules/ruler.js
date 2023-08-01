@@ -1,4 +1,4 @@
-import formatterRules from "./formatterRules";
+import formatterRules from "./rulesSetter";
 import {dynamicCall} from "../../utils/utils";
 
 
