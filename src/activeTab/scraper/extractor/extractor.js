@@ -1,10 +1,11 @@
 import {exportPhindPair, exportPhindSearch, exportRandomPage} from "./extractPages";
-import {fetchInfos, getPhindPageTitle} from "../../webpage/getters";
+import {fetchInfos, getUrl} from "../../webpage/getters";
 import {formatFilename} from "../../formatUtils/formatText";
+import {getPhindPageTitle} from "../catcher/catchMetadata";
 
 export async function catchContent() {
   try {
-    const url = window.location.href;
+    const url = getUrl();
     let markdownContent = "", title = "", siteName = "";
     switch (true) {
       case url.includes('www.phind.com/search'):

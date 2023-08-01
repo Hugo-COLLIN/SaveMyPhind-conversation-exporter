@@ -2,8 +2,9 @@ import {formatMarkdown} from "../formatter/formatter";
 import {sleep} from "../../utils/utils";
 import {setPhindRules, setRandomPageRules} from "../formatter/formatterRules";
 import {capitalizeFirst} from "../../formatUtils/formatText";
-import {getPhindPageTitle} from "../../webpage/getters";
 import {setFileHeader} from "../../formatUtils/formatMarkdown";
+import {getPhindPageTitle} from "../catcher/catchMetadata";
+import {foldQuestions, unfoldQuestions} from "../../webpage/interact";
 
 
 export async function exportRandomPage() {
@@ -22,12 +23,7 @@ export async function exportRandomPage() {
 export async function exportPhindSearch() {
   setPhindRules();
   // Unfold user questions before export
-  const possibleElements = document.querySelectorAll('[name^="answer-"] .col-lg-8.col-xl-7 .fe-chevron-down');
-  const filteredElements = Array.from(possibleElements).filter( (elem) => {
-    return !elem.closest('.col-lg-8.col-xl-7').querySelector('.fixed-bottom');
-  });
-  const chevronDown = filteredElements[0];
-  if (chevronDown !== undefined) await chevronDown.click();
+  const unfolded = await unfoldQuestions();
 
   // Catch page interesting elements
   let sourceQuestion = "";
@@ -82,16 +78,8 @@ export async function exportPhindSearch() {
   });
 
   // Fold user questions after export if they were originally folded
-  if (chevronDown !== undefined)
-  {
-    const possibleElements = document.querySelectorAll('[name^="answer-"] .col-lg-8.col-xl-7 .fe-chevron-up');
-    const filteredElements = Array.from(possibleElements).filter( (elem) => {
-      return !elem.closest('.col-lg-8.col-xl-7').querySelector('.fixed-bottom');
-    });
-    const chevronUp = filteredElements[0];
-
-    if (chevronUp !== undefined) await chevronUp.click();
-  }
+  if (unfolded)
+    await foldQuestions();
 
   return markdown;
 }

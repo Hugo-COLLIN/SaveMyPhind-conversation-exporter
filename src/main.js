@@ -1,3 +1,3 @@
-import {launchExport} from "./activeTab/orchestrator";
+import {launchExport} from "./activeTab/scraper/scraper";
 
 launchExport();

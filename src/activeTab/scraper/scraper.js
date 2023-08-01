@@ -1,6 +1,6 @@
-import {catchContent} from "./scraper/extractor/extractor";
-import {exporter} from "./scraper/exporter/exporter";
-import {logWelcome} from "./storedData/consoleMessages";
+import {catchContent} from "./extractor/extractor";
+import {exporter} from "./exporter/exporter";
+import {logWelcome} from "../storedData/consoleMessages";
 
 function authorisedDomain() {
   const url = window.location.href,

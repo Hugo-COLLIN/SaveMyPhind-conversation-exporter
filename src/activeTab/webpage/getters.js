@@ -17,15 +17,6 @@ export function fetchInfos() {
 }
 
 /**
- * Get the title of the page
- * @returns {string} title
- */
-export function getPhindPageTitle() {
-  const textarea = document.querySelector('textarea');
-  return textarea !== null && textarea.innerHTML !== "" ? textarea.innerHTML : document.querySelector(".card-body p").innerHTML ?? "";
-}
-
-/**
  * Get the url of the page
  * @returns {string} url
  */

@@ -1,4 +1,4 @@
-import {launchExport} from "./activeTab/orchestrator";
+import {launchExport} from "./activeTab/scraper/scraper";
 import {sleep} from "./activeTab/utils/utils";
 import {clickOnListElt} from "./activeTab/webpage/interact";
 import {fetchInfos} from "./activeTab/webpage/getters";
