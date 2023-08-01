@@ -110,12 +110,13 @@ export async function exportPhindPair() {
           let res = "";
 
           // Extract writer name
+          console.log(p3, p3.length, p3[1].innerHTML)
           if (p3.length > 0) {
             res += "#### ";
             let putSeparator = true;
             p3.forEach((elt) => {
               res += formatMarkdown(elt.innerHTML);
-              if (p3.length > 1 && putSeparator) {
+              if (p3.length > 1 && p3[1].innerHTML !== "" && putSeparator) {
                 res += " - ";
                 putSeparator = false;
               }
