@@ -5,10 +5,10 @@
 /**
  * Format the HTML containing special characters to be correctly converted into markdown
  * @param html html to format
+ * @param regex regex to match the html
  * @returns {*|string} formatted html
  */
-export function formatLineBreaks(html) {
-  const regex = /(?:<span class="fs-5 mb-3 font-monospace" style="white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;">([\s\S]*?)<\/span>|<textarea tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="q" class="form-control bg-white darkmode-light searchbox-textarea" rows="1" placeholder="" aria-label="" style="resize: none; height: 512px;">([\s\S]*?)<\/textarea>)/;
+export function formatLineBreaks(html, regex) {
   const match = html.match(regex);
 
   if (match) {
@@ -68,7 +68,6 @@ export function formatDate(format = 0, date = new Date()) {
  */
 export function titleShortener(title, titleLength = 100) {
   if (!title) return ["", ""];
-  // const TITLE_LENGTH = 100;
   title = title.replaceAll("\n", " \n ");
   const words = title.split(" ");
   let res = ["", ""];
