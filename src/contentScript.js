@@ -1,7 +1,7 @@
 import {launchExport} from "./activeTab/orchestrator";
 import {sleep} from "./activeTab/utils/utils";
-import {clickOnListElt} from "./activeTab/interact/interact";
-import {fetchInfos} from "./activeTab/extractor/getters";
+import {clickOnListElt} from "./activeTab/webpage/interact";
+import {fetchInfos} from "./activeTab/webpage/getters";
 
 let appInfos = null;
 fetchInfos().then(res => appInfos = res);

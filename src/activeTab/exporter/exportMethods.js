@@ -3,7 +3,7 @@
 --- SAVE ---
  */
 
-import {formatFilename} from "../formatter/format";
+import {formatFilename} from "../formatUtils/formatText";
 
 /**
  * Save the markdown file

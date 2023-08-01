@@ -1,7 +1,8 @@
 
 import {turndownConverter} from "./formatter";
 
-import {formatUrl} from "./format";
+
+import {formatUrl} from "../formatUtils/formatMarkdown";
 
 export function setRandomPageRules() {
   let superfluousTags, superfluousClassIdOrAttribute;

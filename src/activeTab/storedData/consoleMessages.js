@@ -1,4 +1,4 @@
-import {fetchInfos} from "../extractor/getters";
+import {fetchInfos} from "../webpage/getters";
 
 let appInfos = null;
 fetchInfos().then(res => appInfos = res);

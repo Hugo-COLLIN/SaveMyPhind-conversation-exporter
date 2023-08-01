@@ -1,6 +1,6 @@
 import {catchContent} from "./extractor/extractor";
 import {exporter} from "./exporter/exporter";
-import {logWelcome} from "./useStoredData/consoleMessages";
+import {logWelcome} from "./storedData/consoleMessages";
 
 function authorisedDomain() {
   const url = window.location.href,

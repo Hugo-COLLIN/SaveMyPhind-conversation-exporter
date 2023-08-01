@@ -65,22 +65,22 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Features:
 - [ ] Donation popup when user reaches a certain number of clicks (Paypal, BuyMeACoffee, etc.)
 - [ ] Export tables into markdown (Turndown rule)
-- [ ] Open a form when uninstalled to ask for feedback
 - [ ] Save ChatGPT conversations
 - [ ] Search bar above threads list to filter threads
 - [ ] Side buttons for each response card to export it individually
 - [ ] Option page : choose file format (markdown, html, txt)
 - [ ] Option page : choose subfolder to save files in (or custom download location)
 - [ ] Link to the downloaded file in the currently opened note in Obsidian
-      - Redirect link to confirm donation (variable "donation level" in sessionStorage: no popup if recurrely donating, no popup during x time if single donation, popup if not)
+  - Redirect link to confirm donation (variable "donation level" in sessionStorage: no popup if recurrely donating, no popup during x time if single donation, popup if not)
 - [ ] "Export All Threads": into as a zip file.
 - [ ] "Export All Threads": Modal when export is finished or stopped (with stats + CTA review/donation)
 - [ ] (Copy the last response to the clipboard when clicking on the extension icon (instead of the entire response) )
-  - Phind Search : click on the copy button
-  - Phind Pair : export the last answer div
+    - Phind Search : click on the copy button
+    - Phind Pair : export the last answer div
 - [ ] (Export next search result pages (sources side panel))
 - [ ] ~~Automatically download the conversation?~~
 - [ ] ~~Automatically copy the last response to the clipboard (without clicking on the extension icon)?~~
+- [x] Open a form when uninstalled to ask for feedback
 - [x] Add type (Phind Search, Phind Pair, ChatGPT) between date and title in filename + in header link
 - [x] Update modal to inform users about the new features
 - [x] "Export All Threads": Downloading several threads at once, as text files, (into as a zip file - later).
