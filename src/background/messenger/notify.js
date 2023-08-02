@@ -1,17 +1,24 @@
 export function notify() {
-  installNotifier();
-  uninstallNotifier();
+  onInstalledNotifier();
+  onUninstalledNotifier();
 }
 
-function installNotifier() {
-  chrome.runtime.onInstalled.addListener(function () {
-    chrome.storage.sync.set({displayModalUpdate: true}, function () {
-      console.log("Last update modal will be displayed");
-    });
+function onInstalledNotifier() {
+  chrome.runtime.onInstalled.addListener(function (details) {
+    if (details.reason === "install")
+    {
+      // TODO: first install modal
+    }
+    else if(details.reason === "update")
+    {
+      chrome.storage.sync.set({displayModalUpdate: true}, function () {
+        console.log("Last update modal will be displayed");
+      });
+    }
   });
 }
 
-function uninstallNotifier() {
+function onUninstalledNotifier() {
   chrome.runtime.setUninstallURL('https://forms.gle/5stYhnaRkBR9GGBv5', function () {
     // This callback function will run when the URL is set.
     console.log('Uninstall survey URL set');

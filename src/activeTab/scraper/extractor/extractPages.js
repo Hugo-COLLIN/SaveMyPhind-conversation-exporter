@@ -1,4 +1,4 @@
-import {sleep} from "../../utils/utils";
+import {sleep} from "../../../common/utils";
 import {capitalizeFirst} from "../../utils/format/formatText";
 import {setFileHeader} from "../../utils/format/formatMarkdown";
 import {getPhindPageTitle} from "./extractMetadata";

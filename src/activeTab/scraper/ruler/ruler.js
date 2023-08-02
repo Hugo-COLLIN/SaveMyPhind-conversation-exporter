@@ -1,5 +1,5 @@
 import formatterRules from "./rulesSetter";
-import {dynamicCall} from "../../utils/utils";
+import {dynamicCall} from "../../../common/utils";
 
 
 /**
