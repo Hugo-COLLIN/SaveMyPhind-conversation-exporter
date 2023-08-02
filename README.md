@@ -120,11 +120,12 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Export conversation to markdown
 
 ### Security and maintenance:
-- [ ] Divide contentScript code into modules
 - [ ] Externalize popup text into an external file (txt, JSON?)
 - [ ] Use the Phind (official/unofficial?) API instead of scraping the HTML?
 - [ ] Make unit/e2e tests
 - [ ] CI/CD pipeline?
+- [x] Fetch extension infos from json to chrome storage when installed
+- [x] Divide contentScript code into modules
 - [x] Externalize background.js functions into modules
 - [x] Module structure improvements
 - [x] Remove unused libraries
