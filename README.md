@@ -121,6 +121,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 
 ### Security and maintenance:
 - [ ] Externalize popup text into an external file (txt, JSON?)
+- [ ] Auto logs (to Sentry?)
 - [ ] Use the Phind (official/unofficial?) API instead of scraping the HTML?
 - [ ] Make unit/e2e tests
 - [ ] CI/CD pipeline?
