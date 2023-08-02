@@ -75,3 +75,79 @@ function addStyle() {
   stylesheet.insertRule(".smallScreens { display: none!important; }", 0);
   stylesheet.insertRule("@media screen and (max-width: 1025px) { .smallScreens { display: inline-block!important; } }", 1);
 }
+
+// /**
+//  * @description - init appInfos
+//  * @type {null|Object} Contains the infos of the application
+//  */
+// export let appInfos = null;
+//
+// (async function() {
+//   appInfos = await fetchInfos();
+// })();
+//
+// /**
+//  * Get application infos
+//  * @returns {Promise<any|undefined>}
+//  */
+// export function fetchInfos() {
+//   return (async () => {
+//     try {
+//       const response = await fetch(chrome.runtime.getURL('infos.json'));
+//       return await response.json().then(json => json);
+//     } catch (error) {
+//       console.error('An error occurred:', error);
+//     }
+//   })();
+// }
+
+// let appInfos = null;
+//
+// export async function fetchInfos() {
+//   try {
+//     const response = await fetch(chrome.runtime.getURL('infos.json'));
+//     const json = await response.json();
+//     return json;
+//   } catch (error) {
+//     console.error('An error occurred:', error);
+//   }
+// }
+//
+// async function init() {
+//   appInfos = await fetchInfos();
+// }
+//
+// init();
+//
+// export { appInfos };
+
+let appInfos = null;
+
+export async function fetchInfos() {
+  try {
+    const response = await fetch(chrome.runtime.getURL('infos.json'));
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.error('An error occurred:', error);
+  }
+}
+
+(async function() {
+  appInfos = await fetchInfos();
+})();
+
+function getAppInfos() {
+  return new Promise((resolve, reject) => {
+    function check() {
+      if (appInfos !== null) {
+        resolve(appInfos);
+      } else {
+        setTimeout(check, 1); // check again in a moment
+      }
+    }
+    check();
+  });
+}
+
+export { getAppInfos };

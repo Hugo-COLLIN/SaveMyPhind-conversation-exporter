@@ -1,9 +1,8 @@
 import extractPages from "./extractPages";
 import extractMetadata from "./extractMetadata";
 import converter from "../../utils/format/formatMarkdown";
-import {fetchInfos} from "../../utils/webpage/getters";
 import {formatFilename} from "../../utils/format/formatText";
-import {dynamicCall} from "../../../common/utils";
+import {dynamicCall, fetchInfos} from "../../../common/utils";
 
 export async function extract(domain) {
   try {

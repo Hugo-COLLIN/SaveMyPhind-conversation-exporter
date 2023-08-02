@@ -1,7 +1,8 @@
-import {fetchInfos, getUrl} from "../webpage/getters";
+import {getUrl} from "../webpage/getters";
 import {capitalizeFirst, formatDate, formatLineBreaks, titleShortener} from "./formatText";
 import TurndownService from "turndown";
 import DOMPurify from "dompurify";
+import {fetchInfos} from "../../../common/utils";
 
 /*
 --- MARKDOWN FORMAT ---
