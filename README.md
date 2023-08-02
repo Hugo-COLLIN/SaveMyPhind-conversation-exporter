@@ -1,16 +1,14 @@
 # <img alt="SaveMyPhind logo" src="./media/logo_128_cut.png" style="width:50px"> Save My Phind - AI Conversation Exporter
 ### 🚀 Export your Phind.com search threads into markdown files!
 
-🔥 Export all your Phind threads with just 1 click!
-
-👉 When you are on Phind, simply click on the extension icon. It will automatically export the thread you are currently on into a formatted markdown file.
-
-😮 This extension also adds export options directly inside the Phind interface. Now, you can export all your threads clicking on a simple button!
-
 😎 Why Save my Phind?
 - To keep AI generated information offline,
 - To share threads with others,
 - To read and process in a knowledge base / note-taking app (like Obsidian).
+
+👉 When you are on Phind, simply click on the extension icon. It will automatically export the thread you are currently on into a formatted markdown file.
+
+😮 This extension also adds export options directly inside the Phind interface. Now, you can export all your threads clicking on a simple button!
 
 ✅ Enjoy!
 
@@ -68,6 +66,13 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [ ] Save ChatGPT conversations
 - [ ] Search bar above threads list to filter threads
 - [ ] Side buttons for each response card to export it individually
+  - [ ] Download
+  - [ ] Copy to clipboard
+  - [ ] Share to Obsidian
+  - [ ] Share to Roam
+  - [ ] Share to Notion
+  - [ ] Share to Evernote
+  - [ ] Share to Google Keep
 - [ ] Option page : choose file format (markdown, html, txt)
 - [ ] Option page : choose subfolder to save files in (or custom download location)
 - [ ] Link to the downloaded file in the currently opened note in Obsidian
@@ -75,7 +80,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [ ] "Export All Threads": into as a zip file.
 - [ ] "Export All Threads": Modal when export is finished or stopped (with stats + CTA review/donation)
 - [ ] Help bubbles hovering on ? circles next to elements
-- [ ] Phind guide to discover the tool
+- [ ] Phind guide to discover the website
 - [ ] (Copy the last response to the clipboard when clicking on the extension icon (instead of the entire response) )
     - Phind Search : click on the copy button
     - Phind Pair : export the last answer div
@@ -133,6 +138,8 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Sanitize HTML code
 
 ### Bugs/Issues:
+- [ ] "Export All Threads": Button "Stop exporting" always visible after export is finished
+    => Redirect to homepage when export is finished
 - [ ] Extension icon not updated on Firefox
   => User needs to click or manually allow the extension to access websites
 - [ ] Pair programmer: Line breaks in user questions (Phind uses spaces as line breaks)
