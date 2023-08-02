@@ -123,7 +123,7 @@ function addStyle() {
 
 let appInfos = null;
 
-export async function fetchInfos() {
+async function fetchInfos() {
   try {
     const response = await fetch(chrome.runtime.getURL('infos.json'));
     const json = await response.json();
@@ -133,9 +133,7 @@ export async function fetchInfos() {
   }
 }
 
-(async function() {
-  appInfos = await fetchInfos();
-})();
+fetchInfos().then(res => appInfos = res);
 
 function getAppInfos() {
   return new Promise((resolve, reject) => {

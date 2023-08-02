@@ -1,12 +1,9 @@
-import {fetchInfos} from "../../common/utils";
-
-export let appInfos = null;
-fetchInfos().then(res => appInfos = res);
-
 /*
 --- ELTS CREATION ---
  */
-export function createSideMenuBtn(title, icon, display = 'block') {
+import {getAppInfos} from "../../common/utils";
+
+export async function createSideMenuBtn(title, icon, display = 'block') {
 // Step 2: Create the tbody element.
   var button = document.createElement('tbody');
 
@@ -52,12 +49,12 @@ export function createSideMenuBtn(title, icon, display = 'block') {
 // Step 14: Append tr to tbody.
   button.appendChild(tr);
 
-  button.setAttribute("extension", appInfos.APP_SNAME);
+  button.setAttribute("extension", await getAppInfos().APP_SNAME);
 
   return button;
 }
 
-export function createTopBtn(title, icon, classElt = '') {
+export async function createTopBtn(title, icon, classElt = '') {
   let buttonElement = document.createElement('button');
 
 // Step 3: Set the type and class attributes of the button.
@@ -78,12 +75,12 @@ export function createTopBtn(title, icon, classElt = '') {
 
   if (classElt !== '') buttonElement.classList.add(classElt);
 
-  buttonElement.setAttribute("extension", appInfos.APP_SNAME);
+  buttonElement.setAttribute("extension", await getAppInfos().APP_SNAME);
 
   return buttonElement;
 }
 
-export function createModalUpdate(modalBackground) {
+export async function createModalUpdate(modalBackground) {
   var outerDiv = document.createElement('div');
   outerDiv.setAttribute('role', 'dialog');
   outerDiv.setAttribute('aria-modal', 'true');
@@ -107,7 +104,7 @@ export function createModalUpdate(modalBackground) {
   innerDivImage.style.marginRight = '10px';
   var innerDivImageImg = document.createElement('img');
   innerDivImageImg.src = chrome.runtime.getURL('img/icons/icon-48.png');
-  innerDivImageImg.alt = `${appInfos.APP_SNAME} icon`;
+  innerDivImageImg.alt = `${await getAppInfos().APP_SNAME} icon`;
   innerDivImageImg.width = '48';
   innerDivImageImg.height = '48';
   innerDivImage.appendChild(innerDivImageImg);
@@ -121,7 +118,7 @@ export function createModalUpdate(modalBackground) {
 
   var modalSubtitleDiv = document.createElement('div');
   modalSubtitleDiv.classList.add('mb-5', 'modal-title', 'h3');
-  modalSubtitleDiv.innerHTML = `Latest updates of the ${appInfos.APP_NAME} extension:`;
+  modalSubtitleDiv.innerHTML = `Latest updates of the ${await getAppInfos().APP_NAME} extension:`;
   modalBodyDiv.appendChild(modalSubtitleDiv);
 
   let innerDiv1 = createModalTextGroup("⨠ Now inside the Phind interface!", "You can now export a Phind thread using the button inside the page (but you always can click on the extension icon).");
@@ -131,10 +128,10 @@ export function createModalUpdate(modalBackground) {
   var innerDivLink = document.createElement('a');
   innerDivLink.target = '_blank';
   innerDivLink.classList.add('mb-0');
-  innerDivLink.href = appInfos.APP_WEBSTORE_URL + "/reviews";
+  innerDivLink.href = await getAppInfos().APP_WEBSTORE_URL + "/reviews";
   innerDivLink.innerHTML = "⭐ If this extension helps you, please leave it a review on the Chrome Web Store! ⭐";
 
-  let innerDiv4 = createModalTextGroup(`Enjoy!<br>Hugo <small>- ${appInfos.APP_SNAME} creator</small>`, "I'm not affiliated with the Phind.com developers, I just love this website and I wanted to make it even better."); //I'm not affiliated with Phind, I just love this website and I wanted to make it better for me and for you. If you want to support me, you can donate at https://www.paypal.com/paypalme/${appInfos.APP_SNAME}
+  let innerDiv4 = createModalTextGroup(`Enjoy!<br>Hugo <small>- ${await getAppInfos().APP_SNAME} creator</small>`, "I'm not affiliated with the Phind.com developers, I just love this website and I wanted to make it even better."); //I'm not affiliated with Phind, I just love this website and I wanted to make it better for me and for you. If you want to support me, you can donate at https://www.paypal.com/paypalme/${await getAppInfos().APP_SNAME}
 
   modalBodyDiv.appendChild(innerDiv1);
   modalBodyDiv.appendChild(innerDiv2);
@@ -166,7 +163,7 @@ export function createModalUpdate(modalBackground) {
     modalBackground.remove();
   });
 
-  outerDiv.setAttribute("extension", appInfos.APP_SNAME);
+  outerDiv.setAttribute("extension", await getAppInfos().APP_SNAME);
 
   return outerDiv;
 }

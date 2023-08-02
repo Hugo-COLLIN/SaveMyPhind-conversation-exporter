@@ -2,7 +2,7 @@ import {getUrl} from "../webpage/getters";
 import {capitalizeFirst, formatDate, formatLineBreaks, titleShortener} from "./formatText";
 import TurndownService from "turndown";
 import DOMPurify from "dompurify";
-import {fetchInfos} from "../../../common/utils";
+import {getAppInfos} from "../../../common/utils";
 
 /*
 --- MARKDOWN FORMAT ---
@@ -54,7 +54,7 @@ export function formatUrl(url, message) {
 export async function setFileHeader(title, linkSite) {
   try {
     const titles = formatMarkdown(capitalizeFirst(titleShortener(title)[0]));
-    const json = await fetchInfos();
+    const json = await getAppInfos();
     return "# " + titles + "\n" + "Exported on " + formatDate(1, new Date()) + " " + formatUrl(getUrl(), `from ${linkSite}`) + ` - with ` + formatUrl(`${json.APP_REPO_URL ?? ""}`, `${json.APP_SNAME ?? ""}`) + "\n\n";
   } catch (e) {
     console.error(e)

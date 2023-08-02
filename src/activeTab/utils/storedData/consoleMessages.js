@@ -20,9 +20,11 @@ export async function logWelcome() {
 
 
 export async function logWaitList() {
-  console.log(await getAppInfos().APP_SNAME + ": Waiting for list")
+  const appInfos = await getAppInfos();
+  console.log(appInfos.APP_SNAME + ": Waiting for list")
 }
 
 export async function logWaitElts() {
-  console.log(await getAppInfos().APP_SNAME + ": Waiting for adding elements")
+  const appInfos = await getAppInfos();
+  console.log(appInfos.APP_SNAME + ": Waiting for adding elements")
 }

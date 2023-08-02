@@ -6,7 +6,7 @@ import {waitAppend} from "./insertElements";
 export function improveUI() {
   window.addEventListener('load', function () {
     if (window.location.href.includes("phind.com")) {
-      chrome.runtime.sendMessage({message: 'LOAD_COMPLETE'}, function (response) {
+      chrome.runtime.sendMessage({message: 'LOAD_COMPLETE'}, async function (response) {
         if (response.message === 'exportAllThreads finished')
           window.location.href = "https://www.phind.com";
         else if (response.message === 'LOAD_COMPLETE processed' || response.message === 'exportAllThreads in progress') {
@@ -14,12 +14,12 @@ export function improveUI() {
           // addStyle();
 
           // Create elements to add to the page
-          let exportAllThreadsSideBtn = createSideMenuBtn('Export All Threads', 'fe-share');
-          let stopExportAllThreadsSideBtn = createSideMenuBtn('Stop Exporting Threads', 'fe-x', 'none');
+          let exportAllThreadsSideBtn = await createSideMenuBtn('Export All Threads', 'fe-share');
+          let stopExportAllThreadsSideBtn = await createSideMenuBtn('Stop Exporting Threads', 'fe-x', 'none');
 
-          let exportAllThreadsTopBtn = createTopBtn('Export All Threads', 'fe-share', 'smallScreens');
-          let stopExportAllThreadsTopBtn = createTopBtn('Stop Exporting Threads', 'fe-x', 'smallScreens');
-          let exportThreadTopBtn = createTopBtn('Save This Thread', 'fe-save');
+          let exportAllThreadsTopBtn = await createTopBtn('Export All Threads', 'fe-share', 'smallScreens');
+          let stopExportAllThreadsTopBtn = await createTopBtn('Stop Exporting Threads', 'fe-x', 'smallScreens');
+          let exportThreadTopBtn = await createTopBtn('Save This Thread', 'fe-save');
 
           // Events on buttons
           exportThreadTopBtn.addEventListener('click', function () {
@@ -100,11 +100,11 @@ export function improveUI() {
           ];
           waitAppend(doublePlace, [exportAllThreadsTopBtn, stopExportAllThreadsTopBtn]);
 
-          chrome.storage.sync.get(['displayModalUpdate'], function (result) {
+          chrome.storage.sync.get(['displayModalUpdate'], async function (result) {
             if (result.displayModalUpdate) {
               // Create modal
               let modalbg = createModalBg()
-              let modalUpdateLogs = createModalUpdate(modalbg);
+              let modalUpdateLogs = await createModalUpdate(modalbg);
 
               // Append modal
               waitAppend("body", [modalbg, modalUpdateLogs], 'appendChild');
