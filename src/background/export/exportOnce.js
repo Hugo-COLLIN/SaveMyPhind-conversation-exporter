@@ -5,6 +5,12 @@ export function clickActionListener() {
   chrome.action.onClicked.addListener(async (tab) => {
     chrome.scripting.executeScript({
       target: {tabId: tab.id},
+      function: function() {
+        window.isInjecting = true;
+      }
+    });
+    chrome.scripting.executeScript({
+      target: {tabId: tab.id},
       files: ['main.js']
     });
   });

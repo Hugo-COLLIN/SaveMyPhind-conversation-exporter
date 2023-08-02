@@ -13,7 +13,7 @@
     "licenseList": "npm run syncVersion && npm run licenses",
     "chrome": "npm run convert chrome && npm run build",
     "firefox": "npm run convert firefox && npm run build",
-    "build": "node manage/initBuild.js && esbuild src/background.js --bundle --outdir=dist && esbuild src/main.js --bundle --outdir=dist && esbuild src/contentScript.js --bundle --outdir=dist",
+    "build": "node manage/initBuild.js && esbuild src/background.js --bundle --outdir=dist && esbuild src/main.js --bundle --outdir=dist",
     "watch": "nodemon --exec npm run build --watch",
     "prod": "npm run licenseList && npm run firefox && npm run zip && npm run chrome && npm run zip"
   },
