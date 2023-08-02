@@ -1,19 +1,20 @@
 import {iconListeners} from "./background/icon/icon";
 import {clickActionListener} from "./background/export/exportOnce";
 import {exportAllThreadsListener} from "./background/export/exportAll";
+import {notify} from "./background/messenger/notify";
 
 clickActionListener();
 iconListeners();
 exportAllThreadsListener(); // Needs to be after iconListeners and clickActionListener to work properly
+notify();
 
 
-chrome.runtime.onInstalled.addListener(function () {
-  chrome.storage.sync.set({displayModalUpdate: true}, function () {
-    console.log("Last update modal will be displayed");
-  });
-});
+// function notify(message) {
+//   chrome.notifications.create({
+//     type: 'basic',
+//     iconUrl: 'assets/images/icon-128.png',
+//     title: 'Error',
+//     message: message
+//   });
+// }
 
-chrome.runtime.setUninstallURL('https://forms.gle/5stYhnaRkBR9GGBv5', function() {
-  // This callback function will run when the URL is set.
-  console.log('Uninstall survey URL set');
-});
