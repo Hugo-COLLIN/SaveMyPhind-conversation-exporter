@@ -16,7 +16,12 @@ export function improveUI() {
 
           document.querySelector(".row > .col-lg-2 > div").style.minWidth = "11em";
           const thread = document.querySelector(".row > .col-lg-8.mt-8");
-          if (thread !== null) thread.classList.add("mx-2");
+          if (thread !== null)
+          {
+            thread.classList.add("mx-3");
+            const bar = document.querySelector(".col-lg-8.col-md-12");
+            if (bar !== null) bar.classList.add("mx-3");
+          }
 
           // Create elements to add to the page
           let exportAllThreadsSideBtn = await createSideMenuBtn('Export All Threads', 'fe-share', '', 'fs-6');
@@ -110,8 +115,10 @@ export function improveUI() {
 
 
           // Wait for the list to be displayed to add the corresponding elements
-          waitAppears('.container.p-0.mt-6 > .row tbody > tr', 100).then(async (isListDisplayed) => {
-            if (!isListDisplayed) return;
+          waitAppears('.container.p-0 > .row tbody > tr', 100).then(async (threadsList) => {
+            if (!threadsList) return;
+            document.querySelector(".row > .table-responsive").classList.add("p-0");
+            document.querySelector(".container.p-0 > .row").style.width = '108%';
             await addListFilter();
           });
 
