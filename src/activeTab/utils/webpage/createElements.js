@@ -7,6 +7,10 @@ import {getAppInfos} from "../../../common/appInfos";
 export async function createSideMenuBtn(title, icon, display = '', txtSize = 'fs-5') {
   const appInfos = await getAppInfos();
 
+  // Create table element
+  const table = document.createElement('table');
+  table.className = 'table darkmode-semi-light table-flush table-hover text-black border border-history-panel';
+
 // Step 2: Create the tbody element.
   var button = document.createElement('tbody');
 
@@ -52,9 +56,11 @@ export async function createSideMenuBtn(title, icon, display = '', txtSize = 'fs
 // Step 14: Append tr to tbody.
   button.appendChild(tr);
 
-  button.setAttribute("extension", appInfos.APP_SNAME);
+  table.appendChild(button);
 
-  return button;
+  table.setAttribute("extension", appInfos.APP_SNAME);
+
+  return table;
 }
 
 export async function createTopBtn(title, icon, classElt = '') {

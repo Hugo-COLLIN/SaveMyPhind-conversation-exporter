@@ -40,6 +40,10 @@ export function improveUI() {
             if (bar !== null) bar.classList.add("mx-3");
           }
 
+          waitAppears(".col-lg-2 > div > div > table:nth-of-type(2)").then((elt) => {
+            elt.classList.remove("mb-7");
+          });
+
           // Create elements to add to the page
           let exportAllThreadsSideBtn = await createSideMenuBtn('Export All Threads', 'fe-share', '', 'fs-6');
           let stopExportAllThreadsSideBtn = await createSideMenuBtn('Stop Exporting Threads', 'fe-x', 'none', 'fs-6');
@@ -116,7 +120,7 @@ export function improveUI() {
           }
 
           // Append buttons
-          waitAppend(".col-lg-2 > div > div > table", [exportAllThreadsSideBtn, stopExportAllThreadsSideBtn], 'appendChild');
+          waitAppend(".col-lg-2 > div > div > table:nth-of-type(1)", [exportAllThreadsSideBtn, stopExportAllThreadsSideBtn], 'after');
 
           let doublePlace = [
             {
