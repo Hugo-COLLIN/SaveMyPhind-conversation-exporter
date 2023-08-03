@@ -12,7 +12,7 @@ export async function waitAppend(select, htmlTableSectionElements, mode = 'appen
   } else if (typeof select === 'object') {
     let added = false;
     let res = select.filter(elt => document.querySelector(elt.selector))
-    while (res === []) {
+    while (Array.isArray(res) && res.length === 0) {
       await sleep(1000)
       res = select.filter(selector => document.querySelector(selector))
     }
