@@ -140,6 +140,8 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Sanitize HTML code
 
 ### Bugs/Issues:
+- [ ] "Rate on Chrome Web Store" for Firefox users
+  => Specify both links in infos and change (when bundle?)
 - [ ] "Export All Threads": Button "Stop exporting" always visible after export is finished
     => Redirect to homepage when export is finished
 - [ ] Extension icon not updated on Firefox
