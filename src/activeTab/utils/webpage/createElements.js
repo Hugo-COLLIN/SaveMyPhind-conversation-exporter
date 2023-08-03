@@ -4,7 +4,7 @@
 
 import {getAppInfos} from "../../../common/appInfos";
 
-export async function createSideMenuBtn(title, icon, display = 'block') {
+export async function createSideMenuBtn(title, icon, display = '', txtSize = 'fs-5') {
   const appInfos = await getAppInfos();
 
 // Step 2: Create the tbody element.
@@ -27,7 +27,7 @@ export async function createSideMenuBtn(title, icon, display = 'block') {
 
 // Step 7: Create the fw-bold col-10 fs-5 div.
   var div3 = document.createElement('div');
-  div3.classList.add('fw-bold', 'col-10', 'fs-5');
+  div3.classList.add('fw-bold', 'col-10', txtSize);
 
 // Step 8: Create the i element with the class 'mx-2 fe fe-message-square'
   var iElement = document.createElement('i');

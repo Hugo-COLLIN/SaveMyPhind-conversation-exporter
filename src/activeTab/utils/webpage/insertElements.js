@@ -7,7 +7,7 @@ export async function waitAppears(select, duration = 100, attempts = 100) {
   do {
     if (i > attempts) return false;
     nester = document.querySelector(select);
-    await logWaitElts();
+    // await logWaitElts();
     await sleep(duration)
     i++;
   } while (nester === null);
@@ -36,23 +36,9 @@ export async function waitAppend(select, htmlTableSectionElements, mode = 'appen
     }
     return true;
   }
+
   for (let button of htmlTableSectionElements) {
     nester[mode](button);
   }
-  // if (mode === 'prepend') {
-  //   for (let button of htmlTableSectionElements) {
-  //     nester.prepend(button);
-  //   }
-  // } else if (mode === 'appendChild') {
-  //   for (let button of htmlTableSectionElements) {
-  //     nester.appendChild(button);
-  //   }
-  // } else if (mode === 'insertBefore') {
-  //
-  // } else {
-  //   for (let button of htmlTableSectionElements) {
-  //     nester.append(button);
-  //   }
-  // }
   return true;
 }

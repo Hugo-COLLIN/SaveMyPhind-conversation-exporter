@@ -14,9 +14,13 @@ export function improveUI() {
           let isExporting = response.message === 'exportAllThreads in progress';
           // addStyle();
 
+          document.querySelector(".row > .col-lg-2 > div").style.minWidth = "11em";
+          const thread = document.querySelector(".row > .col-lg-8.mt-8");
+          if (thread !== null) thread.classList.add("mx-2");
+
           // Create elements to add to the page
-          let exportAllThreadsSideBtn = await createSideMenuBtn('Export All Threads', 'fe-share');
-          let stopExportAllThreadsSideBtn = await createSideMenuBtn('Stop Exporting Threads', 'fe-x', 'none');
+          let exportAllThreadsSideBtn = await createSideMenuBtn('Export All Threads', 'fe-share', '', 'fs-6');
+          let stopExportAllThreadsSideBtn = await createSideMenuBtn('Stop Exporting Threads', 'fe-x', 'none', 'fs-6');
 
           let exportAllThreadsTopBtn = await createTopBtn('Export All Threads', 'fe-share', 'smallScreens');
           let stopExportAllThreadsTopBtn = await createTopBtn('Stop Exporting Threads', 'fe-x', 'smallScreens');
