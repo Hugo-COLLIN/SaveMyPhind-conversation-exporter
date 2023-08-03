@@ -1,4 +1,4 @@
-import {getAppInfos} from "../../../common/appInfos";
+import {getAppInfos} from "../../common/appInfos";
 
 export async function logWelcome() {
   const appInfos = await getAppInfos();
