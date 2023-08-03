@@ -2,7 +2,7 @@
  * @description - init appInfos
  * @type {null|Object} Contains the infos of the application
  */
-export let appInfos = null;
+let appInfos = null;
 fetchInfos().then(res => appInfos = res); // Fetch application infos
 
 /**
