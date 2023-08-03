@@ -1,11 +1,12 @@
 import {sleep} from "../../../common/utils";
+import {logWaitElts} from "../consoleMessages";
 
 export async function waitAppend(select, htmlTableSectionElements, mode = 'append') {
   let nester = null;
   if (typeof select === 'string') {
     nester = document.querySelector(select);
     while (nester === null) {
-      // logWaitElts();
+      await logWaitElts();
       await sleep(1000)
       nester = document.querySelector(select);
     }
@@ -20,18 +21,29 @@ export async function waitAppend(select, htmlTableSectionElements, mode = 'appen
     nester = document.querySelector(res[0].selector);
   } else return false;
 
-  if (mode === 'prepend') {
+  if (mode === 'insertBefore') {
     for (let button of htmlTableSectionElements) {
-      nester.prepend(button);
+      nester.parentNode.insertBefore(button, nester);
     }
-  } else if (mode === 'appendChild') {
-    for (let button of htmlTableSectionElements) {
-      nester.appendChild(button);
-    }
-  } else {
-    for (let button of htmlTableSectionElements) {
-      nester.append(button);
-    }
+    return true;
   }
+  for (let button of htmlTableSectionElements) {
+    nester[mode](button);
+  }
+  // if (mode === 'prepend') {
+  //   for (let button of htmlTableSectionElements) {
+  //     nester.prepend(button);
+  //   }
+  // } else if (mode === 'appendChild') {
+  //   for (let button of htmlTableSectionElements) {
+  //     nester.appendChild(button);
+  //   }
+  // } else if (mode === 'insertBefore') {
+  //
+  // } else {
+  //   for (let button of htmlTableSectionElements) {
+  //     nester.append(button);
+  //   }
+  // }
   return true;
 }

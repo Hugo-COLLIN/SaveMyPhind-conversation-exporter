@@ -2,6 +2,7 @@ import {createModalBg, createModalUpdate, createSideMenuBtn, createTopBtn} from 
 import {launchExport} from "../scraper/scraper";
 import {setBtnsExport} from "../utils/webpage/styleElements";
 import {waitAppend} from "../utils/webpage/insertElements";
+import {addListFilter} from "../listFilter/filter";
 
 export function improveUI() {
   window.addEventListener('load', function () {
@@ -10,6 +11,11 @@ export function improveUI() {
         if (response.message === 'exportAllThreads finished')
           window.location.href = "https://www.phind.com";
         else if (response.message === 'LOAD_COMPLETE processed' || response.message === 'exportAllThreads in progress') {
+
+          //
+          await addListFilter();
+
+
           let isExporting = response.message === 'exportAllThreads in progress';
           // addStyle();
 
