@@ -73,7 +73,7 @@ export async function createTopBtn(title, icon, classElt = '') {
 // Step 5: Set the button's innerHTML.
   buttonElement.innerHTML = title;
 
-  buttonElement.style.margin = '2px';
+  buttonElement.style.margin = '2px 4px 0 0';
 
 // Step 6: Append the iElement to the button before the text.
   buttonElement.insertBefore(iElement, buttonElement.childNodes[0]);
@@ -211,4 +211,15 @@ export async function createSmallField(placeholder) {
   input.setAttribute("extension", appInfos.APP_SNAME);
 
   return input;
+}
+
+export async function createButtonGroup(id) {
+  const appInfos = await getAppInfos();
+
+  const btnsGroup = document.createElement("div");
+  btnsGroup.classList.add("button-group", "mb-2");
+  btnsGroup.id = id;
+  btnsGroup.setAttribute("extension", appInfos.APP_SNAME);
+
+  return btnsGroup;
 }

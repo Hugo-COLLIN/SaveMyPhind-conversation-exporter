@@ -1,4 +1,10 @@
-import {createModalBg, createModalUpdate, createSideMenuBtn, createTopBtn} from "../utils/webpage/createElements";
+import {
+  createButtonGroup,
+  createModalBg,
+  createModalUpdate,
+  createSideMenuBtn,
+  createTopBtn
+} from "../utils/webpage/createElements";
 import {launchExport} from "../scraper/scraper";
 import {setBtnsExport} from "../utils/webpage/styleElements";
 import {waitAppears, waitAppend} from "../utils/webpage/insertElements";
@@ -13,6 +19,17 @@ export function improveUI() {
         else if (response.message === 'LOAD_COMPLETE processed' || response.message === 'exportAllThreads in progress') {
           let isExporting = response.message === 'exportAllThreads in progress';
           // addStyle();
+
+          // Some UI improvements
+          const topBtnsGroup = await createButtonGroup("top-buttons-group");
+          await waitAppend(":not(.row.justify-content-center) > div > .container-xl", [topBtnsGroup], "prepend")
+
+          // setBtnsDefault();
+          // const topBtns = document.querySelectorAll(".container-xl > div > button");
+          // topBtns.forEach(btn => {
+          //   btn.classList.remove("mb-4");
+          //   waitAppend("#top-buttons-group", [btn], "append");
+          // });
 
           document.querySelector(".row > .col-lg-2 > div").style.minWidth = "11em";
           const thread = document.querySelector(".row > .col-lg-8.mt-8");
@@ -89,7 +106,7 @@ export function improveUI() {
           --- Append elements ---
            */
 
-          waitAppend(":not(.row.justify-content-center) > div > .container-xl", [exportThreadTopBtn], 'prepend');
+          waitAppend(":not(.row.justify-content-center) > div > .container-xl > div:nth-of-type(1)", [exportThreadTopBtn], 'prepend');
 
           // Show/hide "Export all threads" buttons
           if (response.message === 'exportAllThreads in progress') {
@@ -107,7 +124,7 @@ export function improveUI() {
               mode: 'append'
             },
             {
-              selector: ":not(.row.justify-content-center) > div > .container-xl",
+              selector: ":not(.row.justify-content-center) > div > .container-xl > div:nth-of-type(1)",
               mode: 'prepend'
             }
           ];
