@@ -4,7 +4,7 @@ export async function addListFilter() {
   // Créez un champ de texte pour la saisie de l'utilisateur
   const input = document.createElement('input');
   input.type = 'text';
-  input.placeholder = 'Filter list...';
+  input.placeholder = 'Filter threads...';
   input.classList.add('form-control', 'form-control-sm', 'mb-2', 'searchbox-textarea');
   // document.body.insertBefore(input, document.querySelector('tbody'));
   await waitAppend('.container.p-0.mt-6 > .row', [input], 'insertBefore')
@@ -12,7 +12,7 @@ export async function addListFilter() {
 // Fonction pour filtrer la liste en fonction du texte saisi
   function filterList() {
     const filterText = input.value.toLowerCase();
-    const rows = document.querySelectorAll('tbody tr');
+    const rows = document.querySelectorAll('.container.p-0.mt-6 > .row tbody > tr');
 
     rows.forEach(row => {
       const text = row.querySelector('.fs-6').textContent.toLowerCase();
