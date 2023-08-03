@@ -1,17 +1,26 @@
 import {sleep} from "../../../common/utils";
 import {logWaitElts} from "../consoleMessages";
 
+export async function waitAppears(select, duration = 100, attempts = 100) {
+  let i = 1;
+  let nester;
+  do {
+    if (i > attempts) return false;
+    nester = document.querySelector(select);
+    await logWaitElts();
+    await sleep(duration)
+    i++;
+  } while (nester === null);
+
+  return nester;
+}
+
 export async function waitAppend(select, htmlTableSectionElements, mode = 'append') {
   let nester = null;
   if (typeof select === 'string') {
-    nester = document.querySelector(select);
-    while (nester === null) {
-      await logWaitElts();
-      await sleep(1000)
-      nester = document.querySelector(select);
-    }
+    nester = await waitAppears(select);
+    if (!nester) return false;
   } else if (typeof select === 'object') {
-    let added = false;
     let res = select.filter(elt => document.querySelector(elt.selector))
     while (Array.isArray(res) && res.length === 0) {
       await sleep(1000)

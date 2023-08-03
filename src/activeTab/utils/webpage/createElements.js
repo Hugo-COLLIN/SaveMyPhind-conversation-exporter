@@ -201,8 +201,8 @@ export function createModalBg() {
   return divElement;
 }
 
-export function createSmallField(placeholder) {
-  const appInfos = getAppInfos();
+export async function createSmallField(placeholder) {
+  const appInfos = await getAppInfos();
 
   const input = document.createElement('input');
   input.type = 'text';

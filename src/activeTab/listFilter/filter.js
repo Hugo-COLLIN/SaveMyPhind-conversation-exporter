@@ -3,7 +3,7 @@ import {createSmallField} from "../utils/webpage/createElements";
 
 export async function addListFilter() {
   // Create a text field for user input
-  const input = createSmallField('Filter threads...');
+  const input = await createSmallField('Filter threads...');
   await waitAppend('.container.p-0.mt-6 > .row', [input], 'insertBefore')
 
   // Filter the list based on the user input
