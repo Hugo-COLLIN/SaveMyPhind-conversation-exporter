@@ -140,14 +140,15 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Sanitize HTML code
 
 ### Bugs/Issues:
+- [ ] Extension icon not updated on Firefox
 - [ ] "Rate on Chrome Web Store" for Firefox users
   => Specify both links in infos.json(?) and change for each browser (when bundle?)
+- [ ] Detect when connected or something to anticipate and specify the "Export all threads" button usability
 - [ ] "Export All Threads": Button "Stop exporting" always visible after export is finished
-    => Redirect to homepage when export is finished
-- [ ] Extension icon not updated on Firefox
+  => Redirect to homepage when export is finished
   => User needs to click or manually allow the extension to access websites
-- [ ] Pair programmer: Line breaks in user questions (Phind uses spaces as line breaks)
-- [ ] Web: Exported links beginning with # prepended by page url
+- [ ] (Web: Exported links beginning with # prepended by page url)
+- [ ] ~~Pair programmer: Line breaks in user questions (Phind uses spaces as line breaks)~~
 - [x] Page title bug:
   https://www.phind.com/agent?cache=clkf6wi1n000djx074ar4fpfo
 - [x] Fix link formatting with < and > characters
