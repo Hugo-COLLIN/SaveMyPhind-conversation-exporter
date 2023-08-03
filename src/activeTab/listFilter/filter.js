@@ -10,7 +10,6 @@ export async function addListFilter() {
   function filterList(rowsSelector, textSelector) {
     const filterText = input.value.toLowerCase();
     const rows = document.querySelectorAll(rowsSelector);
-    console.log(rows)
 
     rows.forEach(row => {
       const text = row.querySelector(textSelector).textContent.toLowerCase();
@@ -19,7 +18,6 @@ export async function addListFilter() {
   }
 
   // Event listener for changes in the text field
-  input.addEventListener('input', filterList);
   input.addEventListener('input', () => {
     filterList('.container.p-0.mt-6 > .row tbody > tr', '.fs-6');
   });
