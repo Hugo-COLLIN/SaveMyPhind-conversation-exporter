@@ -1,7 +1,7 @@
-import {createModalBg, createModalUpdate, createSideMenuBtn, createTopBtn} from "./createElements";
+import {createModalBg, createModalUpdate, createSideMenuBtn, createTopBtn} from "../utils/webpage/createElements";
 import {launchExport} from "../scraper/scraper";
-import {setBtnsExport} from "./styleElements";
-import {waitAppend} from "./insertElements";
+import {setBtnsExport} from "../utils/webpage/styleElements";
+import {waitAppend} from "../utils/webpage/insertElements";
 
 export function improveUI() {
   window.addEventListener('load', function () {

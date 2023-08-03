@@ -1,6 +1,5 @@
-import {launchExport} from "./activeTab/scraper/scraper";
-import {autoScrapOnLoad} from "./activeTab/orchestrator";
-import {improveUI} from "./activeTab/webpageUI/webpageUI";
+import {autoScrapOnLoad, launchExport} from "./activeTab/scraper/scraper";
+import {improveUI} from "./activeTab/uiEnhancer/webpageUI";
 
 if (window.isInjecting) {
   launchExport();

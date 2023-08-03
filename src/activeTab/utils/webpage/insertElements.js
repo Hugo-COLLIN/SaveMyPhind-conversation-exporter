@@ -1,4 +1,4 @@
-import {sleep} from "../../common/utils";
+import {sleep} from "../../../common/utils";
 
 export async function waitAppend(select, htmlTableSectionElements, mode = 'append') {
   let nester = null;

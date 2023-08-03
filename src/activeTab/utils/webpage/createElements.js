@@ -1,7 +1,8 @@
 /*
 --- ELTS CREATION ---
  */
-import {getAppInfos} from "../../common/utils";
+
+import {getAppInfos} from "../../../common/appInfos";
 
 export async function createSideMenuBtn(title, icon, display = 'block') {
 // Step 2: Create the tbody element.
