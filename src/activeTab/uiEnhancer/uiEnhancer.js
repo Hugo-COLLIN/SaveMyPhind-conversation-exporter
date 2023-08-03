@@ -80,39 +80,38 @@ export function improveUI() {
           --- Append elements ---
            */
 
-          waitAppend(":not(.row.justify-content-center) > div > .container-xl", [exportThreadTopBtn], 'prepend')
+          waitAppend(":not(.row.justify-content-center) > div > .container-xl", [exportThreadTopBtn], 'prepend');
+
+          // Show/hide "Export all threads" buttons
+          if (response.message === 'exportAllThreads in progress') {
+            setBtnsExport(true, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn)
+          } else {
+            setBtnsExport(false, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn)
+          }
+
+          // Append buttons
+          waitAppend(".col-lg-2 > div > div > table", [exportAllThreadsSideBtn, stopExportAllThreadsSideBtn], 'appendChild');
+
+          let doublePlace = [
+            {
+              selector: ".row.justify-content-center > div > .container-xl",
+              mode: 'append'
+            },
+            {
+              selector: ":not(.row.justify-content-center) > div > .container-xl",
+              mode: 'prepend'
+            }
+          ];
+          waitAppend(doublePlace, [exportAllThreadsTopBtn, stopExportAllThreadsTopBtn]);
 
 
           // Wait for the list to be displayed to add the corresponding elements
           waitAppears('.container.p-0.mt-6 > .row tbody > tr', 100).then(async (isListDisplayed) => {
             if (!isListDisplayed) return;
             await addListFilter();
-
-            // Show/hide buttons
-            if (response.message === 'exportAllThreads in progress') {
-              setBtnsExport(true, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn)
-            } else {
-              setBtnsExport(false, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn)
-            }
-
-            // Append buttons
-            waitAppend(".col-lg-2 > div > div > table", [exportAllThreadsSideBtn, stopExportAllThreadsSideBtn], 'appendChild');
-
-            let doublePlace = [
-              {
-                selector: ".row.justify-content-center > div > .container-xl",
-                mode: 'append'
-              },
-              {
-                selector: ":not(.row.justify-content-center) > div > .container-xl",
-                mode: 'prepend'
-              }
-            ];
-            waitAppend(doublePlace, [exportAllThreadsTopBtn, stopExportAllThreadsTopBtn]);
           });
 
-
-
+          // Create "last update" modal if needed
           chrome.storage.sync.get(['displayModalUpdate'], async function (result) {
             if (result.displayModalUpdate) {
               // Create modal
@@ -129,6 +128,7 @@ export function improveUI() {
             }
           });
 
+          // Update buttons on resizing window
           window.addEventListener('resize', function () {
             setBtnsExport(isExporting, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn)
           });
