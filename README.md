@@ -19,7 +19,7 @@
 ## ❓ Extension usage
 ### How to install?
 Simply go to the store and click on the install button: 
-#### [⏩click here to install Save My Phind on Chromium browsers (Chrome, Edge, Opera, Brave, etc.)](https://chrome.google.com/webstore/detail/save-my-phind/agklnagmfeooogcppjccdnoallkhgkod)
+#### [⏩click here to install Save My Phind on Chromium browsers (Chrome, Edge, Opera, Brave, etc.)](https://chrome.google.com/webstore/detail/agklnagmfeooogcppjccdnoallkhgkod)
 #### [⏩click here to install Save My Phind on Firefox](https://addons.mozilla.org/fr/firefox/addon/save-my-phind)
 <br>
 
@@ -141,7 +141,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 
 ### Bugs/Issues:
 - [ ] "Rate on Chrome Web Store" for Firefox users
-  => Specify both links in infos and change (when bundle?)
+  => Specify both links in infos.json(?) and change for each browser (when bundle?)
 - [ ] "Export All Threads": Button "Stop exporting" always visible after export is finished
     => Redirect to homepage when export is finished
 - [ ] Extension icon not updated on Firefox
