@@ -200,3 +200,15 @@ export function createModalBg() {
 
   return divElement;
 }
+
+export function createSmallField(placeholder) {
+  const appInfos = getAppInfos();
+
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.placeholder = placeholder;
+  input.classList.add('form-control', 'form-control-sm', 'mb-2');
+  input.setAttribute("extension", appInfos.APP_SNAME);
+
+  return input;
+}
