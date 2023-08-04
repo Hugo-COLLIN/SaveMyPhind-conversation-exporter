@@ -143,6 +143,9 @@ export function improveUI() {
             if (!threadsList) return;
             document.querySelector(".row > .table-responsive").classList.add("p-0");
             document.querySelector(".container.p-0 > .row").style.width = '108%';
+            const listGlobal = document.querySelector(".container.p-0");
+            listGlobal.classList.remove("mt-6");
+            listGlobal.classList.add("mt-3");
             await addListFilter();
           });
 

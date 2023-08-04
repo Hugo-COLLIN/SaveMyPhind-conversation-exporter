@@ -1,5 +1,5 @@
 # Update notes
-# v1.9.7
+# v1.9.8
 ⨠ Filter your threads list!
 You just want to retrieve that damn chat you started 5 days ago? No problem: start typing in the filter bar to find it quickly!
 

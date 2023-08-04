@@ -218,7 +218,7 @@ export async function createSmallField(placeholder) {
   const input = document.createElement('input');
   input.type = 'text';
   input.placeholder = placeholder;
-  input.classList.add('form-control', 'form-control-sm', 'mb-2');
+  input.classList.add('form-control', 'form-control-sm', 'mb-1');
   input.setAttribute("extension", appInfos.APP_SNAME);
 
   return input;

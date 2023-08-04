@@ -4,11 +4,11 @@ import {createSmallField} from "../utils/webpage/createElements";
 export async function addListFilter() {
   // Create a text field for user input
   const input = await createSmallField('Search previous threads...');
-  await waitAppend('.container.p-0.mt-6 > .row', [input], 'insertBefore')
+  await waitAppend('.container.p-0 > .row', [input], 'insertBefore');
 
   // Event listener for changes in the text field
   input.addEventListener('input', () => {
-    filterList(input, '.container.p-0.mt-6 > .row tbody > tr', '.fs-6');
+    filterList(input, '.container.p-0 > .row tbody > tr', '.fs-6');
   });
 }
 
