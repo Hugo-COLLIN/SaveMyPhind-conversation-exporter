@@ -1,5 +1,5 @@
 # <img alt="SaveMyPhind logo" src="./media/logo_128_cut.png" style="width:50px"> Save My AI - Phind and Perplexity Exporter
-### 🚀 Export your Phind.com and Perplexity.ai search threads into markdown files!
+### 🚀 Export your Phind.com and Perplexity.ai chatbots search threads into markdown files!
 
 😎 Why Save my AI?
 - To keep AI generated information offline,

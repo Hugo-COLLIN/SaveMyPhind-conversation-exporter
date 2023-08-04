@@ -35,3 +35,6 @@ File names, title bugs, these kind of things...
 
 # Copilot proposals
 the extension icon is now a bit more... "Phind"!
+
+Save my AI - Chatbots conversation Exporter
+Save my AI - Phind and Perplexity Exporter
