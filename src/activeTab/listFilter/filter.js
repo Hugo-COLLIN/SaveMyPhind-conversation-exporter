@@ -8,12 +8,12 @@ export async function addListFilter() {
 
   // Event listener for changes in the text field
   input.addEventListener('input', () => {
-    filterList('.container.p-0.mt-6 > .row tbody > tr', '.fs-6');
+    filterList(input, '.container.p-0.mt-6 > .row tbody > tr', '.fs-6');
   });
 }
 
 // Filter the list based on the user input
-function filterList(rowsSelector, textSelector) {
+function filterList(input, rowsSelector, textSelector) {
   const filterText = input.value.toLowerCase();
   const rows = document.querySelectorAll(rowsSelector);
 
