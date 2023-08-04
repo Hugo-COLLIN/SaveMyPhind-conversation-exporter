@@ -135,15 +135,23 @@ export async function createModalUpdate(modalBackground) {
   modalSubtitleDiv.classList.add('mb-5', 'modal-title', 'h3');
   modalSubtitleDiv.innerHTML = `What's new in ${appInfos.APP_NAME} v${appInfos.APP_VERSION}:`;
 
-  // let innerDiv1 = createModalTextGroup("⨠ Now inside the Phind interface!", "You can now export a Phind thread using the button inside the page (but you always can click on the extension icon).");
-  // let innerDiv2 = createModalTextGroup("⨠ Export all your threads in 1 click!", "Just click on the \"Export All Threads\" button! It could be long, so you have time to drink your triple coffee dose 🙃.");
-  // let innerDiv3 = createModalTextGroup("⨠ Some bugs solved", "File names, title bugs, these kind of things...");
-
   var innerDivLink = document.createElement('a');
   innerDivLink.target = '_blank';
   innerDivLink.classList.add('mb-0');
-  innerDivLink.href = appInfos.APP_WEBSTORE_URL + "/reviews";
-  innerDivLink.innerHTML = `⭐ If ${appInfos.APP_NAME} helps you, please leave it a review on the Chrome Web Store! ⭐<br>`;
+
+  const manifest = chrome.runtime.getManifest();
+  let storeName = "Chrome Web Store";
+  if (manifest.browser_specific_settings !== undefined && manifest.browser_specific_settings.gecko !== undefined) {
+    innerDivLink.href = appInfos.APP_FIREFOX_STORE_URL + "/reviews";
+    storeName = "Firefox Add-ons Store";
+  }
+  else
+  {
+    innerDivLink.href = appInfos.APP_WEBSTORE_URL + "/reviews";
+    storeName = "Chrome Web Store";
+  }
+  innerDivLink.innerHTML = `⭐ If ${appInfos.APP_NAME} helps you, please leave it a review on the ${storeName}! ⭐<br>`;
+
 
   let innerDiv4 = createModalTextGroup(`Enjoy!<br>Hugo <small>- ${appInfos.APP_SNAME} creator</small>`, "I'm not affiliated with the Phind.com developers, I just love this website and I wanted to make it even better."); //I'm not affiliated with Phind, I just love this website and I wanted to make it better for me and for you. If you want to support me, you can donate at https://www.paypal.com/paypalme/${appInfos.APP_SNAME}
 

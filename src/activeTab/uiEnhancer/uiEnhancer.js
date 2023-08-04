@@ -40,11 +40,15 @@ export function improveUI() {
             if (bar !== null) bar.classList.add("mx-3");
           }
 
-          waitAppears(".col-lg-2 > div > div > table.mb-7").then((elt) => {
-            elt.classList.remove("mb-7");
+          // Remove space between buttons in left side menu
+          waitAppears(".col-lg-2 > div > div > table").then((elt) => {
             document.querySelectorAll(".col-lg-2 > div > div > table").forEach((elt) => {
               elt.classList.add("mb-0");
             });
+          });
+          waitAppears(".col-lg-2 > div > div > table.mb-7").then((elt) => {
+            if (!elt) return;
+            elt.classList.remove("mb-7");
           });
 
           // Create elements to add to the page
