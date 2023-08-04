@@ -4,7 +4,8 @@
 😎 Why Save my Phind?
 - To keep AI generated information offline,
 - To share threads with others,
-- To read and process in a knowledge base / note-taking app (like Obsidian).
+- To read and process in a knowledge base / note-taking app (like Obsidian),
+- To improve the Phind website usability.
 
 👉 When you are on Phind, simply click on the extension icon. It will automatically export the thread you are currently on into a formatted markdown file.
 
