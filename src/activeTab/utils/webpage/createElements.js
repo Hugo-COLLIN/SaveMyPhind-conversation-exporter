@@ -10,7 +10,7 @@ export async function createSideMenuBtn(title, icon, display = '', txtSize = 'fs
 
   // Create table element
   const table = document.createElement('table');
-  table.className = 'table darkmode-semi-light table-flush table-hover text-black border border-history-panel';
+  table.className = 'table darkmode-semi-light table-flush table-hover text-black border border-history-panel mb-0';
 
 // Step 2: Create the tbody element.
   var button = document.createElement('tbody');
