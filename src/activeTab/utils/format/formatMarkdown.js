@@ -24,7 +24,8 @@ export const turndownConverter = new TurndownService();
  * @returns {*|string|string} formatted markdown
  */
 export function formatMarkdown(html) {
-  const regex = /(?:<span class="fs-5 mb-3 font-monospace" style="white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;">([\s\S]*?)<\/span>|<textarea tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="q" class="form-control bg-white darkmode-light searchbox-textarea" rows="1" placeholder="" aria-label="" style="resize: none; height: 512px;">([\s\S]*?)<\/textarea>)/;
+  // TODO: Regex according to the website (2 first for Phind and 3rd for Perplexity)
+  const regex = /(?:<span class="fs-5 mb-3 font-monospace" style="white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;">([\s\S]*?)<\/span> | <textarea tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="q" class="form-control bg-white darkmode-light searchbox-textarea" rows="1" placeholder="" aria-label="" style="resize: none; height: 512px;">([\s\S]*?)<\/textarea>)/;
   html = formatLineBreaks(html, regex);
 
   // Sanitize HTML
@@ -44,7 +45,7 @@ export function formatMarkdown(html) {
  * @param message text to display for the link
  * @returns {string} formatted link
  */
-export function formatUrl(url, message) {
+export function formatLink(url, message) {
   return "[" + message + "](" + url.replace(/\)/g, "%29") + ")";
 }
 
@@ -56,7 +57,7 @@ export async function setFileHeader(title, linkSite) {
   try {
     const titles = formatMarkdown(capitalizeFirst(titleShortener(title)[0]));
     const json = await getAppInfos();
-    return "# " + titles + "\n" + "Exported on " + formatDate(1, new Date()) + " " + formatUrl(getUrl(), `from ${linkSite}`) + ` - with ` + formatUrl(`${json.APP_REPO_URL ?? ""}`, `${json.APP_SNAME ?? ""}`) + "\n\n";
+    return "# " + titles + "\n" + "Exported on " + formatDate(1, new Date()) + " " + formatLink(getUrl(), `from ${linkSite}`) + ` - with ` + formatLink(`${json.APP_REPO_URL ?? ""}`, `${json.APP_SNAME ?? ""}`) + "\n\n";
   } catch (e) {
     console.error(e)
   }

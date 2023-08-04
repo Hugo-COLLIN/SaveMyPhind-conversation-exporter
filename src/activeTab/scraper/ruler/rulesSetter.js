@@ -1,4 +1,4 @@
-import {formatUrl, turndownConverter} from "../../utils/format/formatMarkdown";
+import {formatLink, turndownConverter} from "../../utils/format/formatMarkdown";
 
 /**
  * Exported functions
@@ -160,7 +160,7 @@ function setArbitraryPageRules() {
       return node.nodeName === 'A' && node.getAttribute('href') && node.getAttribute('href').startsWith('/') && node.innerHTML === node.textContent;
     },
     replacement: function (content, node) {
-      return formatUrl(window.location.protocol + "//" + window.location.host + node.getAttribute('href'), content);
+      return formatLink(window.location.protocol + "//" + window.location.host + node.getAttribute('href'), content);
     },
   });
 }

@@ -1,13 +1,13 @@
-# <img alt="SaveMyPhind logo" src="./media/logo_128_cut.png" style="width:50px"> Save My Phind - AI Conversation Exporter
-### 🚀 Export your Phind.com search threads into markdown files!
+# <img alt="SaveMyPhind logo" src="./media/logo_128_cut.png" style="width:50px"> Save My AI - Phind and Perplexity Exporter
+### 🚀 Export your Phind.com and Perplexity.ai search threads into markdown files!
 
-😎 Why Save my Phind?
+😎 Why Save my AI?
 - To keep AI generated information offline,
 - To share threads with others,
 - To read and process in a knowledge base / note-taking app (like Obsidian),
 - To improve the Phind website usability.
 
-👉 When you are on Phind, simply click on the extension icon. It will automatically export the thread you are currently on into a formatted markdown file.
+👉 When you are on Phind or Perplexity, simply click on the extension icon. It will automatically export the thread you are currently on into a formatted markdown file.
 
 😮 This extension also adds export options directly inside the Phind interface. Now, you can export all your threads clicking on a simple button!
 
@@ -62,8 +62,11 @@ This project uses third-party libraries. See the [license list](licenses.txt) fo
 ## 🗺️ Roadmap
 See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Features:
+- [ ] Save Perplexity threads
 - [ ] Donation popup when user reaches a certain number of clicks (Paypal, BuyMeACoffee, etc.)
 - [ ] Export tables into markdown (Turndown rule)
+- [ ] Save threads content in chrome.storage.sync to be able to search inside threads content (+ instant export all threads)
+    => Keep only the last x threads or the last x days
 - [ ] Save ChatGPT conversations
 - [ ] Side buttons for each response card to export it individually
     - [ ] Download

@@ -1,8 +1,9 @@
 import {sleep} from "../../../common/utils";
-import {capitalizeFirst} from "../../utils/format/formatText";
+import {capitalizeFirst, formatLineBreaks} from "../../utils/format/formatText";
 import {setFileHeader} from "../../utils/format/formatMarkdown";
 import {getPerplexityPageTitle, getPhindPageTitle} from "./extractMetadata";
 import {foldQuestions, unfoldQuestions} from "../../utils/webpage/interact";
+import {extractPerplexitySources} from "./extractElements";
 
 /**
  * Exported functions
@@ -185,59 +186,31 @@ async function extractPerplexityPage(format)
   let markdown = await setFileHeader(getPerplexityPageTitle(), "Perplexity.ai");
 
   for (const content of messages) {
+    // Display question
     const question = content.querySelector('.pb-md.mb-md .mb-md > div');
-    console.log(question.innerText)
+    markdown += "## User\n";
+    const regex = /<div class="break-words \[word-break:break-word] whitespace-pre-line  whitespace-pre-wrap default font-sans text-base font-medium text-textMain dark:text-textMainDark selection:bg-super selection:text-white dark:selection:bg-opacity-50 selection:bg-opacity-70">([\s\S]*?)<\/div>/
+    markdown += formatLineBreaks(question.innerText, regex) + "\n\n";
+
+    // Display answer
+    const answer = document.querySelector(".relative.default")
+    // console.log(answer.innerHTML)
+    markdown += "## Answer\n";
+    markdown += format(answer.innerHTML) + "\n\n";
+
+    // Display analysis section
     const analysis = content.querySelectorAll('.space-y-md.mt-md > div');
     // console.log(analysis)
     for (const analysisSection of analysis) {
       // console.log(analysisSection)
-      const sectionTitle = analysisSection.querySelector('div.taco .default').innerText;
+      const sectionTitle = analysisSection.querySelectorAll('div.taco .default')[1];
       const sectionContent = analysisSection.querySelector('div.grow');
-      console.log(sectionTitle)
-      if (sectionContent !== null) console.log(sectionContent.innerHTML)
-
-      const expandSources = analysisSection.querySelector(".grid > div > .default");
-      if (expandSources !== null) await expandSources.click();
-
-      // const sourceGrid = analysisSection.querySelectorAll(".grid > a, .grid > div > a");
-      // console.log(sourceGrid)
-      // if (sourceGrid.length > 0)
-      // {
-      //   let i = 1;
-      //   sourceGrid.forEach((source) => {
-      //     const text = source.querySelector(".default").innerHTML;
-      //     // console.log(text)
-      //     console.log(`[(${i}) ${text}](${source.getAttribute("href")})`);
-      //     i++;
-      //   });
-      // }
-
-      // console.log(sectionContent[0].querySelector(".default").innerHTML);
+      if (sectionTitle && analysisSection.querySelector(".grid") === null) markdown += "**" + format(sectionTitle.innerText) + ":**\n";
+      if (sectionContent !== null && sectionContent.querySelector(".grid") === null) markdown += format(sectionContent.innerHTML) + "\n\n";
     }
+    if (analysis[0].querySelector(".grid") !== null) markdown += "**Quick search:**\n";
 
-    for (const btn of content.querySelectorAll("div.flex > button")) {
-      // console.log(btn)
-      if (btn.querySelector("span").innerText === "View Sources") {
-        btn.click();
-        await sleep(1);
-
-        for (const result of document.querySelectorAll("main > .justify-center.items-center .py-md .py-md")) {
-          const link = result.querySelector("a");
-          console.log(link.href)
-          console.log(link.querySelector(".default > div").innerText.replaceAll("\n", " ").replaceAll('"', ''));
-        }
-
-        const btnQuit = document.querySelector("main > .justify-center.items-center button.bg-super");
-        console.log(btnQuit)
-        btnQuit.click();
-        await sleep(1);
-      }
-
-    }
-
-    const answer = document.querySelector(".relative.default")
-    // console.log(answer.innerHTML)
-    // markdown += format(content.innerHTML) + "\n\n";
+    markdown += await extractPerplexitySources(content, format) + "\n\n";
   }
 
   return markdown;
