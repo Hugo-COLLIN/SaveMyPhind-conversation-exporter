@@ -15,7 +15,6 @@ export async function extractPerplexitySources(content, format) {
       }
 
       const btnQuit = document.querySelector("main > .justify-center.items-center button.bg-super");
-      console.log(btnQuit)
       btnQuit.click();
       await sleep(1);
 
@@ -25,22 +24,3 @@ export async function extractPerplexitySources(content, format) {
   }
   return true;
 }
-
-
-// const expandSources = analysisSection.querySelector(".grid > div > .default");
-// if (expandSources !== null) await expandSources.click();
-
-// const sourceGrid = analysisSection.querySelectorAll(".grid > a, .grid > div > a");
-// console.log(sourceGrid)
-// if (sourceGrid.length > 0)
-// {
-//   let i = 1;
-//   sourceGrid.forEach((source) => {
-//     const text = source.querySelector(".default").innerHTML;
-//     // console.log(text)
-//     console.log(`[(${i}) ${text}](${source.getAttribute("href")})`);
-//     i++;
-//   });
-// }
-
-// console.log(sectionContent[0].querySelector(".default").innerHTML);

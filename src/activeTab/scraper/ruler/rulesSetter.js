@@ -62,7 +62,49 @@ function setPhindRules() {
 }
 
 function setPerplexityRules() {
-  // Currently no specific rules
+  turndownConverter.addRule('preserveLineBreaksInPre', {
+    filter: function (node) {
+      return node.nodeName === 'PRE' && node.querySelector('div');
+    },
+    replacement: function (content, node) {
+      const codeBlock = node.querySelector('code');
+      const codeContent = codeBlock.textContent.trim();
+      const codeLang = codeBlock.parentNode.parentNode.parentNode.querySelector("div").textContent.trim();
+      // const codeLang = codeBlock.className.split("-", 2)[1];
+      return ('\n```' + codeLang + '\n' + codeContent + '\n```');
+    }
+  });
+
+  turndownConverter.addRule('formatLinks', {
+    filter: 'a',
+    replacement: function (content, node) {
+      const href = node.getAttribute('href');
+      const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '');
+      return '[' + linkText + '](' + href + ')';
+    }
+  });
+
+  // turndownConverter.addRule('backslashAngleBracketsNotInBackticks', {
+  //   filter: function (node) {
+  //     return node.querySelector('div.break-words > div > div > span') !== null;
+  //   },
+  //   replacement: function (content, node) {
+  //     let res = "";
+  //     // Replace < and > characters in paragraphs but not in backticks
+  //     node.querySelectorAll('div.break-words > div > div > *').forEach((elt) => {
+  //       console.log(elt.nodeName)
+  //       if (elt.nodeName === "SPAN") {
+  //         res += "\n" + elt.textContent.replace(/(?<!`)<(?!`)/g, '{{@LT}}').replace(/(?<!`)>(?!`)/g, '{{@GT}}') + "\n";
+  //       }
+  //       else
+  //       {
+  //         res += turndownConverter.turndown(elt.innerHTML);
+  //       }
+  //     });
+  //     return res;
+  //     // return "\n" + turndownConverter.turndown(node.innerHTML).replace(/(?<!`)<(?!`)/g, '{{@LT}}').replace(/(?<!`)>(?!`)/g, '{{@GT}}') + "\n\n";
+  //   },
+  // });
 }
 
 /**

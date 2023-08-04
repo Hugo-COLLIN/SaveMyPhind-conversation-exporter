@@ -190,10 +190,11 @@ async function extractPerplexityPage(format)
     const question = content.querySelector('.pb-md.mb-md .mb-md > div');
     markdown += "## User\n";
     const regex = /<div class="break-words \[word-break:break-word] whitespace-pre-line  whitespace-pre-wrap default font-sans text-base font-medium text-textMain dark:text-textMainDark selection:bg-super selection:text-white dark:selection:bg-opacity-50 selection:bg-opacity-70">([\s\S]*?)<\/div>/
-    markdown += formatLineBreaks(question.innerText, regex) + "\n\n";
+    const questionText = formatLineBreaks(question.innerText, regex) + "\n\n";
+    markdown += questionText.replace(/(?<!`)<(?!`)/g, '\\<').replace(/(?<!`)>(?!`)/g, '\\>');
 
     // Display answer
-    const answer = document.querySelector(".relative.default")
+    const answer = content.querySelector(".relative.default")
     // console.log(answer.innerHTML)
     const answerer = content.querySelector(".mb-lg .flex.items-center > p").innerHTML;
     markdown += answerer.toLowerCase().includes('copilot') ?
