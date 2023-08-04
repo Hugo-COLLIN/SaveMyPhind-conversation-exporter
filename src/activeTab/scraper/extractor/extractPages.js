@@ -185,7 +185,38 @@ async function extractPerplexityPage(format)
   let markdown = await setFileHeader(getPerplexityPageTitle(), "Perplexity.ai");
 
   for (const content of messages) {
-    markdown += format(content.innerHTML) + "\n\n";
+    const question = content.querySelector('.pb-md.mb-md .mb-md > div');
+    console.log(question.innerText)
+    const analysis = content.querySelectorAll('.space-y-md.mt-md > div');
+    // console.log(analysis)
+    for (const analysisSection of analysis) {
+      // console.log(analysisSection)
+      const sectionTitle = analysisSection.querySelector('div.taco .default').innerText;
+      const sectionContent = analysisSection.querySelector('div.grow');
+      console.log(sectionTitle)
+      if (sectionContent !== null) console.log(sectionContent.innerHTML)
+
+      const expandSources = analysisSection.querySelector(".grid > div > .default");
+      if (expandSources !== null) await expandSources.click();
+
+      const sourceGrid = analysisSection.querySelectorAll(".grid > a, .grid > div > a");
+      console.log(sourceGrid)
+      if (sourceGrid.length > 0)
+      {
+        let i = 1;
+        sourceGrid.forEach((source) => {
+          const text = source.querySelector(".default").innerHTML;
+          // console.log(text)
+          console.log(`[(${i}) ${text}](${source.getAttribute("href")})`);
+          i++;
+        });
+      }
+      // console.log(sectionContent[0].querySelector(".default").innerHTML);
+    }
+
+    const answer = document.querySelector(".relative.default")
+    console.log(answer)
+    // markdown += format(content.innerHTML) + "\n\n";
   }
 
   return markdown;
