@@ -14,7 +14,8 @@
     "storage"
   ],
   "host_permissions": [
-    "https://*.phind.com/*"
+    "*://*.phind.com/*",
+    "*://*.perplexity.ai/*"
   ],
   "action": {
     "default_icon": "assets/icons/icon_disabled-500.png"

@@ -3,7 +3,8 @@ import {getHostAndPath} from "../../utils/webpage/getters";
 export async function domainChecker() {
   const domains = {
     "PhindSearch": "www.phind.com/search",
-    "PhindAgent": "www.phind.com/agent"
+    "PhindAgent": "www.phind.com/agent",
+    "Perplexity": "www.perplexity.ai/search",
   };
   const hostAndPath = getHostAndPath();
 

@@ -10,7 +10,8 @@ import {foldQuestions, unfoldQuestions} from "../../utils/webpage/interact";
 export default {
   extractArbitraryPage,
   extractPhindSearchPage,
-  extractPhindAgentPage
+  extractPhindAgentPage,
+  extractPerplexityPage,
 }
 
 /**
@@ -178,3 +179,7 @@ export async function extractPhindAgentPage(format) {
   return markdown;
 }
 
+async function extractPerplexityPage(format)
+{
+  return await extractArbitraryPage(format);
+}

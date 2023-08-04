@@ -7,6 +7,7 @@ export default {
   setArbitraryPageRules,
   setPhindSearchRules,
   setPhindAgentRules,
+  setPerplexityRules,
 }
 
 
@@ -58,6 +59,10 @@ function setPhindRules() {
       return "\n" + turndownConverter.turndown(node.innerHTML).replace(/(?<!`)<(?!`)/g, '{{@LT}}').replace(/(?<!`)>(?!`)/g, '{{@GT}}') + "\n\n";
     },
   });
+}
+
+function setPerplexityRules() {
+  // Currently no specific rules
 }
 
 /**

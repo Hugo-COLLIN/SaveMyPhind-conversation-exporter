@@ -2,6 +2,7 @@ export default {
   extractPhindSearchMetadata,
   extractPhindAgentMetadata,
   extractArbitraryPageMetadata,
+  extractPerplexityMetadata,
 }
 
 /**
@@ -31,5 +32,16 @@ function extractArbitraryPageMetadata() {
   return {
     title: document.title ?? "",
     source: window.location.hostname,
+  }
+}
+
+function getPerplexityPageTitle() {
+  return document.querySelector(".mb-md:nth-of-type(1) > div").innerHTML ?? "";
+}
+
+function extractPerplexityMetadata() {
+  return {
+    title: getPerplexityPageTitle(),
+    source: "Perplexity.ai",
   }
 }

@@ -8,6 +8,7 @@ import {getAppInfos} from "../../../common/appInfos";
 export async function extract(domain) {
   try {
     const markdownContent = await dynamicCall(extractPages, `extract${domain.name}Page`, converter[`formatMarkdown`]);
+    console.log(markdownContent)
     const metadata = dynamicCall(extractMetadata, `extract${domain.name}Metadata`);
     const fileName = formatFilename(metadata.title, domain.name.replace(/([a-z])([A-Z])/g, '\$1-\$2')); //???
     return {markdownContent, title: metadata.title, fileName};

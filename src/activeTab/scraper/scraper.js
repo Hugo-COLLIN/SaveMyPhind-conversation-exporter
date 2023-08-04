@@ -13,7 +13,7 @@ export async function launchExport() {
   const domain = await domainChecker();
   if (domain === null) return;
 
-  logWelcome();
+  await logWelcome();
   setFormatRules(domain.name);
   const extracted = await extract(domain);
 
