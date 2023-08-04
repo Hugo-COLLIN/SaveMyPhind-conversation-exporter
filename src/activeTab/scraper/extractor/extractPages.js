@@ -199,23 +199,44 @@ async function extractPerplexityPage(format)
       const expandSources = analysisSection.querySelector(".grid > div > .default");
       if (expandSources !== null) await expandSources.click();
 
-      const sourceGrid = analysisSection.querySelectorAll(".grid > a, .grid > div > a");
-      console.log(sourceGrid)
-      if (sourceGrid.length > 0)
-      {
-        let i = 1;
-        sourceGrid.forEach((source) => {
-          const text = source.querySelector(".default").innerHTML;
-          // console.log(text)
-          console.log(`[(${i}) ${text}](${source.getAttribute("href")})`);
-          i++;
-        });
-      }
+      // const sourceGrid = analysisSection.querySelectorAll(".grid > a, .grid > div > a");
+      // console.log(sourceGrid)
+      // if (sourceGrid.length > 0)
+      // {
+      //   let i = 1;
+      //   sourceGrid.forEach((source) => {
+      //     const text = source.querySelector(".default").innerHTML;
+      //     // console.log(text)
+      //     console.log(`[(${i}) ${text}](${source.getAttribute("href")})`);
+      //     i++;
+      //   });
+      // }
+
       // console.log(sectionContent[0].querySelector(".default").innerHTML);
     }
 
+    for (const btn of content.querySelectorAll("div.flex > button")) {
+      // console.log(btn)
+      if (btn.querySelector("span").innerText === "View Sources") {
+        btn.click();
+        await sleep(1);
+
+        for (const result of document.querySelectorAll("main > .justify-center.items-center .py-md .py-md")) {
+          const link = result.querySelector("a");
+          console.log(link.href)
+          console.log(link.querySelector(".default > div").innerText.replaceAll("\n", " ").replaceAll('"', ''));
+        }
+
+        const btnQuit = document.querySelector("main > .justify-center.items-center button.bg-super");
+        console.log(btnQuit)
+        btnQuit.click();
+        await sleep(1);
+      }
+
+    }
+
     const answer = document.querySelector(".relative.default")
-    console.log(answer)
+    // console.log(answer.innerHTML)
     // markdown += format(content.innerHTML) + "\n\n";
   }
 

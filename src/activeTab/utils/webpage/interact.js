@@ -1,12 +1,12 @@
 import {logWaitList} from "../consoleMessages";
 import {sleep} from "../../../common/utils";
 
-export async function clickOnListElt(index) {
-  let list = document.querySelectorAll('.table-responsive tr');
+export async function clickOnListElt(index, selector = '.table-responsive tr') {
+  let list = document.querySelectorAll(selector);
   while (list.length === 0) {
     logWaitList();
     await sleep(1000);
-    list = document.querySelectorAll('.table-responsive tr');
+    list = document.querySelectorAll(selector);
   }
   list[index].click();
 }
