@@ -3,7 +3,7 @@
  */
 
 import {getAppInfos} from "../../../common/appInfos";
-import {getUpdatesData} from "../../modalUpdate";
+import {getUpdatesData} from "../../messenger/modalUpdate";
 
 export async function createSideMenuBtn(title, icon, display = '', txtSize = 'fs-5') {
   const appInfos = await getAppInfos();
@@ -134,7 +134,6 @@ export async function createModalUpdate(modalBackground) {
   var modalSubtitleDiv = document.createElement('div');
   modalSubtitleDiv.classList.add('mb-5', 'modal-title', 'h3');
   modalSubtitleDiv.innerHTML = `What's new in ${appInfos.APP_NAME} v${appInfos.APP_VERSION}:`;
-  modalBodyDiv.appendChild(modalSubtitleDiv);
 
   // let innerDiv1 = createModalTextGroup("⨠ Now inside the Phind interface!", "You can now export a Phind thread using the button inside the page (but you always can click on the extension icon).");
   // let innerDiv2 = createModalTextGroup("⨠ Export all your threads in 1 click!", "Just click on the \"Export All Threads\" button! It could be long, so you have time to drink your triple coffee dose 🙃.");
@@ -144,17 +143,20 @@ export async function createModalUpdate(modalBackground) {
   innerDivLink.target = '_blank';
   innerDivLink.classList.add('mb-0');
   innerDivLink.href = appInfos.APP_WEBSTORE_URL + "/reviews";
-  innerDivLink.innerHTML = "⭐ If this extension helps you, please leave it a review on the Chrome Web Store! ⭐";
+  innerDivLink.innerHTML = `⭐ If ${appInfos.APP_NAME} helps you, please leave it a review on the Chrome Web Store! ⭐<br>`;
 
   let innerDiv4 = createModalTextGroup(`Enjoy!<br>Hugo <small>- ${appInfos.APP_SNAME} creator</small>`, "I'm not affiliated with the Phind.com developers, I just love this website and I wanted to make it even better."); //I'm not affiliated with Phind, I just love this website and I wanted to make it better for me and for you. If you want to support me, you can donate at https://www.paypal.com/paypalme/${appInfos.APP_SNAME}
+
+
+  modalBodyDiv.appendChild(innerDivLink);
+  modalBodyDiv.appendChild(document.createElement('br'));
+
+  modalBodyDiv.appendChild(modalSubtitleDiv);
 
   updates.forEach((update) => {
     const innerDiv = createModalTextGroup(update.title, update.description);
     modalBodyDiv.appendChild(innerDiv);
   });
-  modalBodyDiv.appendChild(document.createElement('br'));
-  modalBodyDiv.appendChild(innerDivLink);
-  modalBodyDiv.appendChild(document.createElement('br'));
   modalBodyDiv.appendChild(document.createElement('br'));
   modalBodyDiv.appendChild(innerDiv4);
 
