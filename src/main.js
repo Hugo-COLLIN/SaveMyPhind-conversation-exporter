@@ -7,3 +7,4 @@ if (window.isInjecting) {
   autoScrapOnLoad();
   improveUI();
 }
+

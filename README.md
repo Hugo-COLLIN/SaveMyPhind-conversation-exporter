@@ -4,7 +4,8 @@
 😎 Why Save my Phind?
 - To keep AI generated information offline,
 - To share threads with others,
-- To read and process in a knowledge base / note-taking app (like Obsidian).
+- To read and process in a knowledge base / note-taking app (like Obsidian),
+- To improve the Phind website usability.
 
 👉 When you are on Phind, simply click on the extension icon. It will automatically export the thread you are currently on into a formatted markdown file.
 
@@ -64,29 +65,29 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [ ] Donation popup when user reaches a certain number of clicks (Paypal, BuyMeACoffee, etc.)
 - [ ] Export tables into markdown (Turndown rule)
 - [ ] Save ChatGPT conversations
-- [ ] Search bar above threads list to filter threads
 - [ ] Side buttons for each response card to export it individually
-  - [ ] Download
-  - [ ] Copy to clipboard
-  - [ ] Share to Obsidian
-  - [ ] Share to Roam
-  - [ ] Share to Notion
-  - [ ] Share to Evernote
-  - [ ] Share to Google Keep
+    - [ ] Download
+    - [ ] Copy to clipboard
+    - [ ] Share to Obsidian
+    - [ ] Share to Roam
+    - [ ] Share to Notion
+    - [ ] Share to Evernote
+    - [ ] Share to Google Keep
 - [ ] Option page : choose file format (markdown, html, txt)
 - [ ] Option page : choose subfolder to save files in (or custom download location)
 - [ ] Link to the downloaded file in the currently opened note in Obsidian
-  - Redirect link to confirm donation (variable "donation level" in sessionStorage: no popup if recurrely donating, no popup during x time if single donation, popup if not)
+    - Redirect link to confirm donation (variable "donation level" in sessionStorage: no popup if recurrely donating, no popup during x time if single donation, popup if not)
 - [ ] "Export All Threads": into as a zip file.
 - [ ] "Export All Threads": Modal when export is finished or stopped (with stats + CTA review/donation)
 - [ ] Help bubbles hovering on ? circles next to elements
 - [ ] Phind guide to discover the website
 - [ ] (Copy the last response to the clipboard when clicking on the extension icon (instead of the entire response) )
-    - Phind Search : click on the copy button
-    - Phind Pair : export the last answer div
+      - Phind Search : click on the copy button
+      - Phind Pair : export the last answer div
 - [ ] (Export next search result pages (sources side panel))
 - [ ] ~~Automatically download the conversation?~~
 - [ ] ~~Automatically copy the last response to the clipboard (without clicking on the extension icon)?~~
+- [x] Search bar above threads list to filter threads
 - [x] Open a form when uninstalled to ask for feedback
 - [x] Add type (Phind Search, Phind Pair, ChatGPT) between date and title in filename + in header link
 - [x] Update modal to inform users about the new features
@@ -120,11 +121,11 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Export conversation to markdown
 
 ### Security and maintenance:
-- [ ] Externalize popup text into an external file (txt, JSON?)
 - [ ] Auto logs (to Sentry?)
 - [ ] Use the Phind (official/unofficial?) API instead of scraping the HTML?
 - [ ] Make unit/e2e tests
 - [ ] CI/CD pipeline?
+- [x] Externalize popup text into an external file (txt, JSON?)
 - [x] Fetch extension infos from json to chrome storage when installed
 - [x] Divide contentScript code into modules
 - [x] Externalize background.js functions into modules
@@ -140,14 +141,15 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Sanitize HTML code
 
 ### Bugs/Issues:
-- [ ] "Rate on Chrome Web Store" for Firefox users
-  => Specify both links in infos.json(?) and change for each browser (when bundle?)
-- [ ] "Export All Threads": Button "Stop exporting" always visible after export is finished
-    => Redirect to homepage when export is finished
 - [ ] Extension icon not updated on Firefox
   => User needs to click or manually allow the extension to access websites
-- [ ] Pair programmer: Line breaks in user questions (Phind uses spaces as line breaks)
-- [ ] Web: Exported links beginning with # prepended by page url
+- [ ] Detect when connected or something to anticipate and specify the "Export all threads" button usability
+- [ ] "Export All Threads": Button "Stop exporting" always visible after export is finished
+  => Redirect to homepage when export is finished
+- [ ] (Web: Exported links beginning with # prepended by page url)
+- [ ] ~~Pair programmer: Line breaks in user questions (Phind uses spaces as line breaks)~~
+- [x] "Rate on Chrome Web Store" for Firefox users
+  => Specify both links in infos.json(?) and change for each browser (when bundle?)
 - [x] Page title bug:
   https://www.phind.com/agent?cache=clkf6wi1n000djx074ar4fpfo
 - [x] Fix link formatting with < and > characters

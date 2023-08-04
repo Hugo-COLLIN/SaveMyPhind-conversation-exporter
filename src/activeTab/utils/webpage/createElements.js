@@ -3,9 +3,14 @@
  */
 
 import {getAppInfos} from "../../../common/appInfos";
+import {getUpdatesData} from "../../messenger/modalUpdate";
 
-export async function createSideMenuBtn(title, icon, display = 'block') {
+export async function createSideMenuBtn(title, icon, display = '', txtSize = 'fs-5') {
   const appInfos = await getAppInfos();
+
+  // Create table element
+  const table = document.createElement('table');
+  table.className = 'table darkmode-semi-light table-flush table-hover text-black border border-history-panel mb-0';
 
 // Step 2: Create the tbody element.
   var button = document.createElement('tbody');
@@ -27,7 +32,7 @@ export async function createSideMenuBtn(title, icon, display = 'block') {
 
 // Step 7: Create the fw-bold col-10 fs-5 div.
   var div3 = document.createElement('div');
-  div3.classList.add('fw-bold', 'col-10', 'fs-5');
+  div3.classList.add('fw-bold', 'col-10', txtSize);
 
 // Step 8: Create the i element with the class 'mx-2 fe fe-message-square'
   var iElement = document.createElement('i');
@@ -52,9 +57,11 @@ export async function createSideMenuBtn(title, icon, display = 'block') {
 // Step 14: Append tr to tbody.
   button.appendChild(tr);
 
-  button.setAttribute("extension", appInfos.APP_SNAME);
+  table.appendChild(button);
 
-  return button;
+  table.setAttribute("extension", appInfos.APP_SNAME);
+
+  return table;
 }
 
 export async function createTopBtn(title, icon, classElt = '') {
@@ -73,7 +80,7 @@ export async function createTopBtn(title, icon, classElt = '') {
 // Step 5: Set the button's innerHTML.
   buttonElement.innerHTML = title;
 
-  buttonElement.style.margin = '2px';
+  buttonElement.style.margin = '2px 4px 0 0';
 
 // Step 6: Append the iElement to the button before the text.
   buttonElement.insertBefore(iElement, buttonElement.childNodes[0]);
@@ -87,6 +94,7 @@ export async function createTopBtn(title, icon, classElt = '') {
 
 export async function createModalUpdate(modalBackground) {
   const appInfos = await getAppInfos();
+  const updates = await getUpdatesData();
 
   var outerDiv = document.createElement('div');
   outerDiv.setAttribute('role', 'dialog');
@@ -110,7 +118,7 @@ export async function createModalUpdate(modalBackground) {
   var innerDivImage = document.createElement('span');
   innerDivImage.style.marginRight = '10px';
   var innerDivImageImg = document.createElement('img');
-  innerDivImageImg.src = chrome.runtime.getURL('img/icons/icon-48.png');
+  innerDivImageImg.src = chrome.runtime.getURL('assets/icons/icon-48.png');
   innerDivImageImg.alt = `${appInfos.APP_SNAME} icon`;
   innerDivImageImg.width = '48';
   innerDivImageImg.height = '48';
@@ -118,34 +126,45 @@ export async function createModalUpdate(modalBackground) {
 
   var modalTitleDiv = document.createElement('div');
   modalTitleDiv.classList.add('mb-5', 'modal-title', 'h2');
-  modalTitleDiv.innerHTML = "Hey, what's up?";
+  modalTitleDiv.innerHTML = "Hey, it's an update!";
   modalBodyDiv.appendChild(modalTitleDiv);
 
   modalTitleDiv.prepend(innerDivImage);
 
   var modalSubtitleDiv = document.createElement('div');
   modalSubtitleDiv.classList.add('mb-5', 'modal-title', 'h3');
-  modalSubtitleDiv.innerHTML = `Latest updates of the ${appInfos.APP_NAME} extension:`;
-  modalBodyDiv.appendChild(modalSubtitleDiv);
-
-  let innerDiv1 = createModalTextGroup("⨠ Now inside the Phind interface!", "You can now export a Phind thread using the button inside the page (but you always can click on the extension icon).");
-  let innerDiv2 = createModalTextGroup("⨠ Export all your threads in 1 click!", "Just click on the \"Export All Threads\" button! It could be long, so you have time to drink your triple coffee dose 🙃.");
-  let innerDiv3 = createModalTextGroup("⨠ Some bugs solved", "File names, title bugs, these kind of things...");
+  modalSubtitleDiv.innerHTML = `What's new in ${appInfos.APP_NAME} v${appInfos.APP_VERSION}:`;
 
   var innerDivLink = document.createElement('a');
   innerDivLink.target = '_blank';
   innerDivLink.classList.add('mb-0');
-  innerDivLink.href = appInfos.APP_WEBSTORE_URL + "/reviews";
-  innerDivLink.innerHTML = "⭐ If this extension helps you, please leave it a review on the Chrome Web Store! ⭐";
+
+  const manifest = chrome.runtime.getManifest();
+  let storeName = "Chrome Web Store";
+  if (manifest.browser_specific_settings !== undefined && manifest.browser_specific_settings.gecko !== undefined) {
+    innerDivLink.href = appInfos.APP_FIREFOX_STORE_URL + "/reviews";
+    storeName = "Firefox Add-ons Store";
+  }
+  else
+  {
+    innerDivLink.href = appInfos.APP_WEBSTORE_URL + "/reviews";
+    storeName = "Chrome Web Store";
+  }
+  innerDivLink.innerHTML = `⭐ If ${appInfos.APP_NAME} helps you, please leave it a review on the ${storeName}! ⭐<br>`;
+
 
   let innerDiv4 = createModalTextGroup(`Enjoy!<br>Hugo <small>- ${appInfos.APP_SNAME} creator</small>`, "I'm not affiliated with the Phind.com developers, I just love this website and I wanted to make it even better."); //I'm not affiliated with Phind, I just love this website and I wanted to make it better for me and for you. If you want to support me, you can donate at https://www.paypal.com/paypalme/${appInfos.APP_SNAME}
 
-  modalBodyDiv.appendChild(innerDiv1);
-  modalBodyDiv.appendChild(innerDiv2);
-  modalBodyDiv.appendChild(innerDiv3);
-  modalBodyDiv.appendChild(document.createElement('br'));
+
   modalBodyDiv.appendChild(innerDivLink);
   modalBodyDiv.appendChild(document.createElement('br'));
+
+  modalBodyDiv.appendChild(modalSubtitleDiv);
+
+  updates.forEach((update) => {
+    const innerDiv = createModalTextGroup(update.title, update.description);
+    modalBodyDiv.appendChild(innerDiv);
+  });
   modalBodyDiv.appendChild(document.createElement('br'));
   modalBodyDiv.appendChild(innerDiv4);
 
@@ -181,7 +200,7 @@ function createModalTextGroup(bigText, smallText) {
   innerDiv.style.opacity = '1';
 
   let p2 = document.createElement('p');
-  p2.classList.add('mb-0', 'fs-4');
+  p2.classList.add('mb-0', 'fs-4', 'fw-bold');
   p2.innerHTML = bigText;
 
   let desc2 = document.createElement('p');
@@ -199,4 +218,27 @@ export function createModalBg() {
   divElement.classList.add('fade', 'modal-backdrop', 'show');
 
   return divElement;
+}
+
+export async function createSmallField(placeholder) {
+  const appInfos = await getAppInfos();
+
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.placeholder = placeholder;
+  input.classList.add('form-control', 'form-control-sm', 'mb-1');
+  input.setAttribute("extension", appInfos.APP_SNAME);
+
+  return input;
+}
+
+export async function createButtonGroup(id) {
+  const appInfos = await getAppInfos();
+
+  const btnsGroup = document.createElement("div");
+  btnsGroup.classList.add("button-group", "mb-2");
+  btnsGroup.id = id;
+  btnsGroup.setAttribute("extension", appInfos.APP_SNAME);
+
+  return btnsGroup;
 }

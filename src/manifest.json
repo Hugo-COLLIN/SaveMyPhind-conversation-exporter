@@ -1,12 +1,12 @@
 {
   "manifest_version": 3,
   "name": "Save my Phind - AI Conversation Exporter",
-  "version": "1.8.15",
+  "version": "1.9.9",
   "description": "🚀 Export your Phind.com search threads into markdown files!\n",
   "icons": {
-    "16": "img/icons/icon-16.png",
-    "48": "img/icons/icon-48.png",
-    "128": "img/icons/icon-128.png"
+    "16": "assets/icons/icon-16.png",
+    "48": "assets/icons/icon-48.png",
+    "128": "assets/icons/icon-128.png"
   },
   "permissions": [
     "scripting",
@@ -17,7 +17,7 @@
     "https://*.phind.com/*"
   ],
   "action": {
-    "default_icon": "img/icons/icon_disabled-500.png"
+    "default_icon": "assets/icons/icon_disabled-500.png"
   },
   "background": {
     "service_worker": "background.js"
@@ -36,7 +36,7 @@
     {
       "resources": [
         "infos.json",
-        "img/*"
+        "assets/*"
       ],
       "matches": [
         "<all_urls>"

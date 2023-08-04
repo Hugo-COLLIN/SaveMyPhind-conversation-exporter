@@ -1,16 +1,40 @@
 import {sleep} from "../../../common/utils";
+import {logWaitElts} from "../consoleMessages";
 
+/**
+ * Wait for an element to appear in the DOM
+ * @param select CSS selector
+ * @param duration Time between each check
+ * @param attempts Number of attempts
+ * @returns {Promise<HTMLElement|false>} The element if it appears, false otherwise
+ */
+export async function waitAppears(select, duration = 100, attempts = 100) {
+  let i = 1;
+  let nester;
+  do {
+    if (i > attempts) return false;
+    nester = document.querySelector(select);
+    // await logWaitElts();
+    await sleep(duration)
+    i++;
+  } while (nester === null);
+
+  return nester;
+}
+
+/**
+ * Ensure adding elements to the DOM by waiting for a parent element to appear
+ * @param select CSS selector
+ * @param htmlTableSectionElements Array of elements to add
+ * @param mode executed method (append, prepend, after, insertBefore)
+ * @returns {Promise<boolean>} true if the elements have been added, false otherwise
+ */
 export async function waitAppend(select, htmlTableSectionElements, mode = 'append') {
   let nester = null;
   if (typeof select === 'string') {
-    nester = document.querySelector(select);
-    while (nester === null) {
-      // logWaitElts();
-      await sleep(1000)
-      nester = document.querySelector(select);
-    }
+    nester = await waitAppears(select);
+    if (!nester) return false;
   } else if (typeof select === 'object') {
-    let added = false;
     let res = select.filter(elt => document.querySelector(elt.selector))
     while (Array.isArray(res) && res.length === 0) {
       await sleep(1000)
@@ -20,18 +44,15 @@ export async function waitAppend(select, htmlTableSectionElements, mode = 'appen
     nester = document.querySelector(res[0].selector);
   } else return false;
 
-  if (mode === 'prepend') {
+  if (mode === 'insertBefore') {
     for (let button of htmlTableSectionElements) {
-      nester.prepend(button);
+      nester.parentNode.insertBefore(button, nester);
     }
-  } else if (mode === 'appendChild') {
-    for (let button of htmlTableSectionElements) {
-      nester.appendChild(button);
-    }
-  } else {
-    for (let button of htmlTableSectionElements) {
-      nester.append(button);
-    }
+    return true;
+  }
+
+  for (let button of htmlTableSectionElements) {
+    nester[mode](button);
   }
   return true;
 }

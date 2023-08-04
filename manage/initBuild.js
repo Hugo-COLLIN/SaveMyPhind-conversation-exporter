@@ -9,7 +9,7 @@ fs.mkdirSync(distPath);
 
 // 2. Copy files
 const manifestPath = path.join(__dirname, '../src/manifest.json');
-const imgPath = path.join(__dirname, '../src/img');
+const imgPath = path.join(__dirname, '../src/assets');
 const logPath = path.join(__dirname, '../CHANGELOG.md');
 const licensePath = path.join(__dirname, '../LICENSE.md');
 const readmePath = path.join(__dirname, '../README.md');
@@ -23,7 +23,7 @@ else if (manifest.background.scripts)
   manifest.background.scripts = ['background.js'];
 
 fs.writeFileSync(path.join(distPath, 'manifest.json'), JSON.stringify(manifest, null, 2));
-fs.copySync(imgPath, path.join(distPath, 'img'));
+fs.copySync(imgPath, path.join(distPath, 'assets'));
 fs.copySync(logPath, path.join(distPath, 'doc/CHANGELOG.md'));
 fs.copySync(licensePath, path.join(distPath, 'doc/LICENSE.md'));
 fs.copySync(readmePath, path.join(distPath, 'doc/README.md'));

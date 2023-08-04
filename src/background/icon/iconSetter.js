@@ -16,7 +16,7 @@ export function setIconForCurrentTab(tabId) {
 function setIcon(url, tabId) {
   if (url) {
     if (url.includes("phind.com")) {
-      chrome.action.setIcon({path: {"48": "img/icons/icon_phind-48.png"}, tabId: tabId});
+      chrome.action.setIcon({path: {"48": "assets/icons/icon_phind-48.png"}, tabId: tabId});
     }
   }
 }

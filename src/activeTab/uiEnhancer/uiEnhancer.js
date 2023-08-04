@@ -1,7 +1,14 @@
-import {createModalBg, createModalUpdate, createSideMenuBtn, createTopBtn} from "../utils/webpage/createElements";
+import {
+  createButtonGroup,
+  createModalBg,
+  createModalUpdate,
+  createSideMenuBtn,
+  createTopBtn
+} from "../utils/webpage/createElements";
 import {launchExport} from "../scraper/scraper";
 import {setBtnsExport} from "../utils/webpage/styleElements";
-import {waitAppend} from "../utils/webpage/insertElements";
+import {waitAppears, waitAppend} from "../utils/webpage/insertElements";
+import {addListFilter} from "../listFilter/filter";
 
 export function improveUI() {
   window.addEventListener('load', function () {
@@ -13,9 +20,40 @@ export function improveUI() {
           let isExporting = response.message === 'exportAllThreads in progress';
           // addStyle();
 
+          // Some UI improvements
+          const topBtnsGroup = await createButtonGroup("top-buttons-group");
+          await waitAppend(":not(.row.justify-content-center) > div > .container-xl", [topBtnsGroup], "prepend")
+
+          // setBtnsDefault();
+          // const topBtns = document.querySelectorAll(".container-xl > div > button");
+          // topBtns.forEach(btn => {
+          //   btn.classList.remove("mb-4");
+          //   waitAppend("#top-buttons-group", [btn], "append");
+          // });
+
+          document.querySelector(".row > .col-lg-2 > div").style.minWidth = "11em";
+          const thread = document.querySelector(".row > .col-lg-8.mt-8");
+          if (thread !== null)
+          {
+            thread.classList.add("mx-3");
+            const bar = document.querySelector(".col-lg-8.col-md-12");
+            if (bar !== null) bar.classList.add("mx-3");
+          }
+
+          // Remove space between buttons in left side menu
+          waitAppears(".col-lg-2 > div > div > table").then((elt) => {
+            document.querySelectorAll(".col-lg-2 > div > div > table").forEach((elt) => {
+              elt.classList.add("mb-0");
+            });
+          });
+          waitAppears(".col-lg-2 > div > div > table.mb-7").then((elt) => {
+            if (!elt) return;
+            elt.classList.remove("mb-7");
+          });
+
           // Create elements to add to the page
-          let exportAllThreadsSideBtn = await createSideMenuBtn('Export All Threads', 'fe-share');
-          let stopExportAllThreadsSideBtn = await createSideMenuBtn('Stop Exporting Threads', 'fe-x', 'none');
+          let exportAllThreadsSideBtn = await createSideMenuBtn('Export All Threads', 'fe-share', '', 'fs-6');
+          let stopExportAllThreadsSideBtn = await createSideMenuBtn('Stop Exporting Threads', 'fe-x', 'none', 'fs-6');
 
           let exportAllThreadsTopBtn = await createTopBtn('Export All Threads', 'fe-share', 'smallScreens');
           let stopExportAllThreadsTopBtn = await createTopBtn('Stop Exporting Threads', 'fe-x', 'smallScreens');
@@ -75,8 +113,13 @@ export function improveUI() {
             window.location.href = "https://www.phind.com";
           });
 
+          /*
+          --- Append elements ---
+           */
 
-          // Show/hide buttons
+          waitAppend(":not(.row.justify-content-center) > div > .container-xl > div:nth-of-type(1)", [exportThreadTopBtn], 'prepend');
+
+          // Show/hide "Export all threads" buttons
           if (response.message === 'exportAllThreads in progress') {
             setBtnsExport(true, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn)
           } else {
@@ -84,9 +127,7 @@ export function improveUI() {
           }
 
           // Append buttons
-          waitAppend(".col-lg-2 > div > div > table", [exportAllThreadsSideBtn, stopExportAllThreadsSideBtn], 'appendChild');
-
-          waitAppend(":not(.row.justify-content-center) > div > .container-xl", [exportThreadTopBtn], 'prepend')
+          waitAppend(".col-lg-2 > div > div > table:nth-of-type(1)", [exportAllThreadsSideBtn, stopExportAllThreadsSideBtn], 'after');
 
           let doublePlace = [
             {
@@ -94,12 +135,30 @@ export function improveUI() {
               mode: 'append'
             },
             {
-              selector: ":not(.row.justify-content-center) > div > .container-xl",
+              selector: ":not(.row.justify-content-center) > div > .container-xl > div:nth-of-type(1)",
               mode: 'prepend'
             }
           ];
           waitAppend(doublePlace, [exportAllThreadsTopBtn, stopExportAllThreadsTopBtn]);
 
+
+          // Wait for the list to be displayed to add the corresponding elements
+          waitAppears('.container.p-0 > .row tbody > tr', 100).then(async (threadsList) => {
+            if (!threadsList) return;
+            document.querySelector(".row > .table-responsive").classList.add("p-0");
+            document.querySelector(".container.p-0 > .row").style.width = '108%';
+
+            const listGlobal = document.querySelector(".container.p-0");
+            listGlobal.classList.remove("mt-6");
+            listGlobal.classList.add("mt-3");
+
+            const logoPhind = document.querySelector(".d-lg-block.container");
+            logoPhind.classList.remove("mb-5", "mt-8");
+            logoPhind.classList.add("mb-4", "mt-7");
+            await addListFilter();
+          });
+
+          // Create "last update" modal if needed
           chrome.storage.sync.get(['displayModalUpdate'], async function (result) {
             if (result.displayModalUpdate) {
               // Create modal
@@ -116,6 +175,7 @@ export function improveUI() {
             }
           });
 
+          // Update buttons on resizing window
           window.addEventListener('resize', function () {
             setBtnsExport(isExporting, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn)
           });
