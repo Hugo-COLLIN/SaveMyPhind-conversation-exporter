@@ -1,4 +1,14 @@
 # Update notes
+# 2.0.3
+⨠ ⭐ New branding, same extension, always better!
+"Save My Phind" is now "Save my AI"! But it's still exporting your Phind threads, don't worry!
+
+⨠ 🚀 Now exports Perplexity.ai threads!
+Click on the extension icon inside the Perplexity interface and see the magic happen!
+
+⨠ 💡 Some format bugs solved
+Special characters inside links won't be a problem anymore.
+
 # v1.9.9
 ⨠ 🔎 Filter your threads list!
 You just want to retrieve that damn chat you started 5 days ago? No problem: start typing in the filter bar to find it quickly!
