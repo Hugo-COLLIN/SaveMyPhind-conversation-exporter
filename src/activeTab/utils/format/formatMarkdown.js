@@ -46,7 +46,7 @@ export function formatMarkdown(html) {
  * @returns {string} formatted link
  */
 export function formatLink(url, message) {
-  return "[" + message + "](" + url.replace(/\)/g, "%29") + ")";
+  return "[" + message.replaceAll("`", "") + "](" + url.replace(/\)/g, "%29") + ")";
 }
 
 /**
