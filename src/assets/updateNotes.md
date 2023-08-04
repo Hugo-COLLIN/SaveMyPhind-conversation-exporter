@@ -9,6 +9,8 @@ Hoora! The file name now contains the tool used (New Phind or Basic search). In 
 ⨠ Some UI progress
 Tried to improve the Phind global UI (hard but needed!). Plus, extension compenents are better integrated in the Phind interface. 
 
+⨠ Other changes under the hood
+Some code refactoring, bugs solved and quirky improvements... You know, the usual stuff.
 
 # v1.8.4
 ⨠ Now inside the Phind interface!

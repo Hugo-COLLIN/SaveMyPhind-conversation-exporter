@@ -1,4 +1,20 @@
 # Changelog
+# v1.9.9
+### Features:
+- Search bar above threads list to filter threads
+- Open a form when uninstalled to ask for feedback
+- Add type (Phind Search, Phind Pair, ChatGPT) between date and title in filename + in header link
+
+### Bugs fixed:
+- "Rate on Chrome Web Store" for Firefox users
+  => Specify both links in infos.json and change for each browser
+- Page title bug
+- Fetch extension infos corrctly
+
+### Security and maintenance:
+- Externalize popup text into an external file
+- Divide contentScript code into modules
+
 # v1.8.4
 ### Features:
 - "Export This Thread" button into the Phind interface to export the current thread
