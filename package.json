@@ -1,6 +1,6 @@
 {
   "name": "save-my-phind",
-  "version": "1.8.4",
+  "version": "1.9.9",
   "license": "SaveMyPhind License",
   "scripts": {
     "syncVersion": "node manage/syncVersions.js",
