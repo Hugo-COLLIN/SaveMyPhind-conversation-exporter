@@ -1,7 +1,7 @@
 import {sleep} from "../../../common/utils";
 import {capitalizeFirst} from "../../utils/format/formatText";
 import {setFileHeader} from "../../utils/format/formatMarkdown";
-import {getPhindPageTitle} from "./extractMetadata";
+import {getPerplexityPageTitle, getPhindPageTitle} from "./extractMetadata";
 import {foldQuestions, unfoldQuestions} from "../../utils/webpage/interact";
 
 /**
@@ -181,5 +181,13 @@ export async function extractPhindAgentPage(format) {
 
 async function extractPerplexityPage(format)
 {
-  return await extractArbitraryPage(format);
+  const messages = document.querySelectorAll('main .pb-md.mb-md');
+  let markdown = await setFileHeader(getPerplexityPageTitle(), "Perplexity.ai");
+
+  for (const content of messages) {
+    markdown += format(content.innerHTML) + "\n\n";
+  }
+
+  return markdown;
+  // return await extractArbitraryPage(format);
 }

@@ -35,7 +35,7 @@ function extractArbitraryPageMetadata() {
   }
 }
 
-function getPerplexityPageTitle() {
+export function getPerplexityPageTitle() {
   return document.querySelector(".mb-md:nth-of-type(1) > div").innerHTML ?? "";
 }
 
