@@ -1,10 +1,12 @@
 export function btnBarAllInline(topBtnsGroup) {
   const btns = topBtnsGroup.nextElementSibling.querySelectorAll("button")
   if (btns.length !== 0) {
-    topBtnsGroup.nextElementSibling.style.display = "inline";
+    const nextElt = topBtnsGroup.nextElementSibling;
+    nextElt.style.display = "inline";
+    nextElt.style.marginRight = "0.5rem";
     btns.forEach(elt => {
       elt.classList.remove("mb-4", "mb-3");
-      elt.classList.add("mr-2", "mt-1");
-    })
+      elt.classList.add("mt-1");
+    });
   }
 }
