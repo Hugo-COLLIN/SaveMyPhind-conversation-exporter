@@ -3,7 +3,7 @@
  */
 
 import {getAppInfos} from "../../../common/appInfos";
-import {getUpdatesData} from "../../messenger/modalUpdate";
+import {getUpdatesData} from "../messenger/modalUpdate";
 
 export async function createSideMenuBtn(title, icon, display = '', txtSize = 'fs-5') {
   const appInfos = await getAppInfos();
