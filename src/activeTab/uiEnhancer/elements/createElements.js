@@ -3,7 +3,7 @@
  */
 
 import {getAppInfos} from "../../../common/appInfos";
-import {getUpdatesData} from "../../messenger/modalUpdate";
+import {getUpdatesData} from "../messenger/modalUpdate";
 
 export async function createSideMenuBtn(title, icon, display = '', txtSize = 'fs-5') {
   const appInfos = await getAppInfos();
@@ -71,7 +71,7 @@ export async function createTopBtn(title, icon, classElt = '') {
 
 // Step 3: Set the type and class attributes of the button.
   buttonElement.setAttribute('type', 'button');
-  buttonElement.classList.add('btn', 'btn-primary', 'btn-sm');
+  buttonElement.classList.add('btn', 'btn-primary', 'btn-sm', 'mt-1');
 
 // Step 4: Create the i element and set its class.
   var iElement = document.createElement('i');
@@ -80,7 +80,7 @@ export async function createTopBtn(title, icon, classElt = '') {
 // Step 5: Set the button's innerHTML.
   buttonElement.innerHTML = title;
 
-  buttonElement.style.margin = '2px 4px 0 0';
+  buttonElement.style.margin = '0 4px 0 0';
 
 // Step 6: Append the iElement to the button before the text.
   buttonElement.insertBefore(iElement, buttonElement.childNodes[0]);
@@ -239,6 +239,7 @@ export async function createButtonGroup(id) {
   btnsGroup.classList.add("button-group", "mb-2");
   btnsGroup.id = id;
   btnsGroup.setAttribute("extension", appInfos.APP_SNAME);
+  btnsGroup.style.display = "inline";
 
   return btnsGroup;
 }

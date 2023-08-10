@@ -1,5 +1,5 @@
-import {waitAppend} from "../utils/webpage/insertElements";
-import {createSmallField} from "../utils/webpage/createElements";
+import {waitAppend} from "../uiEnhancer/elements/insertElements";
+import {createSmallField} from "../uiEnhancer/elements/createElements";
 
 export async function addListFilter() {
   // Create a text field for user input

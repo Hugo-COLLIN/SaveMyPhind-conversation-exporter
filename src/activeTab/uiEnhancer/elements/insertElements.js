@@ -1,5 +1,5 @@
 import {sleep} from "../../../common/utils";
-import {logWaitElts} from "../consoleMessages";
+import {logWaitElts} from "../../utils/consoleMessages";
 
 /**
  * Wait for an element to appear in the DOM

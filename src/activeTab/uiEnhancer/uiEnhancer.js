@@ -4,11 +4,12 @@ import {
   createModalUpdate,
   createSideMenuBtn,
   createTopBtn
-} from "../utils/webpage/createElements";
+} from "./elements/createElements";
 import {launchExport} from "../scraper/scraper";
-import {setBtnsExport} from "../utils/webpage/styleElements";
-import {waitAppears, waitAppend} from "../utils/webpage/insertElements";
+import {setBtnsExport} from "./elements/styleCreatedElements";
+import {waitAppears, waitAppend} from "./elements/insertElements";
 import {addListFilter} from "../listFilter/filter";
+import {btnBarAllInline} from "./elements/changeElements";
 
 export function improveUI() {
   window.addEventListener('load', function () {
@@ -23,6 +24,7 @@ export function improveUI() {
           // Some UI improvements
           const topBtnsGroup = await createButtonGroup("top-buttons-group");
           await waitAppend(":not(.row.justify-content-center) > div > .container-xl", [topBtnsGroup], "prepend")
+          btnBarAllInline(topBtnsGroup);
 
           // setBtnsDefault();
           // const topBtns = document.querySelectorAll(".container-xl > div > button");
@@ -177,7 +179,9 @@ export function improveUI() {
 
           // Update buttons on resizing window
           window.addEventListener('resize', function () {
-            setBtnsExport(isExporting, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn)
+            setBtnsExport(isExporting, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
+
+            btnBarAllInline(topBtnsGroup);
           });
         }
       });
