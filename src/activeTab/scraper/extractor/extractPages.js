@@ -195,7 +195,6 @@ async function extractPerplexityPage(format)
 
     // Display answer
     const answer = content.querySelector(".relative.default")
-    // console.log(answer.innerHTML)
     const answerer = content.querySelector(".mb-lg .flex.items-center > p").innerHTML;
     markdown += answerer.toLowerCase().includes('copilot') ?
         "## Copilot answer\n"
@@ -205,20 +204,17 @@ async function extractPerplexityPage(format)
     markdown += format(answer.innerHTML) + "\n\n";
 
     // Display analysis section
-    const analysis = content.querySelectorAll('.space-y-md.mt-md > div');
-    // console.log(analysis)
-    for (const analysisSection of analysis) {
-      // console.log(analysisSection)
-      const sectionTitle = analysisSection.querySelectorAll('div.taco .default')[1];
-      const sectionContent = analysisSection.querySelector('div.grow');
-      if (sectionTitle && analysisSection.querySelector(".grid") === null) markdown += "**" + format(sectionTitle.innerText) + ":**\n";
-      if (sectionContent !== null && sectionContent.querySelector(".grid") === null) markdown += format(sectionContent.innerHTML) + "\n\n";
-    }
-    if (analysis[0].querySelector(".grid") !== null) markdown += "**Quick search:**\n";
+    // const analysis = content.querySelectorAll('.space-y-md.mt-md > div');
+    // for (const analysisSection of analysis) {
+    //   const sectionTitle = analysisSection.querySelectorAll('div.taco .default')[1];
+    //   const sectionContent = analysisSection.querySelector('div.grow');
+    //   if (sectionTitle && analysisSection.querySelector(".grid") === null) markdown += "**" + format(sectionTitle.innerText) + ":**\n";
+    //   if (sectionContent !== null && sectionContent.querySelector(".grid") === null) markdown += format(sectionContent.innerHTML) + "\n\n";
+    // }
+    // if (analysis[0].querySelector(".grid") !== null) markdown += "**Quick search:**\n";
 
-    markdown += await extractPerplexitySources(content, format) + "\n\n";
+    markdown += "**Sources:**\n" + await extractPerplexitySources(content, format) + "\n\n";
   }
 
   return markdown;
-  // return await extractArbitraryPage(format);
 }
