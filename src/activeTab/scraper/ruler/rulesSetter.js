@@ -79,8 +79,8 @@ function setPerplexityRules() {
     filter: 'a',
     replacement: function (content, node) {
       const href = node.getAttribute('href');
-      const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '');
-      return '[' + linkText + '](' + href + ')';
+      const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '').replace(/\n/g, '');
+      return ' [' + linkText + '](' + href + ')';
     }
   });
 

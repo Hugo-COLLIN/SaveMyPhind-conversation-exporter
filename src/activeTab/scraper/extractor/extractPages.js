@@ -185,12 +185,9 @@ async function extractPerplexityPage(format)
   const messages = document.querySelectorAll('main .pb-md.mb-md');
   let markdown = await setFileHeader(getPerplexityPageTitle(), "Perplexity.ai");
 
-  console.log(messages)
-
   for (const content of messages) {
     // Display question
     const question = content.querySelector('.break-words');
-    console.log(question)
     markdown += "## User\n";
     const regex = /<div class="break-words \[word-break:break-word] whitespace-pre-line  whitespace-pre-wrap default font-sans text-base font-medium text-textMain dark:text-textMainDark selection:bg-super selection:text-white dark:selection:bg-opacity-50 selection:bg-opacity-70">([\s\S]*?)<\/div>/
     const questionText = formatLineBreaks(question.innerText ?? "", regex) + "\n\n";
