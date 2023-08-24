@@ -194,7 +194,7 @@ async function extractPerplexityPage(format)
     markdown += questionText.replace(/(?<!`)<(?!`)/g, '\\<').replace(/(?<!`)>(?!`)/g, '\\>');
 
     // Display answer
-    const answer = content.querySelector(".relative.default")
+    const answer = content.querySelector(".relative.default > div > div")
     const answerer = content.querySelector(".mb-lg .flex.items-center > p").innerHTML;
     markdown += answerer.toLowerCase().includes('copilot') ?
         "## Copilot answer\n"

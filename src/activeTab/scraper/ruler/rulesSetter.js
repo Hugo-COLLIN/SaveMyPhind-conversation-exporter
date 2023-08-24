@@ -1,4 +1,4 @@
-import {formatLink, turndownConverter} from "../../utils/format/formatMarkdown";
+import {formatLink, initTurndown, turndownConverter} from "../../utils/format/formatMarkdown";
 
 /**
  * Exported functions
@@ -29,6 +29,7 @@ function setPhindAgentRules() {
  * Turndown rules to correctly convert the Phind conversation content into markdown
  */
 function setPhindRules() {
+  initTurndown();
   turndownConverter.addRule('preserveLineBreaksInPre', {
     filter: function (node) {
       return node.nodeName === 'PRE' && node.querySelector('div');
@@ -62,6 +63,26 @@ function setPhindRules() {
 }
 
 function setPerplexityRules() {
+  initTurndown({
+    blankReplacement: function(content, node) {
+      if (node.nodeName === 'SPAN' && node.getAttribute('class') === 'block mt-md') {
+        return '\n\n';
+      } else {
+        return '';
+      }
+    }
+  });
+
+  // turndownConverter = new TurndownService({
+  //   blankReplacement: function(content, node) {
+  //     if (node.nodeName === 'SPAN' && node.getAttribute('class') === 'block mt-md') {
+  //       return '\n\n';
+  //     } else {
+  //       return '';
+  //     }
+  //   }
+  // });
+
   turndownConverter.addRule('preserveLineBreaksInPre', {
     filter: function (node) {
       return node.nodeName === 'PRE' && node.querySelector('div');
@@ -70,7 +91,6 @@ function setPerplexityRules() {
       const codeBlock = node.querySelector('code');
       const codeContent = codeBlock.textContent.trim();
       const codeLang = codeBlock.parentNode.parentNode.parentNode.querySelector("div").textContent.trim();
-      // const codeLang = codeBlock.className.split("-", 2)[1];
       return ('\n```' + codeLang + '\n' + codeContent + '\n```');
     }
   });
@@ -83,6 +103,66 @@ function setPerplexityRules() {
       return ' [' + linkText + '](' + href + ')';
     }
   });
+
+  // turndownConverter.addRule('transformSpan', {
+  //   filter: "span",
+  //   replacement: function(content, node) {
+  //     console.log(node)
+  //     return node.getAttribute('class') === 'block mt-md' ? '\n\n' : content;
+  //   }
+  // });
+
+  //function(node) {
+  //       const cond =  node.nodeName === 'SPAN' && node.querySelectorAll('span.block.mt-md').length > 0;
+  //       console.log(node)
+  //       console.log(node.querySelectorAll('span.block.mt-md'))
+  //       return cond;
+  //     }
+
+  // turndownConverter.addRule('transformSpan', {
+  //   filter: function(node) {
+  //     return node.nodeName === 'DIV' && node.querySelectorAll('span.block.mt-md').length > 0;
+  //   },
+  //   replacement: function(content, node) {
+  //     console.log(node)
+  //     let newContent = content;
+  //     console.log(newContent)
+  //     const spanNodes = node.querySelectorAll('span.block.mt-md');
+  //     console.log(spanNodes)
+  //     spanNodes.forEach(spanNode => {
+  //       newContent = newContent.replace(spanNode.outerHTML, '\n\n');
+  //     });
+  //     return newContent;
+  //   }
+  // });
+
+  // const turndownService = new TurndownService({
+  //   blankReplacement: function (content, node) {
+  //     if (node.nodeName === 'SPAN' && node.getAttribute('class') === 'block mt-md') {
+  //       return '\n\n';
+  //     } else {
+  //       return '';
+  //     }
+  //   }
+  // });
+
+
+
+  // turndownConverter.addRule('transformSpan', {
+  //   filter: 'span',
+  //   replacement: function(content, node) {
+  //     console.log(node)
+  //     let newContent = content;
+  //     const spanNodes = node.querySelectorAll('span.block.mt-md');
+  //     console.log(spanNodes)
+  //     spanNodes.forEach(spanNode => {
+  //       newContent = newContent.replace(spanNode.outerHTML, '\n\n');
+  //     });
+  //     return newContent;
+  //   }
+  // });
+
+
 
   // turndownConverter.addRule('backslashAngleBracketsNotInBackticks', {
   //   filter: function (node) {

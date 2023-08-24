@@ -16,7 +16,11 @@ export default {
 /**
  * Initialize the html-to-markdown-converter
  */
-export const turndownConverter = new TurndownService();
+export let turndownConverter;
+
+export function initTurndown(options = {}) {
+  turndownConverter = new TurndownService(options);
+}
 
 /**
  * Sanitize and format the selected HTML into markdown using the sanitizer and the selected converter
@@ -34,7 +38,8 @@ export function formatMarkdown(html) {
   // Convert HTML to Markdown
   if (html !== '' && html !== ' ') {
     return turndownConverter.turndown(html)
-      .replace(/{{@LT}}/g, '\\<').replace(/{{@GT}}/g, '\\>');
+      .replace(/{{@LT}}/g, '\\<').replace(/{{@GT}}/g, '\\>')
+      .replace(/\n\n /g, '\n\n');
   }
   return '';
 }
