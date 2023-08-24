@@ -61,41 +61,18 @@ This project uses third-party libraries. See the [license list](licenses.txt) fo
 
 ## 🗺️ Roadmap
 See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
-### Features:
+
+### Main features:
 - [ ] Save Perplexity threads
-- [ ] Donation popup when user reaches a certain number of clicks (Paypal, BuyMeACoffee, etc.)
-- [ ] Export tables into markdown (Turndown rule)
-- [ ] Save threads content in chrome.storage.sync to be able to search inside threads content (+ instant export all threads)
-    => Keep only the last x threads or the last x days
-- [ ] Save ChatGPT conversations
-- [ ] Side buttons for each response card to export it individually
-    - [ ] Download
-    - [ ] Copy to clipboard
-    - [ ] Share to Obsidian
-    - [ ] Share to Roam
-    - [ ] Share to Notion
-    - [ ] Share to Evernote
-    - [ ] Share to Google Keep
-- [ ] Option page : choose file format (markdown, html, txt)
-- [ ] Option page : choose subfolder to save files in (or custom download location)
-- [ ] Link to the downloaded file in the currently opened note in Obsidian
-    - Redirect link to confirm donation (variable "donation level" in sessionStorage: no popup if recurrely donating, no popup during x time if single donation, popup if not)
-- [ ] "Export All Threads": into as a zip file.
-- [ ] "Export All Threads": Modal when export is finished or stopped (with stats + CTA review/donation)
-- [ ] Help bubbles hovering on ? circles next to elements
-- [ ] Phind guide to discover the website
-- [ ] (Copy the last response to the clipboard when clicking on the extension icon (instead of the entire response) )
-      - Phind Search : click on the copy button
-      - Phind Pair : export the last answer div
-- [ ] (Export next search result pages (sources side panel))
-- [ ] ~~Automatically download the conversation?~~
-- [ ] ~~Automatically copy the last response to the clipboard (without clicking on the extension icon)?~~
+- [ ] Donation popup when user reaches a certain number of clicks (Paypal, BuyMeACoffee, etc.) (in chrome.storage.sync)
+- [ ] Phind:Export tables into markdown (Turndown rule)
+- [ ] Save ChatGPT threads
 - [x] Search bar above threads list to filter threads
 - [x] Open a form when uninstalled to ask for feedback
 - [x] Add type (Phind Search, Phind Pair, ChatGPT) between date and title in filename + in header link
 - [x] Update modal to inform users about the new features
 - [x] "Export All Threads": Downloading several threads at once, as text files, (into as a zip file - later).
-    - All in one tab (with a "loading" message?) or open each thread in a new tab (permission tabs? + browser resources lags?)
+  - All in one tab (with a "loading" message?) or open each thread in a new tab (permission tabs? + browser resources lags?)
 - [x] Pair programmer: Put correct index before links both in sources and all search results list
 - [x] Pair programmer: Export All Search results correctly
 - [x] Pair programmer: Export Sources correctly
@@ -123,25 +100,33 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] Link to the Phind original search on the file top
 - [x] Export conversation to markdown
 
-### Security and maintenance:
-- [ ] Auto logs (to Sentry?)
-- [ ] Use the Phind (official/unofficial?) API instead of scraping the HTML?
-- [ ] Make unit/e2e tests
-- [ ] CI/CD pipeline?
-- [x] Externalize popup text into an external file (txt, JSON?)
-- [x] Fetch extension infos from json to chrome storage when installed
-- [x] Divide contentScript code into modules
-- [x] Externalize background.js functions into modules
-- [x] Module structure improvements
-- [x] Remove unused libraries
-- [x] Divide code into modules
-- [x] Use `npm` to manage dependencies
-- [x] License list generation
-- [x] Build automation
-- [x] Comments + better code structuration
-- [x] Update repo structure and README: extension focus
-- [x] Add a license
-- [x] Sanitize HTML code
+### Features to think about:
+- [ ] Save threads content in chrome.storage.sync to be able to search inside threads content (+ instant export all threads)
+    => Keep only the last x threads or the last x days? Or keep all???
+- [ ] Side buttons for each response card to export it individually
+    - [ ] Download
+    - [ ] Copy to clipboard
+    - [ ] Share to Obsidian
+    - [ ] Share to Roam
+    - [ ] Share to Notion
+    - [ ] Share to Evernote
+    - [ ] Share to Google Keep
+- [ ] Option page : choose file format (markdown, html, txt)
+- [ ] Option page : choose subfolder to save files in (or custom download location)
+- [ ] Option page: option to disable "Export all threads" button (for all/per site)
+- [ ] Option page: option to disable UI improvements (per site)
+- [ ] Link to the downloaded file in the currently opened note in Obsidian
+    - Redirect link to confirm donation (variable "donation level" in sessionStorage: no popup if recurrely donating, no popup during x time if single donation, popup if not)
+- [ ] "Export All Threads": into as a zip file.
+- [ ] "Export All Threads": Modal when export is finished or stopped (with stats + CTA review/donation)
+- [ ] Help bubbles hovering on ? circles next to elements
+- [ ] Phind guide to discover the website
+- [ ] (Copy the last response to the clipboard when clicking on the extension icon (instead of the entire response) )
+      - Phind Search : click on the copy button
+      - Phind Pair : export the last answer div
+- [ ] (Export next search result pages (sources side panel))
+- [ ] ~~Automatically download the conversation?~~
+- [ ] ~~Automatically copy the last response to the clipboard (without clicking on the extension icon)?~~
 
 ### Bugs/Issues:
 - [ ] Extension icon not updated on Firefox
@@ -177,3 +162,25 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [x] File title is the last followup question (= tab title)
   => title taken from search bar
 - [ ] ~~(Prevision) Fix browser alert "Do you want this site to open external application?"~~
+
+
+### Security and maintenance:
+- [ ] Structure UI improver files: (modules + separate files for each site)
+- [ ] Auto logs (to Sentry?)
+- [ ] Make unit/e2e tests
+- [ ] Use the Phind (official/unofficial?) API instead of scraping the HTML?
+- [ ] CI/CD pipeline?
+- [x] Externalize popup text into an external file (txt, JSON?)
+- [x] Fetch extension infos from json to chrome storage when installed
+- [x] Divide contentScript code into modules
+- [x] Externalize background.js functions into modules
+- [x] Module structure improvements
+- [x] Remove unused libraries
+- [x] Divide code into modules
+- [x] Use `npm` to manage dependencies
+- [x] License list generation
+- [x] Build automation
+- [x] Comments + better code structuration
+- [x] Update repo structure and README: extension focus
+- [x] Add a license
+- [x] Sanitize HTML code
