@@ -213,7 +213,7 @@ async function extractPerplexityPage(format)
     // }
     // if (analysis[0].querySelector(".grid") !== null) markdown += "**Quick search:**\n";
 
-    markdown += "**Sources:**\n" + await extractPerplexitySources(content, format) + "\n\n";
+    markdown += "---\n**Sources:**\n" + await extractPerplexitySources(content, format) + "\n\n";
   }
 
   return markdown;
