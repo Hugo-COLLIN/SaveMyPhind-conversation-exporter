@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Save My AI - Phind and Perplexity Exporter",
-  "version": "2.0.3",
+  "version": "2.0.5",
   "description": "🚀 Export your Phind.com and Perplexity.ai search threads into markdown files!\n",
   "icons": {
     "16": "assets/icons/icon-16.png",
