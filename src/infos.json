@@ -1,12 +1,12 @@
 {
-  "APP_NAME": "Save my Phind",
-  "APP_SNAME": "SaveMyPhind",
-  "APP_LNAME": "Save my Phind - AI Conversation Exporter",
+  "APP_NAME": "Save my AI",
+  "APP_SNAME": "SaveMyAI",
+  "APP_LNAME": "Save My AI - Phind and Perplexity Exporter",
   "APP_ID": "savemyphind@hugocollin.com",
   "APP_VERSION": "2.0.3",
   "APP_REPO_URL": "https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter",
   "APP_WEBSTORE_URL": "https://chrome.google.com/webstore/detail/agklnagmfeooogcppjccdnoallkhgkod",
   "APP_FIREFOX_STORE_URL": "https://addons.mozilla.org/en-US/firefox/addon/save-my-phind",
-  "COPY_MODE": "tab",
-  "CONTACT_EMAIL": "hcollin.dev@gmail.com"
+  "CONTACT_EMAIL": "hcollin.dev@gmail.com",
+  "COPY_MODE": "tab"
 }

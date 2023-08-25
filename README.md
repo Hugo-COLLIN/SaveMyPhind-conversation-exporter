@@ -20,8 +20,8 @@
 ## ❓ Extension usage
 ### How to install?
 Simply go to the store and click on the install button: 
-#### [⏩click here to install Save My Phind on Chromium browsers (Chrome, Edge, Opera, Brave, etc.)](https://chrome.google.com/webstore/detail/agklnagmfeooogcppjccdnoallkhgkod)
-#### [⏩click here to install Save My Phind on Firefox](https://addons.mozilla.org/fr/firefox/addon/save-my-phind)
+#### [⏩click here to install Save My AI on Chromium browsers (Chrome, Edge, Opera, Brave, etc.)](https://chrome.google.com/webstore/detail/agklnagmfeooogcppjccdnoallkhgkod)
+#### [⏩click here to install Save My AI on Firefox](https://addons.mozilla.org/fr/firefox/addon/save-my-phind)
 <br>
 
 You can also install it manually following these steps 
