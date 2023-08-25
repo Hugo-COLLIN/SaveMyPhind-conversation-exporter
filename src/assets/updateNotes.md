@@ -6,8 +6,11 @@
 ⨠ 🚀 Now exports Perplexity.ai threads!
 Click on the extension icon inside the Perplexity interface and see the magic happen!
 
+⨠ 🧩 Some UI progress
+A better integration in the Phind interface.
+
 ⨠ 💡 Some format bugs solved
-Special characters inside links won't be a problem anymore.
+Newlines and special characters inside links won't be a problem anymore.
 
 # v1.9.9
 ⨠ 🔎 Filter your threads list!
