@@ -1,10 +1,10 @@
 # Update notes
-# 2.0.3
+# 2.0.5
 ⨠ ⭐ New branding, same extension, always better!
 "Save My Phind" is now "Save my AI"! But it's still exporting your Phind threads, don't worry!
 
-⨠ 🚀 Now exports Perplexity.ai threads!
-Click on the extension icon inside the Perplexity interface and see the magic happen!
+⨠ 🚀 Now exports Perplexity threads!
+Click on the extension icon when you're on Perplexity.ai and see the magic happen!
 
 ⨠ 🧩 Some UI progress
 A better integration in the Phind interface.
