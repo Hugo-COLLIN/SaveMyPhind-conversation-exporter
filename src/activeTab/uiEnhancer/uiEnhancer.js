@@ -10,6 +10,7 @@ import {setBtnsExport} from "./elements/styleCreatedElements";
 import {waitAppears, waitAppend} from "./elements/insertElements";
 import {addListFilter} from "../listFilter/filter";
 import {btnBarAllInline} from "./elements/changeElements";
+import {isHomepageCheck} from "../scraper/checker/domainChecker";
 
 export function improveUI() {
   window.addEventListener('load', function () {
@@ -24,7 +25,7 @@ export function improveUI() {
           // Some UI improvements
           const topBtnsGroup = await createButtonGroup("top-buttons-group");
           const isStopGenBasic = document.querySelector("[name=\"answer-0\"] > div > .container-xl > button")  !== null;
-          const isHomepage = document.querySelector("div > .container-xl > form") !== null;
+          const isHomepage = isHomepageCheck();
 
           // Adds the top button bar
           isStopGenBasic ?
@@ -40,7 +41,12 @@ export function improveUI() {
               })
             })
             // Adds the top button bar on Phind homepage and Pair Programmer
-            : await waitAppend("div > div > .container-xl", [topBtnsGroup], isHomepage ? "append" : "prepend");
+            : await waitAppend("div > div > .container-xl", [topBtnsGroup], isHomepage?"append":"prepend").then(async () => {
+              // const space = document.createElement("span");
+              // space.style.display = "block";
+              // space.classList.add("mb-2");
+              // topBtnsGroup.after(space);
+            });
 
           btnBarAllInline(topBtnsGroup);
 
@@ -137,7 +143,7 @@ export function improveUI() {
           --- Append elements ---
            */
 
-          topBtnsGroup.append(exportThreadTopBtn);
+          if(!isHomepage) topBtnsGroup.append(exportThreadTopBtn);
 
           // Show/hide "Export all threads" buttons
           if (response.message === 'exportAllThreads in progress') {

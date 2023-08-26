@@ -51,7 +51,6 @@ export async function extractPhindSearchPage(format) {
     const isSources = selectSources && selectSources.querySelector("img") === null;
     sourceQuestion = isSources ? format(selectSources.innerHTML) : sourceQuestion;
 
-    console.log(selectUserQuestion)
     const messageText =
       selectUserQuestion ? `\n## User\n` + format(selectUserQuestion.innerHTML).replace("  \n", "") :
 
