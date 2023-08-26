@@ -4,4 +4,4 @@
 npm install
 4. Run the command:
 npm firefox
-4. Go to the dist folder, it contains the final code
+5. Go to the dist folder, it contains the final code
