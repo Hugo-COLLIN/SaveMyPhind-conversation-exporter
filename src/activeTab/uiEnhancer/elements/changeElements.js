@@ -1,4 +1,5 @@
 export function btnBarAllInline(topBtnsGroup) {
+  if (topBtnsGroup.nextElementSibling === null) return;
   const btns = topBtnsGroup.nextElementSibling.querySelectorAll("button")
   if (btns.length !== 0) {
     const nextElt = topBtnsGroup.nextElementSibling;

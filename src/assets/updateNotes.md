@@ -1,4 +1,14 @@
 # Update notes
+# v1.9.16
+⨠ 🚀 Fix Basic Search export errors
+Some errors were occuring when trying to export a Basic Search thread. It's now fixed!
+
+⨠ 🧩 A better integration in the Phind interface
+Made some UI progress and solved bugs to improve the integration in the Phind interface.
+
+⨠ 💡 Some format bugs solved
+Special characters inside links won't be a problem anymore.
+
 # v1.9.9
 ⨠ 🔎 Filter your threads list!
 You just want to retrieve that damn chat you started 5 days ago? No problem: start typing in the filter bar to find it quickly!

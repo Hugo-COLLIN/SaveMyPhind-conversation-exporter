@@ -9,6 +9,7 @@ import {logWaitElts} from "../../utils/consoleMessages";
  * @returns {Promise<HTMLElement|false>} The element if it appears, false otherwise
  */
 export async function waitAppears(select, duration = 100, attempts = 100) {
+  // console.log(`Waiting for ${select} to appear...`)
   let i = 1;
   let nester;
   do {

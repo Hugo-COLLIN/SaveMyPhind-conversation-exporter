@@ -23,7 +23,25 @@ export function improveUI() {
 
           // Some UI improvements
           const topBtnsGroup = await createButtonGroup("top-buttons-group");
-          await waitAppend(":not(.row.justify-content-center) > div > .container-xl", [topBtnsGroup], "prepend")
+          const isStopGenBasic = document.querySelector("[name=\"answer-0\"] > div > .container-xl > button")  !== null;
+          const isHomepage = document.querySelector("div > .container-xl > form") !== null;
+
+          // Adds the top button bar
+          isStopGenBasic ?
+            // Adds the top button bar on Basic search
+            await waitAppend("[name=\"answer-0\"] > div > .container-xl", [topBtnsGroup], "prepend").then(() => {
+              // Wait the "Stop generating" button to appear
+              waitAppears('[name=\"answer-0\"] > div > .container-xl > button:not([style="visibility: hidden;"])', 5, 20000).then(() => {
+                // Wait the "Stop generating" button to disappear
+                waitAppears('[name=\"answer-0\"] > div > .container-xl > [style="visibility: hidden;"]', 5, 20000).then(async (elt) => {
+                  // Adds the top button bar (because it disappears with the "Stop generating" button)
+                  await waitAppend("[name=\"answer-0\"] > div > .container-xl", [topBtnsGroup], "prepend");
+                });
+              })
+            })
+            // Adds the top button bar on Phind homepage and Pair Programmer
+            : await waitAppend("div > div > .container-xl", [topBtnsGroup], isHomepage ? "append" : "prepend");
+
           btnBarAllInline(topBtnsGroup);
 
           // setBtnsDefault();
@@ -119,7 +137,7 @@ export function improveUI() {
           --- Append elements ---
            */
 
-          waitAppend(":not(.row.justify-content-center) > div > .container-xl > div:nth-of-type(1)", [exportThreadTopBtn], 'prepend');
+          topBtnsGroup.append(exportThreadTopBtn);
 
           // Show/hide "Export all threads" buttons
           if (response.message === 'exportAllThreads in progress') {
@@ -131,18 +149,7 @@ export function improveUI() {
           // Append buttons
           waitAppend(".col-lg-2 > div > div > table:nth-of-type(1)", [exportAllThreadsSideBtn, stopExportAllThreadsSideBtn], 'after');
 
-          let doublePlace = [
-            {
-              selector: ".row.justify-content-center > div > .container-xl",
-              mode: 'append'
-            },
-            {
-              selector: ":not(.row.justify-content-center) > div > .container-xl > div:nth-of-type(1)",
-              mode: 'prepend'
-            }
-          ];
-          waitAppend(doublePlace, [exportAllThreadsTopBtn, stopExportAllThreadsTopBtn]);
-
+          topBtnsGroup.append(exportAllThreadsTopBtn, stopExportAllThreadsTopBtn);
 
           // Wait for the list to be displayed to add the corresponding elements
           waitAppears('.container.p-0 > .row tbody > tr', 100).then(async (threadsList) => {
@@ -172,7 +179,7 @@ export function improveUI() {
 
               // Update storage
               chrome.storage.sync.set({displayModalUpdate: false}, function () {
-                console.log("Last update modal will not be displayed anymore");
+                console.log("Last update modal will not be displayed until the next update");
               });
             }
           });
