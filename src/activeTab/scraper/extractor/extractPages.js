@@ -40,13 +40,14 @@ export async function extractPhindSearchPage(format) {
   messages.forEach(content => {
     let p1 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div');
     let aiModel = content.querySelector('.col-lg-8.col-xl-7 > div > div > h6');
+    console.log(aiModel)
 
     let p2 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div.mb-3');
     let p3 = Array.from(content.querySelectorAll(".col-lg-4.col-xl-4 > div > div > div > div")).filter((elem) => {
       return !elem.querySelector('.pagination');
     });
     let aiCitations = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div > div > div');
-    let p4 = content.querySelector('.col-lg-4.col-xl-4 > div > span');
+    let p4 = content.querySelector('div > div > span');
 
     sourceQuestion = p4 ? format(p4.innerHTML) : sourceQuestion;
     const messageText =
@@ -71,7 +72,9 @@ export async function extractPhindSearchPage(format) {
                 let res = format(p1.innerHTML);
                 if (aiCitations && aiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + format(aiCitations.innerHTML);
 
-                const aiName = format(aiModel.innerHTML).split(" ")[2];
+                let aiName;
+                if (aiModel !== null)
+                  aiName = format(aiModel.innerHTML).split(" ")[2];
                 const aiIndicator = "**" +
                   capitalizeFirst((aiName ? aiName + " " : "") + "answer:") +
                   "**\n"
