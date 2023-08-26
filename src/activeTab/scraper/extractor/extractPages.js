@@ -38,45 +38,48 @@ export async function extractPhindSearchPage(format) {
   let markdown = await setFileHeader(getPhindPageTitle(), "Phind Search");
 
   messages.forEach(content => {
-    let p1 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div');
+    let selectAiAnswer = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div');
     let aiModel = content.querySelector('.col-lg-8.col-xl-7 > div > div > h6');
 
-    let p2 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div.mb-3');
+    let selectUserQuestion = content.querySelector('div > .container-xl > div > span');
     let p3 = Array.from(content.querySelectorAll(".col-lg-4.col-xl-4 > div > div > div > div")).filter((elem) => {
       return !elem.querySelector('.pagination');
     });
-    let aiCitations = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div > div > div');
-    let p4 = content.querySelector('div > div > span');
+    let selectAiCitations = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div > div > div');
+    let selectSources = content.querySelector('div > div > span');
 
-    const isSources = p4 && p4.querySelector("img") === null;
-    sourceQuestion = isSources ? format(p4.innerHTML) : sourceQuestion;
+    const isSources = selectSources && selectSources.querySelector("img") === null;
+    sourceQuestion = isSources ? format(selectSources.innerHTML) : sourceQuestion;
+
+    console.log(selectUserQuestion)
     const messageText =
-      isSources ? "" :
+      selectUserQuestion ? `\n## User\n` + format(selectUserQuestion.innerHTML).replace("  \n", "") :
 
-        p3.length > 0 ? (() => {
-            let res = "---\n**Sources:**";
-            res += sourceQuestion ? " " + sourceQuestion : "";
+        isSources ? "" :
 
-            let i = 0;
-            p3.forEach((elt) => {
-              res += "\n- " + format(elt.querySelector("a").outerHTML).replace("[", `[(${i}) `);
-              i++;
-            });
-            sourceQuestion = "";
-            return res;
-          })() :
+          p3.length > 0 ? (() => {
+              let res = "---\n**Sources:**";
+              res += sourceQuestion ? " " + sourceQuestion : "";
 
-          p2 ? `\n## User:\n` + format(p2.innerHTML).replace("  \n", "") :
+              let i = 0;
+              p3.forEach((elt) => {
+                res += "\n- " + format(elt.querySelector("a").outerHTML).replace("[", `[(${i}) `);
+                i++;
+              });
+              sourceQuestion = "";
+              return res;
+            })() :
 
-            p1 ? (() => {
-                let res = format(p1.innerHTML);
-                if (aiCitations && aiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + format(aiCitations.innerHTML);
+
+            selectAiAnswer ? (() => {
+                let res = format(selectAiAnswer.innerHTML);
+                if (selectAiCitations && selectAiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + format(selectAiCitations.innerHTML);
 
                 let aiName;
                 if (aiModel !== null)
                   aiName = format(aiModel.innerHTML).split(" ")[2];
                 const aiIndicator = "## " +
-                  capitalizeFirst((aiName ? aiName + " " : "") + "answer:") +
+                  capitalizeFirst((aiName ? aiName + " " : "") + "answer") +
                   "\n"
                 const index = res.indexOf('\n\n');
                 return `\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
