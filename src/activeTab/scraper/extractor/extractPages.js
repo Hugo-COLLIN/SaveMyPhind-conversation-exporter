@@ -38,7 +38,7 @@ export async function extractPhindSearchPage(format) {
   let markdown = await setFileHeader(getPhindPageTitle(), "Phind Search");
 
   messages.forEach(content => {
-    let selectAiAnswer = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div');
+    let selectAiAnswer = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div:not(.button-group)');
     let aiModel = content.querySelector('.col-lg-8.col-xl-7 > div > div > h6');
 
     let selectUserQuestion = content.querySelector('div > .container-xl > div > span');
