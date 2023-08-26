@@ -23,7 +23,7 @@ export function improveUI() {
 
           // Some UI improvements
           const topBtnsGroup = await createButtonGroup("top-buttons-group");
-          await waitAppend(":not(.row.justify-content-center) > div > .container-xl", [topBtnsGroup], "prepend")
+          await waitAppend("div > div > .container-xl", [topBtnsGroup], "prepend")
           btnBarAllInline(topBtnsGroup);
 
           // setBtnsDefault();
