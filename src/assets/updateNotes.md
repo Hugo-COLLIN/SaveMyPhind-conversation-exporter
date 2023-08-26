@@ -1,7 +1,7 @@
 # Update notes
 # 2.0.5
 ⨠ ⭐ New branding, same extension, always better!
-"Save My Phind" is now "Save my AI"! But it's still exporting your Phind threads, don't worry!
+"Save My Phind" is now "Save my Chatbot"! But it's still exporting your Phind threads, don't worry!
 
 ⨠ 🚀 Now exports Perplexity threads!
 Click on the extension icon when you're on Perplexity.ai and see the magic happen!

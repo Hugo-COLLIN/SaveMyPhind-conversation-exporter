@@ -1,7 +1,7 @@
-# <img alt="SaveMyPhind logo" src="./media/logo_128_cut.png" style="width:50px"> Save My AI - Phind and Perplexity Exporter
+# <img alt="SaveMyPhind logo" src="./media/logo_128_cut.png" style="width:50px"> Save my Chatbot - Phind and Perplexity Exporter
 ### 🚀 Export your Phind.com and Perplexity.ai chatbots search threads into markdown files!
 
-😎 Why Save my AI?
+😎 Why Save my Chatbot?
 - To keep AI generated information offline,
 - To share threads with others,
 - To read and process in a knowledge base / note-taking app (like Obsidian),
@@ -20,8 +20,8 @@
 ## ❓ Extension usage
 ### How to install?
 Simply go to the store and click on the install button: 
-#### [⏩click here to install Save My AI on Chromium browsers (Chrome, Edge, Opera, Brave, etc.)](https://chrome.google.com/webstore/detail/agklnagmfeooogcppjccdnoallkhgkod)
-#### [⏩click here to install Save My AI on Firefox](https://addons.mozilla.org/fr/firefox/addon/save-my-phind)
+#### [⏩click here to install Save my Chatbot on Chromium browsers (Chrome, Edge, Opera, Brave, etc.)](https://chrome.google.com/webstore/detail/agklnagmfeooogcppjccdnoallkhgkod)
+#### [⏩click here to install Save my Chatbot on Firefox](https://addons.mozilla.org/fr/firefox/addon/save-my-phind)
 <br>
 
 You can also install it manually following these steps 
@@ -170,7 +170,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [ ] Make unit/e2e tests
 - [ ] Use the Phind (official/unofficial?) API instead of scraping the HTML?
 - [ ] CI/CD pipeline?
-- [x] New branding: new name: Save my AI, and new logos (SaveMyAI + Perplexity)
+- [x] New branding: new name: Save my Chatbot, and new logos (SaveMyAI + Perplexity)
 - [x] Externalize popup text into an external file (txt, JSON?)
 - [x] Fetch extension infos from json to chrome storage when installed
 - [x] Divide contentScript code into modules
