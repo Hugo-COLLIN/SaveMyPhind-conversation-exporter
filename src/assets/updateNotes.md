@@ -1,6 +1,6 @@
 # Update notes
-# v1.9.14
-⨠ 🚀 Fix Phind Search export errors
+# v1.9.16
+⨠ 🚀 Fix Basic Search export errors
 Some errors were occuring when trying to export a Basic Search thread. It's now fixed!
 
 ⨠ 🧩 A better integration in the Phind interface
