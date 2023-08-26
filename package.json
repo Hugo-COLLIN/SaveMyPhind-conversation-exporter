@@ -1,6 +1,6 @@
 {
-  "name": "save-my-ai",
-  "version": "1.9.9",
+  "name": "save-my-phind",
+  "version": "1.9.18",
   "license": "SaveMyPhind License",
   "scripts": {
     "syncVersion": "node manage/syncVersions.js",

@@ -17,3 +17,9 @@ export async function domainChecker() {
 
   return null;
 }
+
+
+export function isHomepageCheck()
+{
+  return window.location.href === "https://www.phind.com" || window.location.href === "https://www.phind.com/"
+}
