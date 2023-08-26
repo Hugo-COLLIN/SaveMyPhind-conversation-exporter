@@ -40,7 +40,6 @@ export async function extractPhindSearchPage(format) {
   messages.forEach(content => {
     let p1 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div');
     let aiModel = content.querySelector('.col-lg-8.col-xl-7 > div > div > h6');
-    console.log(aiModel)
 
     let p2 = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div.mb-3');
     let p3 = Array.from(content.querySelectorAll(".col-lg-4.col-xl-4 > div > div > div > div")).filter((elem) => {
@@ -49,12 +48,13 @@ export async function extractPhindSearchPage(format) {
     let aiCitations = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div > div > div');
     let p4 = content.querySelector('div > div > span');
 
-    sourceQuestion = p4 ? format(p4.innerHTML) : sourceQuestion;
+    const isSources = p4 && p4.querySelector("img") === null;
+    sourceQuestion = isSources ? format(p4.innerHTML) : sourceQuestion;
     const messageText =
-      p4 ? "" :
+      isSources ? "" :
 
         p3.length > 0 ? (() => {
-            let res = "**Sources:**";
+            let res = "---\n**Sources:**";
             res += sourceQuestion ? " " + sourceQuestion : "";
 
             let i = 0;
@@ -66,7 +66,7 @@ export async function extractPhindSearchPage(format) {
             return res;
           })() :
 
-          p2 ? `\n___\n**You:**\n` + format(p2.innerHTML).replace("  \n", "") :
+          p2 ? `\n## User:\n` + format(p2.innerHTML).replace("  \n", "") :
 
             p1 ? (() => {
                 let res = format(p1.innerHTML);
@@ -75,11 +75,11 @@ export async function extractPhindSearchPage(format) {
                 let aiName;
                 if (aiModel !== null)
                   aiName = format(aiModel.innerHTML).split(" ")[2];
-                const aiIndicator = "**" +
+                const aiIndicator = "## " +
                   capitalizeFirst((aiName ? aiName + " " : "") + "answer:") +
-                  "**\n"
+                  "\n"
                 const index = res.indexOf('\n\n');
-                return `___\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
+                return `\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
               })() :
 
               '';
