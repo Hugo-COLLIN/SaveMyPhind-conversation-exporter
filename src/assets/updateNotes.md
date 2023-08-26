@@ -1,5 +1,5 @@
 # Update notes
-# v1.9.16
+# v1.9.18
 ⨠ 🚀 Fix Basic Search export errors
 Some errors were occuring when trying to export a Basic Search thread. It's now fixed!
 
