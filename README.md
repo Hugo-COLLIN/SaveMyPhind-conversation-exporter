@@ -63,10 +63,10 @@ This project uses third-party libraries. See the [license list](licenses.txt) fo
 See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 
 ### Main features:
-- [ ] Save Perplexity threads
 - [ ] Donation popup when user reaches a certain number of clicks (Paypal, BuyMeACoffee, etc.) (in chrome.storage.sync)
 - [ ] Phind:Export tables into markdown (Turndown rule)
-- [ ] Save ChatGPT threads
+- [ ] Export ChatGPT threads
+- [x] Export Perplexity threads
 - [x] Search bar above threads list to filter threads
 - [x] Open a form when uninstalled to ask for feedback
 - [x] Add type (Phind Search, Phind Pair, ChatGPT) between date and title in filename + in header link
@@ -170,6 +170,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [ ] Make unit/e2e tests
 - [ ] Use the Phind (official/unofficial?) API instead of scraping the HTML?
 - [ ] CI/CD pipeline?
+- [x] New branding: new name: Save my AI, and new logos (SaveMyAI + Perplexity)
 - [x] Externalize popup text into an external file (txt, JSON?)
 - [x] Fetch extension infos from json to chrome storage when installed
 - [x] Divide contentScript code into modules
