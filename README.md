@@ -1,4 +1,4 @@
-# <img alt="SaveMyPhind logo" src="./media/logo_128_cut.png" style="width:50px"> Save my Chatbot - Phind and Perplexity Exporter
+# <img alt="SaveMyPhind logo" src="./media/logo_128_cut.png" style="width:50px"> Save my Chatbot - Phind & Perplexity AI Exporter
 ### 🚀 Export your Phind.com and Perplexity.ai chatbots search threads into markdown files!
 
 😎 Why Save my Chatbot?
