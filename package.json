@@ -1,7 +1,7 @@
 {
   "name": "save-my-phind",
   "version": "1.9.18",
-  "license": "SaveMyPhind License",
+  "license": "RMD-C v1.0 License",
   "scripts": {
     "syncVersion": "node manage/syncVersions.js",
     "licenses": "node manage/listLicenses.js",

@@ -1,18 +1,58 @@
-SaveMyPhind License
-
 Copyright (c) 2023 Hugo Collin
+Country: France
+Authorization is granted to the licensor to reuse the code modified by licensees in his other projects.
 
-This software and associated documentation files are reffered to as "the Software". A user or contributor of the Software is referred to as "User".
+Restricted Modification and Distribution Software License - Collaborative
+Version 1.0 - August 2023
+https://github.com/Hugo-COLLIN/Software-Licenses
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. THE AUTHOR DISCLAIMS ALL LIABILITY FOR ANY ISSUES ARISING FROM THE USE OF THE SOFTWARE. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY.
+1. Preamble
+This license applies to any software distributed where the copyright holder specifies that it is subject to the terms of this Restricted modification and distribution software license - Collaborative (hereinafter referred to as the "license").
 
-Permission is granted to the original author of the software to reuse the code in their other projects.
+2. Language Disclaimer
+In the event of any inconsistency or conflict between the English version of this license and any translated version, the English version shall take precedence and govern the interpretation, enforcement, and application of this license. Any disputes arising from such inconsistencies or conflicts shall be resolved based on the English version.
 
-As a User, you are granted the following permissions, free of charge:
-- You can use the Software for private purposes.
-- You can copy, modify, and merge the Software only to contribute to the original project.
+3. Definitions
+In this license, unless the context indicates a different meaning, the following terms are defined as:
+- "licensor": the copyright holder of the software, or any person duly authorized by them to grant this license;
+- "contribution": any original software, or part of original software submitted and intended to be incorporated into the software;
+- "distribution": the act of delivering a copy of the software;
+- "licensee": any person who possesses a copy of the software and accepts the terms of this license;
+- "software": the work protected by copyright and subject to the terms of this license.
 
-However, please consider these points:
-- You are NOT allowed to publish or distribute the Software without the author's permission.
-- You are NOT allowed to sublicense or sell the Software or any part of it.
-- You are NOT allowed to remove or alter any copyright, trademark, or other proprietary notices in the Software.
+4. Granted Rights
+Subject to compliance with the conditions set forth in this license, the licensor grants the licensee the following non-exclusive rights:
+a) Use the software;
+b) Modify the software, provided that the modifications are submitted to the licensor, only for the purpose of review and possible incorporation into the original project;
+c) Distribute copies of the software, unmodified or modified by itself or another licensee, only if expressly authorized in writing by the licensor.
+
+5. Conditions
+The licensee must comply with the following conditions to exercise the rights granted by this license:
+a) Retain copyright, trademark, license and other proprietary notices on all copies of the software, without altering them;
+b) Provide the licensor with a copy of any modifications made to the software, along with a detailed description of the modifications;
+c) Obtain the prior written authorization of the licensor before distributing copies of the software.
+d) Not sublicense or sell copies of the software or any part of it without the licensor authorization.
+
+6. Limitation of Liability
+The software is provided "as is", without any warranty of any kind. The licensor cannot be held liable for any direct, indirect, incidental, special, exemplary, or consequential damages resulting from the use of the software.
+
+7. Termination
+This license terminates automatically in case of non-compliance with any of its conditions. In this case, the licensee must cease all use, modification, and distribution of the software.
+
+8. Applicable Law and Jurisdiction
+a) This license and any dispute arising from or in connection with it shall be governed by and construed in accordance with the laws of the country of the licensor, without regard to its conflict of law principles.
+b) Any disputes relating to the software, this license, its performance, breach, termination, enforceability, or interpretation shall be exclusively subject to the jurisdiction of the courts located in the country of the licensor.
+c) The licensee agrees to comply with all local and international laws and regulations applicable, including, but not limited to, copyright, export control, privacy, and data protection laws.
+d) The licensee shall ensure that any distribution of the software to individuals or entities outside of the country of the licensor complies with all relevant international laws and regulations.
+
+9. Open Source Components
+a) If the software includes components governed by open source licenses, the terms of those licenses shall take precedence over the terms of this license to the extent required by such open source licenses.
+b) The licensee acknowledges and agrees to comply with all open source license obligations that may apply to the software.
+
+10. Severability and Miscellaneous
+a) This license constitutes the entire agreement between the licensor and the licensee regarding the software. It supersedes all prior or contemporaneous oral or written communications, proposals, and representations with respect to the software or any other subject matter covered by this license.
+b) If any provision of this license is held to be void, invalid, unenforceable, or illegal, the other provisions shall remain in full force and effect.
+c) This license may not be modified or waived except in a writing signed by the licensor.
+
+11. How to Apply this License
+To apply this license to your software, attach the following boilerplate notice, with the fields enclosed by brackets "[]" replaced with your own identifying information. (Don't include the brackets!) The text should be enclosed in the appropriate comment syntax for the file format. We also recommend that a file or class name and description of purpose be included on the same "printed page" as the copyright notice for easier identification within third-party archives.
