@@ -25,6 +25,7 @@
     "nodemon": "^2.0.22"
   },
   "dependencies": {
+    "ablaevent-js": "^1.75.4",
     "dompurify": "^3.0.4",
     "turndown": "^7.1.2"
   }
