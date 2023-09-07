@@ -51,8 +51,8 @@ output/
 out
 .target
 .idea/
-
 *.pem
 
 
 dist
+src/config.json
