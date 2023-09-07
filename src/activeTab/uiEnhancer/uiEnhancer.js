@@ -10,7 +10,7 @@ import {setBtnsExport} from "./elements/styleCreatedElements";
 import {waitAppears, waitAppend} from "./elements/insertElements";
 import {addListFilter} from "../listFilter/filter";
 import {btnBarAllInline} from "./elements/changeElements";
-import {isHomepageCheck} from "../scraper/checker/domainChecker";
+import {isHomepageCheck} from "../checker/domainChecker";
 
 export function improveUI() {
   window.addEventListener('load', function () {

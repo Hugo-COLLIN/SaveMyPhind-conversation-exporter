@@ -1,4 +1,4 @@
-import {domainChecker} from "./checker/domainChecker";
+import {domainChecker} from "../checker/domainChecker";
 import {logWelcome} from "../utils/consoleMessages";
 import {setFormatRules} from "./ruler/ruler";
 import {extract} from "./extractor/extractor";
@@ -9,10 +9,7 @@ import {clickOnListElt} from "../utils/webpage/interact";
  * @description - Launch the export process
  * @returns {Promise<void>}
  */
-export async function launchExport() {
-  const domain = await domainChecker();
-  if (domain === null) return;
-
+export async function launchExport(domain) {
   await logWelcome();
   setFormatRules(domain.name);
   const extracted = await extract(domain);
@@ -23,10 +20,10 @@ export async function launchExport() {
   console.log("Export done!")
 }
 
-export function autoScrapOnLoad() {
+export function scrapOnLoadListener(domain) {
   chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
     if (request.message === 'executeScript') {
-      if (request.index > 0) launchExport();
+      if (request.index > 0) launchExport(domain);
       clickOnListElt(request.index)
       setTimeout(function () {
         sendResponse({message: 'scriptExecuted'});

@@ -1,4 +1,4 @@
-import {getHostAndPath} from "../../utils/webpage/getters";
+import {getHostAndPath} from "../utils/webpage/getters";
 
 export async function domainChecker() {
   const domains = {
