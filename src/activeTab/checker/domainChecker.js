@@ -14,7 +14,7 @@ export async function domainExportChecker() {
 
 export async function domainLoadChecker() {
   const domains = {
-    "PhindSearch": "www.phind.com",
+    "Phind": "www.phind.com",
     "Perplexity": "www.perplexity.ai",
   };
 

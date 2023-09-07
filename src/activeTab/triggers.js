@@ -6,6 +6,7 @@ import {improveUI} from "./uiEnhancer/uiEnhancer";
 export async function actionExtensionIconClicked() {
   const domainPage = await domainExportChecker();
   if (domainPage === null) return;
+  initAnalytics();
   launchExport(domainPage);
   sendAnalytics('export', {hostName: domainPage.name, url: domainPage.url});
 }
