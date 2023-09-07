@@ -1,11 +1,28 @@
 import {getHostAndPath} from "../utils/webpage/getters";
 
-export async function domainChecker() {
+
+
+export async function domainExportChecker() {
   const domains = {
     "PhindSearch": "www.phind.com/search",
     "PhindAgent": "www.phind.com/agent",
     "Perplexity": "www.perplexity.ai/search",
   };
+
+  return domainChecker(domains);
+}
+
+export async function domainLoadChecker() {
+  const domains = {
+    "PhindSearch": "www.phind.com",
+    "Perplexity": "www.perplexity.ai",
+  };
+
+  return domainChecker(domains);
+}
+
+
+async function domainChecker(domains) {
   const hostAndPath = getHostAndPath();
 
   for (let domainName in domains) {

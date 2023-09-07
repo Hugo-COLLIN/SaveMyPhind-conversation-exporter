@@ -1,4 +1,4 @@
-import {domainChecker} from "../checker/domainChecker";
+import {domainExportChecker} from "../checker/domainChecker";
 import {logWelcome} from "../utils/consoleMessages";
 import {setFormatRules} from "./ruler/ruler";
 import {extract} from "./extractor/extractor";
@@ -10,6 +10,8 @@ import {clickOnListElt} from "../utils/webpage/interact";
  * @returns {Promise<void>}
  */
 export async function launchExport(domain) {
+
+
   await logWelcome();
   setFormatRules(domain.name);
   const extracted = await extract(domain);
