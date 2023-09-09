@@ -129,6 +129,8 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [ ] ~~Automatically copy the last response to the clipboard (without clicking on the extension icon)?~~
 
 ### Bugs/Issues:
+- [ ] Perplexity: Export error when sending file
+  https://www.perplexity.ai/search/9afe2327-9ca6-473b-8ec6-9ebcd8d862fe?s=u
 - [ ] Extension icon not updated on Firefox
   => User needs to click or manually allow the extension to access websites
 - [ ] Detect when connected or something to anticipate and specify the "Export all threads" button usability
