@@ -4,6 +4,7 @@
   "APP_LNAME": "Save my Chatbot - Phind & Perplexity Exporter",
   "APP_ID": "savemyphind@hugocollin.com",
   "APP_VERSION": "2.0.7",
+  "APP_MODE": "dev",
   "APP_REPO_URL": "https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter",
   "APP_WEBSTORE_URL": "https://chrome.google.com/webstore/detail/agklnagmfeooogcppjccdnoallkhgkod",
   "APP_FIREFOX_STORE_URL": "https://addons.mozilla.org/en-US/firefox/addon/save-my-phind",
