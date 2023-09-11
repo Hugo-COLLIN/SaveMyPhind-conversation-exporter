@@ -15,6 +15,15 @@ function syncVersion() {
 
   // Write back to package.json
   fs.writeFileSync('./package.json', JSON.stringify(packageJson, null, 2));
+
+  // Read infos.json
+  const infosJson = JSON.parse(fs.readFileSync('./src/infos.json', 'utf8'));
+
+  // Update the version value
+  infosJson.APP_VERSION = version;
+
+  // Write back to package.json
+  fs.writeFileSync('./src/infos.json', JSON.stringify(infosJson, null, 2));
 }
 
 syncVersion();
