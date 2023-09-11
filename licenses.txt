@@ -1,3 +1,8 @@
+ablaevent-js@1.75.4
+├─ licenses: MIT
+├─ repository: https://github.com/AblaAnalytics/ablaevent-js
+└─ publisher: hey@posthog.com
+
 domino@2.1.6
 ├─ licenses: BSD-2-Clause
 ├─ repository: https://github.com/fgnass/domino
@@ -11,7 +16,12 @@ dompurify@3.0.4
 ├─ email: mario@cure53.de
 └─ url: https://cure53.de/
 
-save-my-phind@1.9.18
+fflate@0.4.8
+├─ licenses: MIT
+├─ repository: https://github.com/101arrowz/fflate
+└─ publisher: Arjun Barrett
+
+save-my-phind@2.1.4
 └─ licenses: Custom: https://chrome.google.com/webstore/detail/agklnagmfeooogcppjccdnoallkhgkod
 
 turndown@7.1.2
