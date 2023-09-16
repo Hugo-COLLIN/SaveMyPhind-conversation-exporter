@@ -1,16 +1,13 @@
 # Update notes
-# 2.0.5
+# 2.1.5
 ⨠ ⭐ New branding, same extension, always better!
 "Save My Phind" is now "Save my Chatbot"! But it's still exporting your Phind threads, don't worry!
 
 ⨠ 🚀 Now exports Perplexity threads!
 Click on the extension icon when you're on Perplexity.ai and see the magic happen!
 
-⨠ 🧩 Some UI progress
-A better integration in the Phind interface.
-
 ⨠ 💡 Some format bugs solved
-Newlines and special characters inside links won't be a problem anymore.
+Newlines inside links won't be a problem anymore.
 
 # v1.9.18
 ⨠ 🚀 Fix Basic Search export errors

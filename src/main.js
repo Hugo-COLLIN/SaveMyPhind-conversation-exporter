@@ -1,5 +1,5 @@
 import {actionExtensionIconClicked, actionPageLoaded} from "./activeTab/triggers";
-import infos from "./infos";
+// import infos from "./infos";
 
 main();
 
