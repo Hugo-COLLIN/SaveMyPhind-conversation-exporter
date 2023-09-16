@@ -6,16 +6,16 @@ import {improveUI} from "./uiEnhancer/uiEnhancer";
 export async function actionExtensionIconClicked() {
   const domainPage = await domainExportChecker();
   if (domainPage === null) return;
-  initAnalytics();
+  // initAnalytics();
   launchExport(domainPage);
-  await sendAnalytics('export', {hostName: domainPage.name, url: domainPage.url});
+  // await sendAnalytics('export', {hostName: domainPage.name, url: domainPage.url});
 }
 
 export async function actionPageLoaded() {
   const domain = await domainLoadChecker();
   if (domain === null) return;
-  initAnalytics();
+  // initAnalytics();
   scrapOnLoadListener();
   improveUI();
-  await sendAnalytics('pageview', {hostName: domain.name, url: domain.url});
+  // await sendAnalytics('pageview', {hostName: domain.name, url: domain.url});
 }
