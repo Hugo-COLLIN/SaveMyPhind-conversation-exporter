@@ -8,7 +8,7 @@ export async function actionExtensionIconClicked() {
   if (domainPage === null) return;
   initAnalytics();
   launchExport(domainPage);
-  sendAnalytics('export', {hostName: domainPage.name, url: domainPage.url});
+  await sendAnalytics('export', {hostName: domainPage.name, url: domainPage.url});
 }
 
 export async function actionPageLoaded() {
@@ -17,5 +17,5 @@ export async function actionPageLoaded() {
   initAnalytics();
   scrapOnLoadListener();
   improveUI();
-  sendAnalytics('pageview', {hostName: domain.name, url: domain.url});
+  await sendAnalytics('pageview', {hostName: domain.name, url: domain.url});
 }
