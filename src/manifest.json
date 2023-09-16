@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Save my Chatbot - Phind & Perplexity Exporter",
-  "version": "2.1.4",
-  "description": "🚀 Export your Phind.com and Perplexity.ai search threads into markdown files!\n",
+  "version": "2.1.5",
+  "description": "🚀 Export your Phind.com and Perplexity.ai search threads into markdown files!",
   "icons": {
     "16": "assets/icons/icon-16.png",
     "48": "assets/icons/icon-48.png",
