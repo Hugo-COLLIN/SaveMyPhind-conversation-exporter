@@ -1,5 +1,5 @@
 # <img alt="SaveMyPhind logo" src="./src/assets/icons/icon-128.png" style="width:40px"> Save my Chatbot - Phind & Perplexity AI Exporter
-### 🚀 Export your Phind.com and Perplexity.ai chatbots search threads into markdown files!
+### 🚀 Export your Phind.com and Perplexity.ai search threads into markdown files!
 
 😎 Why Save my Chatbot?
 - To keep AI generated information offline,
@@ -52,7 +52,7 @@ Simple!
 Feel free to contribute to this project by forking it and making pull requests. You can also open an issue if you find a bug or have any suggestion.
 However, you can't distribute this project without contacting me first. 
 
-This project is licensed under the [SaveMyPhind License](LICENSE.txt). Please check for more details.
+This project is licensed under the [RMD-C v1.0 License](LICENSE.txt). Please check for more details.
 
 ### Libraries licenses
 This project uses third-party libraries. See the [license list](licenses.txt) for more details about libraries' licenses.
