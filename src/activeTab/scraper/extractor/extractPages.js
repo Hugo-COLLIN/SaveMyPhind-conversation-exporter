@@ -131,7 +131,6 @@ export async function extractPhindAgentPage(format) {
             // Export search results
             res += "___\n**Sources:**";
             const buttonsInCard = p1[2].querySelectorAll("button");
-            console.log(buttonsInCard)
             for (const btn of buttonsInCard) {
               if (btn.textContent.toLowerCase() === "view all search results") {
                 // Open modal
