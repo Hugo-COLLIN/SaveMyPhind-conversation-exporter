@@ -1,6 +1,5 @@
 Copyright (c) 2023 Hugo Collin
 Country: France
-Authorization is granted to the licensor to reuse the code modified by licensees in his other projects.
 
 Restricted Modification and Distribution Software License - Collaborative
 Version 1.0 - August 2023
