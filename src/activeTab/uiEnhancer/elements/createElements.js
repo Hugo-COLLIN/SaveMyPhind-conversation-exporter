@@ -171,12 +171,25 @@ export async function createModalUpdate(modalBackground) {
 // Step 8: Create the Close button.
   var closeButton = document.createElement('button');
   closeButton.type = 'button';
-  closeButton.classList.add('m-1', 'btn', 'btn-primary');
+  closeButton.classList.add('m-1', 'btn', 'btn-secondary');
   closeButton.innerHTML = "Let's Phind!";
+
+  var reviewButton = document.createElement('a');
+  reviewButton.href = appInfos.APP_SUPPORT_URL;
+  reviewButton.target = '_blank';
+  reviewButton.type = 'button';
+  reviewButton.classList.add('m-1', 'btn', 'btn-primary');
+  reviewButton.innerHTML = "👍 Support my work!";
+
+  var modalBtnDiv = document.createElement('div');
+  modalBtnDiv.style.textAlign = 'center';
+  modalBtnDiv.appendChild(closeButton);
+  modalBtnDiv.appendChild(reviewButton);
+
+  modalBodyDiv.appendChild(modalBtnDiv);
 
 // Step 9: Append the inner divs and the Close button to the modal-content div.
   modalContentDiv.appendChild(modalBodyDiv);
-  modalContentDiv.appendChild(closeButton);
 
 // Step 10: Append the modal-dialog div to the outer div.
   modalDialogDiv.appendChild(modalContentDiv);
