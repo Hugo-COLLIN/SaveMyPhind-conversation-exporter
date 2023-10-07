@@ -192,25 +192,25 @@ export function improveUI() {
         // else if (response.message === 'LOAD_COMPLETE processed' || response.message === 'exportAllThreads in progress') {
         else {
           console.log("PASSED4-2")
-          let isExporting = response.message === 'exportAllThreads in progress';
+          // let isExporting = response.message === 'exportAllThreads in progress';
           // addStyle();
 
           // Some UI improvements
-          const {topBtnsGroup, isStopGenBasic, isHomepage} = await initVars();
+          // const {topBtnsGroup, isStopGenBasic, isHomepage} = await initVars();
 
-          await appendBtnGroup(isStopGenBasic, topBtnsGroup, isHomepage);
+          // await appendBtnGroup(isStopGenBasic, topBtnsGroup, isHomepage);
 
-          modifyingStyle();
+          // modifyingStyle();
 
-          let {
-            exportAllThreadsSideBtn,
-            stopExportAllThreadsSideBtn,
-            exportAllThreadsTopBtn,
-            stopExportAllThreadsTopBtn,
-            exportThreadTopBtn
-          } = await setupButtons();
+          // let {
+          //   exportAllThreadsSideBtn,
+          //   stopExportAllThreadsSideBtn,
+          //   exportAllThreadsTopBtn,
+          //   stopExportAllThreadsTopBtn,
+          //   exportThreadTopBtn
+          // } = await setupButtons();
 
-          appendButtons(isHomepage, topBtnsGroup, exportThreadTopBtn, response, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
+          // appendButtons(isHomepage, topBtnsGroup, exportThreadTopBtn, response, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
 
           // Create "last update" modal if needed
           chrome.storage.sync.get(['displayModalUpdate'], async function (result) {
@@ -230,12 +230,12 @@ export function improveUI() {
             }
           });
 
-          // Update buttons on resizing window
-          window.addEventListener('resize', function () {
-            setBtnsExport(isExporting, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
-
-            btnBarAllInline(topBtnsGroup);
-          });
+          // // Update buttons on resizing window
+          // window.addEventListener('resize', function () {
+          //   setBtnsExport(isExporting, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
+          //
+          //   btnBarAllInline(topBtnsGroup);
+          // });
         }
       });
     }

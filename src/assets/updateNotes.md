@@ -1,4 +1,9 @@
 # Update notes
+# 2.1.10
+⨠ 🛸 Avoiding the mess
+Phind changed its UI, so the extension was a bit lost. Now, it's back on track! Sorry for the inconvenience!
+
+
 # 2.1.5
 ⨠ ⭐ New branding, same extension, always better!
 "Save My Phind" is now "Save my Chatbot"! But it's still exporting your Phind threads, don't worry!
@@ -48,3 +53,5 @@ the extension icon is now a bit more... "Phind"!
 
 Save my AI - Chatbots conversation Exporter
 Save my AI - Phind and Perplexity Exporter
+
+[//]: # (Phind changed its UI, so the extension is now a bit lost. I'm working on it, but it could take some time. Sorry for the inconvenience!)
