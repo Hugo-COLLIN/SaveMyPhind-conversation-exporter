@@ -42,23 +42,51 @@ export async function extractPhindSearchPage(format) {
   let markdown = await setFileHeader(getPhindPageTitle(), "Phind Search");
 
   newAnswerSelector.forEach((content) => {
-    let selectUserQuestion = content.querySelector('div > div > span');
-    selectUserQuestion = selectUserQuestion ?? document.querySelector('textarea');
+    let selectUserQuestion;
+
+    if (firstQuestion) {
+      selectUserQuestion = document.querySelector('textarea');
+      firstQuestion = false;
+    }
+    else selectUserQuestion = content.querySelector('[name^="answer-"] > div > div > span');
+    selectUserQuestion = selectUserQuestion ?? '';
 
 
-    let selectAiCitations = content.querySelector('div > div:nth-of-type(3) > div:nth-of-type(2) > div > div');
+    let selectAiCitations = content.querySelector('div > div:nth-last-of-type(2) > div:nth-of-type(2) > div > div');
     selectAiCitations = selectAiCitations ?? "";
     console.log(selectAiCitations)
 
-    const selectAiAnswer = content.querySelector('div > div:nth-of-type(3) > div > h6').parentNode;
+    const selectAiModel = content.querySelector('[name^="answer-"] > div > div > h6')
+    const selectAiAnswer = selectAiModel != null ? selectAiModel.parentNode : null;
+    console.log(selectAiModel)
     console.log(selectAiAnswer)
-    const selectSources = content.querySelector('div:nth-of-type(4) > div > div > h6').parentNode.querySelectorAll('div > a:not([href="/filters"])');
-    const selectAiModel = selectAiAnswer.querySelector('h6');
 
-    const messageText = `\n## User\n` + format(selectUserQuestion.innerHTML).replace("  \n", "") +
-      `\n\n## ${capitalizeFirst(selectAiModel.innerHTML)}\n` + format(selectAiAnswer.innerHTML) +
+
+    // selectAiAnswer.querySelector('h6');
+    // const aiModel = selectAnswerTitle ? selectAnswerTitle.querySelector('span') : null;
+
+    const selectSources = content.querySelector('div:last-child > div > div > h6').parentNode.querySelectorAll('div > a:not([href="/filters"])');
+
+
+
+    // Create formatted document for each answer message
+    const messageText =
+      `\n## User\n` + format(selectUserQuestion.innerHTML).replace("  \n", "") + '\n' +
+      (() => {
+        let res = format(selectAiAnswer.innerHTML);
+        let aiName;
+        if (selectAiModel !== null)
+          aiName = format(selectAiModel.innerHTML).split(" ")[2];
+        const aiIndicator = "## " +
+          capitalizeFirst((aiName ? aiName + " " : "") + "answer") +
+          "\n"
+        const index = res.indexOf('\n\n');
+        return `\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
+      })() +
+      // `\n\n## ${capitalizeFirst(selectAiModel.innerHTML)}\n` +
+      // format(selectAiAnswer.innerHTML) +
       (selectAiCitations !== "" ? (`\n\n**Citations:**\n` + format(selectAiCitations.innerHTML)) : "") +
-      `\n\n**Sources:**` + (() => {
+      (selectSources.length > 0 ? `\n\n---\n**Sources:**` + (() => {
         let res = "";
         let i = 0;
         selectSources.forEach((elt) => {
@@ -66,7 +94,8 @@ export async function extractPhindSearchPage(format) {
           i++;
         });
         return res;
-      })() + "\n\n";
+      })() + "\n\n"
+      : "");
 
     if (messageText !== "") markdown += messageText;
   });

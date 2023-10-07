@@ -12,5 +12,5 @@ export async function actionPageLoaded() {
   const domain = await domainLoadChecker();
   if (domain === null) return;
   scrapOnLoadListener();
-  improveUI();
+  // improveUI();
 }
