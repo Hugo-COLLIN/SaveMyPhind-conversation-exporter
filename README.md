@@ -13,7 +13,7 @@
 
 ✅ Enjoy!
 
-✏️ Please note that this project is not affiliated with Phind.com and is not an official extension.
+✏️ Please note that this project is not affiliated with Phind.com or Perplexity.ai and is not an official extension.
 
 <br>
 
@@ -34,7 +34,7 @@ You can also install it manually following these steps
 1. On GitHub, click on Releases (in the right side menu), go on the latest version and download the `save-my-phind_x.y.z.xpi` file.
 2. Go on `about:addons`, then click on the gear icon on the top right and select "Install Add-on From File...".
 3. Select the .xpi file you just downloaded and click on "Add" in the appearing popup window.
-4. Right-click on the extension icon and select "Always allow for www.phind.com".
+4. Right-click on the extension icon and select "Always allow for www.phind.com / www.perplexity.ai".
 
 ✅ You're done!
 
@@ -169,7 +169,10 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 ### Security and maintenance:
 - [ ] Structure UI improver files: (modules + separate files for each site)
 - [ ] Auto logs (to Sentry?)
-- [ ] Make unit/e2e tests
+- [ ] Make unit/e2e tests:
+  - https://www.phind.com/search?cache=gy05phy0cc7am86g73qgdxrs
+  - https://www.phind.com/search?cache=inrm4ux0ema3bsz43g9dcf3c : unfold questions
+  - https://www.phind.com/agent?cache=clnfunmyk000jml08x0xmg0qe
 - [ ] Use the Phind (official/unofficial?) API instead of scraping the HTML?
 - [ ] CI/CD pipeline?
 - [x] New branding: new name: Save my Chatbot, and new logos (SaveMyAI + Perplexity)
