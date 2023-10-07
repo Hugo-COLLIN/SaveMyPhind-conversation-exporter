@@ -35,61 +35,97 @@ export async function extractPhindSearchPage(format) {
   const unfolded = await unfoldQuestions();
 
   // Catch page interesting elements
+  let firstQuestion = true;
   let sourceQuestion = "";
   const messages = document.querySelectorAll('[name^="answer-"] > div > div');
+  const newAnswerSelector = document.querySelectorAll('[name^="answer-"]');
   let markdown = await setFileHeader(getPhindPageTitle(), "Phind Search");
 
-  messages.forEach(content => {
-    let selectAiAnswer = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div:not(.button-group)');
-    let aiModel = content.querySelector('.col-lg-8.col-xl-7 > div > div > h6');
-
-    let selectUserQuestion = content.querySelector('div > .container-xl > div > span');
-    let p3 = Array.from(content.querySelectorAll(".col-lg-4.col-xl-4 > div > div > div > div")).filter((elem) => {
-      return !elem.querySelector('.pagination');
-    });
-    let selectAiCitations = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div > div > div');
-    let selectSources = content.querySelector('div > div > span');
-
-    const isSources = selectSources && selectSources.querySelector("img") === null;
-    sourceQuestion = isSources ? format(selectSources.innerHTML) : sourceQuestion;
-
-    const messageText =
-      selectUserQuestion ? `\n## User\n` + format(selectUserQuestion.innerHTML).replace("  \n", "") :
-
-        isSources ? "" :
-
-          p3.length > 0 ? (() => {
-              let res = "---\n**Sources:**";
-              res += sourceQuestion ? " " + sourceQuestion : "";
-
-              let i = 0;
-              p3.forEach((elt) => {
-                res += "\n- " + format(elt.querySelector("a").outerHTML).replace("[", `[(${i}) `);
-                i++;
-              });
-              sourceQuestion = "";
-              return res;
-            })() :
+  newAnswerSelector.forEach((content) => {
+    let selectUserQuestion = content.querySelector('div > div > span');
+    selectUserQuestion = selectUserQuestion ?? document.querySelector('textarea');
 
 
-            selectAiAnswer ? (() => {
-                let res = format(selectAiAnswer.innerHTML);
-                if (selectAiCitations && selectAiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + format(selectAiCitations.innerHTML);
+    let selectAiCitations = content.querySelector('div > div:nth-of-type(3) > div:nth-of-type(2) > div > div');
+    selectAiCitations = selectAiCitations ?? "";
+    console.log(selectAiCitations)
 
-                let aiName;
-                if (aiModel !== null)
-                  aiName = format(aiModel.innerHTML).split(" ")[2];
-                const aiIndicator = "## " +
-                  capitalizeFirst((aiName ? aiName + " " : "") + "answer") +
-                  "\n"
-                const index = res.indexOf('\n\n');
-                return `\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
-              })() :
+    const selectAiAnswer = content.querySelector('div > div:nth-of-type(3) > div > h6').parentNode;
+    console.log(selectAiAnswer)
+    const selectSources = content.querySelector('div:nth-of-type(4) > div > div > h6').parentNode.querySelectorAll('div > a:not([href="/filters"])');
+    const selectAiModel = selectAiAnswer.querySelector('h6');
 
-              '';
+    const messageText = `\n## User\n` + format(selectUserQuestion.innerHTML).replace("  \n", "") +
+      `\n\n## ${capitalizeFirst(selectAiModel.innerHTML)}\n` + format(selectAiAnswer.innerHTML) +
+      (selectAiCitations !== "" ? (`\n\n**Citations:**\n` + format(selectAiCitations.innerHTML)) : "") +
+      `\n\n**Sources:**` + (() => {
+        let res = "";
+        let i = 0;
+        selectSources.forEach((elt) => {
+          res += "\n- " + format(elt.outerHTML).replace("[", `[(${i}) `);
+          i++;
+        });
+        return res;
+      })() + "\n\n";
 
-    if (messageText !== "") markdown += messageText + "\n\n";
+    if (messageText !== "") markdown += messageText;
   });
+
+  // messages.forEach(content => {
+  //   let selectAiAnswerChild = content.querySelector('.col-lg-8 > div > div');
+  //   let selectAiAnswer = selectAiAnswerChild != null ? selectAiAnswerChild.parentNode : null;
+  //   console.log(content)
+  //   console.log(selectAiAnswerChild)
+  //   console.log(selectAiAnswer)
+  //   let aiModel = content.querySelector('.col-lg-8 > div > div > h6');
+  //
+  //   let selectUserQuestion = content.querySelector('div > .container-xl > div > span');
+  //   let p3 = Array.from(content.querySelectorAll(".col-lg-4 > div > div > div > div")).filter((elem) => {
+  //     return !elem.querySelector('.pagination');
+  //   });
+  //   let selectAiCitations = content.querySelector('.col-lg-8 > .container-xl > div > div > div');
+  //   let selectSources = content.querySelector('div > div > span');
+  //
+  //   const isSources = selectSources && selectSources.querySelector("img") === null;
+  //   sourceQuestion = isSources ? format(selectSources.innerHTML) : sourceQuestion;
+  //
+  //   const messageText =
+  //     selectUserQuestion ? `\n## User\n` + format(selectUserQuestion.innerHTML).replace("  \n", "") :
+  //
+  //       isSources ? "" :
+  //
+  //         p3.length > 0 ? (() => {
+  //             let res = "---\n**Sources:**";
+  //             res += sourceQuestion ? " " + sourceQuestion : "";
+  //
+  //             let i = 0;
+  //             p3.forEach((elt) => {
+  //               res += "\n- " + format(elt.querySelector("a").outerHTML).replace("[", `[(${i}) `);
+  //               i++;
+  //             });
+  //             sourceQuestion = "";
+  //             return res;
+  //           })() :
+  //
+  //
+  //           selectAiAnswerChild ? (() => {
+  //               let res = format(selectAiAnswer.innerHTML);
+  //               if (selectAiCitations && selectAiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + format(selectAiCitations.innerHTML);
+  //
+  //               let aiName;
+  //               if (aiModel !== null)
+  //                 aiName = format(aiModel.innerHTML).split(" ")[2];
+  //               const aiIndicator = "## " +
+  //                 capitalizeFirst((aiName ? aiName + " " : "") + "answer") +
+  //                 "\n"
+  //               const index = res.indexOf('\n\n');
+  //               return `\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
+  //             })() :
+  //
+  //             '';
+  //
+  //   if (messageText !== "") markdown += messageText + "\n\n";
+  // });
 
   // Fold user questions after export if they were originally folded
   if (unfolded)
