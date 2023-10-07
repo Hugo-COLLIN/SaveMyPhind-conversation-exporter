@@ -73,10 +73,8 @@ export async function extractPhindSearchPage(format) {
         const index = res.indexOf('\n\n');
         return `\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
       })() +
-      // `\n\n## ${capitalizeFirst(selectAiModel.innerHTML)}\n` +
-      // format(selectAiAnswer.innerHTML) +
       (selectAiCitations !== "" ? (`\n\n**Citations:**\n` + format(selectAiCitations.innerHTML)) : "") +
-      (selectSources.length > 0 ? `\n\n---\n**Sources:**` + (() => {
+      (selectSources.length > 0 ? `\n\n**Sources:**` + (() => {
         let res = "";
         let i = 0;
         selectSources.forEach((elt) => {
