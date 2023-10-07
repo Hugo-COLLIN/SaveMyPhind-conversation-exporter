@@ -35,60 +35,57 @@ export async function extractPhindSearchPage(format) {
   const unfolded = await unfoldQuestions();
 
   // Catch page interesting elements
-  let sourceQuestion = "";
-  const messages = document.querySelectorAll('[name^="answer-"] > div > div');
+  let firstQuestion = true;
+  const newAnswerSelector = document.querySelectorAll('[name^="answer-"]');
   let markdown = await setFileHeader(getPhindPageTitle(), "Phind Search");
 
-  messages.forEach(content => {
-    let selectAiAnswer = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div:not(.button-group)');
-    let aiModel = content.querySelector('.col-lg-8.col-xl-7 > div > div > h6');
+  newAnswerSelector.forEach((content) => {
+    let selectUserQuestion;
 
-    let selectUserQuestion = content.querySelector('div > .container-xl > div > span');
-    let p3 = Array.from(content.querySelectorAll(".col-lg-4.col-xl-4 > div > div > div > div")).filter((elem) => {
-      return !elem.querySelector('.pagination');
-    });
-    let selectAiCitations = content.querySelector('.col-lg-8.col-xl-7 > .container-xl > div > div > div');
-    let selectSources = content.querySelector('div > div > span');
+    if (firstQuestion) {
+      selectUserQuestion = document.querySelector('textarea');
+      firstQuestion = false;
+    }
+    else selectUserQuestion = content.querySelector('[name^="answer-"] > div > div > span');
+    selectUserQuestion = selectUserQuestion ?? '';
 
-    const isSources = selectSources && selectSources.querySelector("img") === null;
-    sourceQuestion = isSources ? format(selectSources.innerHTML) : sourceQuestion;
 
+    let selectAiCitations = content.querySelector('div > div:nth-last-of-type(2) > div:nth-of-type(2) > div > div');
+    selectAiCitations = selectAiCitations ?? "";
+
+    const selectAiModel = content.querySelector('[name^="answer-"] > div > div > h6')
+    const selectAiAnswer = selectAiModel != null ? selectAiModel.parentNode : null;
+    const selectSources = content.querySelector('div:last-child > div > div > h6').parentNode.querySelectorAll('div > a:not([href="/filters"])');
+
+
+
+    // Create formatted document for each answer message
     const messageText =
-      selectUserQuestion ? `\n## User\n` + format(selectUserQuestion.innerHTML).replace("  \n", "") :
+      `\n## User\n` + format(selectUserQuestion.innerHTML).replace("  \n", "") + '\n' +
+      (() => {
+        let res = format(selectAiAnswer.innerHTML);
+        let aiName;
+        if (selectAiModel !== null)
+          aiName = format(selectAiModel.innerHTML).split(" ")[2];
+        const aiIndicator = "## " +
+          capitalizeFirst((aiName ? aiName + " " : "") + "answer") +
+          "\n"
+        const index = res.indexOf('\n\n');
+        return `\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
+      })() +
+      (selectAiCitations !== "" ? (`\n\n**Citations:**\n` + format(selectAiCitations.innerHTML)) : "") +
+      (selectSources.length > 0 ? `\n\n**Sources:**` + (() => {
+        let res = "";
+        let i = 0;
+        selectSources.forEach((elt) => {
+          res += "\n- " + format(elt.outerHTML).replace("[", `[(${i}) `);
+          i++;
+        });
+        return res;
+      })() + "\n\n"
+      : "");
 
-        isSources ? "" :
-
-          p3.length > 0 ? (() => {
-              let res = "---\n**Sources:**";
-              res += sourceQuestion ? " " + sourceQuestion : "";
-
-              let i = 0;
-              p3.forEach((elt) => {
-                res += "\n- " + format(elt.querySelector("a").outerHTML).replace("[", `[(${i}) `);
-                i++;
-              });
-              sourceQuestion = "";
-              return res;
-            })() :
-
-
-            selectAiAnswer ? (() => {
-                let res = format(selectAiAnswer.innerHTML);
-                if (selectAiCitations && selectAiCitations.innerHTML.length > 0) res += "\n\n**Citations:**\n" + format(selectAiCitations.innerHTML);
-
-                let aiName;
-                if (aiModel !== null)
-                  aiName = format(aiModel.innerHTML).split(" ")[2];
-                const aiIndicator = "## " +
-                  capitalizeFirst((aiName ? aiName + " " : "") + "answer") +
-                  "\n"
-                const index = res.indexOf('\n\n');
-                return `\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
-              })() :
-
-              '';
-
-    if (messageText !== "") markdown += messageText + "\n\n";
+    if (messageText !== "") markdown += messageText;
   });
 
   // Fold user questions after export if they were originally folded
@@ -104,7 +101,7 @@ export async function extractPhindAgentPage(format) {
 
   for (const content of messages) {
     const p1 = content.querySelectorAll('.card-body > p, .card-body > div');
-    const p2 = content.querySelectorAll('.card-body > div:nth-of-type(2) a');
+    const p2 = content.querySelectorAll('.card-body > div:nth-last-of-type(1) a');
     const p3 = content.querySelectorAll('.card-body > span');
 
     const messageText =
@@ -133,7 +130,7 @@ export async function extractPhindAgentPage(format) {
 
             // Export search results
             res += "___\n**Sources:**";
-            const buttonsInCard = p1[1].querySelectorAll("button");
+            const buttonsInCard = p1[2].querySelectorAll("button");
             for (const btn of buttonsInCard) {
               if (btn.textContent.toLowerCase() === "view all search results") {
                 // Open modal

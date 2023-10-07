@@ -10,8 +10,6 @@ import {clickOnListElt} from "../utils/webpage/interact";
  * @returns {Promise<void>}
  */
 export async function launchExport(domain) {
-
-
   await logWelcome();
   setFormatRules(domain.name);
   const extracted = await extract(domain);
