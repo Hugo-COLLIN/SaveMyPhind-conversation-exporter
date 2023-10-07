@@ -101,7 +101,7 @@ export async function extractPhindAgentPage(format) {
 
   for (const content of messages) {
     const p1 = content.querySelectorAll('.card-body > p, .card-body > div');
-    const p2 = content.querySelectorAll('.card-body > div:nth-of-type(2) a');
+    const p2 = content.querySelectorAll('.card-body > div:nth-last-of-type(1) a');
     const p3 = content.querySelectorAll('.card-body > span');
 
     const messageText =
@@ -130,7 +130,8 @@ export async function extractPhindAgentPage(format) {
 
             // Export search results
             res += "___\n**Sources:**";
-            const buttonsInCard = p1[1].querySelectorAll("button");
+            const buttonsInCard = p1[2].querySelectorAll("button");
+            console.log(buttonsInCard)
             for (const btn of buttonsInCard) {
               if (btn.textContent.toLowerCase() === "view all search results") {
                 // Open modal
