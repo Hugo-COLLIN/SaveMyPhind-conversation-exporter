@@ -10,8 +10,8 @@ export async function actionExtensionIconClicked() {
 
 // Not working due to Phind new UI
 export async function actionPageLoaded() {
-  // const domain = await domainLoadChecker();
-  // if (domain === null) return;
-  // scrapOnLoadListener();
-  // improveUI();
+  const domain = await domainLoadChecker();
+  if (domain === null) return;
+  scrapOnLoadListener();
+  improveUI();
 }

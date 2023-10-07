@@ -8,6 +8,9 @@ function onInstalledNotifier() {
     if (details.reason === "install")
     {
       // TODO: first install modal
+      chrome.storage.sync.set({displayModalUpdate: true}, function () {
+        console.log("Last update modal will be displayed");
+      });
     }
     else if(details.reason === "update")
     {
