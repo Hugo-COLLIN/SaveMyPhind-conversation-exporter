@@ -1,7 +1,7 @@
 import {sleep} from "../../../common/utils";
 import {capitalizeFirst, formatLineBreaks} from "../../utils/format/formatText";
-import {setFileHeader} from "../../utils/format/formatMarkdown";
-import {getPerplexityPageTitle, getPhindPageTitle} from "./extractMetadata";
+import {formatLink, setFileHeader} from "../../utils/format/formatMarkdown";
+import {getPerplexityPageTitle, getPhindPageTitle, getMaxAIGooglePageTitle} from "./extractMetadata";
 import {foldQuestions, unfoldQuestions} from "../../utils/webpage/interact";
 import {extractPerplexitySources} from "./extractElements";
 
@@ -230,11 +230,15 @@ export async function extractMaxAIGooglePage(format)
   const selectAnswer = shadowRoot.querySelector('.search-with-ai--text');
   const selectSources = shadowRoot.querySelector('[class*=--MuiGrid-container]').childNodes;
 
-  let markdown = await setFileHeader(document.title, "MaxAI in Google");
+  let markdown = await setFileHeader(getMaxAIGooglePageTitle(), "MaxAI in Google");
   markdown += "## Answer\n" + format(selectAnswer.innerHTML) + "\n\n";
   markdown += "---\n**Sources:**\n";
+  let i = 1;
   selectSources.forEach((elt) => {
-    markdown += "- " + format(elt.innerHTML) + "\n";
+    const text = elt.querySelector("a p")
+    const url = elt.querySelector("a").href;
+    if (text !== null) markdown += "- " + formatLink(url, i + ". " + text.innerHTML) + "\n";
+    i ++;
   });
   markdown += "\n\n";
 

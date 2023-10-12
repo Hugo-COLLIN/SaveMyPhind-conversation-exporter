@@ -9,7 +9,7 @@ export async function extract(domain) {
   try {
     const markdownContent = await dynamicCall(extractPages, `extract${domain.name}Page`, converter[`formatMarkdown`]);
     const metadata = dynamicCall(extractMetadata, `extract${domain.name}Metadata`);
-    const fileName = formatFilename(metadata.title, domain.name.replace(/([a-z])([A-Z])/g, '\$1-\$2')); //???
+    const fileName = formatFilename(metadata.title, metadata.source); //???
     return {markdownContent, title: metadata.title, fileName};
   }
   catch (e) {

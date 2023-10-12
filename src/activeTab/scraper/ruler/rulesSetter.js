@@ -255,7 +255,20 @@ function setArbitraryPageRules() {
     },
   });
 
-  turndownConverter.addRule('reformatLinksContainingTags', {
+  turndownConverter.addRule('reformatLinksContainingTags', rules.reformatLinksContainingTags);
+
+  turndownConverter.addRule('addHostnameToRelativeLinks', {
+    filter: function (node) {
+      return node.nodeName === 'A' && node.getAttribute('href') && node.getAttribute('href').startsWith('/') && node.innerHTML === node.textContent;
+    },
+    replacement: function (content, node) {
+      return formatLink(window.location.protocol + "//" + window.location.host + node.getAttribute('href'), content);
+    },
+  });
+}
+
+const rules = {
+  'reformatLinksContainingTags': {
     filter: function (node) {
       return node.nodeName === 'A' && node.getAttribute('href') && node.innerHTML !== node.textContent;
     },
@@ -276,20 +289,34 @@ function setArbitraryPageRules() {
       //   "Open link ⨠") + "\n";
       return markdown;
     },
-  });
-
-  turndownConverter.addRule('addHostnameToRelativeLinks', {
-    filter: function (node) {
-      return node.nodeName === 'A' && node.getAttribute('href') && node.getAttribute('href').startsWith('/') && node.innerHTML === node.textContent;
-    },
-    replacement: function (content, node) {
-      return formatLink(window.location.protocol + "//" + window.location.host + node.getAttribute('href'), content);
-    },
-  });
+  }
 }
 
 function setMaxAIGoogleRules() {
   initTurndown();
+
+  // turndownConverter.addRule('reformatLinksContainingTags', {
+  //   filter: function (node) {
+  //     return node.nodeName === 'A' && node.getAttribute('href') && node.innerHTML !== node.textContent;
+  //   },
+  //   replacement: function (content, node) {
+  //     let markdown = '';
+  //     for (let i = 0; i < node.childNodes.length; i++) {
+  //       let child = node.childNodes[i];
+  //       if (child.nodeType === Node.ELEMENT_NODE) {
+  //         markdown += turndownConverter.turndown(child.outerHTML); //"<blockquote>" + child.outerHTML + "</blockquote>";
+  //       } else if (child.nodeType === Node.TEXT_NODE) {
+  //         markdown += child.textContent;
+  //       }
+  //     }
+  //     // markdown += "\n" + formatUrl(
+  //     //   node.getAttribute('href').startsWith("/") ?
+  //     //       window.location.protocol + "//" + window.location.host + node.getAttribute('href') :
+  //     //       node.getAttribute('href'),
+  //     //   "Open link ⨠") + "\n";
+  //     return markdown;
+  //   },
+  // });
   //
   // turndownConverter.addRule('formatLinks', {
   //   filter: 'a',
