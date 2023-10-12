@@ -8,6 +8,7 @@ export default {
   setPhindSearchRules,
   setPhindAgentRules,
   setPerplexityRules,
+  setMaxAIGoogleRules,
 }
 
 
@@ -285,4 +286,27 @@ function setArbitraryPageRules() {
       return formatLink(window.location.protocol + "//" + window.location.host + node.getAttribute('href'), content);
     },
   });
+}
+
+function setMaxAIGoogleRules() {
+  initTurndown();
+  //
+  // turndownConverter.addRule('formatLinks', {
+  //   filter: 'a',
+  //   replacement: function (content, node) {
+  //     const href = node.getAttribute('href');
+  //     const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '');
+  //     return '[' + linkText + '](' + href + ')';
+  //   }
+  // });
+  //
+  // turndownConverter.addRule('backslashAngleBracketsNotInBackticks', {
+  //   filter: function (node) {
+  //     return node.querySelectorAll('p').length > 0;
+  //   },
+  //   replacement: function (content, node) {
+  //     // Replace < and > characters in paragraphs but not in backticks
+  //     return "\n" + turndownConverter.turndown(node.innerHTML).replace(/(?<!`)<(?!`)/g, '{{@LT}}').replace(/(?<!`)>(?!`)/g, '{{@GT}}') + "\n\n";
+  //   },
+  // });
 }

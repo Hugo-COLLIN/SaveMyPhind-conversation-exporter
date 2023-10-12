@@ -13,6 +13,7 @@ export default {
   extractPhindSearchPage,
   extractPhindAgentPage,
   extractPerplexityPage,
+  extractMaxAIGooglePage,
 }
 
 /**
@@ -217,6 +218,25 @@ async function extractPerplexityPage(format)
 
     markdown += "---\n**Sources:**\n" + await extractPerplexitySources(content, format) + "\n\n";
   }
+
+  return markdown;
+}
+
+export async function extractMaxAIGooglePage(format)
+{
+  const hostElement = document.querySelector('[id^=MAXAI]');
+  const shadowRoot = hostElement.shadowRoot;
+
+  const selectAnswer = shadowRoot.querySelector('.search-with-ai--text');
+  const selectSources = shadowRoot.querySelector('[class*=--MuiGrid-container]').childNodes;
+
+  let markdown = await setFileHeader(document.title, "MaxAI in Google");
+  markdown += "## Answer\n" + format(selectAnswer.innerHTML) + "\n\n";
+  markdown += "---\n**Sources:**\n";
+  selectSources.forEach((elt) => {
+    markdown += "- " + format(elt.innerHTML) + "\n";
+  });
+  markdown += "\n\n";
 
   return markdown;
 }

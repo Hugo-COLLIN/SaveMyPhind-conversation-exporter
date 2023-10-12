@@ -7,6 +7,7 @@ export async function domainExportChecker() {
     "PhindSearch": "www.phind.com/search",
     "PhindAgent": "www.phind.com/agent",
     "Perplexity": "www.perplexity.ai/search",
+    "MaxAIGoogle": "www.google.com/search",
   };
 
   return domainChecker(domains);
