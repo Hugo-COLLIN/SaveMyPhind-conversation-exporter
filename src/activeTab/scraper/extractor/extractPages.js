@@ -222,6 +222,9 @@ async function extractPerplexityPage(format)
   return markdown;
 }
 
+/**
+ * TODO: MaxAI download icon + Chatbot name before answer + get title from MaxAI query, not from google textarea (differences)
+ */
 export async function extractMaxAIGooglePage(format)
 {
   const hostElement = document.querySelector('[id^=MAXAI]');
