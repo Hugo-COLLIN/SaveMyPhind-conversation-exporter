@@ -129,8 +129,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [ ] ~~Automatically copy the last response to the clipboard (without clicking on the extension icon)?~~
 
 ### Bugs/Issues:
-- [ ] Perplexity: Export error when sending file
-  https://www.perplexity.ai/search/9afe2327-9ca6-473b-8ec6-9ebcd8d862fe?s=u
+- [ ] Export bug on Perplexity thread: https://www.perplexity.ai/search/Quel-nom-donner-TTxbvUcKQ9ib8r0O_I4tjQ?s=c
 - [ ] Extension icon not updated on Firefox
   => User needs to click or manually allow the extension to access websites
 - [ ] Detect when connected or something to anticipate and specify the "Export all threads" button usability
@@ -138,6 +137,8 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
   => Redirect to homepage when export is finished
 - [ ] (Web: Exported links beginning with # prepended by page url)
 - [ ] ~~Pair programmer: Line breaks in user questions (Phind uses spaces as line breaks)~~
+- [x] Perplexity: Export error when sending file
+  https://www.perplexity.ai/search/9afe2327-9ca6-473b-8ec6-9ebcd8d862fe?s=u
 - [x] "Rate on Chrome Web Store" for Firefox users
   => Specify both links in infos.json(?) and change for each browser (when bundle?)
 - [x] Page title bug:
