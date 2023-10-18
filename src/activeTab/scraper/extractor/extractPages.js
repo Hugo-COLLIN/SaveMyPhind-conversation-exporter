@@ -198,8 +198,10 @@ async function extractPerplexityPage(format)
 
     // Display answer
     const answer = content.querySelector(".relative.default > div > div")
-    const answerer = content.querySelector(".mb-lg .flex.items-center > p").innerHTML;
-    markdown += answerer.toLowerCase().includes('copilot') ?
+    const answerer = content.querySelector(".mb-lg .flex.items-center > p");
+    markdown += !answerer ?
+        "## AI answer\n"
+      : answerer.innerHTML.toLowerCase().includes('copilot') ?
         "## Copilot answer\n"
       : answerer.toLowerCase().includes('search') ?
         "## Quick answer\n"
