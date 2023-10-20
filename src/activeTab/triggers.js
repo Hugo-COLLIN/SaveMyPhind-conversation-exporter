@@ -8,10 +8,21 @@ export async function actionExtensionIconClicked() {
   launchExport(domainPage);
 }
 
+function detectPageLoad(domain) {
+if (domain.name === "MaxAIGoogle") {
+  window.addEventListener('load', function () {
+    const isMaxAI = document.querySelector('[id^=MAXAI]') !== null;
+    chrome.storage.local.set({isMaxAI: isMaxAI});
+  })
+}
+
+}
+
 // Not working due to Phind new UI
 export async function actionPageLoaded() {
   const domain = await domainLoadChecker();
   if (domain === null) return;
-  scrapOnLoadListener();
+  detectPageLoad(domain);
+  // scrapOnLoadListener();
   improveUI();
 }

@@ -17,6 +17,7 @@ export async function domainLoadChecker() {
   const domains = {
     "Phind": "www.phind.com",
     "Perplexity": "www.perplexity.ai",
+    "MaxAIGoogle": "www.google.com",
   };
 
   return domainChecker(domains);
