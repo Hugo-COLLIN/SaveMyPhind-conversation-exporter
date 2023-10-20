@@ -4,7 +4,7 @@ import {formatLink} from "../../utils/format/formatMarkdown";
 export async function extractPerplexitySources(content, format) {
   let res = "";
   for (const btn of content.querySelectorAll("div.flex > button")) {
-    if (btn.querySelector("span").innerText === "View Sources") {
+    if (btn.querySelector("span") && btn.querySelector("span").innerText === "View Sources") {
       btn.click();
       await sleep(10);
 
