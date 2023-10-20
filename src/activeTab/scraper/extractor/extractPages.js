@@ -228,15 +228,19 @@ async function extractPerplexityPage(format)
 }
 
 /**
- * TODO: MaxAI download icon + Chatbot name before answer + get title from MaxAI query, not from google textarea (differences)
+ * TODO: Chatbot name before answer + get title from MaxAI query, not from google textarea (differences)
  */
 export async function extractMaxAIGooglePage(format)
 {
   const hostElement = document.querySelector('[id^=MAXAI]');
+  if (hostElement === null) return null;
   const shadowRoot = hostElement.shadowRoot;
 
   const selectAnswer = shadowRoot.querySelector('.search-with-ai--text');
-  const selectSources = shadowRoot.querySelector('[class*=--MuiGrid-container]').childNodes;
+  if (selectAnswer === null) return null;
+
+  let selectSources = shadowRoot.querySelector('[class*=--MuiGrid-container]');
+  if (selectSources) selectSources = selectSources.childNodes
 
   let markdown = await setFileHeader(getMaxAIGooglePageTitle(), "MaxAI in Google");
   markdown += "## Answer\n" + format(selectAnswer.innerHTML) + "\n\n";
