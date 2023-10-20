@@ -22,7 +22,7 @@ function onInstalledNotifier() {
 }
 
 function onUninstalledNotifier() {
-  chrome.runtime.setUninstallURL('https://forms.gle/5stYhnaRkBR9GGBv5', function () {
+  chrome.runtime.setUninstallURL('https://save.hugocollin.com/uninstalled', function () {
     // This callback function will run when the URL is set.
     console.log('Uninstall survey URL set');
   });
