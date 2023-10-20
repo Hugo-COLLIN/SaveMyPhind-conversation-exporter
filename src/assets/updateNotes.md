@@ -1,4 +1,15 @@
 # Update notes
+# 2.2.8
+⨠ 🚀 Now exports MaxAI Google integration answer!
+If you've installed the MaxAI extension and the Google integration is activated, you can now export the answer of the bot! Just click on the icon when on a Google search.
+
+⨠ 🛸 Fixing Perplexity export errors
+Some errors were occuring when trying to export a Perplexity thread. It's now fixed!
+
+⨠ 🧩 Fixing Firefox users can't export threads!
+Due to Firefox under-the-hood changes, the extension was broken for Firefox users. Issue solved!
+
+
 # 2.1.10
 ⨠ 🛸 Avoiding the mess
 Phind changed its UI, so the extension was a bit lost. Now, it's back on track! Sorry for the inconvenience!
