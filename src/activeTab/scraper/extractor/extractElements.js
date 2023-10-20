@@ -8,10 +8,12 @@ export async function extractPerplexitySources(content, format) {
       btn.click();
       await sleep(10);
 
+      let i = 0;
       for (const result of document.querySelectorAll("main > .justify-center.items-center .py-md .py-md")) {
         const link = result.querySelector("a");
-        const text = result.querySelector("div.default > div").innerText.replaceAll("\n", " ").replaceAll('"', '');
+        const text = "(" + i + ") " + format(result.querySelector("div.default > div").innerText.replaceAll("\n", " ").replaceAll('"', ''));
         res += (link ? formatLink(link.href, text) : text) + "\n";
+        i ++;
       }
 
       const btnQuit = document.querySelector("main > .justify-center.items-center button.bg-super");

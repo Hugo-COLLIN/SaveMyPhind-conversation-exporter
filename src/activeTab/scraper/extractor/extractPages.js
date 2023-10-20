@@ -222,8 +222,6 @@ async function extractPerplexityPage(format)
     const src = await extractPerplexitySources(content, format);
     if (src !== null)
       markdown += "---\n**Sources:**\n" + src;
-
-    markdown += "\n\n";
   }
 
   return markdown;
