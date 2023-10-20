@@ -22,5 +22,5 @@ export async function extractPerplexitySources(content, format) {
     }
 
   }
-  return true;
+  return null;
 }

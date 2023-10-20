@@ -218,7 +218,12 @@ async function extractPerplexityPage(format)
     // }
     // if (analysis[0].querySelector(".grid") !== null) markdown += "**Quick search:**\n";
 
-    markdown += "---\n**Sources:**\n" + await extractPerplexitySources(content, format) ?? "" + "\n\n";
+    // Display sources
+    const src = await extractPerplexitySources(content, format);
+    if (src !== null)
+      markdown += "---\n**Sources:**\n" + src;
+
+    markdown += "\n\n";
   }
 
   return markdown;
