@@ -1,7 +1,6 @@
 import {getHostAndPath} from "../utils/webpage/getters";
 
 
-
 export async function domainExportChecker() {
   const domains = {
     "PhindSearch": "www.phind.com/search",
@@ -41,4 +40,14 @@ async function domainChecker(domains) {
 export function isHomepageCheck()
 {
   return window.location.href === "https://www.phind.com" || window.location.href === "https://www.phind.com/"
+}
+
+export function detectPageLoad(domain) {
+  if (domain.name === "MaxAIGoogle") {
+    window.addEventListener('load', function () {
+      const isMaxAI = document.querySelector('[id^=MAXAI]') !== null;
+      chrome.storage.local.set({isMaxAI: isMaxAI});
+    })
+  }
+
 }
