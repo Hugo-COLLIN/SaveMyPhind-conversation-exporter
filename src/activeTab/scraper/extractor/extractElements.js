@@ -8,7 +8,7 @@ export async function extractPerplexitySources(content, format) {
       btn.click();
       await sleep(10);
 
-      let i = 0;
+      let i = 1;
       for (const result of document.querySelectorAll("main > .justify-center.items-center .py-md .py-md")) {
         const link = result.querySelector("a");
         const text = "(" + i + ") " + format(result.querySelector("div.default > div").innerText.replaceAll("\n", " ").replaceAll('"', ''));
