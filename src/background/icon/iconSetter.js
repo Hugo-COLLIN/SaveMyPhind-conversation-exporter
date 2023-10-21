@@ -21,7 +21,7 @@ function setIcon(url, tabId) {
     else if (url.includes("perplexity.ai")) {
       chrome.action.setIcon({path: {"48": "assets/icons/icon_perplexity-48.png"}, tabId: tabId});
     }
-    else if (url.includes("google.com")) {
+    else if (url.includes("www.google.com")) {
       chrome.storage.local.get("isMaxAI", (result) => {
         console.log(result.isMaxAI); result.isMaxAI ? chrome.action.setIcon({path: {"48": "assets/icons/icon_googleMaxAI-48.png"}, tabId: tabId}) : ""});
     }

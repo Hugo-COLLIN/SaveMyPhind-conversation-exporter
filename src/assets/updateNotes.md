@@ -1,5 +1,5 @@
 # Update notes
-# 2.2.8
+# 2.2.9
 ⨠ 🚀 Now exports MaxAI Google integration answer!
 If you've installed the MaxAI extension and the Google integration is activated, you can now export the answer of the bot! Just click on the icon when on a Google search.
 

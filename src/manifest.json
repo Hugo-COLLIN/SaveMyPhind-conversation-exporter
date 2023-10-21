@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Save my Chatbot - AI Conversation Exporter",
-  "version": "2.2.8",
+  "version": "2.2.9",
   "description": "🚀 Export your Phind, Perplexity and MaxAI-Google search threads into markdown files!",
   "icons": {
     "16": "assets/icons/icon-16.png",
@@ -16,7 +16,7 @@
   "host_permissions": [
     "*://*.phind.com/*",
     "*://*.perplexity.ai/*",
-    "*://*.google.com/*"
+    "*://www.google.com/*"
   ],
   "action": {
     "default_icon": "assets/icons/icon_disabled-500.png"
@@ -29,7 +29,7 @@
       "matches": [
         "*://*.phind.com/*",
         "*://*.perplexity.ai/*",
-        "*://*.google.com/*"
+        "*://www.google.com/*"
       ],
       "js": [
         "main.js"
