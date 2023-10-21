@@ -180,18 +180,18 @@ function modifyingStyle() {
 
 export function improveUI() {
   window.addEventListener('load', function () {
-    console.log("UI Enhancer loaded")
+    // console.log("UI Enhancer loaded")
     if (window.location.href.includes("phind.com")) {
-      console.log("PASSED2")
+      // console.log("PASSED2")
       chrome.runtime.sendMessage({message: 'LOAD_COMPLETE'}, async function (response) {
-        console.log("PASSED3")
+        // console.log("PASSED3")
         if (response.message === 'exportAllThreads finished') {
-          console.log("PASSED4-1")
+          // console.log("PASSED4-1")
           window.location.href = "https://www.phind.com";
         }
         // else if (response.message === 'LOAD_COMPLETE processed' || response.message === 'exportAllThreads in progress') {
         else {
-          console.log("PASSED4-2")
+          // console.log("PASSED4-2")
           // let isExporting = response.message === 'exportAllThreads in progress';
           // addStyle();
 
@@ -219,7 +219,7 @@ export function improveUI() {
               let modalbg = createModalBg()
               let modalUpdateLogs = await createModalUpdate(modalbg);
 
-              console.log("Passed HERE")
+              // console.log("Passed HERE")
               // Append modal
               waitAppend("body", [modalbg, modalUpdateLogs], 'appendChild');
 

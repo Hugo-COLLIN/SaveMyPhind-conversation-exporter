@@ -1,5 +1,5 @@
-import {domainExportChecker, domainLoadChecker} from "./checker/domainChecker";
-import {launchExport, scrapOnLoadListener} from "./scraper/scraper";
+import {detectPageLoad, domainExportChecker, domainLoadChecker} from "./checker/domainChecker";
+import {launchExport} from "./scraper/scraper";
 import {improveUI} from "./uiEnhancer/uiEnhancer";
 
 export async function actionExtensionIconClicked() {
@@ -12,6 +12,7 @@ export async function actionExtensionIconClicked() {
 export async function actionPageLoaded() {
   const domain = await domainLoadChecker();
   if (domain === null) return;
-  scrapOnLoadListener();
+  detectPageLoad(domain);
+  // scrapOnLoadListener();
   improveUI();
 }

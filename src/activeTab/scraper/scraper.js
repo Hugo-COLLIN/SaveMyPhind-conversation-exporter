@@ -14,7 +14,10 @@ export async function launchExport(domain) {
   setFormatRules(domain.name);
   const extracted = await extract(domain);
 
-  if (extracted === null) return;
+  if (extracted.markdownContent === null) {
+    alert("SaveMyChatbot: No content to export!");
+    return;
+  }
 
   await exportContent(domain, extracted);
   console.log("Export done!")

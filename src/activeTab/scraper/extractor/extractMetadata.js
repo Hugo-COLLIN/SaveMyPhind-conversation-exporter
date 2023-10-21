@@ -3,6 +3,7 @@ export default {
   extractPhindAgentMetadata,
   extractArbitraryPageMetadata,
   extractPerplexityMetadata,
+  extractMaxAIGoogleMetadata,
 }
 
 /**
@@ -44,5 +45,17 @@ function extractPerplexityMetadata() {
   return {
     title: getPerplexityPageTitle(),
     source: "Perplexity.ai",
+  }
+}
+
+export function getMaxAIGooglePageTitle() {
+  return document.querySelector("textarea").innerHTML ?? "";
+}
+
+function extractMaxAIGoogleMetadata() {
+  return {
+    // title: document.title ?? "",
+    title: getMaxAIGooglePageTitle(),
+    source: "MaxAI-Google",
   }
 }

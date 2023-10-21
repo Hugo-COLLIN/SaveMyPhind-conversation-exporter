@@ -1,7 +1,7 @@
 import {sleep} from "../../../common/utils";
 import {capitalizeFirst, formatLineBreaks} from "../../utils/format/formatText";
-import {setFileHeader} from "../../utils/format/formatMarkdown";
-import {getPerplexityPageTitle, getPhindPageTitle} from "./extractMetadata";
+import {formatLink, setFileHeader} from "../../utils/format/formatMarkdown";
+import {getPerplexityPageTitle, getPhindPageTitle, getMaxAIGooglePageTitle} from "./extractMetadata";
 import {foldQuestions, unfoldQuestions} from "../../utils/webpage/interact";
 import {extractPerplexitySources} from "./extractElements";
 
@@ -13,6 +13,7 @@ export default {
   extractPhindSearchPage,
   extractPhindAgentPage,
   extractPerplexityPage,
+  extractMaxAIGooglePage,
 }
 
 /**
@@ -197,8 +198,10 @@ async function extractPerplexityPage(format)
 
     // Display answer
     const answer = content.querySelector(".relative.default > div > div")
-    const answerer = content.querySelector(".mb-lg .flex.items-center > p").innerHTML;
-    markdown += answerer.toLowerCase().includes('copilot') ?
+    const answerer = content.querySelector(".mb-lg .flex.items-center > p");
+    markdown += !answerer ?
+        "## AI answer\n"
+      : answerer.innerHTML.toLowerCase().includes('copilot') ?
         "## Copilot answer\n"
       : answerer.toLowerCase().includes('search') ?
         "## Quick answer\n"
@@ -215,8 +218,41 @@ async function extractPerplexityPage(format)
     // }
     // if (analysis[0].querySelector(".grid") !== null) markdown += "**Quick search:**\n";
 
-    markdown += "---\n**Sources:**\n" + await extractPerplexitySources(content, format) + "\n\n";
+    // Display sources
+    const src = await extractPerplexitySources(content, format);
+    if (src !== null)
+      markdown += "---\n**Sources:**\n" + src;
   }
+
+  return markdown;
+}
+
+/**
+ * TODO: Chatbot name before answer + get title from MaxAI query, not from google textarea (differences)
+ */
+export async function extractMaxAIGooglePage(format)
+{
+  const hostElement = document.querySelector('[id^=MAXAI]');
+  if (hostElement === null) return null;
+  const shadowRoot = hostElement.shadowRoot;
+
+  const selectAnswer = shadowRoot.querySelector('.search-with-ai--text');
+  if (selectAnswer === null) return null;
+
+  let selectSources = shadowRoot.querySelector('[class*=--MuiGrid-container]');
+  if (selectSources) selectSources = selectSources.childNodes
+
+  let markdown = await setFileHeader(getMaxAIGooglePageTitle(), "MaxAI in Google");
+  markdown += "## Answer\n" + format(selectAnswer.innerHTML) + "\n\n";
+  markdown += "---\n**Sources:**\n";
+  let i = 1;
+  selectSources.forEach((elt) => {
+    const text = elt.querySelector("a p")
+    const url = elt.querySelector("a").href;
+    if (text !== null) markdown += "- " + formatLink(url, i + ". " + text.innerHTML) + "\n";
+    i ++;
+  });
+  markdown += "\n\n";
 
   return markdown;
 }
