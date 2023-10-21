@@ -29,7 +29,7 @@
       "matches": [
         "*://*.phind.com/*",
         "*://*.perplexity.ai/*",
-        "*://www.google.com/*"
+        "*://*.google.com/search*"
       ],
       "js": [
         "main.js"
