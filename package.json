@@ -1,6 +1,6 @@
 {
   "name": "save-my-phind",
-  "version": "2.1.10",
+  "version": "2.2.8",
   "license": "RMD-C v1.0 License",
   "scripts": {
     "syncVersion": "node manage/syncVersions.js",
