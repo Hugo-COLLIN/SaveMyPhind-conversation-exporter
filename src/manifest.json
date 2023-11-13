@@ -16,7 +16,7 @@
   "host_permissions": [
     "*://*.phind.com/*",
     "*://*.perplexity.ai/*",
-    "*://www.google.com/*"
+    "*://google.com/search*"
   ],
   "action": {
     "default_icon": "assets/icons/icon_disabled-500.png"
