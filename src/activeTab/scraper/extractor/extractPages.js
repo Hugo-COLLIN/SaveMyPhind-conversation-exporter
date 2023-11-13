@@ -185,7 +185,7 @@ export async function extractPhindAgentPage(format) {
 
 async function extractPerplexityPage(format)
 {
-  const messages = document.querySelectorAll('main .pb-md.mb-md');
+  const messages = document.querySelectorAll('#ppl-message-scroll-target > div > div:nth-of-type(2) > [class]');
   let markdown = await setFileHeader(getPerplexityPageTitle(), "Perplexity.ai");
 
   for (const content of messages) {
@@ -221,7 +221,7 @@ async function extractPerplexityPage(format)
     // Display sources
     const src = await extractPerplexitySources(content, format);
     if (src !== null)
-      markdown += "---\n**Sources:**\n" + src;
+      markdown += "---\n**Sources:**\n" + src + "\n";
   }
 
   return markdown;
