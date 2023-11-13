@@ -3,7 +3,7 @@
   "APP_SNAME": "SaveMyChatbot",
   "APP_LNAME": "Save my Chatbot - Phind & Perplexity Exporter",
   "APP_ID": "savemyphind@hugocollin.com",
-  "APP_VERSION": "2.2.9",
+  "APP_VERSION": "2.2.11",
   "APP_MODE": "dev",
   "APP_REPO_URL": "https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter",
   "APP_WEBSITE_URL": "https://save.hugocollin.com",
