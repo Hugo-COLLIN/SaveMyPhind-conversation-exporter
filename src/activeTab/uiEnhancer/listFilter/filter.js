@@ -1,14 +1,17 @@
-import {waitAppend} from "../uiEnhancer/elements/insertElements";
-import {createSmallField} from "../uiEnhancer/elements/createElements";
+import {waitAppears, waitAppend} from "../elements/insertElements";
+import {createSmallField} from "../elements/createElements";
 
 export async function addListFilter() {
   // Create a text field for user input
   const input = await createSmallField('Search previous threads...');
-  await waitAppend('.container.p-0 > .row', [input], 'insertBefore');
+  const historySelector = '[role="dialog"]>div>div>div>div>div>div'
+
+  await waitAppears(historySelector, 100, 1000);
+  await waitAppend(historySelector, [input], 'after');
 
   // Event listener for changes in the text field
   input.addEventListener('input', () => {
-    filterList(input, '.container.p-0 > .row tbody > tr', '.fs-6');
+    filterList(input, historySelector + ':nth-of-type(3)>div', '>div>div');
   });
 }
 
@@ -18,7 +21,7 @@ function filterList(input, rowsSelector, textSelector) {
   const rows = document.querySelectorAll(rowsSelector);
 
   rows.forEach(row => {
-    const text = row.querySelector(textSelector).textContent.toLowerCase();
+    const text = row.querySelector(rowsSelector + textSelector).textContent.toLowerCase();
     row.style.display = text.includes(filterText) ? '' : 'none';
   });
 }
