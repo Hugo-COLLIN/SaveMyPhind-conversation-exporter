@@ -1,7 +1,5 @@
 import {
   createButtonGroup,
-  createModalBg,
-  createModalUpdate,
   createSideMenuBtn,
   createTopBtn
 } from "./elements/createElements";
@@ -11,6 +9,7 @@ import {waitAppears, waitAppend} from "./elements/insertElements";
 import {addListFilter} from "./listFilter/filter";
 import {btnBarAllInline} from "./elements/changeElements";
 import {isHomepageCheck} from "../checker/domainChecker";
+import {createModalBg, createModalUpdate, modalClicksContent, modalUpdateContent} from "./elements/createElementsModal";
 
 async function initVars() {
   const topBtnsGroup = await createButtonGroup("top-buttons-group");
@@ -232,7 +231,8 @@ export function improveUI() {
             if (result.displayModalUpdate) {
               // Create modal
               let modalbg = createModalBg()
-              let modalUpdateLogs = await createModalUpdate(modalbg);
+              // let modalUpdateLogs = await createModalUpdate(modalbg, modalUpdateContent);
+              let modalUpdateLogs = await createModalUpdate(modalbg, modalClicksContent);
 
               // console.log("Passed HERE")
               // Append modal
