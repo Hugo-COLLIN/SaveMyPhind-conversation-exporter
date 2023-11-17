@@ -1,6 +1,6 @@
 import {sleep} from "../../../common/utils";
-import {capitalizeFirst, formatLineBreaks} from "../../utils/format/formatText";
-import {formatLink, setFileHeader} from "../../utils/format/formatMarkdown";
+import {capitalizeFirst, formatLineBreaks} from "../../formatter/formatText";
+import {formatLink, setFileHeader} from "../../formatter/formatMarkdown";
 import {getPerplexityPageTitle, getPhindPageTitle, getMaxAIGooglePageTitle} from "./extractMetadata";
 import {foldQuestions, unfoldQuestions} from "../../utils/webpage/interact";
 import {extractPerplexitySources} from "./extractElements";

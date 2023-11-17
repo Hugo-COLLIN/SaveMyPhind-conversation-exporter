@@ -1,5 +1,5 @@
 import {sleep} from "../../../common/utils";
-import {formatLink} from "../../utils/format/formatMarkdown";
+import {formatLink} from "../../formatter/formatMarkdown";
 
 export async function extractPerplexitySources(content, format) {
   let res = "";

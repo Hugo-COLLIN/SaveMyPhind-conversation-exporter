@@ -1,7 +1,7 @@
 import extractPages from "./extractPages";
 import extractMetadata from "./extractMetadata";
-import converter from "../../utils/format/formatMarkdown";
-import {formatFilename} from "../../utils/format/formatText";
+import converter from "../../formatter/formatMarkdown";
+import {formatFilename} from "../../formatter/formatText";
 import {dynamicCall} from "../../../common/utils";
 import {getAppInfos} from "../../../common/appInfos";
 
