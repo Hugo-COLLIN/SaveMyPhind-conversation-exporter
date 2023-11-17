@@ -12,6 +12,7 @@ export function clickActionListener() {
         target: {tabId: tab.id},
         files: ['main.js']
       });
+
     } catch (error) {
       console.error("Error executing script: ", error);
     }
