@@ -124,10 +124,6 @@ export async function modalUpdateContent(modalBodyDiv, outerDiv, modalBackground
 
 export async function modalClicksContent(modalBodyDiv, outerDiv, modalBackground) {
   const appInfos = await getAppInfos();
-  const updates = await getUpdatesData();
-
-  const clicks = await chrome.storage.sync.get('clickIconCount');
-  console.log(clicks);
 
   // Title
   var innerDivImage = document.createElement('span');
@@ -148,7 +144,7 @@ export async function modalClicksContent(modalBodyDiv, outerDiv, modalBackground
 
   // let innerDiv4 = createModalTextGroup(`Glad ${appInfos.APP_NAME} is useful for you! <br/><br/> Please consider support the project by donating:`); //I'm not affiliated with Phind, I just love this website and I wanted to make it better for me and for you. If you want to support me, you can donate at https://www.paypal.com/paypalme/${appInfos.APP_SNAME}
 
-  let innerDiv4 = createModalTextGroup(`Hi, I'm an independent developer who created ${appInfos.APP_NAME} to help you. I love working on this project and I'd like to continue improving it for you. <br/><br/> However, being an independent developer, I rely on the support of users like you. If you find this app useful, please consider supporting the project by making a donation. Every little bit helps and is greatly appreciated. Thank you for your support!<br/><br/>`);
+  let innerDiv4 = createModalTextGroup(`Hi, I'm Hugo COLLIN, an independent developer who created ${appInfos.APP_NAME} to help you. I love working on this project and I'd like to continue improving it for you. <br/><br/> However, being an independent developer, I rely on the support of users like you. If you find this extension useful, please consider supporting the project by making a donation. Every little bit helps and is greatly appreciated. Thank you for your support!<br/><br/>`);
   innerDiv4.fontWeight = 'normal';
 
   modalBodyDiv.appendChild(document.createElement('br'));
@@ -164,7 +160,7 @@ export async function modalClicksContent(modalBodyDiv, outerDiv, modalBackground
   closeButton.type = 'button';
   closeButton.classList.add('m-1', 'btn', 'btn-secondary');
   closeButton.style.fontSize = '0.8em';
-  closeButton.innerHTML = "Later";
+  closeButton.innerHTML = "Later...";
 
   var reviewButton = document.createElement('a');
   reviewButton.href = appInfos.APP_SUPPORT_URL;

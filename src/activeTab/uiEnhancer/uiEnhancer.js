@@ -232,7 +232,7 @@ export function improveUI() {
               // Create modal
               let modalbg = createModalBg()
               // let modalUpdateLogs = await createModalUpdate(modalbg, modalUpdateContent);
-              let modalUpdateLogs = await createModalUpdate(modalbg, modalClicksContent);
+              let modalUpdateLogs = await createModalUpdate(modalbg, modalUpdateContent);
 
               // console.log("Passed HERE")
               // Append modal
@@ -256,6 +256,6 @@ export function improveUI() {
     }
   });
 
-  displayInputOnHistoryModal();
+  displayInputOnHistoryModal(); // display filter input on history modal
 
 }
