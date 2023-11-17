@@ -177,6 +177,22 @@ function modifyingStyle() {
   });
 }
 
+function displayInputOnHistoryModal() { // TODO: Make it an insertElement generic function
+  const targetNode = document.querySelector('body'); // Change this to a stable parent element
+  const observer = new MutationObserver(async (mutationsList, observer) => {
+    for (let mutation of mutationsList) {
+      if (mutation.type === 'childList') {
+        const dialogNode = document.querySelector('[role="dialog"]>div>div>div>div>div>div');
+        if (dialogNode && !dialogNode.hasAttribute('data-input-added')) {
+          dialogNode.setAttribute('data-input-added', 'true');
+          await addListFilter();
+        }
+      }
+    }
+  });
+  observer.observe(targetNode, {attributes: false, childList: true, subtree: true});
+}
+
 export function improveUI() {
   window.addEventListener('load', function () {
     // console.log("UI Enhancer loaded")
@@ -211,10 +227,6 @@ export function improveUI() {
 
           // appendButtons(isHomepage, topBtnsGroup, exportThreadTopBtn, response, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
 
-          addListFilter().then(() => {
-            //Nothing to do
-          });
-
           // Create "last update" modal if needed
           chrome.storage.sync.get(['displayModalUpdate'], async function (result) {
             if (result.displayModalUpdate) {
@@ -243,5 +255,7 @@ export function improveUI() {
       });
     }
   });
+
+  displayInputOnHistoryModal();
 
 }

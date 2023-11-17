@@ -2,9 +2,14 @@ import {waitAppears, waitAppend} from "../elements/insertElements";
 import {createSmallField} from "../elements/createElements";
 
 export async function addListFilter() {
+  const historySelector = '[role="dialog"]>div>div>div>div>div>div'
+  const existingInput = document.querySelector(historySelector + ' input');
+  if (existingInput) {
+    existingInput.remove();
+  }
+
   // Create a text field for user input
   const input = await createSmallField('Search previous threads...');
-  const historySelector = '[role="dialog"]>div>div>div>div>div>div'
 
   await waitAppears(historySelector, 100, 1000);
   await waitAppend(historySelector, [input], 'after');
