@@ -63,9 +63,12 @@ This project uses third-party libraries. See the [license list](licenses.txt) fo
 See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 
 ### Main features:
-- [ ] Donation popup when user reaches a certain number of clicks (Paypal, BuyMeACoffee, etc.) (in chrome.storage.sync)
+- [ ] Improve Perplexity UI
+  - [ ] Update modal
+  - [ ] Donation modal
 - [ ] Phind:Export tables into markdown (Turndown rule)
 - [ ] Export ChatGPT threads
+- [x] Donation popup when user reaches a certain number of clicks (Paypal, BuyMeACoffee, etc.) (in chrome.storage.sync)
 - [x] Export Perplexity threads
 - [x] Search bar above threads list to filter threads
 - [x] Open a form when uninstalled to ask for feedback
@@ -129,14 +132,13 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 - [ ] ~~Automatically copy the last response to the clipboard (without clicking on the extension icon)?~~
 
 ### Bugs/Issues:
-- [ ] Export bug on Perplexity thread: https://www.perplexity.ai/search/Quel-nom-donner-TTxbvUcKQ9ib8r0O_I4tjQ?s=c
 - [ ] Extension icon not updated on Firefox
   => User needs to click or manually allow the extension to access websites
 - [ ] Detect when connected or something to anticipate and specify the "Export all threads" button usability
 - [ ] "Export All Threads": Button "Stop exporting" always visible after export is finished
   => Redirect to homepage when export is finished
 - [ ] (Web: Exported links beginning with # prepended by page url)
-- [ ] ~~Pair programmer: Line breaks in user questions (Phind uses spaces as line breaks)~~
+- [x] Export bug on Perplexity thread: https://www.perplexity.ai/search/Quel-nom-donner-TTxbvUcKQ9ib8r0O_I4tjQ?s=c
 - [x] Perplexity: Export error when sending file
   https://www.perplexity.ai/search/9afe2327-9ca6-473b-8ec6-9ebcd8d862fe?s=u
 - [x] "Rate on Chrome Web Store" for Firefox users
