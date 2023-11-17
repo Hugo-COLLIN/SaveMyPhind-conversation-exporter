@@ -21,6 +21,11 @@ export async function launchExport(domain) {
 
   await exportContent(domain, extracted);
   console.log("Export done!")
+
+  // Increment click icon count
+  chrome.storage.sync.get("clickIconCount", function (result) {
+    chrome.storage.sync.set({"clickIconCount": result.clickIconCount + 1});
+  });
 }
 
 export function scrapOnLoadListener(domain) {

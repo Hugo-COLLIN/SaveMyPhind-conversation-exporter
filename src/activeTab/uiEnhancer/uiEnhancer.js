@@ -1,16 +1,15 @@
 import {
   createButtonGroup,
-  createModalBg,
-  createModalUpdate,
   createSideMenuBtn,
   createTopBtn
 } from "./elements/createElements";
 import {launchExport} from "../scraper/scraper";
 import {setBtnsExport} from "./elements/styleCreatedElements";
 import {waitAppears, waitAppend} from "./elements/insertElements";
-import {addListFilter} from "../listFilter/filter";
+import {addListFilter} from "./listFilter/filter";
 import {btnBarAllInline} from "./elements/changeElements";
 import {isHomepageCheck} from "../checker/domainChecker";
+import {createModalBg, createModalUpdate, modalClicksContent, modalUpdateContent} from "./elements/createElementsModal";
 
 async function initVars() {
   const topBtnsGroup = await createButtonGroup("top-buttons-group");
@@ -121,7 +120,6 @@ function appendButtons(isHomepage, topBtnsGroup, exportThreadTopBtn, response, e
     const logoPhind = document.querySelector(".d-lg-block.container");
     logoPhind.classList.remove("mb-5", "mt-8");
     logoPhind.classList.add("mb-4", "mt-7");
-    await addListFilter();
   });
 }
 
@@ -178,6 +176,22 @@ function modifyingStyle() {
   });
 }
 
+function displayInputOnHistoryModal() { // TODO: Make it an insertElement generic function
+  const targetNode = document.querySelector('body'); // Change this to a stable parent element
+  const observer = new MutationObserver(async (mutationsList, observer) => {
+    for (let mutation of mutationsList) {
+      if (mutation.type === 'childList') {
+        const dialogNode = document.querySelector('[role="dialog"]>div>div>div>div>div>div');
+        if (dialogNode && !dialogNode.hasAttribute('data-input-added')) {
+          dialogNode.setAttribute('data-input-added', 'true');
+          await addListFilter();
+        }
+      }
+    }
+  });
+  observer.observe(targetNode, {attributes: false, childList: true, subtree: true});
+}
+
 export function improveUI() {
   window.addEventListener('load', function () {
     // console.log("UI Enhancer loaded")
@@ -217,7 +231,8 @@ export function improveUI() {
             if (result.displayModalUpdate) {
               // Create modal
               let modalbg = createModalBg()
-              let modalUpdateLogs = await createModalUpdate(modalbg);
+              // let modalUpdateLogs = await createModalUpdate(modalbg, modalUpdateContent);
+              let modalUpdateLogs = await createModalUpdate(modalbg, modalUpdateContent);
 
               // console.log("Passed HERE")
               // Append modal
@@ -240,5 +255,7 @@ export function improveUI() {
       });
     }
   });
+
+  displayInputOnHistoryModal(); // display filter input on history modal
 
 }

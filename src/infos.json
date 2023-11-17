@@ -7,7 +7,7 @@
   "APP_MODE": "dev",
   "APP_REPO_URL": "https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter",
   "APP_WEBSITE_URL": "https://save.hugocollin.com",
-  "APP_SUPPORT_URL": "https://hugocollin.com/support",
+  "APP_SUPPORT_URL": "https://save.hugocollin.com/support",
   "APP_WEBSTORE_URL": "https://chrome.google.com/webstore/detail/agklnagmfeooogcppjccdnoallkhgkod",
   "APP_FIREFOX_STORE_URL": "https://addons.mozilla.org/en-US/firefox/addon/save-my-phind",
   "CONTACT_EMAIL": "hcollin.dev@gmail.com",

@@ -1,4 +1,4 @@
-import {formatLink, initTurndown, turndownConverter} from "../../utils/format/formatMarkdown";
+import {formatLink, initTurndown, turndownConverter} from "../../formatter/formatMarkdown";
 
 /**
  * Exported functions
