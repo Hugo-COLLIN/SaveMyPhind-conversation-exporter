@@ -8,7 +8,7 @@ import {
 import {launchExport} from "../scraper/scraper";
 import {setBtnsExport} from "./elements/styleCreatedElements";
 import {waitAppears, waitAppend} from "./elements/insertElements";
-import {addListFilter} from "../listFilter/filter";
+import {addListFilter} from "./listFilter/filter";
 import {btnBarAllInline} from "./elements/changeElements";
 import {isHomepageCheck} from "../checker/domainChecker";
 
@@ -121,7 +121,6 @@ function appendButtons(isHomepage, topBtnsGroup, exportThreadTopBtn, response, e
     const logoPhind = document.querySelector(".d-lg-block.container");
     logoPhind.classList.remove("mb-5", "mt-8");
     logoPhind.classList.add("mb-4", "mt-7");
-    await addListFilter();
   });
 }
 
@@ -211,6 +210,10 @@ export function improveUI() {
           // } = await setupButtons();
 
           // appendButtons(isHomepage, topBtnsGroup, exportThreadTopBtn, response, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
+
+          addListFilter().then(() => {
+            //Nothing to do
+          });
 
           // Create "last update" modal if needed
           chrome.storage.sync.get(['displayModalUpdate'], async function (result) {
