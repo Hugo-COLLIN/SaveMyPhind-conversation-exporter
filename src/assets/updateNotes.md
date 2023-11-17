@@ -1,4 +1,9 @@
 # Update notes
+# 2.2.14
+⨠ 🔎 History search is back!
+Since Phind changed its UI, the history search was broken. It's now fixed! Just open the Phind history to see the good oldies.
+
+
 # 2.2.11
 ⨠ 🛸 Perplexity export is now working again!
 Perplexity changed its UI, so the extension was a bit lost. Now, it's back on track! Sorry for the inconvenience!
