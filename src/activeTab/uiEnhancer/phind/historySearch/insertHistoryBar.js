@@ -1,5 +1,5 @@
-import {createSmallField} from "../generalElements/createElements";
-import {waitAppears, waitAppend} from "../../interactDOM/insertElements";
+import {createSmallField} from "../genericElements/createElements";
+import {waitAppears, waitAppend} from "../../interactDOM/interactDOM";
 import {filterList} from "../../filterList/filter";
 
 export async function addListFilter() {

@@ -1,5 +1,5 @@
 import {createModalBg, createModal, modalClicksContent} from "../uiEnhancer/phind/modals/createModal";
-import {waitAppend} from "../uiEnhancer/interactDOM/insertElements";
+import {waitAppend} from "../uiEnhancer/interactDOM/interactDOM";
 
 export function detectClicksModal() {
   chrome.storage.sync.get('clickIconCount', async function (result) {
