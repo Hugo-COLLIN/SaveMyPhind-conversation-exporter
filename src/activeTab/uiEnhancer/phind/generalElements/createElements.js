@@ -2,7 +2,9 @@
 --- ELTS CREATION ---
  */
 
-import {getAppInfos} from "../../../common/appInfos";
+import {getAppInfos} from "../../../../common/appInfos";
+
+
 
 export async function createSideMenuBtn(title, icon, display = '', txtSize = 'fs-5') {
   const appInfos = await getAppInfos();

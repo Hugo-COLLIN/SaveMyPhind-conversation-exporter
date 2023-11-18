@@ -1,7 +1,7 @@
-import {getAppInfos} from "../../../common/appInfos";
-import {getUpdatesData} from "../messenger/modalUpdate";
+import {getAppInfos} from "../../../../common/appInfos";
+import {getUpdatesData} from "../../messenger/updateNotes";
 
-export async function createModalUpdate(modalBackground, modalContentCreator) {
+export async function createModal(modalBackground, modalContentCreator) {
   const appInfos = await getAppInfos();
   const updates = await getUpdatesData();
 
