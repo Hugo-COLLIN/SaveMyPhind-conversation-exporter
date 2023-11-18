@@ -3,6 +3,7 @@ import {btnBarAllInline} from "./changeButtons";
 import {setBtnsExport} from "./styleExportButtons";
 import {createSideMenuBtn, createTopBtn} from "../genericElements/createElements";
 import {launchExport} from "../../../scraper/scraper";
+import {initVars} from "../improvePhindUI";
 
 async function setupButtons() {
   // Create elements to add to the page
@@ -139,4 +140,22 @@ async function appendBtnGroup(isStopGenBasic, topBtnsGroup, isHomepage) {
   //   btn.classList.remove("mb-4");
   //   waitAppend("#top-buttons-group", [btn], "append");
   // });
+}
+
+async function createExportButtons(response) {
+  const {topBtnsGroup, isStopGenBasic, isHomepage} = await initVars();
+
+  await appendBtnGroup(isStopGenBasic, topBtnsGroup, isHomepage);
+
+  modifyingStyle();
+
+  let {
+    exportAllThreadsSideBtn,
+    stopExportAllThreadsSideBtn,
+    exportAllThreadsTopBtn,
+    stopExportAllThreadsTopBtn,
+    exportThreadTopBtn
+  } = await setupButtons();
+
+  appendButtons(isHomepage, topBtnsGroup, exportThreadTopBtn, response, exportAllThreadsSideBtn, exportAllThreadsTopBtn, stopExportAllThreadsSideBtn, stopExportAllThreadsTopBtn);
 }
