@@ -10,6 +10,7 @@ export async function uiEnhancer(domain) {
     // console.log(path)
     // const module = await import(path);
     // dynamicCall(module, `improve${domainName}UI`);
-    improvePhindUI(); // TODO: replace by a Phind, and Perplexity classes
+    if (domain.name === 'Phind')
+      improvePhindUI(); // TODO: replace by a Phind, and Perplexity classes
   });
 }
