@@ -100,7 +100,8 @@ export async function extractPhindAgentPage(format) {
   let markdown = await setFileHeader(getPhindPageTitle(), "Phind Agent");
 
   for (const content of messages) {
-    const msgContent = content.querySelectorAll('.col > div > div > div:has(*), .col > div > div > div:has(*):first-of-type');
+    const allDivs = content.querySelectorAll('.col > div > div > div');
+    const msgContent = Array.from(allDivs).filter(div => div.children.length > 0);
     const searchResults = content.querySelectorAll('.col > div > div > div:nth-last-of-type(1) a');
     const entityName = content.querySelectorAll('.col > div > div > span');
 
@@ -110,7 +111,7 @@ export async function extractPhindAgentPage(format) {
 
     // Extract writer name
     if (entityName.length > 0) {
-      res += "#### ";
+      res += "## ";
       let putSeparator = true;
       entityName.forEach((elt) => {
         res += format(elt.innerHTML);

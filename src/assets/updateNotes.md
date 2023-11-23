@@ -1,5 +1,5 @@
 # Update notes
-# 2.2.19
+# 2.2.20
 ⨠ 🛸 Fixing Phind Pair Programmer export errors
 Phind changed a little bit the Pair Programmer UI and features, but now the extension is back on track! Enjoy!
 
