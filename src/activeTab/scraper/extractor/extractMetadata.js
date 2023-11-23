@@ -12,7 +12,11 @@ export default {
  */
 export function getPhindPageTitle() { //extractMetadata
   const textarea = document.querySelector('textarea');
-  return textarea !== null && textarea.innerHTML !== "" ? textarea.innerHTML : document.querySelector(".card-body p").innerHTML ?? "";
+  const firstMsg = document.querySelector('[tabindex="0"]');
+  return textarea !== null && textarea.innerHTML !== "" ?
+      textarea.innerHTML :
+    firstMsg ?
+      firstMsg.innerText : "";
 }
 
 function extractPhindSearchMetadata() {

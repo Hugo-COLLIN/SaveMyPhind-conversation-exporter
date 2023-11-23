@@ -101,12 +101,12 @@ export async function extractPhindAgentPage(format) {
   let markdown = await setFileHeader(getPhindPageTitle(), "Phind Agent");
 
   for (const content of messages) {
-    const p1 = content.querySelectorAll('.card-body > p, .card-body > div');
+    const msgContent = content.querySelectorAll('[tabindex], div:first-of-type > div > p, div:first-of-type > div > pre, div:first-of-type > div > table');
     const p2 = content.querySelectorAll('.card-body > div:nth-last-of-type(1) a');
     const p3 = content.querySelectorAll('.card-body > span');
 
     const messageText =
-      p1.length > 0 ? await (async () => {
+      msgContent.length > 0 ? await (async () => {
           let res = "";
 
           // Extract writer name
@@ -127,11 +127,11 @@ export async function extractPhindAgentPage(format) {
           if (p2.length > 0) // If there are search results
           {
             // Message
-            res += format(p1[0].innerHTML) + "\n";
+            res += format(msgContent[0].innerHTML) + "\n";
 
             // Export search results
             res += "___\n**Sources:**";
-            const buttonsInCard = p1[2].querySelectorAll("button");
+            const buttonsInCard = msgContent[2].querySelectorAll("button");
             for (const btn of buttonsInCard) {
               if (btn.textContent.toLowerCase() === "view all search results") {
                 // Open modal
@@ -168,7 +168,7 @@ export async function extractPhindAgentPage(format) {
             res += "\n";
 
           } else // If there are no search results
-            p1.forEach((elt) => {
+            msgContent.forEach((elt) => {
               res += format(elt.innerHTML) + "\n";
             });
 
