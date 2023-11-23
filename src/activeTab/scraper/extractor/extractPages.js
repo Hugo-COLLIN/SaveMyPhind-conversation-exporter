@@ -100,7 +100,7 @@ export async function extractPhindAgentPage(format) {
   let markdown = await setFileHeader(getPhindPageTitle(), "Phind Agent");
 
   for (const content of messages) {
-    const msgContent = content.querySelectorAll('.col > div > div > div:has(*), .col > div > div > div:has(*):first-of-type'); //TODO
+    const msgContent = content.querySelectorAll('.col > div > div > div:has(*), .col > div > div > div:has(*):first-of-type');
     const searchResults = content.querySelectorAll('.col > div > div > div:nth-last-of-type(1) a');
     const entityName = content.querySelectorAll('.col > div > div > span');
 
