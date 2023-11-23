@@ -1,5 +1,6 @@
-import {waitAppears, waitAppend} from "../elements/insertElements";
-import {createSmallField} from "../elements/createElements";
+import {createSmallField} from "../genericElements/createElements";
+import {waitAppears, waitAppend} from "../../interactDOM/interactDOM";
+import {filterList} from "../../filterList/filter";
 
 export async function addListFilter() {
   const historySelector = '[role="dialog"]>div>div>div>div>div>div'
@@ -17,16 +18,5 @@ export async function addListFilter() {
   // Event listener for changes in the text field
   input.addEventListener('input', () => {
     filterList(input, historySelector + ':nth-of-type(3)>div', '>div>div');
-  });
-}
-
-// Filter the list based on the user input
-function filterList(input, rowsSelector, textSelector) {
-  const filterText = input.value.toLowerCase();
-  const rows = document.querySelectorAll(rowsSelector);
-
-  rows.forEach(row => {
-    const text = row.querySelector(rowsSelector + textSelector).textContent.toLowerCase();
-    row.style.display = text.includes(filterText) ? '' : 'none';
   });
 }

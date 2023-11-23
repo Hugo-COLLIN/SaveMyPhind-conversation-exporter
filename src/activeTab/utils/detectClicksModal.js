@@ -1,5 +1,5 @@
-import {createModalBg, createModalUpdate, modalClicksContent} from "../uiEnhancer/elements/createElementsModal";
-import {waitAppend} from "../uiEnhancer/elements/insertElements";
+import {createModalBg, createModal, modalClicksContent} from "../uiEnhancer/phind/modals/createModal";
+import {waitAppend} from "../uiEnhancer/interactDOM/interactDOM";
 
 export function detectClicksModal() {
   chrome.storage.sync.get('clickIconCount', async function (result) {
@@ -7,7 +7,7 @@ export function detectClicksModal() {
       // Create modal
       let modalbg = createModalBg()
       // let modalUpdateLogs = await createModalUpdate(modalbg, modalUpdateContent);
-      let modalUpdateLogs = await createModalUpdate(modalbg, modalClicksContent);
+      let modalUpdateLogs = await createModal(modalbg, modalClicksContent);
 
       // Append modal
       waitAppend("body", [modalbg, modalUpdateLogs], 'appendChild');

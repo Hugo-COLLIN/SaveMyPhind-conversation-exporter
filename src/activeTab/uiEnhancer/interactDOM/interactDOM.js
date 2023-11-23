@@ -1,5 +1,4 @@
 import {sleep} from "../../../common/utils";
-import {logWaitElts} from "../../utils/consoleMessages";
 
 /**
  * Wait for an element to appear in the DOM
@@ -56,4 +55,25 @@ export async function waitAppend(select, htmlTableSectionElements, mode = 'appen
     nester[mode](button);
   }
   return true;
+}
+
+/**
+ * Execute a function when an element is added to the DOM
+ * @param dialogSelector
+ * @param functionToExecute
+ */
+export function whenDOMElementAdded(dialogSelector, functionToExecute) { // TODO: Make it an insertElement generic function
+  const targetNode = document.querySelector('body'); // Change this to a stable parent element
+  const observer = new MutationObserver(async (mutationsList, observer) => {
+    for (let mutation of mutationsList) {
+      if (mutation.type === 'childList') {
+        const dialogNode = document.querySelector(dialogSelector);
+        if (dialogNode && !dialogNode.hasAttribute('data-input-added')) {
+          dialogNode.setAttribute('data-input-added', 'true');
+          await functionToExecute();
+        }
+      }
+    }
+  });
+  observer.observe(targetNode, {attributes: false, childList: true, subtree: true});
 }
