@@ -76,7 +76,7 @@ export async function extractPhindSearchPage(format) {
       (selectAiCitations !== "" ? (`\n\n**Citations:**\n` + format(selectAiCitations.innerHTML)) : "") +
       (selectSources.length > 0 ? `\n\n**Sources:**` + (() => {
         let res = "";
-        let i = 0;
+        let i = 1;
         selectSources.forEach((elt) => {
           res += "\n- " + format(elt.outerHTML).replace("[", `[(${i}) `);
           i++;
