@@ -16,20 +16,20 @@ export function getPhindPageTitle() { //extractMetadata
   return textarea !== null && textarea.innerHTML !== "" ?
       textarea.innerHTML :
     firstMsg ?
-      firstMsg.innerText : "";
+      firstMsg.innerText.replace(/\u00A0/g, " ") : "";
 }
 
 function extractPhindSearchMetadata() {
   return {
     title: getPhindPageTitle(),
-    source: "Phind Search",
+    source: "Phind-Search",
   }
 }
 
 function extractPhindAgentMetadata() {
   return {
     title: getPhindPageTitle(),
-    source: "Phind Agent",
+    source: "Phind-Agent",
   }
 }
 
