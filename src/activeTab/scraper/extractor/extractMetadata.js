@@ -11,12 +11,13 @@ export default {
  * @returns {string} title
  */
 export function getPhindPageTitle() { //extractMetadata
-  const textarea = document.querySelector('textarea');
-  const firstMsg = document.querySelector('[tabindex="0"]');
-  return textarea !== null && textarea.innerHTML !== "" ?
-      textarea.innerHTML :
-    firstMsg ?
-      firstMsg.innerText.replace(/\u00A0/g, " ") : "";
+  const searchFirstMsg = document.querySelector('[name^="answer-"] > div > div > span');
+  const agentFirstMsg = document.querySelector('[tabindex="0"]');
+  return searchFirstMsg !== null && searchFirstMsg.innerHTML !== ""
+    ? searchFirstMsg.innerHTML
+    : agentFirstMsg
+      ? agentFirstMsg.innerText.replace(/\u00A0/g, " ")
+      : "";
 }
 
 function extractPhindSearchMetadata() {
