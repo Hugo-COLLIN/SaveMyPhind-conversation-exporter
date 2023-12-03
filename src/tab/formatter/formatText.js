@@ -53,6 +53,9 @@ export function formatDate(format = 0, date = new Date()) {
     case 2 :
       res = dd + "/" + mm + "/" + yyyy;
       break;
+    case 3 :
+      res = hh + ":" + mn + ":" + ss;
+      break;
     case 0 :
       res = yyyy + "-" + mm + "-" + dd + "_" + hh + "-" + mn + "-" + ss;
       break;

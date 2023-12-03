@@ -1,4 +1,8 @@
 # Update notes
+# 2.2.23
+⨠ 🧩 Phind titles are now exported again!
+Changing CSS selectors to adapt to Phind UI changes. You know, the usual stuff...
+
 # 2.2.20
 ⨠ 🛸 Fixing Phind Pair Programmer export errors
 Phind changed a little bit the Pair Programmer UI and features, but now the extension is back on track! Enjoy!

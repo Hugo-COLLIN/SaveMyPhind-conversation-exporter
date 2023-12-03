@@ -3,7 +3,7 @@ import {waitAppend} from "../uiEnhancer/interactDOM/interactDOM";
 
 export function detectClicksModal() {
   chrome.storage.sync.get('clickIconCount', async function (result) {
-    if (result.clickIconCount >= 100) { //100
+    if (result.clickIconCount >= 99) { //100
       // Create modal
       let modalbg = createModalBg()
       // let modalUpdateLogs = await createModalUpdate(modalbg, modalUpdateContent);

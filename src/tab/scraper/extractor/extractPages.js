@@ -40,14 +40,7 @@ export async function extractPhindSearchPage(format) {
   let markdown = await setFileHeader(getPhindPageTitle(), "Phind Search");
 
   newAnswerSelector.forEach((content) => {
-    let selectUserQuestion;
-
-    if (firstQuestion) {
-      selectUserQuestion = document.querySelector('textarea');
-      firstQuestion = false;
-    }
-    else selectUserQuestion = content.querySelector('[name^="answer-"] > div > div > span');
-    selectUserQuestion = selectUserQuestion ?? '';
+    const selectUserQuestion = content.querySelector('[name^="answer-"] > div > div > span') ?? "";
 
 
     let selectAiCitations = content.querySelector('div > div:nth-last-of-type(2) > div:nth-of-type(2) > div > div');
