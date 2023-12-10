@@ -1,6 +1,6 @@
 import {createButtonGroup} from "./genericElements/createElements";
 import {isHomepageCheck} from "../../checker/domainChecker";
-import {appendModalUpdate} from "./modals/appendModals";
+import {appendModalContainer, appendModalUpdate} from "./modals/appendModals";
 
 export function improvePhindUI() {
   chrome.runtime.sendMessage({message: 'LOAD_COMPLETE'}, async function (response) {
@@ -9,6 +9,8 @@ export function improvePhindUI() {
     }
     // else if (response.message === 'LOAD_COMPLETE processed' || response.message === 'exportAllThreads in progress') {
     else {
+      await appendModalContainer();
+
       // let isExporting = response.message === 'exportAllThreads in progress';
       // addStyle();
 

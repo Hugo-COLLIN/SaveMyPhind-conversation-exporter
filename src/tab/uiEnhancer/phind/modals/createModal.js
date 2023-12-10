@@ -2,22 +2,14 @@ import {getAppInfos} from "../../../../common/appInfos";
 import {getUpdatesData} from "../../messenger/updateNotes";
 
 export async function createModal(modalContentCreator) {
-  const appInfos = await getAppInfos();
-
   const modalBackground = createModalBg();
 
-  const host = document.createElement('div');
-  document.body.appendChild(host);
-
-  // Attach a Shadow DOM to the host element
-  const shadow = host.attachShadow({mode: 'open'});
-
   // Create the modal div element
-  const outerDiv = document.createElement('div');
-  outerDiv.setAttribute('role', 'dialog');
-  outerDiv.setAttribute('aria-modal', 'true');
-  outerDiv.classList.add('fade', 'modal', 'show');
-  outerDiv.style.display = 'block';
+  const modal = document.createElement('div');
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  modal.classList.add('fade', 'modal', 'show');
+  modal.style.display = 'block';
 
 // Step 3: Create the modal-dialog div element.
   const modalDialogDiv = document.createElement('div');
@@ -31,7 +23,7 @@ export async function createModal(modalContentCreator) {
   const modalBodyDiv = document.createElement('div');
   modalBodyDiv.classList.add('bg-light', 'modal-body');
 
-  await modalContentCreator(modalBodyDiv, outerDiv, modalBackground);
+  await modalContentCreator(modalBodyDiv, modal, modalBackground);
 
 // Step 9: Append the inner divs and the Close button to the modal-content div.
   modalContentDiv.appendChild(modalBodyDiv);
@@ -40,22 +32,9 @@ export async function createModal(modalContentCreator) {
   modalDialogDiv.appendChild(modalContentDiv);
 
 // Step 11: Append the outer div to the body.
-  outerDiv.appendChild(modalDialogDiv);
+  modal.appendChild(modalDialogDiv);
 
-
-  // Add the modalbg and modal to the Shadow DOM
-  shadow.appendChild(modalBackground);
-  shadow.appendChild(outerDiv);
-
-  // Add styles to the shadow dom
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = chrome.runtime.getURL('assets/styles/phind.bundle.css')
-  shadow.appendChild(link);
-
-  host.setAttribute("extension", appInfos.APP_SNAME);
-
-  return host;
+  return {modal, modalBackground};
 }
 
 export async function modalUpdateContent(modalBodyDiv, outerDiv, modalBackground) {
