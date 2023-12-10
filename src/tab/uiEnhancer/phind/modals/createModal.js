@@ -9,10 +9,10 @@ export async function createModal(modalContentCreator) {
   const host = document.createElement('div');
   document.body.appendChild(host);
 
-  // Attacher un Shadow DOM à l'élément hôte
+  // Attach a Shadow DOM to the host element
   const shadow = host.attachShadow({mode: 'open'});
 
-  // Créer le modal comme avant
+  // Create the modal div element
   const outerDiv = document.createElement('div');
   outerDiv.setAttribute('role', 'dialog');
   outerDiv.setAttribute('aria-modal', 'true');
@@ -43,241 +43,15 @@ export async function createModal(modalContentCreator) {
   outerDiv.appendChild(modalDialogDiv);
 
 
-  // Ajouter le modalbg et le modal au Shadow DOM
+  // Add the modalbg and modal to the Shadow DOM
   shadow.appendChild(modalBackground);
   shadow.appendChild(outerDiv);
 
-  // Ajouter les styles de Bootstrap au Shadow DOM
+  // Add styles to the shadow dom
   const link = document.createElement('link');
   link.rel = 'stylesheet';
   link.href = chrome.runtime.getURL('assets/styles/phind.bundle.css')
   shadow.appendChild(link);
-
-  // var style = document.createElement('style');
-  // style.textContent = `
-  // .modal-backdrop.show {
-  //   opacity: .7;
-  // }
-  //
-  // .modal-backdrop.fade {
-  //   opacity: 0;
-  // }
-  //
-  // .modal-backdrop {
-  //   background-color: #000000;
-  //   height: 100vh;
-  //   left: 0;
-  //   position: fixed;
-  //   top: 0;
-  //   width: 100vw;
-  //   z-index: 1050;
-  // }
-  //
-  // .fade {
-  //   transition: opacity .15s linear;
-  // }
-  //
-  //
-  // `;
-
- //  style.textContent = `
- //  .modal {
- //     position: fixed;
- //     top: 0;
- //     left: 0;
- //     z-index: 1050;
- //     display: none;
- //     width: 100%;
- //     height: 100%;
- //     overflow: hidden;
- //     outline: 0;
- //   }
- //
- //   .modal-dialog {
- //     position: relative;
- //     margin: auto;
- //     padding: 0;
- //     max-width: 900px;
- //     width: 100%;
- //   }
- //
- //   .modal-content {
- //    position: relative;
- //    display: flex;
- //    flex-direction: column;
- //    width: 100%;
- //    pointer-events: auto;
- //    background-color: #f8f9fa; /* couleur de fond modifiée */
- //    background-clip: padding-box;
- //    border: 1px solid #dee2e6; /* couleur de bordure modifiée */
- //    border-radius: 15px; /* coins arrondis */
- //    box-shadow: 0 5px 15px rgba(0,0,0,0.5); /* ombre ajoutée */
- //    outline: 0;
- //  }
- //
- //
- //   .modal-header, .modal-footer {
- //     display: flex;
- //     align-items: center;
- //     justify-content: space-between;
- //     padding: 1rem;
- //     border-bottom: 1px solid #dee2e6;
- //     border-top-left-radius: calc(.3rem - 1px);
- //     border-top-right-radius: calc(.3rem - 1px);
- //   }
- //
- //   .modal-title {
- //     margin-bottom: 0;
- //     line-height: 1.5;
- //   }
- //
- //   .modal-body {
- //     position: relative;
- //     flex: 1 1 auto;
- //     padding: 1rem;
- //   }
- //
- //   .modal-footer {
- //     display: flex;
- //     align-items: center;
- //     justify-content: flex-end;
- //     padding: 1rem;
- //     border-top: 1px solid #dee2e6;
- //     border-bottom-right-radius: calc(.3rem - 1px);
- //     border-bottom-left-radius: calc(.3rem - 1px);
- //   }
- //
- //   .modal-backdrop {
- //     position: fixed;
- //     top: 0;
- //     left: 0;
- //     z-index: 1040;
- //     width: 100vw;
- //     height: 100vh;
- //     background-color: rgba(0, 0, 0, 0.5);
- //
- //   }
- //
- //   .fade {
- //     transition: opacity .15s linear;
- //   }
- //
- //   .fade.show {
- //     opacity: 1;
- //   }
- //
- //   .modal.show {
- //     display: flex;
- //     align-items: center;
- //     justify-content: center;
- //   }
- //
- //   .modal-title {
- //      color: #333;
- //      font-size: 24px;
- //      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
- //      margin-bottom: 0;
- //      line-height: 1.5;
- //    }
- //
- //    .modal-body {
- //      position: relative;
- //      flex: 1 1 auto;
- //      padding: 1rem;
- //      background-color: #f8f9fa;
- //      line-height: 1.6;
- //    }
- //
- //    .btn {
- //      display: inline-block;
- //      font-weight: 400;
- //      color: #212529;
- //      text-align: center;
- //      vertical-align: middle;
- //      cursor: pointer;
- //      background-color: #007bff;
- //      border: 1px solid transparent;
- //      padding: .375rem .75rem;
- //      font-size: 1rem;
- //      line-height: 1.5;
- //      border-radius: .25rem;
- //      transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
- //    }
- //
- //    .btn:hover {
- //      color: #212529;
- //      background-color: #0069d9;
- //      border-color: #0062cc;
- //    }
- //
- //    .btn-secondary {
- //      color: #fff;
- //      background-color: #6c757d;
- //      border-color: #6c757d;
- //    }
- //
- //    .btn-secondary:hover {
- //      color: #fff;
- //      background-color: #5a6268;
- //      border-color: #545b62;
- //    }
- //
- //    .btn-primary {
- //      color: #fff;
- //      background-color: #007bff;
- //      border-color: #007bff;
- //    }
- //
- //    .btn-primary:hover {
- //      color: #fff;
- //      background-color: #0069d9;
- //      border-color: #0062cc;
- //    }
- //
- //    .mb-5 {
- //      margin-bottom: 3rem!important;
- //    }
- //
- //    .h2 {
- //      font-size: 2rem;
- //    }
- //
- //    .h3 {
- //      font-size: 1.75rem;
- //    }
- //
- //    .m-1 {
- //      margin: .25rem!important;
- //    }
- //
- //    .pb-2 {
- //      padding-bottom: .5rem!important;
- //    }
- //
- //    .fs-4 {
- //      font-size: 1.5rem!important;
- //    }
- //
- //    .fw-bold {
- //      font-weight: 700!important;
- //    }
- //
- //    .fs-5 {
- //      font-size: 1.25rem!important;
- //    }
- //
- //    .fade {
- //      opacity: 0;
- //      transition: opacity .15s linear;
- //    }
- //
- //    .fade.show {
- //      opacity: 1;
- //    }
- //
- // `;
- //  shadow.appendChild(style);
-
 
   host.setAttribute("extension", appInfos.APP_SNAME);
 
