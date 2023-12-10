@@ -13,8 +13,6 @@ async function appendModal(modalContentCreator, ...params) {
 }
 
 export async function appendModalUpdate(domain) {
-
-  console.log(domain)
   await appendModal(modalUpdateContent, domain);
 
   // Update storage
