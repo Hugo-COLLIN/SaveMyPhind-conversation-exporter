@@ -2,7 +2,7 @@ import {domainExportChecker} from "../checker/domainChecker";
 import {logWelcome} from "../utils/consoleMessages";
 import {setFormatRules} from "./ruler/ruler";
 import {extract} from "./extractor/extractor";
-import {exportContent} from "./exporter/exporter";
+import {exportContent} from "../exporter/exporter";
 import {clickOnListElt} from "../uiEnhancer/phind/interact";
 
 /**
