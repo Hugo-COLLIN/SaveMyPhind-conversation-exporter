@@ -1,7 +1,7 @@
 import {getAppInfos} from "../../../../common/appInfos";
 import {getUpdatesData} from "../../messenger/updateNotes";
 
-export async function createModal(modalContentCreator) {
+export async function createModal(modalContentCreator, ...params) {
   const modalBackground = createModalBg();
 
   // Create the modal div element
@@ -23,7 +23,7 @@ export async function createModal(modalContentCreator) {
   const modalBodyDiv = document.createElement('div');
   modalBodyDiv.classList.add('bg-light', 'modal-body');
 
-  await modalContentCreator(modalBodyDiv, modal, modalBackground);
+  await modalContentCreator(modalBodyDiv, modal, modalBackground, ...params);
 
 // Step 9: Append the inner divs and the Close button to the modal-content div.
   modalContentDiv.appendChild(modalBodyDiv);
@@ -37,7 +37,7 @@ export async function createModal(modalContentCreator) {
   return {modal, modalBackground};
 }
 
-export async function modalUpdateContent(modalBodyDiv, outerDiv, modalBackground) {
+export async function modalUpdateContent(modalBodyDiv, outerDiv, modalBackground, domain) {
   const appInfos = await getAppInfos();
   const updates = await getUpdatesData();
 
@@ -67,7 +67,7 @@ export async function modalUpdateContent(modalBodyDiv, outerDiv, modalBackground
   innerDivLink.classList.add('mb-0');
 
   const manifest = chrome.runtime.getManifest();
-  let storeName = "Chrome Web Store";
+  let storeName;
   if (manifest.browser_specific_settings !== undefined && manifest.browser_specific_settings.gecko !== undefined) {
     innerDivLink.href = appInfos.APP_FIREFOX_STORE_URL + "/reviews";
     storeName = "Firefox Add-ons Store";
@@ -97,7 +97,9 @@ export async function modalUpdateContent(modalBodyDiv, outerDiv, modalBackground
   var closeButton = document.createElement('button');
   closeButton.type = 'button';
   closeButton.classList.add('m-1', 'btn', 'btn-secondary');
-  closeButton.innerHTML = "Let's Phind!";
+  closeButton.innerHTML = domain.name === "Phind"
+    ? "Let's Phind!"
+    : "Let's search!";
 
   var reviewButton = document.createElement('a');
   reviewButton.href = appInfos.APP_SUPPORT_URL;

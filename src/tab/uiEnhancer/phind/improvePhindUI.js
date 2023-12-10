@@ -9,19 +9,11 @@ export function improvePhindUI() {
     }
     // else if (response.message === 'LOAD_COMPLETE processed' || response.message === 'exportAllThreads in progress') {
     else {
-      await appendModalContainer();
-
       // let isExporting = response.message === 'exportAllThreads in progress';
       // addStyle();
 
       // Some UI improvements
       // await createExportButtons(response);
-
-      // Create "last update" modal if needed
-      chrome.storage.sync.get(['displayModalUpdate'], async function (result) {
-        if (result.displayModalUpdate)
-          await appendModalUpdate()
-      });
 
       // Update buttons on resizing window
       // updateButtonsOnResize();

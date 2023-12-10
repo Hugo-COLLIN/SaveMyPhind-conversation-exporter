@@ -1,19 +1,21 @@
 import {createModal, modalClicksContent, modalUpdateContent} from "./createModal";
 import {getAppInfos} from "../../../../common/appInfos";
 
-async function appendModal(modalContentCreator) {
+async function appendModal(modalContentCreator, ...params) {
   const appInfos = await getAppInfos();
 
   // Create modal
-  let {modal, modalBackground} = await createModal(modalContentCreator);
+  let {modal, modalBackground} = await createModal(modalContentCreator, ...params);
 
   const shadow = document.querySelector("#" + appInfos.APP_SNAME + "-modal-container").shadowRoot
   shadow.appendChild(modalBackground);
   shadow.appendChild(modal);
 }
 
-export async function appendModalUpdate() {
-  await appendModal(modalUpdateContent);
+export async function appendModalUpdate(domain) {
+
+  console.log(domain)
+  await appendModal(modalUpdateContent, domain);
 
   // Update storage
   chrome.storage.sync.set({displayModalUpdate: false}, function () {
