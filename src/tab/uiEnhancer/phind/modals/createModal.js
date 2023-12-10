@@ -1,9 +1,11 @@
 import {getAppInfos} from "../../../../common/appInfos";
 import {getUpdatesData} from "../../messenger/updateNotes";
 
-export async function createModal(modalBackground, modalContentCreator) {
+export async function createModal(modalContentCreator) {
   const appInfos = await getAppInfos();
-  const updates = await getUpdatesData();
+
+  // Créer le modalbg
+  let modalBackground = createModalBg();
 
   const host = document.createElement('div');
   document.body.appendChild(host);
@@ -42,11 +44,8 @@ export async function createModal(modalBackground, modalContentCreator) {
   outerDiv.appendChild(modalDialogDiv);
 
 
-  // Créer le modalbg
-  let modalbg = createModalBg();
-
   // Ajouter le modalbg et le modal au Shadow DOM
-  shadow.appendChild(modalbg);
+  shadow.appendChild(modalBackground);
   shadow.appendChild(outerDiv);
 
   // Ajouter les styles de Bootstrap au Shadow DOM

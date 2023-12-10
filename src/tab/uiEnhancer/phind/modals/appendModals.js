@@ -3,9 +3,9 @@ import {waitAppend} from "../../interactDOM/interactDOM";
 
 export async function appendModalUpdate() {
   // Create modal
-  let modalbg = createModalBg()
+  // let modalbg = createModalBg()
   // let modalUpdateLogs = await createModalUpdate(modalbg, modalUpdateContent);
-  let modalUpdateLogs = await createModal(modalbg, modalUpdateContent);
+  let modalUpdateLogs = await createModal(modalUpdateContent);
 
   // console.log("Passed HERE")
   // Append modal
