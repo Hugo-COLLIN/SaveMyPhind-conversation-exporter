@@ -5,7 +5,14 @@ export async function createModal(modalBackground, modalContentCreator) {
   const appInfos = await getAppInfos();
   const updates = await getUpdatesData();
 
-  var outerDiv = document.createElement('div');
+  const host = document.createElement('div');
+  document.body.appendChild(host);
+
+  // Attacher un Shadow DOM à l'élément hôte
+  const shadow = host.attachShadow({mode: 'open'});
+
+  // Créer le modal comme avant
+  const outerDiv = document.createElement('div');
   outerDiv.setAttribute('role', 'dialog');
   outerDiv.setAttribute('aria-modal', 'true');
   outerDiv.classList.add('fade', 'modal', 'show');
@@ -35,9 +42,22 @@ export async function createModal(modalBackground, modalContentCreator) {
   outerDiv.appendChild(modalDialogDiv);
 
 
+  // Créer le modalbg
+  let modalbg = createModalBg();
+
+  // Ajouter le modalbg et le modal au Shadow DOM
+  shadow.appendChild(modalbg);
+  shadow.appendChild(outerDiv);
+
+  // Ajouter les styles de Bootstrap au Shadow DOM
+  var link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css';
+  shadow.appendChild(link);
+
   outerDiv.setAttribute("extension", appInfos.APP_SNAME);
 
-  return outerDiv;
+  return host;
 }
 
 export async function modalUpdateContent(modalBodyDiv, outerDiv, modalBackground) {

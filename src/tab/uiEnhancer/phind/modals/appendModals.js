@@ -9,7 +9,7 @@ export async function appendModalUpdate() {
 
   // console.log("Passed HERE")
   // Append modal
-  waitAppend("body", [modalbg, modalUpdateLogs], 'appendChild');
+  waitAppend("body", [modalUpdateLogs], 'appendChild');
 
   // Update storage
   chrome.storage.sync.set({displayModalUpdate: false}, function () {
