@@ -1,4 +1,4 @@
-import {logWaitList} from "../consoleMessages";
+import {logWaitList} from "../../utils/consoleMessages";
 import {sleep} from "../../../common/utils";
 
 export async function clickOnListElt(index, selector = '.table-responsive tr') {
