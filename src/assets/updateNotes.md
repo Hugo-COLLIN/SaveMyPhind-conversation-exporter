@@ -1,5 +1,8 @@
 # Update notes
-# 2.2.25
+# 2.2.28
+⨠ 🚀 Fix some wrong exports on Phind
+Chat sources are not duplicated anymore and search export is now working again!
+
 ⨠ 📢 Update modal is now on Perplexity too!
 You can now see the update modal when you're on Perplexity.ai.
 
