@@ -1,8 +1,9 @@
-import {appendModalContainer, appendModalUpdate} from "./phind/modals/appendModals";
+import {appendModalContainer, appendModalUpdate} from "./modals/appendModals";
 
 
 export async function uiEnhancer(domain) {
   window.addEventListener('load', async function () {
+    // Create modal container
     await appendModalContainer();
 
     // Create "last update" modal if needed
@@ -10,6 +11,5 @@ export async function uiEnhancer(domain) {
       if (result.displayModalUpdate)
         await appendModalUpdate(domain)
     });
-
   });
 }

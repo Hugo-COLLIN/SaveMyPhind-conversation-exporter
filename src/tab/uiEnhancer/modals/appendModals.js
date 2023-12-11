@@ -1,5 +1,5 @@
 import {createModal, modalClicksContent, modalUpdateContent} from "./createModal";
-import {getAppInfos} from "../../../../common/appInfos";
+import {getAppInfos} from "../../../common/appInfos";
 
 async function appendModal(modalContentCreator, ...params) {
   const appInfos = await getAppInfos();
@@ -21,7 +21,7 @@ export async function appendModalUpdate(domain) {
   });
 }
 
-export function appendDetectClicksModal() {
+export function appendModalDetectClicks() {
   chrome.storage.sync.get('clickIconCount', async function (result) {
     if (result.clickIconCount >= 99) { //100
       await appendModal(modalClicksContent);

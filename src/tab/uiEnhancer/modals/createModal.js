@@ -1,5 +1,5 @@
-import {getAppInfos} from "../../../../common/appInfos";
-import {getUpdatesData} from "../../messenger/updateNotes";
+import {getAppInfos} from "../../../common/appInfos";
+import {getUpdatesData} from "../messenger/updateNotes";
 
 export async function createModal(modalContentCreator, ...params) {
   const modalBackground = createModalBg();
