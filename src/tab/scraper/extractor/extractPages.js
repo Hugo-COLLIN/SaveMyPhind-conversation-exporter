@@ -35,21 +35,17 @@ export async function extractPhindSearchPage(format) {
   const unfolded = await unfoldQuestions();
 
   // Catch page interesting elements
-  let firstQuestion = true;
   const newAnswerSelector = document.querySelectorAll('[name^="answer-"]');
   let markdown = await setFileHeader(getPhindPageTitle(), "Phind Search");
 
   newAnswerSelector.forEach((content) => {
     const selectUserQuestion = content.querySelector('[name^="answer-"] > div > div > span') ?? "";
 
-
-    let selectAiCitations = content.querySelector('div > div:nth-last-of-type(2) > div:nth-of-type(2) > div > div');
-    selectAiCitations = selectAiCitations ?? "";
-
-    const selectAiModel = content.querySelector('[name^="answer-"] > div > div > h6')
-    const selectAiAnswer = selectAiModel != null ? selectAiModel.parentNode : null;
-    const selectSources = content.querySelector('div:last-child > div > div > h6').parentNode.querySelectorAll('div > a:not([href="/filters"])');
-
+    const selectAiModel = content.querySelector('[name^="answer-"] h6')
+    const selectAiAnswer = selectAiModel != null
+      ? selectAiModel.parentNode
+      : "";
+    const selectSources = content.querySelectorAll('div:nth-child(3) > div:nth-child(5) > div:first-child > div > div > div > div > div > a');
 
 
     // Create formatted document for each answer message
@@ -66,7 +62,6 @@ export async function extractPhindSearchPage(format) {
         const index = res.indexOf('\n\n');
         return `\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
       })() +
-      (selectAiCitations !== "" ? (`\n\n**Citations:**\n` + format(selectAiCitations.innerHTML)) : "") +
       (selectSources.length > 0 ? `\n\n**Sources:**` + (() => {
         let res = "";
         let i = 1;
@@ -95,7 +90,7 @@ export async function extractPhindAgentPage(format) {
   for (const content of messages) {
     const allDivs = content.querySelectorAll('.col > div > div > div');
     const msgContent = Array.from(allDivs).filter(div => div.children.length > 0);
-    const searchResults = content.querySelectorAll('.col > div > div > div:nth-last-of-type(1) a');
+    const searchResults = content.querySelectorAll('.col > div > div > div:nth-last-of-type(1) > div > a');
     const entityName = content.querySelectorAll('.col > div > div > span');
 
     if (msgContent.length === 0) continue;
