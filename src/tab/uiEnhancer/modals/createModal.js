@@ -1,29 +1,29 @@
-import {getAppInfos} from "../../../../common/appInfos";
-import {getUpdatesData} from "../../messenger/updateNotes";
+import {getAppInfos} from "../../../common/appInfos";
+import {getUpdatesData} from "../messenger/updateNotes";
 
-export async function createModal(modalBackground, modalContentCreator) {
-  const appInfos = await getAppInfos();
-  const updates = await getUpdatesData();
+export async function createModal(modalContentCreator, ...params) {
+  const modalBackground = createModalBg();
 
-  var outerDiv = document.createElement('div');
-  outerDiv.setAttribute('role', 'dialog');
-  outerDiv.setAttribute('aria-modal', 'true');
-  outerDiv.classList.add('fade', 'modal', 'show');
-  outerDiv.style.display = 'block';
+  // Create the modal div element
+  const modal = document.createElement('div');
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  modal.classList.add('fade', 'modal', 'show');
+  modal.style.display = 'block';
 
 // Step 3: Create the modal-dialog div element.
-  var modalDialogDiv = document.createElement('div');
+  const modalDialogDiv = document.createElement('div');
   modalDialogDiv.classList.add('modal-dialog');
 
 // Step 4: Create the modal-content div element.
-  var modalContentDiv = document.createElement('div');
+  const modalContentDiv = document.createElement('div');
   modalContentDiv.classList.add('modal-content');
 
 // Step 5: Create the modal-body div element.
-  var modalBodyDiv = document.createElement('div');
+  const modalBodyDiv = document.createElement('div');
   modalBodyDiv.classList.add('bg-light', 'modal-body');
 
-  await modalContentCreator(modalBodyDiv, outerDiv, modalBackground);
+  await modalContentCreator(modalBodyDiv, modal, modalBackground, ...params);
 
 // Step 9: Append the inner divs and the Close button to the modal-content div.
   modalContentDiv.appendChild(modalBodyDiv);
@@ -32,15 +32,12 @@ export async function createModal(modalBackground, modalContentCreator) {
   modalDialogDiv.appendChild(modalContentDiv);
 
 // Step 11: Append the outer div to the body.
-  outerDiv.appendChild(modalDialogDiv);
+  modal.appendChild(modalDialogDiv);
 
-
-  outerDiv.setAttribute("extension", appInfos.APP_SNAME);
-
-  return outerDiv;
+  return {modal, modalBackground};
 }
 
-export async function modalUpdateContent(modalBodyDiv, outerDiv, modalBackground) {
+export async function modalUpdateContent(modalBodyDiv, outerDiv, modalBackground, domain) {
   const appInfos = await getAppInfos();
   const updates = await getUpdatesData();
 
@@ -70,7 +67,7 @@ export async function modalUpdateContent(modalBodyDiv, outerDiv, modalBackground
   innerDivLink.classList.add('mb-0');
 
   const manifest = chrome.runtime.getManifest();
-  let storeName = "Chrome Web Store";
+  let storeName;
   if (manifest.browser_specific_settings !== undefined && manifest.browser_specific_settings.gecko !== undefined) {
     innerDivLink.href = appInfos.APP_FIREFOX_STORE_URL + "/reviews";
     storeName = "Firefox Add-ons Store";
@@ -81,7 +78,7 @@ export async function modalUpdateContent(modalBodyDiv, outerDiv, modalBackground
   innerDivLink.innerHTML = `⭐ If ${appInfos.APP_NAME} helps you, please leave it a review on the ${storeName}! ⭐<br>`;
 
 
-  let innerDiv4 = createModalTextGroup(`Enjoy!<br>Hugo <small>- ${appInfos.APP_SNAME} creator</small>`, "I'm not affiliated with the Phind.com developers, I just love this website and I wanted to make it even better."); //I'm not affiliated with Phind, I just love this website and I wanted to make it better for me and for you. If you want to support me, you can donate at https://www.paypal.com/paypalme/${appInfos.APP_SNAME}
+  let innerDiv4 = createModalTextGroup(`Enjoy!<br>Hugo <small>- ${appInfos.APP_SNAME} creator</small>`, `I'm not affiliated with the ${domain.url.slice(4)} developers, I just love this website and I wanted to make it even better.`); //I'm not affiliated with Phind, I just love this website and I wanted to make it better for me and for you. If you want to support me, you can donate at https://www.paypal.com/paypalme/${appInfos.APP_SNAME}
 
 
   modalBodyDiv.appendChild(innerDivLink);
@@ -100,7 +97,9 @@ export async function modalUpdateContent(modalBodyDiv, outerDiv, modalBackground
   var closeButton = document.createElement('button');
   closeButton.type = 'button';
   closeButton.classList.add('m-1', 'btn', 'btn-secondary');
-  closeButton.innerHTML = "Let's Phind!";
+  closeButton.innerHTML = domain.name === "Phind"
+    ? "Let's Phind!"
+    : "Let's search!";
 
   var reviewButton = document.createElement('a');
   reviewButton.href = appInfos.APP_SUPPORT_URL;

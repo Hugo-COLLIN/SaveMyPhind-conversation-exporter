@@ -1,6 +1,5 @@
 import {createButtonGroup} from "./genericElements/createElements";
 import {isHomepageCheck} from "../../checker/domainChecker";
-import {appendModalUpdate} from "./modals/appendModals";
 
 export function improvePhindUI() {
   chrome.runtime.sendMessage({message: 'LOAD_COMPLETE'}, async function (response) {
@@ -14,12 +13,6 @@ export function improvePhindUI() {
 
       // Some UI improvements
       // await createExportButtons(response);
-
-      // Create "last update" modal if needed
-      chrome.storage.sync.get(['displayModalUpdate'], async function (result) {
-        if (result.displayModalUpdate)
-          await appendModalUpdate()
-      });
 
       // Update buttons on resizing window
       // updateButtonsOnResize();
