@@ -1,4 +1,8 @@
 # Update notes
+# 2.2.25
+⨠ 📢 Update modal is now on Perplexity too!
+You can now see the update modal when you're on Perplexity.ai.
+
 # 2.2.23
 ⨠ 🧩 Phind titles are now exported again!
 Changing CSS selectors to adapt to Phind UI changes. You know, the usual stuff...

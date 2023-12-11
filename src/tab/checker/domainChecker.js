@@ -1,4 +1,4 @@
-import {getHostAndPath} from "../utils/webpage/getters";
+import {getHostAndPath} from "../utils/getters";
 
 
 export async function domainExportChecker() {

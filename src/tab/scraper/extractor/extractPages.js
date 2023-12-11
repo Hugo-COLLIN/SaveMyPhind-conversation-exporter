@@ -1,7 +1,7 @@
 import {capitalizeFirst, formatLineBreaks} from "../../formatter/formatText";
 import {formatLink, setFileHeader} from "../../formatter/formatMarkdown";
 import {getMaxAIGooglePageTitle, getPerplexityPageTitle, getPhindPageTitle} from "./extractMetadata";
-import {foldQuestions, unfoldQuestions} from "../../utils/webpage/interact";
+import {foldQuestions, unfoldQuestions} from "../../uiEnhancer/phind/interact";
 import {extractPerplexitySources, extractPhindSourcesFromPopup} from "./extractElements";
 
 /**
