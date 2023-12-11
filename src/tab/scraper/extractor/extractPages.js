@@ -90,7 +90,7 @@ export async function extractPhindAgentPage(format) {
   for (const content of messages) {
     const allDivs = content.querySelectorAll('.col > div > div > div');
     const msgContent = Array.from(allDivs).filter(div => div.children.length > 0);
-    const searchResults = content.querySelectorAll('.col > div > div > div:nth-last-of-type(1) a');
+    const searchResults = content.querySelectorAll('.col > div > div > div:nth-last-of-type(1) > div > a');
     const entityName = content.querySelectorAll('.col > div > div > span');
 
     if (msgContent.length === 0) continue;
