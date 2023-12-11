@@ -44,40 +44,10 @@ export async function appendModalContainer() {
   // Attach a Shadow DOM to the host element
   const shadow = host.attachShadow({mode: 'open'});
 
-  // Add styles to the shadow dom
-  // const css = new CSSStyleSheet();
-  // css.replaceSync( "@import url( assets/styles/phind.bundle.css )" )
-  // host.shadowRoot.adoptedStyleSheets = [css];
-
-  // fetch(chrome.runtime.getURL('assets/styles/phind.bundle.css'))
-  //   .then(response => response.text())
-  //   .then(css => {
-  //     const sheet = new CSSStyleSheet();
-  //     sheet.replaceSync(css);
-  //     host.shadowRoot.adoptedStyleSheets = [sheet];
-  //   });
-
-  // fetch(chrome.runtime.getURL('assets/styles/phind.bundle.css'))
-  //   .then(response => response.text())
-  //   .then(css => {
-  //     const style = document.createElement('style');
-  //     style.textContent = css;
-  //     shadow.appendChild(style);
-  //   });
-
-
   // Create a style element to reset all inheritable properties
   const style = document.createElement('style');
   style.textContent = ':host { all: initial; } p{line-height: 1.7em;} a{font-size: 1.1em;}';
   shadow.appendChild(style);
-
-  // const font = new FontFace('DM Sans', 'url(https://fonts.googleapis.com/css?family=DM+Sans:400,500,700|DM+Serif+Display&display=swap)', {});
-  // font.load().then(function(loadedFont) {
-  //   document.fonts.add(loadedFont);
-  // }).catch(function(error) {
-  //   console.log('Failed to load font: ' + error);
-  // });
-
 
   // Add styles to the shadow dom
   const link = document.createElement('link');
