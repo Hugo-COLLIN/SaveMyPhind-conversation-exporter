@@ -40,7 +40,7 @@ export default class ExtractorPhindSearch extends Extractor {
           const index = res.indexOf('\n\n');
           return `\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
         })() +
-        (selectSources.length > 0 ? `\n\n**Sources:**` + (() => {
+        (selectSources.length > 0 ? `\n\n---\n**Sources:**` + (() => {
           let res = "";
           let i = 1;
           selectSources.forEach((elt) => {

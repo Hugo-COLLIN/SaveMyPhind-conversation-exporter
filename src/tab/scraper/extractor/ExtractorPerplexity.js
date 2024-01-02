@@ -16,7 +16,7 @@ export default class ExtractorPerplexity extends Extractor {
       // Display question
       const question = content.querySelector('.break-words');
       markdown += "## User\n";
-      const regex = /<div class="break-words \[word-break:break-word] whitespace-pre-line  whitespace-pre-wrap default font-sans text-base font-medium text-textMain dark:text-textMainDark selection:bg-super selection:text-white dark:selection:bg-opacity-50 selection:bg-opacity-70">([\s\S]*?)<\/div>/
+      const regex = /<div class="break-words \[word-break:break-word] whitespace-pre-line whitespace-pre-wrap default font-sans text-base font-medium text-textMain dark:text-textMainDark selection:bg-super selection:text-white dark:selection:bg-opacity-50 selection:bg-opacity-70">([\s\S]*?)<\/div>/
       const questionText = formatLineBreaks(question.innerText ?? "", regex) + "\n\n";
       markdown += questionText.replace(/(?<!`)<(?!`)/g, '\\<').replace(/(?<!`)>(?!`)/g, '\\>');
 
@@ -71,7 +71,7 @@ export default class ExtractorPerplexity extends Extractor {
         for (const result of document.querySelectorAll("main > .justify-center.items-center .py-md .py-md")) {
           const link = result.querySelector("a");
           const text = "(" + i + ") " + format(result.querySelector("div.default > div").innerText.replaceAll("\n", " ").replaceAll('"', ''));
-          res += (link ? formatLink(link.href, text) : text) + "\n";
+          res += "- " + (link ? formatLink(link.href, text) : text) + "\n";
           i ++;
         }
 
