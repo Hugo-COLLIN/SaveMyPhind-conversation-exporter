@@ -21,14 +21,6 @@ export class Extractor {
     }
   }
 
-  /**
-   * Catch page interesting elements to convert the content into markdown
-   * @returns {Promise<string>} markdown
-   */
-  async extractPage(format) {
-    throw new Error("Not implemented");
-  }
-
   extractMetadata() {
     return {
       title: this.getPageTitle(),
@@ -36,9 +28,13 @@ export class Extractor {
     }
   }
 
-  // formatFilename(title, source) {
-  //   throw new Error("Not implemented");
-  // }
+  /**
+   * Catch page interesting elements to convert the content into markdown
+   * @returns {Promise<string>} markdown
+   */
+  async extractPage(format) {
+    throw new Error("Not implemented");
+  }
 
   /**
    * Get the title of the page

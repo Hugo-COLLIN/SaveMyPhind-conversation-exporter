@@ -6,26 +6,26 @@ export default {
   extractMaxAIGoogleMetadata,
 }
 
-/**
- * Get the title of the page
- * @returns {string} title
- */
-export function getPhindPageTitle() { //extractMetadata
-  const searchFirstMsg = document.querySelector('[name^="answer-"] > div > div > span');
-  const agentFirstMsg = document.querySelector('[tabindex="0"]');
-  return searchFirstMsg !== null && searchFirstMsg.innerHTML !== ""
-    ? searchFirstMsg.innerHTML
-    : agentFirstMsg
-      ? agentFirstMsg.innerText.replace(/\u00A0/g, " ")
-      : "";
-}
+// /**
+//  * Get the title of the page
+//  * @returns {string} title
+//  */
+// export function getPhindPageTitle() { //extractMetadata
+//   const searchFirstMsg = document.querySelector('[name^="answer-"] > div > div > span');
+//   const agentFirstMsg = document.querySelector('[tabindex="0"]');
+//   return searchFirstMsg !== null && searchFirstMsg.innerHTML !== ""
+//     ? searchFirstMsg.innerHTML
+//     : agentFirstMsg
+//       ? agentFirstMsg.innerText.replace(/\u00A0/g, " ")
+//       : "";
+// }
 
-function extractPhindSearchMetadata() {
-  return {
-    title: getPhindPageTitle(),
-    source: "Phind-Search",
-  }
-}
+// function extractPhindSearchMetadata() {
+//   return {
+//     title: getPhindPageTitle(),
+//     source: "Phind-Search",
+//   }
+// }
 
 function extractPhindAgentMetadata() {
   return {
