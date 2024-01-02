@@ -37,20 +37,61 @@ describe('Page extraction functions', () => {
     expect(setFileHeader).toHaveBeenCalledWith(document.title, window.location.hostname);
   });
 
-  // Ajoutez des tests similaires pour les autres fonctions
-  // test('extractPhindSearchPage returns the expected markdown', async () => {
-  //   ...
-  // });
+  test('extractPhindSearchPage handles no answers', async () => {
+    const format = jest.fn((html) => html);
+    document.body.innerHTML = '';
+    const result = await extractPhindSearchPage(format);
+    expect(result).toContain('Mock header');
+    expect(format).not.toHaveBeenCalled();
+  });
 
-  // test('extractPhindAgentPage returns the expected markdown', async () => {
-  //   ...
-  // });
+  test('extractPhindSearchPage formats user question and AI answer', async () => {
+    const format = jest.fn((html) => html);
+    document.body.innerHTML = `
+    <div name="answer-1">
+      <div>
+        <div>
+          <span>User question</span>
+          <h6>AI model</h6>
+        </div>
+      </div>
+    </div>
+  `;
+    await extractPhindSearchPage(format);
+    expect(format).toHaveBeenCalledWith('User question');
+    expect(format).toHaveBeenCalledWith('AI model');
+  });
 
-  // test('extractPerplexityPage returns the expected markdown', async () => {
-  //   ...
-  // });
+  test('extractPhindSearchPage formats AI citations and sources', async () => {
+    const format = jest.fn((html) => html);
+    document.body.innerHTML = `
+    <div name="answer-1">
+      <div>
+        <div>
+          <span>User question</span>
+          <h6>AI model</h6>
+        </div>
+        <div>
+          <div>
+            <div>AI citations</div>
+          </div>
+          <div>
+            <div>
+              <h6></h6>
+              <div>
+                <a href="/source1">0</a>
+                <a href="/source2">0</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+    await extractPhindSearchPage(format);
+    expect(format).toHaveBeenCalledWith('AI citations');
+    expect(format).toHaveBeenCalledWith('<a href="/source1">0</a>');
+    expect(format).toHaveBeenCalledWith('<a href="/source2">0</a>');
+  });
 
-  // test('extractMaxAIGooglePage returns the expected markdown', async () => {
-  //   ...
-  // });
 });
