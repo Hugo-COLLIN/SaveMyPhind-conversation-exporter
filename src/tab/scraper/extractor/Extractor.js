@@ -1,24 +1,6 @@
-import {dynamicCall} from "../../../common/utils";
-import appInfos from "../../../infos.json";
-import converter from "../../formatter/formatMarkdown";
-
 export class Extractor {
   constructor(domain) {
     this.domain = domain;
-  }
-
-  async extract() {
-    try {
-      const markdownContent = await this.extractPage(converter[`formatMarkdown`]);
-      const metadata = this.extractMetadata();
-      const fileName = this.formatFilename(metadata.title, metadata.source); //???
-      return {markdownContent, title: metadata.title, fileName};
-    }
-    catch (e) {
-      console.error(e);
-      alert(`Error while exporting page.\n\nPlease contact me at ${appInfos.CONTACT_EMAIL} with these information if the problem persists:\n≫ The steps to reproduce the problem\n≫ The URL of this page\n≫ The app version: ${appInfos.APP_VERSION}\n≫ Screenshots illustrating the problem\n\nThank you!`);
-      return null;
-    }
   }
 
   extractMetadata() {
