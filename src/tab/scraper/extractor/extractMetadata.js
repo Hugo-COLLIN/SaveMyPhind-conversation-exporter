@@ -34,12 +34,12 @@ function extractPhindAgentMetadata() {
   }
 }
 
-function extractArbitraryPageMetadata() {
-  return {
-    title: document.title ?? "",
-    source: window.location.hostname,
-  }
-}
+// function extractArbitraryPageMetadata() {
+//   return {
+//     title: document.title ?? "",
+//     source: window.location.hostname,
+//   }
+// }
 
 export function getPerplexityPageTitle() {
   // return document.querySelector(".mb-md:nth-of-type(1) > div").innerHTML ?? "";

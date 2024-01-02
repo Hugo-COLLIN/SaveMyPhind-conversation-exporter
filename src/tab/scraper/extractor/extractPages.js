@@ -15,16 +15,16 @@ export default {
   extractMaxAIGooglePage,
 }
 
-/**
- * Catch page interesting elements to convert the content into markdown
- * @returns {Promise<string>} markdown
- */
-export async function extractArbitraryPage(format) {
-  let markdown = await setFileHeader(document.title, window.location.hostname)
-  const html = document.querySelector("body").innerHTML;
-  markdown += format(html);
-  return markdown;
-}
+// /**
+//  * Catch page interesting elements to convert the content into markdown
+//  * @returns {Promise<string>} markdown
+//  */
+// export async function extractArbitraryPage(format) {
+//   let markdown = await setFileHeader(document.title, window.location.hostname)
+//   const html = document.querySelector("body").innerHTML;
+//   markdown += format(html);
+//   return markdown;
+// }
 
 /**
  * Catch page interesting elements to convert the conversation into markdown
