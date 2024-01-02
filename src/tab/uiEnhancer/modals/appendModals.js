@@ -1,8 +1,8 @@
 import {createModal, modalClicksContent, modalUpdateContent} from "./createModal";
-import {getAppInfos} from "../../../common/appInfos";
+import appInfos from "../../../infos.json";
+
 
 async function appendModal(modalContentCreator, ...params) {
-  const appInfos = await getAppInfos();
 
   // Create modal
   let {modal, modalBackground} = await createModal(modalContentCreator, ...params);
@@ -35,8 +35,6 @@ export function appendModalDetectClicks() {
 }
 
 export async function appendModalContainer() {
-  const appInfos = await getAppInfos();
-
   const host = document.createElement('div');
   host.id = appInfos.APP_SNAME + "-modal-container";
   document.body.appendChild(host);

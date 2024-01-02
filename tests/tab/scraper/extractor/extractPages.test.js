@@ -10,14 +10,6 @@ jest.mock('../../../../src/tab/formatter/formatMarkdown.js', () => ({
 }));
 
 
-//TODO change
-// Avoid error fetch is not defined
-jest.mock('../../../../src/common/appInfos.js', () => ({
-  fetchInfos: jest.fn(() => Promise.resolve({ data: '12345' })),
-  getAppInfos: jest.fn(),
-}));
-
-
 describe('Page extraction functions', () => {
   beforeEach(() => {
     document.body.innerHTML = '<p>Test content</p>';

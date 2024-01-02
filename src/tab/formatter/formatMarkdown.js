@@ -2,8 +2,7 @@ import {getUrl} from "../utils/getters";
 import {capitalizeFirst, formatDate, formatLineBreaks, titleShortener} from "./formatText";
 import TurndownService from "turndown";
 import DOMPurify from "dompurify";
-
-import {getAppInfos} from "../../common/appInfos";
+import appInfos from "../../infos.json";
 
 /*
 --- MARKDOWN FORMAT ---
@@ -61,8 +60,7 @@ export function formatLink(url, message) {
 export async function setFileHeader(title, linkSite) {
   try {
     const titles = formatMarkdown(capitalizeFirst(titleShortener(title)[0]));
-    const json = await getAppInfos();
-    return "# " + titles + "\n" + "Exported on " + formatDate(2, new Date()) + " at " + formatDate(3, new Date()) + " " + formatLink(getUrl(), `from ${linkSite}`) + ` - with ` + formatLink(`${json.APP_WEBSITE_URL ?? ""}`, `${json.APP_SNAME ?? ""}`) + "\n\n";
+    return "# " + titles + "\n" + "Exported on " + formatDate(2, new Date()) + " at " + formatDate(3, new Date()) + " " + formatLink(getUrl(), `from ${linkSite}`) + ` - with ` + formatLink(`${appInfos.APP_WEBSITE_URL ?? ""}`, `${appInfos.APP_SNAME ?? ""}`) + "\n\n";
   } catch (e) {
     console.error(e)
   }

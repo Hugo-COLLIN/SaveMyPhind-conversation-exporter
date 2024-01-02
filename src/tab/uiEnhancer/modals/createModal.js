@@ -1,4 +1,4 @@
-import {getAppInfos} from "../../../common/appInfos";
+import appInfos from "../../../infos.json";
 import {getUpdatesData} from "../messenger/updateNotes";
 
 export async function createModal(modalContentCreator, ...params) {
@@ -38,7 +38,6 @@ export async function createModal(modalContentCreator, ...params) {
 }
 
 export async function modalUpdateContent(modalBodyDiv, outerDiv, modalBackground, domain) {
-  const appInfos = await getAppInfos();
   const updates = await getUpdatesData();
 
   // Title
@@ -122,8 +121,6 @@ export async function modalUpdateContent(modalBodyDiv, outerDiv, modalBackground
 }
 
 export async function modalClicksContent(modalBodyDiv, outerDiv, modalBackground) {
-  const appInfos = await getAppInfos();
-
   // Title
   var innerDivImage = document.createElement('span');
   innerDivImage.style.marginRight = '10px';
