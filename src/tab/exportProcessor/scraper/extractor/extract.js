@@ -24,6 +24,7 @@ export async function extract(domain) {
     let extractor = new module.default(domain);
     // let extractor = await import(`./Extractor${domain.name}`);
 
+    extractor.applyExtractorRules();
     const markdownContent = await extractor.extractPage(converter[`formatMarkdown`]) //await dynamicCall(extractPages, `extract${domain.name}Page`, converter[`formatMarkdown`]);
     const metadata = extractor.extractMetadata() //await dynamicCall(extractMetadata, `extract${domain.name}Metadata`);
     const fileName = formatFilename(metadata.title, metadata.source);

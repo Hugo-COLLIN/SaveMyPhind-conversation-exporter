@@ -1,5 +1,4 @@
 import {logWelcome} from "../../utils/consoleMessages";
-import {setFormatRules} from "./ruler/ruler";
 import {extract} from "./extractor/extract";
 import {exportContent} from "../exporter/exporter";
 import {clickOnListElt} from "../../uiEnhancer/phind/interact";
@@ -11,7 +10,7 @@ import appInfos from "../../../infos.json";
  */
 export async function launchExport(domain) {
   logWelcome();
-  setFormatRules(domain.name);
+  // setFormatRules(domain.name);
   const extracted = await extract(domain);
 
   if (extracted.markdownContent === null) {

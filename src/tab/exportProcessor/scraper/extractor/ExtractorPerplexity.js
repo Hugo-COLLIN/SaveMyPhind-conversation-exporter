@@ -1,6 +1,6 @@
 import {Extractor} from "./Extractor";
 import {formatLineBreaks} from "../../formatter/formatText";
-import {formatLink, setFileHeader} from "../../formatter/formatMarkdown";
+import {formatLink, initTurndown, setFileHeader, turndownConverter} from "../../formatter/formatMarkdown";
 import {sleep} from "../../../../common/utils";
 
 export default class ExtractorPerplexity extends Extractor {
@@ -84,5 +84,131 @@ export default class ExtractorPerplexity extends Extractor {
 
     }
     return null;
+  }
+
+
+  applyExtractorRules() {
+    initTurndown({
+      blankReplacement: function(content, node) {
+        if (node.nodeName === 'SPAN' && node.getAttribute('class') === 'block mt-md') {
+          return '\n\n';
+        } else {
+          return '';
+        }
+      }
+    });
+
+    // turndownConverter = new TurndownService({
+    //   blankReplacement: function(content, node) {
+    //     if (node.nodeName === 'SPAN' && node.getAttribute('class') === 'block mt-md') {
+    //       return '\n\n';
+    //     } else {
+    //       return '';
+    //     }
+    //   }
+    // });
+
+    turndownConverter.addRule('preserveLineBreaksInPre', {
+      filter: function (node) {
+        return node.nodeName === 'PRE' && node.querySelector('div');
+      },
+      replacement: function (content, node) {
+        const codeBlock = node.querySelector('code');
+        const codeContent = codeBlock.textContent.trim();
+        const codeLang = codeBlock.parentNode.parentNode.parentNode.querySelector("div").textContent.trim();
+        return ('\n```' + codeLang + '\n' + codeContent + '\n```');
+      }
+    });
+
+    turndownConverter.addRule('formatLinks', {
+      filter: 'a',
+      replacement: function (content, node) {
+        const href = node.getAttribute('href');
+        const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '').replace(/\n/g, '');
+        return ' [' + linkText + '](' + href + ')';
+      }
+    });
+
+    // turndownConverter.addRule('transformSpan', {
+    //   filter: "span",
+    //   replacement: function(content, node) {
+    //     console.log(node)
+    //     return node.getAttribute('class') === 'block mt-md' ? '\n\n' : content;
+    //   }
+    // });
+
+    //function(node) {
+    //       const cond =  node.nodeName === 'SPAN' && node.querySelectorAll('span.block.mt-md').length > 0;
+    //       console.log(node)
+    //       console.log(node.querySelectorAll('span.block.mt-md'))
+    //       return cond;
+    //     }
+
+    // turndownConverter.addRule('transformSpan', {
+    //   filter: function(node) {
+    //     return node.nodeName === 'DIV' && node.querySelectorAll('span.block.mt-md').length > 0;
+    //   },
+    //   replacement: function(content, node) {
+    //     console.log(node)
+    //     let newContent = content;
+    //     console.log(newContent)
+    //     const spanNodes = node.querySelectorAll('span.block.mt-md');
+    //     console.log(spanNodes)
+    //     spanNodes.forEach(spanNode => {
+    //       newContent = newContent.replace(spanNode.outerHTML, '\n\n');
+    //     });
+    //     return newContent;
+    //   }
+    // });
+
+    // const turndownService = new TurndownService({
+    //   blankReplacement: function (content, node) {
+    //     if (node.nodeName === 'SPAN' && node.getAttribute('class') === 'block mt-md') {
+    //       return '\n\n';
+    //     } else {
+    //       return '';
+    //     }
+    //   }
+    // });
+
+
+
+    // turndownConverter.addRule('transformSpan', {
+    //   filter: 'span',
+    //   replacement: function(content, node) {
+    //     console.log(node)
+    //     let newContent = content;
+    //     const spanNodes = node.querySelectorAll('span.block.mt-md');
+    //     console.log(spanNodes)
+    //     spanNodes.forEach(spanNode => {
+    //       newContent = newContent.replace(spanNode.outerHTML, '\n\n');
+    //     });
+    //     return newContent;
+    //   }
+    // });
+
+
+
+    // turndownConverter.addRule('backslashAngleBracketsNotInBackticks', {
+    //   filter: function (node) {
+    //     return node.querySelector('div.break-words > div > div > span') !== null;
+    //   },
+    //   replacement: function (content, node) {
+    //     let res = "";
+    //     // Replace < and > characters in paragraphs but not in backticks
+    //     node.querySelectorAll('div.break-words > div > div > *').forEach((elt) => {
+    //       console.log(elt.nodeName)
+    //       if (elt.nodeName === "SPAN") {
+    //         res += "\n" + elt.textContent.replace(/(?<!`)<(?!`)/g, '{{@LT}}').replace(/(?<!`)>(?!`)/g, '{{@GT}}') + "\n";
+    //       }
+    //       else
+    //       {
+    //         res += turndownConverter.turndown(elt.innerHTML);
+    //       }
+    //     });
+    //     return res;
+    //     // return "\n" + turndownConverter.turndown(node.innerHTML).replace(/(?<!`)<(?!`)/g, '{{@LT}}').replace(/(?<!`)>(?!`)/g, '{{@GT}}') + "\n\n";
+    //   },
+    // });
   }
 }

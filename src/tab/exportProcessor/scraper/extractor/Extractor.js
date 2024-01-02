@@ -33,4 +33,11 @@ export class Extractor {
   getPageSource() {
     throw new Error("Not implemented");
   }
+
+  /**
+   * Turndown rules to correctly convert the Phind conversation content into markdown
+   */
+  applyExtractorRules() {
+    throw new Error("Not implemented");
+  }
 }
