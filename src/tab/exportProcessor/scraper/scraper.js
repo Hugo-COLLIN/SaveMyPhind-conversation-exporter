@@ -1,21 +1,21 @@
-import {domainExportChecker} from "../checker/domainChecker";
-import {logWelcome} from "../utils/consoleMessages";
+import {logWelcome} from "../../utils/consoleMessages";
 import {setFormatRules} from "./ruler/ruler";
 import {extract} from "./extractor/extract";
 import {exportContent} from "../exporter/exporter";
-import {clickOnListElt} from "../uiEnhancer/phind/interact";
+import {clickOnListElt} from "../../uiEnhancer/phind/interact";
+import appInfos from "../../../infos.json";
 
 /**
  * @description - Launch the export process
  * @returns {Promise<void>}
  */
 export async function launchExport(domain) {
-  await logWelcome();
+  logWelcome();
   setFormatRules(domain.name);
   const extracted = await extract(domain);
 
   if (extracted.markdownContent === null) {
-    alert("SaveMyChatbot: No content to export!");
+    alert(`${appInfos.APP_SNAME}: No content to export!`);
     return;
   }
 

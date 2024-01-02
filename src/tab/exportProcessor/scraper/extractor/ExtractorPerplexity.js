@@ -1,7 +1,7 @@
 import {Extractor} from "./Extractor";
 import {formatLineBreaks} from "../../formatter/formatText";
 import {formatLink, setFileHeader} from "../../formatter/formatMarkdown";
-import {sleep} from "../../../common/utils";
+import {sleep} from "../../../../common/utils";
 
 export default class ExtractorPerplexity extends Extractor {
   constructor(domain) {

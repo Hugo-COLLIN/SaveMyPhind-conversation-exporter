@@ -1,5 +1,5 @@
 import {setFileHeader} from "../../formatter/formatMarkdown";
-import {sleep} from "../../../common/utils";
+import {sleep} from "../../../../common/utils";
 import {Extractor} from "./Extractor";
 
 export default class ExtractorPhindSearch extends Extractor {
