@@ -1,4 +1,4 @@
-import {turndownConverter} from "../../formatter/formatMarkdown";
+import {turndownConverter} from "../formatter/formatMarkdown";
 
 export const rules = {
   'reformatLinksContainingTags': {

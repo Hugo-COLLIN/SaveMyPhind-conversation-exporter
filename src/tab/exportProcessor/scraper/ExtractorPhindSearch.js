@@ -1,6 +1,6 @@
-import {foldQuestions, unfoldQuestions} from "../../../uiEnhancer/phind/interact";
-import {capitalizeFirst} from "../../formatter/formatText";
-import {setFileHeader} from "../../formatter/formatMarkdown";
+import {foldQuestions, unfoldQuestions} from "../../uiEnhancer/phind/interact";
+import {capitalizeFirst} from "../formatter/formatText";
+import {setFileHeader} from "../formatter/formatMarkdown";
 import ExtractorPhind from "./ExtractorPhind";
 
 export default class ExtractorPhindSearch extends ExtractorPhind {

@@ -1,5 +1,5 @@
 import {Extractor} from "./Extractor";
-import {initTurndown, turndownConverter} from "../../formatter/formatMarkdown";
+import {initTurndown, turndownConverter} from "../formatter/formatMarkdown";
 
 export default class ExtractorPhind extends Extractor {
   constructor(domain) {

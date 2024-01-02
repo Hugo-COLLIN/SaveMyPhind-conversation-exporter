@@ -1,5 +1,5 @@
 import {Extractor} from "./Extractor";
-import {formatLink, initTurndown, setFileHeader} from "../../formatter/formatMarkdown";
+import {formatLink, initTurndown, setFileHeader} from "../formatter/formatMarkdown";
 
 export default class ExtractorMaxAIGoogle extends Extractor {
   constructor(domain) {

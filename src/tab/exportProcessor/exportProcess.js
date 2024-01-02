@@ -1,8 +1,8 @@
-import {logWelcome} from "../../utils/consoleMessages";
-import {extract} from "./extractor/extract";
-import {exportContent} from "../exporter/exporter";
-import {clickOnListElt} from "../../uiEnhancer/phind/interact";
-import appInfos from "../../../infos.json";
+import {logWelcome} from "../utils/consoleMessages";
+import {extract} from "./scraper/extract";
+import {exportContent} from "./exporter/exporter";
+import {clickOnListElt} from "../uiEnhancer/phind/interact";
+import appInfos from "../../infos.json";
 
 /**
  * @description - Launch the export process

@@ -1,6 +1,6 @@
-import converter from "../../formatter/formatMarkdown";
-import {formatFilename} from "../../formatter/formatText";
-import appInfos from "../../../../infos.json";
+import converter from "../formatter/formatMarkdown";
+import {formatFilename} from "../formatter/formatText";
+import appInfos from "../../../infos.json";
 
 export async function extract(domain) {
   try {

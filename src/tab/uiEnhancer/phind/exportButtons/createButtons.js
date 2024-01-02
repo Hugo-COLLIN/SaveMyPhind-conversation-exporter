@@ -2,7 +2,7 @@ import {waitAppears, waitAppend} from "../../interactDOM/interactDOM";
 import {btnBarAllInline} from "./changeButtons";
 import {setBtnsExport} from "./styleExportButtons";
 import {createSideMenuBtn, createTopBtn} from "../genericElements/createElements";
-import {launchExport} from "../../../exportProcessor/scraper/scraper";
+import {launchExport} from "../../../exportProcessor/exportProcess";
 import {initVars} from "../improvePhindUI";
 
 async function setupButtons() {

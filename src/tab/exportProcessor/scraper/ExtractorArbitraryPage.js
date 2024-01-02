@@ -1,6 +1,6 @@
 import {Extractor} from "./Extractor";
-import {formatLink, setFileHeader, turndownConverter} from "../../formatter/formatMarkdown";
-import {rules} from "../ruler/rules";
+import {formatLink, setFileHeader, turndownConverter} from "../formatter/formatMarkdown";
+import {rules} from "./rules";
 
 export default class ExtractorArbitraryPage extends Extractor {
   constructor(domain) {
