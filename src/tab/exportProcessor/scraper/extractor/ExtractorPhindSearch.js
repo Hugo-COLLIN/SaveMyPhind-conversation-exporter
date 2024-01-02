@@ -1,9 +1,9 @@
 import {foldQuestions, unfoldQuestions} from "../../../uiEnhancer/phind/interact";
 import {capitalizeFirst} from "../../formatter/formatText";
 import {setFileHeader} from "../../formatter/formatMarkdown";
-import {Extractor} from "./Extractor";
+import ExtractorPhind from "./ExtractorPhind";
 
-export default class ExtractorPhindSearch extends Extractor {
+export default class ExtractorPhindSearch extends ExtractorPhind {
   constructor(domain) {
     super(domain);
   }
@@ -59,16 +59,6 @@ export default class ExtractorPhindSearch extends Extractor {
       await foldQuestions();
 
     return markdown;
-  }
-
-  getPageTitle() {
-    const searchFirstMsg = document.querySelector('[name^="answer-"] > div > div > span');
-    const agentFirstMsg = document.querySelector('[tabindex="0"]');
-    return searchFirstMsg !== null && searchFirstMsg.innerHTML !== ""
-      ? searchFirstMsg.innerHTML
-      : agentFirstMsg
-        ? agentFirstMsg.innerText.replace(/\u00A0/g, " ")
-        : "";
   }
 
   getPageSource() {
