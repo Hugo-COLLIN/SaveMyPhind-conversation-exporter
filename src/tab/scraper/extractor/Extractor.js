@@ -2,7 +2,7 @@ import {dynamicCall} from "../../../common/utils";
 import appInfos from "../../../infos.json";
 import converter from "../../formatter/formatMarkdown";
 
-export class PageExtractor {
+export class Extractor {
   constructor(domain) {
     this.domain = domain;
   }

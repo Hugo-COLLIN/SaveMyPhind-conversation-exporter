@@ -1,7 +1,7 @@
-import {PageExtractor} from "./PageExtractor";
+import {Extractor} from "./Extractor";
 import {setFileHeader} from "../../formatter/formatMarkdown";
 
-export class ExtractorArbitraryPage extends PageExtractor {
+export class ExtractorArbitraryPage extends Extractor {
   constructor(domain) {
     super(domain);
   }
