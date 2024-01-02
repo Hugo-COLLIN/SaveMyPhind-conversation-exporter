@@ -4,7 +4,6 @@ import appInfos from "../../../infos.json";
 
 export async function extract(domain) {
   try {
-    console.log(domain)
     let module;
     switch (domain.name) {
       case "PhindSearch":
@@ -22,19 +21,12 @@ export async function extract(domain) {
       default:
         module = await import(`./ExtractorArbitraryPage`);
     }
-    // let extractor = await import(`./Extractor${domain.name}`);
-    console.log(module);
-
     let extractor = new module.default(domain);
-    console.log(extractor);
-
+    // let extractor = await import(`./Extractor${domain.name}`);
 
     const markdownContent = await extractor.extractPage(converter[`formatMarkdown`]) //await dynamicCall(extractPages, `extract${domain.name}Page`, converter[`formatMarkdown`]);
-    console.log(markdownContent)
-    const metadata = await extractor.extractMetadata() //await dynamicCall(extractMetadata, `extract${domain.name}Metadata`);
-    console.log(metadata)
+    const metadata = extractor.extractMetadata() //await dynamicCall(extractMetadata, `extract${domain.name}Metadata`);
     const fileName = formatFilename(metadata.title, metadata.source);
-    console.log(fileName)
     return {markdownContent, title: metadata.title, fileName};
   }
   catch (e) {
