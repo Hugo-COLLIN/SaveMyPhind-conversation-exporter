@@ -1,11 +1,11 @@
 import { extractArbitraryPage, extractPhindSearchPage, extractPhindAgentPage, extractPerplexityPage, extractMaxAIGooglePage } from '../../../../src/tab/exportProcessor/scraper/extractor/extractPages.js';
-import { setFileHeader } from '../../../../src/tab/exportProcessor/formatter/formatMarkdown.js';
+import { setFileHeader } from '../formatter/formatMarkdown.js';
 import fetchMock from 'jest-fetch-mock';
 
 // Enable fetch mocks
 fetchMock.enableMocks();
 
-jest.mock('../../../../src/tab/exportProcessor/formatter/formatMarkdown.js', () => ({
+jest.mock('../formatter/formatMarkdown.js', () => ({
   setFileHeader: jest.fn(() => Promise.resolve('Mock header')),
 }));
 
