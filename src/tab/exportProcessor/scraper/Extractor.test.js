@@ -5,7 +5,7 @@ describe('Extractor', () => {
   let extractor;
 
   beforeEach(() => {
-    extractor = new Extractor('mockDomain');
+    extractor = new Extractor();
     global.alert = jest.fn();
   });
 

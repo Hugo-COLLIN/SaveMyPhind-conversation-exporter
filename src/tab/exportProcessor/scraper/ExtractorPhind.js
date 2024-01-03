@@ -2,10 +2,6 @@ import {Extractor} from "./Extractor";
 import {initTurndown, turndownConverter} from "../formatter/formatMarkdown";
 
 export default class ExtractorPhind extends Extractor {
-  constructor(domain) {
-    super(domain);
-  }
-
   getPageTitle() {
     const searchFirstMsg = document.querySelector('[name^="answer-"] > div > div > span');
     const agentFirstMsg = document.querySelector('[tabindex="0"]');

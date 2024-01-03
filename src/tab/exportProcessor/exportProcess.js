@@ -57,6 +57,6 @@ async function defineExtractor(domain) {
     default:
       module = await import(`./scraper/ExtractorArbitraryPage`);
   }
-  return new module.default(domain);
+  return new module.default();
   // let extractor = await import(`./Extractor${domain.name}`);
 }

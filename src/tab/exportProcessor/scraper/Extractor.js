@@ -3,10 +3,6 @@ import {formatFilename} from "../formatter/formatText";
 import appInfos from "../../../infos.json";
 
 export class Extractor {
-  constructor(domain) {
-    this.domain = domain;
-  }
-
   async launch() {
     try {
       this.applyExtractorRules();

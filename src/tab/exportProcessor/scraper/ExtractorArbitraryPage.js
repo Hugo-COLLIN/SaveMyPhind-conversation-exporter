@@ -3,10 +3,6 @@ import {formatLink, setFileHeader, turndownConverter} from "../formatter/formatM
 import {rules} from "./rules";
 
 export default class ExtractorArbitraryPage extends Extractor {
-  constructor(domain) {
-    super(domain);
-  }
-
   async extractPage(format) {
     let markdown = await setFileHeader(document.title, window.location.hostname)
     const html = document.querySelector("body").innerHTML;

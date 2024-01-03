@@ -4,10 +4,6 @@ import {formatLink, initTurndown, setFileHeader, turndownConverter} from "../for
 import {sleep} from "../../../common/utils";
 
 export default class ExtractorPerplexity extends Extractor {
-  constructor(domain) {
-    super(domain);
-  }
-
   async extractPage(format) {
     const messages = document.querySelectorAll('#ppl-message-scroll-target > div > div:nth-of-type(2) > [class]');
     let markdown = await setFileHeader(this.getPageTitle(), "Perplexity.ai");

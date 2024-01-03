@@ -3,10 +3,6 @@ import {sleep} from "../../../common/utils";
 import ExtractorPhind from "./ExtractorPhind";
 
 export default class ExtractorPhindSearch extends ExtractorPhind {
-  constructor(domain) {
-    super(domain);
-  }
-
   async extractPage(format) {
     const messages = document.querySelectorAll('[name^="answer-"]');
     let markdown = await setFileHeader(this.getPageTitle(), "Phind Chat");

@@ -4,10 +4,6 @@ import {setFileHeader} from "../formatter/formatMarkdown";
 import ExtractorPhind from "./ExtractorPhind";
 
 export default class ExtractorPhindSearch extends ExtractorPhind {
-  constructor(domain) {
-    super(domain);
-  }
-
   async extractPage(format) {
     // Unfold user questions before export
     const unfolded = await unfoldQuestions();
