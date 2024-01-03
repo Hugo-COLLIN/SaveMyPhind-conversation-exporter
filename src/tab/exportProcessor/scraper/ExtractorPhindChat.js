@@ -9,7 +9,7 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
 
   async extractPage(format) {
     const messages = document.querySelectorAll('[name^="answer-"]');
-    let markdown = await setFileHeader(this.getPageTitle(), "Phind Agent");
+    let markdown = await setFileHeader(this.getPageTitle(), "Phind Chat");
 
     for (const content of messages) {
       const allDivs = content.querySelectorAll('.col > div > div > div');
@@ -69,7 +69,7 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
   }
 
   getPageSource() {
-    return "Phind-Agent";
+    return "Phind-Chat";
   }
 
   async extractSources(msgContent, searchResults, res, format) {

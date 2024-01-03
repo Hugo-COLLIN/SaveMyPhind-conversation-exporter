@@ -45,8 +45,8 @@ async function defineExtractor(domain) {
     case "PhindSearch":
       module = await import(`./scraper/ExtractorPhindSearch`);
       break;
-    case "PhindAgent":
-      module = await import(`./scraper/ExtractorPhindAgent`);
+    case "PhindChat":
+      module = await import(`./scraper/ExtractorPhindChat`);
       break;
     case "Perplexity":
       module = await import(`./scraper/ExtractorPerplexity`);

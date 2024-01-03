@@ -4,7 +4,7 @@ import {getHostAndPath} from "../utils/getters";
 export async function domainExportChecker() {
   const domains = {
     "PhindSearch": "www.phind.com/search",
-    "PhindAgent": "www.phind.com/agent",
+    "PhindChat": "www.phind.com/agent",
     "Perplexity": "www.perplexity.ai/search",
     "MaxAIGoogle": "www.google.com/search",
   };
