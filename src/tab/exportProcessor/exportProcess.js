@@ -1,5 +1,4 @@
 import {logWelcome} from "../utils/consoleMessages";
-import {extract} from "./scraper/extract";
 import {exportContent} from "./exporter/exporter";
 import {clickOnListElt} from "../uiEnhancer/phind/interact";
 import appInfos from "../../infos.json";
@@ -10,8 +9,8 @@ import appInfos from "../../infos.json";
  */
 export async function launchExport(domain) {
   logWelcome();
-  // setFormatRules(domain.name);
-  const extracted = await extract(domain);
+  const extractor = await defineExtractor(domain);
+  const extracted = await extractor.launch();
 
   if (extracted.markdownContent === null) {
     alert(`${appInfos.APP_SNAME}: No content to export!`);
@@ -38,4 +37,26 @@ export function scrapOnLoadListener(domain) {
     }
     return true; // will respond asynchronously
   });
+}
+
+async function defineExtractor(domain) {
+  let module;
+  switch (domain.name) {
+    case "PhindSearch":
+      module = await import(`./scraper/ExtractorPhindSearch`);
+      break;
+    case "PhindAgent":
+      module = await import(`./scraper/ExtractorPhindAgent`);
+      break;
+    case "Perplexity":
+      module = await import(`./scraper/ExtractorPerplexity`);
+      break;
+    case "MaxAIGoogle":
+      module = await import(`./scraper/ExtractorMaxAIGoogle`);
+      break;
+    default:
+      module = await import(`./scraper/ExtractorArbitraryPage`);
+  }
+  return new module.default(domain);
+  // let extractor = await import(`./Extractor${domain.name}`);
 }
