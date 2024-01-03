@@ -1,21 +1,19 @@
-import {domainExportChecker} from "../checker/domainChecker";
 import {logWelcome} from "../utils/consoleMessages";
-import {setFormatRules} from "./ruler/ruler";
-import {extract} from "./extractor/extractor";
 import {exportContent} from "./exporter/exporter";
 import {clickOnListElt} from "../uiEnhancer/phind/interact";
+import appInfos from "../../infos.json";
 
 /**
  * @description - Launch the export process
  * @returns {Promise<void>}
  */
 export async function launchExport(domain) {
-  await logWelcome();
-  setFormatRules(domain.name);
-  const extracted = await extract(domain);
+  logWelcome();
+  const extractor = await defineExtractor(domain);
+  const extracted = await extractor.launch();
 
   if (extracted.markdownContent === null) {
-    alert("SaveMyChatbot: No content to export!");
+    alert(`${appInfos.APP_SNAME}: No content to export!`);
     return;
   }
 
@@ -39,4 +37,26 @@ export function scrapOnLoadListener(domain) {
     }
     return true; // will respond asynchronously
   });
+}
+
+async function defineExtractor(domain) {
+  let module;
+  switch (domain.name) {
+    case "PhindSearch":
+      module = await import(`./scraper/ExtractorPhindSearch`);
+      break;
+    case "PhindChat":
+      module = await import(`./scraper/ExtractorPhindChat`);
+      break;
+    case "Perplexity":
+      module = await import(`./scraper/ExtractorPerplexity`);
+      break;
+    case "MaxAIGoogle":
+      module = await import(`./scraper/ExtractorMaxAIGoogle`);
+      break;
+    default:
+      module = await import(`./scraper/ExtractorArbitraryPage`);
+  }
+  return new module.default();
+  // let extractor = await import(`./Extractor${domain.name}`);
 }

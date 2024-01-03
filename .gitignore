@@ -56,3 +56,5 @@ out
 
 dist
 src/config.json
+
+package-lock.json

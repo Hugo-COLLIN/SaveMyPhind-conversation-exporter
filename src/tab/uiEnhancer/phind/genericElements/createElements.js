@@ -2,13 +2,11 @@
 --- ELTS CREATION ---
  */
 
-import {getAppInfos} from "../../../../common/appInfos";
+import appInfos from "../../../../infos.json";
 
 
 
 export async function createSideMenuBtn(title, icon, display = '', txtSize = 'fs-5') {
-  const appInfos = await getAppInfos();
-
   // Create table element
   const table = document.createElement('table');
   table.className = 'table darkmode-semi-light table-flush table-hover text-black border border-history-panel mb-0';
@@ -66,7 +64,6 @@ export async function createSideMenuBtn(title, icon, display = '', txtSize = 'fs
 }
 
 export async function createTopBtn(title, icon, classElt = '') {
-  const appInfos = await getAppInfos();
 
   let buttonElement = document.createElement('button');
 
@@ -94,8 +91,6 @@ export async function createTopBtn(title, icon, classElt = '') {
 }
 
 export async function createSmallField(placeholder) {
-  const appInfos = await getAppInfos();
-
   const input = document.createElement('input');
   input.type = 'text';
   input.placeholder = placeholder;
@@ -106,8 +101,6 @@ export async function createSmallField(placeholder) {
 }
 
 export async function createButtonGroup(id) {
-  const appInfos = await getAppInfos();
-
   const btnsGroup = document.createElement("div");
   btnsGroup.classList.add("button-group", "mb-2");
   btnsGroup.id = id;

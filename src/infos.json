@@ -8,8 +8,8 @@
   "APP_REPO_URL": "https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter",
   "APP_WEBSITE_URL": "https://save.hugocollin.com",
   "APP_SUPPORT_URL": "https://save.hugocollin.com/support",
-  "APP_WEBSTORE_URL": "https://chrome.google.com/webstore/detail/agklnagmfeooogcppjccdnoallkhgkod",
-  "APP_FIREFOX_STORE_URL": "https://addons.mozilla.org/en-US/firefox/addon/save-my-phind",
+  "APP_WEBSTORE_URL": "https://chromewebstore.google.com/u/1/detail/agklnagmfeooogcppjccdnoallkhgkod",
+  "APP_FIREFOX_STORE_URL": "https://addons.mozilla.org/firefox/addon/save-my-phind",
   "CONTACT_EMAIL": "hcollin.dev@gmail.com",
   "COPY_MODE": "tab"
 }

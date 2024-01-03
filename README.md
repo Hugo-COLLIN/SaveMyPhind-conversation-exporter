@@ -63,11 +63,11 @@ This project uses third-party libraries. See the [license list](licenses.txt) fo
 See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 
 ### Main features:
-- [ ] Improve Perplexity UI
-  - [ ] Update modal
-  - [ ] Donation modal
-- [ ] Phind:Export tables into markdown (Turndown rule)
+- [ ] Phind: Export tables into markdown (Turndown rule)
 - [ ] Export ChatGPT threads
+- [x] Improve Perplexity UI
+  - [x] Update modal
+  - [x] Donation modal
 - [x] Donation popup when user reaches a certain number of clicks (Paypal, BuyMeACoffee, etc.) (in chrome.storage.sync)
 - [x] Export Perplexity threads
 - [x] Search bar above threads list to filter threads
@@ -170,7 +170,6 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
 
 
 ### Security and maintenance:
-- [ ] Structure UI improver files: (modules + separate files for each site)
 - [ ] Auto logs (to Sentry?)
 - [ ] Make unit/e2e tests:
   - https://www.phind.com/search?cache=gy05phy0cc7am86g73qgdxrs
@@ -178,6 +177,7 @@ See the [CHANGELOG](CHANGELOG.md) file to see changes sorted by version.
   - https://www.phind.com/agent?cache=clnfunmyk000jml08x0xmg0qe
 - [ ] Use the Phind (official/unofficial?) API instead of scraping the HTML?
 - [ ] CI/CD pipeline?
+- [x] Structure UI improver files: (modules + separate files for each site)
 - [x] New branding: new name: Save my Chatbot, and new logos (SaveMyAI + Perplexity)
 - [x] Externalize popup text into an external file (txt, JSON?)
 - [x] Fetch extension infos from json to chrome storage when installed

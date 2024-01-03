@@ -1,5 +1,5 @@
 import {detectPageLoad, domainExportChecker, domainLoadChecker} from "./checker/domainChecker";
-import {launchExport} from "./scraper/scraper";
+import {launchExport} from "./exportProcessor/exportProcess";
 import {uiEnhancer} from "./uiEnhancer/uiEnhancer";
 import {appendModalDetectClicks} from "./uiEnhancer/modals/appendModals";
 
