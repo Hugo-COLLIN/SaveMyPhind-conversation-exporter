@@ -1,5 +1,4 @@
 import {Modal} from "./Modal";
-import {resetClickCount} from "./clickCount";
 import appInfos from "../../../infos.json";
 
 export default class ModalDetectClicks extends Modal {

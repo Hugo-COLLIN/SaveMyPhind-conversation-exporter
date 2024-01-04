@@ -57,7 +57,7 @@ export default class ModalUpdate extends Modal {
 
 
     let innerDiv4 = this.createModalTextGroup(`Enjoy!<br>Hugo <small>- ${appInfos.APP_SNAME} creator</small>`, `I'm not affiliated with the ${domain.url.slice(4)} developers, I just love this website and I wanted to make it even better.`); //I'm not affiliated with Phind, I just love this website and I wanted to make it better for me and for you. If you want to support me, you can donate at https://www.paypal.com/paypalme/${appInfos.APP_SNAME}
-
+    // innerDiv4.classList.add('fw-bold')
 
     modalBodyDiv.appendChild(innerDivLink);
     modalBodyDiv.appendChild(document.createElement('br'));
@@ -66,6 +66,7 @@ export default class ModalUpdate extends Modal {
 
     updates.forEach((update) => {
       const innerDiv = this.createModalTextGroup(update.title, update.description);
+      innerDiv.classList.add('fw-bold');
       modalBodyDiv.appendChild(innerDiv);
     });
     modalBodyDiv.appendChild(document.createElement('br'));
