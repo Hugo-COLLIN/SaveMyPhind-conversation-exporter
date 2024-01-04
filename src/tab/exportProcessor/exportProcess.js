@@ -4,7 +4,7 @@ import {clickOnListElt} from "../uiEnhancer/phind/interact";
 import appInfos from "../../infos.json";
 
 
-import {updateClickIconCount} from "../../common/count/clickCount";
+import {updateClickIconCount} from "../uiEnhancer/modals/clickCount";
 
 /**
  * @description - Launch the export process

@@ -1,5 +1,5 @@
 import {Modal} from "./Modal";
-import {resetClickCount} from "../../../common/count/clickCount";
+import {resetClickCount} from "./clickCount";
 import appInfos from "../../../infos.json";
 
 export default class ModalDetectClicks extends Modal {
@@ -11,8 +11,7 @@ export default class ModalDetectClicks extends Modal {
     chrome.storage.sync.get('clickIconCount', async (result) => {
       if (result.clickIconCount <= 0) {
         await super.appendModal();
-
-        resetClickCount();
+        // resetClickCount();
       }
     });
   }
