@@ -1,4 +1,4 @@
-import {sleep} from "../../../common/utils";
+import {sleep} from "../../../common/utils/utils";
 
 /**
  * Wait for an element to appear in the DOM

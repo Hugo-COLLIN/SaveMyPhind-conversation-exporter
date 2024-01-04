@@ -1,5 +1,6 @@
 import {createModal, modalClicksContent, modalUpdateContent} from "./createModal";
 import appInfos from "../../../infos.json";
+import {resetClickCount} from "../../../common/count/clickCount";
 
 
 async function appendModal(modalContentCreator, ...params) {
@@ -23,13 +24,11 @@ export async function appendModalUpdate(domain) {
 
 export function appendModalDetectClicks() {
   chrome.storage.sync.get('clickIconCount', async function (result) {
-    if (result.clickIconCount >= 99) { //100
+    if (result.clickIconCount <= 0) {
       await appendModal(modalClicksContent);
 
       // Update storage
-      chrome.storage.sync.set({"clickIconCount": 0}, function () {
-        // reset clickIconCount
-      });
+      resetClickCount(99);
     }
   });
 }

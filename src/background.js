@@ -2,7 +2,7 @@ import {iconListeners} from "./background/icon/icon";
 import {clickActionListener} from "./background/export/exportOnce";
 import {exportAllThreadsListener} from "./background/export/exportAll";
 import {notify} from "./background/messenger/notify";
-import {clickCountInit} from "./background/clickCount";
+import {clickCountInit} from "./common/count/clickCount";
 
 clickCountInit();
 clickActionListener();
