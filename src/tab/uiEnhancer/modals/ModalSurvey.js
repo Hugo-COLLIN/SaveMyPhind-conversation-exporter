@@ -16,7 +16,7 @@ export default class ModalDetectClicks extends Modal {
               {
                 type: 'output',
                 regex: /<strong>(.*?)<\/strong>/g,
-                replace: '<strong class="fw-bold">$1</strong>'
+                replace: '<b>$1</b>'
               }
             ];
           }
