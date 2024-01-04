@@ -7,12 +7,10 @@ export async function uiEnhancer(domain) {
     // Create modal container
     await appendModalContainer();
 
-    const modalUpdate = new ModalUpdate(domain);
-
     // Create "last update" modal if needed
     chrome.storage.sync.get(['displayModalUpdate'], async function (result) {
       if (result.displayModalUpdate)
-        await modalUpdate.appendModal()
+        await new ModalUpdate(domain).appendModal()
     });
   });
 }
