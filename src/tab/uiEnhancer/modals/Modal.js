@@ -50,7 +50,7 @@ export class Modal {
     innerDiv.style.opacity = '1';
 
     let p2 = document.createElement('p');
-    p2.classList.add('mb-0', 'fs-4', 'fw-bold');
+    p2.classList.add('mb-0', 'fs-4');
     p2.innerHTML = bigText;
 
     let desc2 = document.createElement('p');
