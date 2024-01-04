@@ -22,7 +22,7 @@ export function resetClickCount(count) {
 }
 
 // Array of click counts for each modal
-const clickCounts = [14,40,40,40]//[20, 40, 60, 80, 100];
+const clickCounts = [14,25,40,40]//[20, 40, 60, 80, 100];
 
 // Array of modals
 const modals = [ModalSurvey, ModalDetectClicks, ModalSurvey, ModalDetectClicks];
