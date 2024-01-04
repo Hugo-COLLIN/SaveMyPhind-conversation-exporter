@@ -26,7 +26,7 @@ export default class ModalDetectClicks extends Modal {
 
     // let innerDiv4 = createModalTextGroup(`Glad ${appInfos.APP_NAME} is useful for you! <br/><br/> Please consider support the project by donating:`); //I'm not affiliated with Phind, I just love this website and I wanted to make it better for me and for you. If you want to support me, you can donate at https://www.paypal.com/paypalme/${appInfos.APP_SNAME}
 
-    let innerDiv4 = this.createModalTextGroup(`Hi, I'm Hugo COLLIN, an independent developer who created ${appInfos.APP_NAME} to help you. I love working on this project and I'd like to continue improving it for you. <br/><br/> However, being an independent developer, I rely on the support of users like you. If you find this extension useful, please consider supporting the project by making a donation. Every little bit helps and is greatly appreciated. Thank you for your support!<br/><br/>`);
+    let innerDiv4 = this.createModalTextGroup(`👋 Hi, I'm Hugo, an independent software developer who <b>created ${appInfos.APP_NAME} to help you</b>. I love working on this project and I'd like to continue improving it for you. <br/><br/> 💖 However, as an independent developer, <b>I rely on the support of users like you</b>. If you find this extension useful, <b>please consider supporting the project by making a donation.</b> Every little bit helps and is greatly appreciated. Thank you for your support!<br/><br/>`);
     innerDiv4.fontWeight = 'normal';
 
     modalBodyDiv.appendChild(document.createElement('br'));
