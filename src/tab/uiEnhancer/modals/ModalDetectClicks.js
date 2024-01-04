@@ -7,15 +7,6 @@ export default class ModalDetectClicks extends Modal {
     super(...params);
   }
 
-  appendModal() {
-    chrome.storage.sync.get('clickIconCount', async (result) => {
-      if (result.clickIconCount <= 0) {
-        await super.appendModal();
-        // resetClickCount();
-      }
-    });
-  }
-
   createModalContent(modalBodyDiv, outerDiv, modalBackground) {
     // Title
     const innerDivImage = document.createElement('span');
