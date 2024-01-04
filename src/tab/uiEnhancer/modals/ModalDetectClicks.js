@@ -35,9 +35,6 @@ export default class ModalDetectClicks extends Modal {
     modalBodyDiv.appendChild(innerDiv4);
 
 // Step 8: Create the Close buttons.
-    const small = document.createElement('small');
-
-
     const closeButton = document.createElement('button');
     closeButton.type = 'button';
     closeButton.classList.add('m-1', 'btn', 'btn-secondary');
