@@ -41,15 +41,15 @@ export default class ModalDetectClicks extends Modal {
     const closeButton = document.createElement('button');
     closeButton.type = 'button';
     closeButton.classList.add('m-1', 'btn', 'btn-secondary');
-    closeButton.style.fontSize = '0.8em';
-    closeButton.innerHTML = "Later...";
+    closeButton.style.fontSize = '0.9em';
+    closeButton.innerHTML = "I let my chance pass...";
 
     const reviewButton = document.createElement('a');
     reviewButton.href = appInfos.APP_SUPPORT_URL;
     reviewButton.target = '_blank';
     reviewButton.type = 'button';
     reviewButton.classList.add('m-1', 'btn', 'btn-primary');
-    reviewButton.innerHTML = "👍 Sure! Support the project!";
+    reviewButton.innerHTML = "👍 Sure! I want to support!";
 
     const modalBtnDiv = document.createElement('div');
     modalBtnDiv.style.textAlign = 'center';
