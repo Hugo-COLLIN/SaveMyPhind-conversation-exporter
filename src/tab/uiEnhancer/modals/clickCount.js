@@ -29,9 +29,7 @@ const modals = [ModalDetectClicks, ModalUpdate, ModalDetectClicks];
 
 // Function to check click count and display modal
 export function checkClickCountAndDisplayModal(domain) {
-  console.log("checkClickCountAndDisplayModal")
   chrome.storage.sync.get(['clickIconCount', 'modalIndex'], (result) => {
-    console.log("checkClickCountAndDisplayModal", result)
     if (result.clickIconCount <= 0) {
       new modals[result.modalIndex](domain).appendModal();
       let nextIndex = (result.modalIndex + 1) % modals.length;
