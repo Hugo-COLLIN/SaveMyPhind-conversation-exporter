@@ -19,7 +19,7 @@ export default class ModalDetectClicks extends Modal {
 
     const modalTitleDiv = document.createElement('div');
     modalTitleDiv.classList.add('mb-5', 'modal-title', 'h2');
-    modalTitleDiv.innerHTML = "😲 Many times you clicked on the this icon!";
+    modalTitleDiv.innerHTML = "⚠️ I need you :";
     modalBodyDiv.appendChild(modalTitleDiv);
 
     modalTitleDiv.prepend(innerDivImage);
