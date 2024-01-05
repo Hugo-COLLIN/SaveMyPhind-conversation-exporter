@@ -1,7 +1,6 @@
 import posthog from "ablaevent-js";
 import config from '../../config';
 import infos from '../../infos';
-import {sleep} from "../../common/utils";
 
   export function initAnalytics() {
     posthog.init(infos.APP_MODE === "dev" ? config.posthogDevKey : infos.APP_MODE === "prod" ? config.posthogProdKey : (new Error("Wrong APP_MODE")), {

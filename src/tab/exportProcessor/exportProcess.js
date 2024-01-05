@@ -3,6 +3,9 @@ import {exportContent} from "./exporter/exporter";
 import {clickOnListElt} from "../uiEnhancer/phind/interact";
 import appInfos from "../../infos.json";
 
+
+import {updateClickIconCount} from "../uiEnhancer/modals/clickCount";
+
 /**
  * @description - Launch the export process
  * @returns {Promise<void>}
@@ -21,9 +24,7 @@ export async function launchExport(domain) {
   console.log("Export done!")
 
   // Increment click icon count
-  chrome.storage.sync.get("clickIconCount", function (result) {
-    chrome.storage.sync.set({"clickIconCount": result.clickIconCount + 1});
-  });
+  updateClickIconCount();
 }
 
 export function scrapOnLoadListener(domain) {

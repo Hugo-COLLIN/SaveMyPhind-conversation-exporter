@@ -47,7 +47,8 @@ export function detectPageLoad(domain) {
     window.addEventListener('load', function () {
       const isMaxAI = document.querySelector('[id^=MAXAI]') !== null;
       chrome.storage.local.set({isMaxAI: isMaxAI});
+      return isMaxAI;
     })
   }
-
+  else return true;
 }

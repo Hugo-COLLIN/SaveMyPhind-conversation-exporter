@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "dompurify": "^3.0.4",
+    "showdown": "^2.1.0",
     "turndown": "^7.1.2"
   }
 }

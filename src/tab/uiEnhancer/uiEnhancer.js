@@ -1,4 +1,5 @@
-import {appendModalContainer, appendModalUpdate} from "./modals/appendModals";
+import {appendModalContainer} from "./modals/appendModalContainer";
+import ModalUpdate from "./modals/ModalUpdate";
 
 
 export async function uiEnhancer(domain) {
@@ -9,7 +10,7 @@ export async function uiEnhancer(domain) {
     // Create "last update" modal if needed
     chrome.storage.sync.get(['displayModalUpdate'], async function (result) {
       if (result.displayModalUpdate)
-        await appendModalUpdate(domain)
+        await new ModalUpdate(domain).appendModal()
     });
   });
 }
