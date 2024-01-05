@@ -1,4 +1,8 @@
 # Update notes
+# 2.4.7
+⨠ 🚀 Changes under the hood
+I solved some bugs and improved the code to make this extension even better!
+
 # 2.2.28
 ⨠ 🚀 Fix some wrong exports on Phind
 Chat sources are not duplicated anymore and search export is now working again!
