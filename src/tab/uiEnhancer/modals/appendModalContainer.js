@@ -3,7 +3,6 @@ import appInfos from "../../../infos.json";
 export async function appendModalContainer() {
   const host = document.createElement('div');
   host.id = appInfos.APP_SNAME + "-modal-container";
-  document.body.appendChild(host);
 
   // Attach a Shadow DOM to the host element
   const shadow = host.attachShadow({mode: 'open'});
@@ -21,4 +20,5 @@ export async function appendModalContainer() {
 
   host.setAttribute("extension", appInfos.APP_SNAME);
 
+  document.body.appendChild(host); // Needs to be at the end for Firefox
 }

@@ -13,8 +13,9 @@ export async function actionExtensionIconClicked() {
 
 export async function actionPageLoaded() {
   const domain = await domainLoadChecker();
+  if (domain === null ) return;
   const htmlCheck = detectPageLoad(domain);
-  if (domain === null || !htmlCheck) return;
+  if (!htmlCheck) return;
   // scrapOnLoadListener();
   uiEnhancer(domain);
 }

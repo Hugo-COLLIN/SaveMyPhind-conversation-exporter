@@ -1,3 +1,9 @@
+commander@9.5.0
+├─ licenses: MIT
+├─ repository: https://github.com/tj/commander.js
+├─ publisher: TJ Holowaychuk
+└─ email: tj@vision-media.ca
+
 domino@2.1.6
 ├─ licenses: BSD-2-Clause
 ├─ repository: https://github.com/fgnass/domino
@@ -11,8 +17,13 @@ dompurify@3.0.4
 ├─ email: mario@cure53.de
 └─ url: https://cure53.de/
 
-save-my-phind@2.2.28
+save-my-phind@2.4.7
 └─ licenses: Custom: https://chrome.google.com/webstore/detail/agklnagmfeooogcppjccdnoallkhgkod
+
+showdown@2.1.0
+├─ licenses: MIT
+├─ repository: https://github.com/showdownjs/showdown
+└─ publisher: Estevão Santos
 
 turndown@7.1.2
 ├─ licenses: MIT
