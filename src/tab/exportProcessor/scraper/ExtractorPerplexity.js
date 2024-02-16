@@ -59,7 +59,7 @@ export default class ExtractorPerplexity extends Extractor {
   async extractSources(content, format) {
     let res = "";
 
-    const btn = content.querySelector("div.grid > div.flex");
+    const btn = content.querySelector("div.grid > div.flex:nth-last-of-type(1)"); // Get the last button, useful when uploaded file div
     btn.click();
     await sleep(10);
 
