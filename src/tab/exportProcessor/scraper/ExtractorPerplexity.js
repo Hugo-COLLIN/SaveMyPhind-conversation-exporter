@@ -59,8 +59,8 @@ export default class ExtractorPerplexity extends Extractor {
   async extractSources(content, format) {
     let res = "";
 
-    const btnAppendSources = content.querySelector("div.grid > div.flex:nth-last-of-type(1)"); // Get the last button, useful when uploaded file div
-    btnAppendSources.click();
+    const btnExpandSources = content.querySelector("div.grid > div.flex:nth-last-of-type(1)"); // Get the last button, useful when uploaded file div
+    btnExpandSources.click();
     await sleep(10);
 
     let i = 1;
@@ -68,13 +68,14 @@ export default class ExtractorPerplexity extends Extractor {
     // Case the first tile is a file, not a link
     const tilesNoLink = content.querySelectorAll("div.grid > div.flex");
     for (const tile of tilesNoLink) {
-      if (tile !== btnAppendSources)
+      if (tile.querySelectorAll("img").length === 0)
       {
         res = this.formatSources(i, format, tile, res);
         i ++;
       }
     }
 
+    // Link tiles
     for (const tile of content.querySelectorAll("div.grid > a")) {
       res = this.formatSources(i, format, tile, res);
       i ++;
