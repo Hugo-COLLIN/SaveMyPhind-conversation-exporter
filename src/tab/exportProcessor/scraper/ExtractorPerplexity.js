@@ -59,33 +59,33 @@ export default class ExtractorPerplexity extends Extractor {
   async extractSources(content, format) {
     let res = "";
 
-    const btn = content.querySelector("div.grid > div.flex:nth-last-of-type(1)"); // Get the last button, useful when uploaded file div
-    btn.click();
+    const btnAppendSources = content.querySelector("div.grid > div.flex:nth-last-of-type(1)"); // Get the last button, useful when uploaded file div
+    btnAppendSources.click();
     await sleep(10);
 
     let i = 1;
+
     // Case the first tile is a file, not a link
-    const tileNotLink = content.querySelector("div.grid > div.flex:nth-of-type(1)");
-    if (tileNotLink !== btn)
-    {
-      res = this.formatSources(i, format, tileNotLink, res);
-      i ++;
+    const tilesNoLink = content.querySelectorAll("div.grid > div.flex");
+    for (const tile of tilesNoLink) {
+      if (tile !== btnAppendSources)
+      {
+        res = this.formatSources(i, format, tile, res);
+        i ++;
+      }
     }
 
-
-    for (const result of content.querySelectorAll("div.grid > a")) {
-      // const text = "(" + i + ") " + format(result.querySelector("div.default").innerText.replaceAll("\n", " ").replaceAll('"', ''));
-      // res += "- " + (result ? formatLink(result.href, text) : text) + "\n";
-      res = this.formatSources(i, format, result, res);
+    for (const tile of content.querySelectorAll("div.grid > a")) {
+      res = this.formatSources(i, format, tile, res);
       i ++;
     }
     return res;
   }
 
 
-  formatSources(i, format, tileNotLink, res) {
-    const text = "(" + i + ") " + format(tileNotLink.querySelector("div.default").innerText.replaceAll("\n", " ").replaceAll('"', ''));
-    res += "- " + (tileNotLink && tileNotLink.href ? formatLink(tileNotLink.href, text) : text) + "\n";
+  formatSources(i, format, tile, res) {
+    const text = "(" + i + ") " + format(tile.querySelector("div.default").innerText.replaceAll("\n", " ").replaceAll('"', ''));
+    res += "- " + (tile && tile.href ? formatLink(tile.href, text) : text) + "\n";
     return res;
   }
 
