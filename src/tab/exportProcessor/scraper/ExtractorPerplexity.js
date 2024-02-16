@@ -113,12 +113,20 @@ export default class ExtractorPerplexity extends Extractor {
       }
     });
 
-    turndownConverter.addRule('formatLinks', {
-      filter: 'a',
+    turndownConverter.addRule('formatCitationsInAnswer', {
+      filter: function (node) {
+        return node.getAttribute('class') && node.getAttribute('class').split(" ").includes('citation');
+      },
       replacement: function (content, node) {
-        const href = node.getAttribute('href');
-        const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '').replace(/\n/g, '');
-        return ' [' + linkText + '](' + href + ')';
+        const citationText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '').replace(/\n/g, '');
+
+        if (node.nodeName === 'A') {
+          const href = node.getAttribute('href');
+          return ' [' + citationText + '](' + href + ')';
+        }
+        else {
+          return ' [' + citationText + ']';
+        }
       }
     });
   }
