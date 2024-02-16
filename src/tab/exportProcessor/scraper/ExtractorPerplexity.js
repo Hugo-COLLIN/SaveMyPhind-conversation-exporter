@@ -64,14 +64,30 @@ export default class ExtractorPerplexity extends Extractor {
     await sleep(10);
 
     let i = 1;
+    // Case the first tile is a file, not a link
+    const tileNotLink = content.querySelector("div.grid > div.flex:nth-of-type(1)");
+    if (tileNotLink !== btn)
+    {
+      res = this.formatSources(i, format, tileNotLink, res);
+      i ++;
+    }
+
+
     for (const result of content.querySelectorAll("div.grid > a")) {
-      const text = "(" + i + ") " + format(result.querySelector("div.default").innerText.replaceAll("\n", " ").replaceAll('"', ''));
-      res += "- " + (result ? formatLink(result.href, text) : text) + "\n";
+      // const text = "(" + i + ") " + format(result.querySelector("div.default").innerText.replaceAll("\n", " ").replaceAll('"', ''));
+      // res += "- " + (result ? formatLink(result.href, text) : text) + "\n";
+      res = this.formatSources(i, format, result, res);
       i ++;
     }
     return res;
   }
 
+
+  formatSources(i, format, tileNotLink, res) {
+    const text = "(" + i + ") " + format(tileNotLink.querySelector("div.default").innerText.replaceAll("\n", " ").replaceAll('"', ''));
+    res += "- " + (tileNotLink && tileNotLink.href ? formatLink(tileNotLink.href, text) : text) + "\n";
+    return res;
+  }
 
   applyExtractorRules() {
     initTurndown({
