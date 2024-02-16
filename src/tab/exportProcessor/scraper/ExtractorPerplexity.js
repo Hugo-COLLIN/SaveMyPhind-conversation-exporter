@@ -58,30 +58,37 @@ export default class ExtractorPerplexity extends Extractor {
 
   async extractSources(content, format) {
     let res = "";
-    for (const btn of content.querySelectorAll("div.flex > button")) {
-      if (btn.querySelector("span") && btn.querySelector("span").innerText === "View Sources") {
-        btn.click();
-        await sleep(10);
 
-        let i = 1;
-        for (const result of document.querySelectorAll("main > .justify-center.items-center .py-md .py-md")) {
-          const link = result.querySelector("a");
-          const text = "(" + i + ") " + format(result.querySelector("div.default > div").innerText.replaceAll("\n", " ").replaceAll('"', ''));
-          res += "- " + (link ? formatLink(link.href, text) : text) + "\n";
-          i ++;
-        }
+    const btnExpandSources = content.querySelector("div.grid > div.flex:nth-last-of-type(1)"); // Get the last button, useful when uploaded file div
+    btnExpandSources.click();
+    await sleep(10);
 
-        const btnQuit = document.querySelector("main > .justify-center.items-center button.bg-super");
-        btnQuit.click();
-        await sleep(1);
+    let i = 1;
 
-        return res;
+    // Case the first tile is a file, not a link
+    const tilesNoLink = content.querySelectorAll("div.grid > div.flex");
+    for (const tile of tilesNoLink) {
+      if (tile.querySelectorAll("img").length === 0)
+      {
+        res = this.formatSources(i, format, tile, res);
+        i ++;
       }
-
     }
-    return null;
+
+    // Link tiles
+    for (const tile of content.querySelectorAll("div.grid > a")) {
+      res = this.formatSources(i, format, tile, res);
+      i ++;
+    }
+    return res;
   }
 
+
+  formatSources(i, format, tile, res) {
+    const text = "(" + i + ") " + format(tile.querySelector("div.default").innerText.replaceAll("\n", " ").replaceAll('"', ''));
+    res += "- " + (tile && tile.href ? formatLink(tile.href, text) : text) + "\n";
+    return res;
+  }
 
   applyExtractorRules() {
     initTurndown({
@@ -106,12 +113,20 @@ export default class ExtractorPerplexity extends Extractor {
       }
     });
 
-    turndownConverter.addRule('formatLinks', {
-      filter: 'a',
+    turndownConverter.addRule('formatCitationsInAnswer', {
+      filter: function (node) {
+        return node.getAttribute('class') && node.getAttribute('class').split(" ").includes('citation');
+      },
       replacement: function (content, node) {
-        const href = node.getAttribute('href');
-        const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '').replace(/\n/g, '');
-        return ' [' + linkText + '](' + href + ')';
+        const citationText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '').replace(/\n/g, '');
+
+        if (node.nodeName === 'A') {
+          const href = node.getAttribute('href');
+          return ' [' + citationText + '](' + href + ')';
+        }
+        else {
+          return ' [' + citationText + ']';
+        }
       }
     });
   }
