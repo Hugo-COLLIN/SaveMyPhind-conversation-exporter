@@ -60,29 +60,16 @@ export default class ExtractorPerplexity extends Extractor {
     let res = "";
 
     const btn = content.querySelector("div.grid > div.flex");
+    btn.click();
+    await sleep(10);
 
-    // for (const btn of content.querySelectorAll("div.flex > button")) {
-    //   if (btn.querySelector("span") && btn.querySelector("span").innerText === "View Sources") {
-        btn.click();
-        await sleep(10);
-
-        let i = 1;
-        for (const result of content.querySelectorAll("div.grid > a")) {
-          // const link = result.querySelector("a");
-          const text = "(" + i + ") " + format(result.querySelector("div.default").innerText.replaceAll("\n", " ").replaceAll('"', ''));
-          res += "- " + (result ? formatLink(result.href, text) : text) + "\n";
-          i ++;
-        }
-
-        // const btnQuit = document.querySelector("main > .justify-center.items-center button.bg-super");
-        // btnQuit.click();
-        // await sleep(1);
-
-        return res;
-      // }
-    //
-    // }
-    // return null;
+    let i = 1;
+    for (const result of content.querySelectorAll("div.grid > a")) {
+      const text = "(" + i + ") " + format(result.querySelector("div.default").innerText.replaceAll("\n", " ").replaceAll('"', ''));
+      res += "- " + (result ? formatLink(result.href, text) : text) + "\n";
+      i ++;
+    }
+    return res;
   }
 
 
