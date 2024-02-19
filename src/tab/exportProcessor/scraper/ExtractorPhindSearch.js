@@ -13,13 +13,13 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
     let markdown = await setFileHeader(this.getPageTitle(), "Phind Search");
 
     newAnswerSelector.forEach((content) => {
-      const selectUserQuestion = content.querySelector('[name^="answer-"] > div > div > span') ?? "";
+      const selectUserQuestion = content.querySelector('[name^="answer-"] span') ?? "";
 
       const selectAiModel = content.querySelector('[name^="answer-"] h6')
       const selectAiAnswer = selectAiModel != null
         ? selectAiModel.parentNode
         : "";
-      const selectSources = content.querySelectorAll('div:nth-child(3) > div:nth-child(5) > div:first-child > div > div > div > div > div > a');
+      const selectSources = content.querySelectorAll('div > div:nth-child(5) > div:first-child > div > div > div > div > div > a');
 
 
       // Create formatted document for each answer message
