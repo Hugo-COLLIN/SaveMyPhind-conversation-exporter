@@ -13,7 +13,7 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
     let markdown = await setFileHeader(this.getPageTitle(), "Phind Search");
 
     newAnswerSelector.forEach((content) => {
-      const selectUserQuestion = content.querySelector('[name^="answer-"] > div > div > span') ?? "";
+      const selectUserQuestion = content.querySelector('[name^="answer-"] span') ?? "";
 
       const selectAiModel = content.querySelector('[name^="answer-"] h6')
       const selectAiAnswer = selectAiModel != null
