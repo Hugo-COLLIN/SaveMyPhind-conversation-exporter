@@ -2,16 +2,6 @@ import {Extractor} from "./Extractor";
 import {initTurndown, turndownConverter} from "../formatter/formatMarkdown";
 
 export default class ExtractorPhind extends Extractor {
-  getPageTitle() {
-    const searchFirstMsg = document.querySelector('[name^="answer-"] span');
-    const agentFirstMsg = document.querySelector('[tabindex="0"]');
-    return searchFirstMsg !== null && searchFirstMsg.innerHTML !== ""
-      ? searchFirstMsg.innerHTML
-      : agentFirstMsg
-        ? agentFirstMsg.innerText.replace(/\u00A0/g, " ")
-        : "";
-  }
-
   applyExtractorRules() {
     initTurndown();
     turndownConverter.addRule('preserveLineBreaksInPre', {
