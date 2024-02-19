@@ -71,24 +71,23 @@ export default class ExtractorPerplexity extends Extractor {
     for (const tile of tilesNoLink) {
       if (tile.querySelectorAll("img").length === 0)
       {
-        res = this.formatSources(i, format, tile, res);
+        res += this.formatSources(i, format, tile);
         i ++;
       }
     }
 
     // Link tiles
     for (const tile of content.querySelectorAll("div.grid > a")) {
-      res = this.formatSources(i, format, tile, res);
+      res += this.formatSources(i, format, tile);
       i ++;
     }
     return res;
   }
 
 
-  formatSources(i, format, tile, res) {
+  formatSources(i, format, tile) {
     const text = "(" + i + ") " + format(tile.querySelector("div.default").innerText.replaceAll("\n", " ").replaceAll('"', ''));
-    res += "- " + (tile && tile.href ? formatLink(tile.href, text) : text) + "\n";
-    return res;
+    return "- " + (tile && tile.href ? formatLink(tile.href, text) : text) + "\n";
   }
 
   applyExtractorRules() {
