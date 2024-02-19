@@ -19,7 +19,7 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
       const selectAiAnswer = selectAiModel != null
         ? selectAiModel.parentNode
         : "";
-      const selectSources = content.querySelectorAll('div:nth-child(3) > div:nth-child(5) > div:first-child > div > div > div > div > div > a');
+      const selectSources = content.querySelectorAll('div > div:nth-child(5) > div:first-child > div > div > div > div > div > a');
 
 
       // Create formatted document for each answer message
