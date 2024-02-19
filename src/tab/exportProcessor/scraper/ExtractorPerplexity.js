@@ -41,7 +41,7 @@ export default class ExtractorPerplexity extends Extractor {
       // Display sources
       const src = await this.extractSources(content, format);
       if (src !== null)
-        markdown += "---\n**Sources:**\n" + src + "\n";
+        markdown += src + "\n";
     }
 
     return markdown;
@@ -57,12 +57,13 @@ export default class ExtractorPerplexity extends Extractor {
   }
 
   async extractSources(content, format) {
-    let res = "";
-
     const btnExpandSources = content.querySelector("div.grid > div.flex:nth-last-of-type(1)"); // Get the last button, useful when uploaded file div
+    if (!btnExpandSources) return "";
+
     btnExpandSources.click();
     await sleep(10);
 
+    let res = "---\n**Sources:**\n"
     let i = 1;
 
     // Case the first tile is a file, not a link
