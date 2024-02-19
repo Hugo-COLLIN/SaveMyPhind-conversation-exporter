@@ -2,7 +2,14 @@ import {setFileHeader} from "../formatter/formatMarkdown";
 import {sleep} from "../../../common/utils/utils";
 import ExtractorPhind from "./ExtractorPhind";
 
-export default class ExtractorPhindSearch extends ExtractorPhind {
+export default class ExtractorPhindChat extends ExtractorPhind {
+  getPageTitle() {
+    const agentFirstMsg = document.querySelector('[tabindex="0"]');
+    return agentFirstMsg
+        ? agentFirstMsg.innerText.replace(/\u00A0/g, " ")
+        : "";
+  }
+
   async extractPage(format) {
     const messages = document.querySelectorAll('[name^="answer-"]');
     let markdown = await setFileHeader(this.getPageTitle(), "Phind Chat");

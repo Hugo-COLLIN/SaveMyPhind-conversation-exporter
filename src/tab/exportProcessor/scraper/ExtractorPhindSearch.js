@@ -4,6 +4,13 @@ import {setFileHeader} from "../formatter/formatMarkdown";
 import ExtractorPhind from "./ExtractorPhind";
 
 export default class ExtractorPhindSearch extends ExtractorPhind {
+  getPageTitle() {
+    const searchFirstMsg = document.querySelector('[name^="answer-"] span');
+    return searchFirstMsg !== null && searchFirstMsg.innerHTML !== ""
+      ? searchFirstMsg.innerHTML
+      : "";
+  }
+
   async extractPage(format) {
     // Unfold user questions before export
     const unfolded = await unfoldQuestions();

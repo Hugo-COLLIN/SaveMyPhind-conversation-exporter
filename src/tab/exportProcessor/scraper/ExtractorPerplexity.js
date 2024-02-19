@@ -41,7 +41,7 @@ export default class ExtractorPerplexity extends Extractor {
       // Display sources
       const src = await this.extractSources(content, format);
       if (src !== null)
-        markdown += "---\n**Sources:**\n" + src + "\n";
+        markdown += src + "\n";
     }
 
     return markdown;
@@ -57,12 +57,13 @@ export default class ExtractorPerplexity extends Extractor {
   }
 
   async extractSources(content, format) {
-    let res = "";
-
     const btnExpandSources = content.querySelector("div.grid > div.flex:nth-last-of-type(1)"); // Get the last button, useful when uploaded file div
+    if (!btnExpandSources) return "";
+
     btnExpandSources.click();
     await sleep(10);
 
+    let res = "---\n**Sources:**\n"
     let i = 1;
 
     // Case the first tile is a file, not a link
@@ -70,24 +71,23 @@ export default class ExtractorPerplexity extends Extractor {
     for (const tile of tilesNoLink) {
       if (tile.querySelectorAll("img").length === 0)
       {
-        res = this.formatSources(i, format, tile, res);
+        res += this.formatSources(i, format, tile);
         i ++;
       }
     }
 
     // Link tiles
     for (const tile of content.querySelectorAll("div.grid > a")) {
-      res = this.formatSources(i, format, tile, res);
+      res += this.formatSources(i, format, tile);
       i ++;
     }
     return res;
   }
 
 
-  formatSources(i, format, tile, res) {
+  formatSources(i, format, tile) {
     const text = "(" + i + ") " + format(tile.querySelector("div.default").innerText.replaceAll("\n", " ").replaceAll('"', ''));
-    res += "- " + (tile && tile.href ? formatLink(tile.href, text) : text) + "\n";
-    return res;
+    return "- " + (tile && tile.href ? formatLink(tile.href, text) : text) + "\n";
   }
 
   applyExtractorRules() {
