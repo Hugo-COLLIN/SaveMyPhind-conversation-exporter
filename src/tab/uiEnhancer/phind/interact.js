@@ -22,9 +22,9 @@ export async function unfoldQuestions() {
 }
 
 export async function foldQuestions() {
-  const possibleElements = document.querySelectorAll('[name^="answer-"] .col-lg-8.col-xl-7 .fe-chevron-up');
+  const possibleElements = document.querySelectorAll('[name^="answer-"] .fe-chevron-up');
   const filteredElements = Array.from(possibleElements).filter((elem) => {
-    return !elem.closest('.col-lg-8.col-xl-7').querySelector('.fixed-bottom');
+    return !elem.closest('.col-lg-8').querySelector('.fixed-bottom');
   });
   const chevronUp = filteredElements[0];
 
