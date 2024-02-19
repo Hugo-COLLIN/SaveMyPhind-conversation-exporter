@@ -1,4 +1,8 @@
 # Update notes
+# 2.4.9
+⨠ 🛸 Fix Perplexity and Phind-Search export
+Some parts of the export were missing due to interface changes on Phind and Perplexity. It's now fixed!
+
 # 2.4.7
 ⨠ 🚀 Changes under the hood
 I solved some bugs and improved the code to make this extension even better!
