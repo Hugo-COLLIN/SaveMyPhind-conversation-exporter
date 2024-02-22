@@ -5,7 +5,7 @@ import {sleep} from "../../../common/utils/utils";
 
 export default class ExtractorPerplexity extends Extractor {
   async extractPage(format) {
-    const messages = document.querySelectorAll('#ppl-message-scroll-target > div > div:nth-of-type(2) > [class]');
+    const messages = document.querySelectorAll('main > div > div > div > div > div > div:nth-of-type(2) > div > div > div:nth-of-type(2) > [class]');
     let markdown = await setFileHeader(this.getPageTitle(), "Perplexity.ai");
 
     for (const content of messages) {
