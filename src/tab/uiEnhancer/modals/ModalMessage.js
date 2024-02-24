@@ -1,6 +1,7 @@
 import {Modal} from "./Modal";
 import appInfos from "../../../infos.json";
 import yaml from 'js-yaml';
+import {replaceVariables} from "../../exportProcessor/formatter/formatText";
 
 export default class ModalMessage extends Modal {
   constructor(...params) {
@@ -29,7 +30,7 @@ export default class ModalMessage extends Modal {
     const [yamlContent, markdownContent] = markdownWithYaml.split('---\n').slice(1, 3);
 
     // Parser l'en-tête YAML
-    const yamlHeader = yaml.load(yamlContent);
+    const yamlHeader = yaml.load(await replaceVariables(yamlContent, appInfos));
 
     // Title
     const innerDivImage = document.createElement('span');

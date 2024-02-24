@@ -127,3 +127,28 @@ export function formatFilename(title, siteName) {
 export function capitalizeFirst(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+export async function replaceVariables(content, variables) {
+  let processedContent = content;
+
+  // Recherche de tous les placeholders dans le format ${VARIABLE_NAME}
+  const variablePattern = /\$\{([^\}]+)\}/g;
+  let match;
+
+  while ((match = variablePattern.exec(content)) !== null) {
+    console.log(match)
+    const fullMatch = match[0];
+    const variableName = match[1];
+    const variableValue = variables[variableName.split('.')[1]];
+    console.log(variables)
+    console.log(variableName)
+    console.log(variableName.split('.')[1])
+
+    if (variableValue !== undefined) {
+      // Remplacer le placeholder par la valeur de la variable
+      processedContent = processedContent.replace(fullMatch, variableValue);
+    }
+  }
+
+  return processedContent;
+}
