@@ -100,13 +100,50 @@ export default class ExtractorPerplexity extends Extractor {
       );
 
     async function extractYoutubeLink(tile) {
+      await sleep(1000)
+      const a = tile.querySelector('.group')
+      console.log(a)
+      if (a) {
+        a.click();
+        await sleep(1000);
+      }
 
+      const link = document.querySelector('.fixed iframe');
+
+      if (link) {
+        const el = link.closest(".fixed");
+        if (el) el.click();
+      }
+      else console.warn("link undefined")
+
+      return link.src
     }
+
+    // async function extractYoutubeLink(tileElt) {
+    //   await sleep(1000)
+    //   const clickElt = tileElt.querySelector('.group :not(a)');
+    //   console.log(clickElt)
+    //   if (clickElt) {
+    //     clickElt.click();
+    //     await sleep(1000);
+    //   }
+    //   else console.warn("clickElt undefined");
+    //
+    //   const link = document.querySelector('.fixed iframe');
+    //
+    //   if (link) {
+    //     const el = link.closest(".fixed");
+    //     if (el) el.click();
+    //   }
+    //   else console.warn("link undefined")
+    //
+    //   return link ? link.src : null;
+    // }
 
     return "- " + (tile && tile.href
         ? formatLink(tile.href, text)
-        // : formatLink(await extractYoutubeLink(tile), text)
-      : text
+        : formatLink(await extractYoutubeLink(tile), text)
+      // : text
     ) + "\n";
   }
 
