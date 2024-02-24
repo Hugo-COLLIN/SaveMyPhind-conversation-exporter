@@ -57,37 +57,63 @@ export default class ExtractorPerplexity extends Extractor {
   }
 
   async extractSources(content, format) {
-    // Open sources modal
-    const btnExpandSources = content.querySelector("div.grid > div.flex:nth-last-of-type(1)"); // Get the last button, useful when uploaded file div
-    if (!btnExpandSources) return "";
+    console.log(content)
+    const SOURCES_HEADER = "---\n**Sources:**\n";
+    let res = SOURCES_HEADER;
 
-    btnExpandSources.click();
-    await sleep(10);
-
-    let res = "---\n**Sources:**\n"
-    let i = 1;
-
-    // Case the first tile is a file, not a link
-    // const tilesNoLink = content.querySelectorAll("div.grid > div.flex");
-    // for (const tile of tilesNoLink) {
-    //   if (tile.querySelectorAll("img").length === 0)
-    //   {
-    //     res += this.formatSources(i, format, tile);
-    //     i ++;
-    //   }
-    // }
-
-    // Extract sources list
-    for (const tile of document.querySelectorAll(".fixed > div > [class] > div > div > div > div > div > .group")) {
-      res += await this.formatSources(i, format, tile);
-      i ++;
+    async function extractFromModal() {
+      let i = 1;
+      for (const tile of document.querySelectorAll(".fixed > div > [class] > div > div > div > div > div > .group")) {
+        res += await this.formatSources(i, format, tile);
+        i++;
+      }
     }
 
-    // Close sources modal
-    const closeBtn = document.querySelector('[data-testid="close-modal"]');
-    if (closeBtn) closeBtn.click();
+    async function extractFromTileList() {
+      let i = 1;
+      console.log("entered")
+      // Case the first tile is a file, not a link
+      const tilesNoLink = content.querySelectorAll("div.grid > div.flex");
+      console.log(content)
+      console.log(tilesNoLink)
+      for (const tile of tilesNoLink) {
+        if (tile.querySelectorAll("img").length === 0) {
+          res += await this.formatSources(i, format, tile);
+          i++;
+        }
+      }
 
-    return res;
+      // Link tiles
+      for (const tile of content.querySelectorAll("div.grid > a")) {
+        res += await this.formatSources(i, format, tile);
+        i++;
+      }
+    }
+
+    // Open sources modal
+    const btnExpandSources = content.querySelector("div.grid > div.flex:nth-last-of-type(1)"); // Get the last button, useful when uploaded file div
+
+    // if there's a div tile and it contains multiple images (so it's not a file tile)
+    if (btnExpandSources && btnExpandSources.querySelectorAll("img").length !== 0) {
+      btnExpandSources.click();
+      await sleep(10);
+
+      // Extract sources list from modal
+      await extractFromModal.call(this);
+
+      // Close sources modal
+      const closeBtn = document.querySelector('[data-testid="close-modal"]');
+      if (closeBtn) closeBtn.click();
+    }
+    else
+      await extractFromTileList.call(this);
+
+    console.log(res)
+
+    // Don't export header if no sources
+    return res !== SOURCES_HEADER
+      ? res
+      : "";
   }
 
 
@@ -129,7 +155,6 @@ export default class ExtractorPerplexity extends Extractor {
     return "- " + (tile && tile.href
         ? formatLink(tile.href, text)
         : formatLink(await extractYoutubeLink(tile) ?? "", text)
-      // : text
     ) + "\n";
   }
 
