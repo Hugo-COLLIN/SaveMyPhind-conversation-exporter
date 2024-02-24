@@ -79,7 +79,7 @@ export default class ExtractorPerplexity extends Extractor {
 
     // Extract sources list
     for (const tile of document.querySelectorAll(".fixed > div > [class] > div > div > div > div > div > .group")) {
-      res += this.formatSources(i, format, tile);
+      res += await this.formatSources(i, format, tile);
       i ++;
     }
 
@@ -91,7 +91,7 @@ export default class ExtractorPerplexity extends Extractor {
   }
 
 
-  formatSources(i, format, tile) {
+  async formatSources(i, format, tile) {
     const text = "(" + i + ") "
       + format(tile.querySelector("div.default").innerText
         .replaceAll("\n", " ")
@@ -99,7 +99,15 @@ export default class ExtractorPerplexity extends Extractor {
         .replaceAll(/^[0-9]+./g, "")
       );
 
-    return "- " + (tile && tile.href ? formatLink(tile.href, text) : text) + "\n";
+    async function extractYoutubeLink(tile) {
+
+    }
+
+    return "- " + (tile && tile.href
+        ? formatLink(tile.href, text)
+        // : formatLink(await extractYoutubeLink(tile), text)
+      : text
+    ) + "\n";
   }
 
   applyExtractorRules() {
