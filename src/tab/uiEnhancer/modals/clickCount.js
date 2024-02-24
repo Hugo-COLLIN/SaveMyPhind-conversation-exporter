@@ -1,7 +1,6 @@
 //TODO: object Clicker with array of numbers : each time click on icon, use the next number before displaying popup
 
-import ModalDetectClicks from "./ModalDetectClicks";
-import ModalSurvey from "./ModalSurvey";
+import ModalMessage from "./ModalMessage";
 
 export function clickCountInit() {
   chrome.runtime.onInstalled.addListener(function (details) {
@@ -25,13 +24,15 @@ export function resetClickCount(count) {
 const clickCounts = [14,25,40,40]//[20, 40, 60, 80, 100];
 
 // Array of modals
-const modals = [ModalSurvey, ModalDetectClicks, ModalSurvey, ModalDetectClicks];
+const MODAL_SURVEY = 'assets/modalMessages/modalSurvey.md';
+const MODAL_DONATION = 'assets/modalMessages/modalDonation.md';
+const modals = [MODAL_SURVEY, MODAL_DONATION, MODAL_SURVEY, MODAL_DONATION];
 
 // Function to check click count and display modal
 export function checkClickCountAndDisplayModal(domain) {
-  chrome.storage.sync.get(['clickIconCount', 'modalIndex'], (result) => {
+  chrome.storage.sync.get(['clickIconCount', 'modalIndex'], async (result) => {
     if (result.clickIconCount <= 0) {
-      new modals[result.modalIndex](domain).appendModal();
+      await new ModalMessage(modals[result.modalIndex]).appendModal();
       let nextIndex = (result.modalIndex + 1) % modals.length;
       resetClickCount(clickCounts[nextIndex]);
       chrome.storage.sync.set({"modalIndex": nextIndex});
