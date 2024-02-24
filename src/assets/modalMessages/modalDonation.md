@@ -3,7 +3,7 @@ title: "⚠️ I need you :"
 buttons:
   yes:
     text: "👍 Sure! I want to help!"
-    url: "${appInfos.APP_SUPPORT_URL}"
+    url: "${appInfos.URLS.SUPPORT}"
   no:
     text: "I let my chance pass..."
 ---

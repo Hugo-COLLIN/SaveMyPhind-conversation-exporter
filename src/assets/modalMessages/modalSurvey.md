@@ -3,7 +3,7 @@ title: "⚠️ Important message :"
 buttons:
   yes:
     text: "👍 Sure, I'm glad to help!"
-    url: "https://save.hugocollin.com/feedback?utm_medium=extension&utm_campaign=feedback"
+    url: "${appInfos.URLS.FEEDBACK}"
   no:
     text: "👎 Are you dreaming?"
 ---

@@ -5,11 +5,16 @@
   "APP_ID": "savemyphind@hugocollin.com",
   "APP_VERSION": "2.4.11",
   "APP_MODE": "dev",
-  "APP_REPO_URL": "https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter",
-  "APP_WEBSITE_URL": "https://save.hugocollin.com",
-  "APP_SUPPORT_URL": "https://save.hugocollin.com/support",
-  "APP_WEBSTORE_URL": "https://chromewebstore.google.com/u/1/detail/agklnagmfeooogcppjccdnoallkhgkod",
-  "APP_FIREFOX_STORE_URL": "https://addons.mozilla.org/firefox/addon/save-my-phind",
+  "URLS": {
+    "REPOSITORY": "https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter",
+    "WEBSITE": "https://save.hugocollin.com",
+    "SUPPORT": "https://save.hugocollin.com/support",
+    "FEEDBACK": "https://save.hugocollin.com/feedback?utm_medium=extension&utm_campaign=feedback",
+    "STORES": {
+      "CHROME": "https://chromewebstore.google.com/u/1/detail/agklnagmfeooogcppjccdnoallkhgkod",
+      "FIREFOX": "https://addons.mozilla.org/firefox/addon/save-my-phind"
+    }
+  },
   "CONTACT_EMAIL": "hcollin.dev@gmail.com",
   "COPY_MODE": "tab"
 }
