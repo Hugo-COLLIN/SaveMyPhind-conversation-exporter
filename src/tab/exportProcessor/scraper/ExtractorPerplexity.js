@@ -57,6 +57,7 @@ export default class ExtractorPerplexity extends Extractor {
   }
 
   async extractSources(content, format) {
+    // Open sources modal
     const btnExpandSources = content.querySelector("div.grid > div.flex:nth-last-of-type(1)"); // Get the last button, useful when uploaded file div
     if (!btnExpandSources) return "";
 
@@ -67,26 +68,37 @@ export default class ExtractorPerplexity extends Extractor {
     let i = 1;
 
     // Case the first tile is a file, not a link
-    const tilesNoLink = content.querySelectorAll("div.grid > div.flex");
-    for (const tile of tilesNoLink) {
-      if (tile.querySelectorAll("img").length === 0)
-      {
-        res += this.formatSources(i, format, tile);
-        i ++;
-      }
-    }
+    // const tilesNoLink = content.querySelectorAll("div.grid > div.flex");
+    // for (const tile of tilesNoLink) {
+    //   if (tile.querySelectorAll("img").length === 0)
+    //   {
+    //     res += this.formatSources(i, format, tile);
+    //     i ++;
+    //   }
+    // }
 
-    // Link tiles
-    for (const tile of content.querySelectorAll("div.grid > a")) {
+    // Extract sources list
+    for (const tile of document.querySelectorAll(".fixed > div > [class] > div > div > div > div > div > .group")) {
       res += this.formatSources(i, format, tile);
       i ++;
     }
+
+    // Close sources modal
+    const closeBtn = document.querySelector('[data-testid="close-modal"]');
+    closeBtn.click();
+
     return res;
   }
 
 
   formatSources(i, format, tile) {
-    const text = "(" + i + ") " + format(tile.querySelector("div.default").innerText.replaceAll("\n", " ").replaceAll('"', ''));
+    const text = "(" + i + ") "
+      + format(tile.querySelector("div.default").innerText
+        .replaceAll("\n", " ")
+        .replaceAll('"', '')
+        .replaceAll(/^[0-9]+./g, "")
+      );
+
     return "- " + (tile && tile.href ? formatLink(tile.href, text) : text) + "\n";
   }
 
