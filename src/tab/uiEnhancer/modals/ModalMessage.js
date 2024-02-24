@@ -60,14 +60,14 @@ export default class ModalMessage extends Modal {
     closeButton.type = 'button';
     closeButton.classList.add('m-1', 'btn', 'btn-secondary');
     closeButton.style.fontSize = '0.9em';
-    closeButton.innerHTML = yamlHeader.buttons.no.title;
+    closeButton.innerHTML = yamlHeader.buttons.no.text;
 
     const reviewButton = document.createElement('a');
     reviewButton.href = yamlHeader.buttons.yes.url;
     reviewButton.target = '_blank';
     reviewButton.type = 'button';
     reviewButton.classList.add('m-1', 'btn', 'btn-primary');
-    reviewButton.innerHTML = yamlHeader.buttons.yes.title;
+    reviewButton.innerHTML = yamlHeader.buttons.yes.text;
 
     const modalBtnDiv = document.createElement('div');
     modalBtnDiv.style.textAlign = 'center';
