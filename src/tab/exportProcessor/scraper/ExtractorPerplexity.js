@@ -5,7 +5,7 @@ import {sleep} from "../../../common/utils/utils";
 
 export default class ExtractorPerplexity extends Extractor {
   async extractPage(format) {
-    const messages = document.querySelectorAll('#ppl-message-scroll-target > div > div:nth-of-type(2) > [class]');
+    const messages = document.querySelectorAll('main > div > div > div > div > div > div:nth-of-type(2) > div > div > div:nth-of-type(2) > [class]');
     let markdown = await setFileHeader(this.getPageTitle(), "Perplexity.ai");
 
     for (const content of messages) {
@@ -57,37 +57,105 @@ export default class ExtractorPerplexity extends Extractor {
   }
 
   async extractSources(content, format) {
-    const btnExpandSources = content.querySelector("div.grid > div.flex:nth-last-of-type(1)"); // Get the last button, useful when uploaded file div
-    if (!btnExpandSources) return "";
+    const SOURCES_HEADER = "---\n**Sources:**\n";
+    let res = SOURCES_HEADER;
 
-    btnExpandSources.click();
-    await sleep(10);
-
-    let res = "---\n**Sources:**\n"
-    let i = 1;
-
-    // Case the first tile is a file, not a link
-    const tilesNoLink = content.querySelectorAll("div.grid > div.flex");
-    for (const tile of tilesNoLink) {
-      if (tile.querySelectorAll("img").length === 0)
-      {
-        res += this.formatSources(i, format, tile);
-        i ++;
+    async function extractFromModal() {
+      let i = 1;
+      for (const tile of document.querySelectorAll(".fixed > div > [class] > div > div > div > div > div > .group")) {
+        res += await this.formatSources(i, format, tile);
+        i++;
       }
     }
 
-    // Link tiles
-    for (const tile of content.querySelectorAll("div.grid > a")) {
-      res += this.formatSources(i, format, tile);
-      i ++;
+    async function extractFromTileList() {
+      let i = 1;
+      // Case the first tile is a file, not a link
+      const tilesNoLink = content.querySelectorAll("div.grid > div.flex");
+      for (const tile of tilesNoLink) {
+        if (tile.querySelectorAll("img").length === 0) {
+          res += await this.formatSources(i, format, tile);
+          i++;
+        }
+      }
+
+      // Link tiles
+      for (const tile of content.querySelectorAll("div.grid > a")) {
+        res += await this.formatSources(i, format, tile);
+        i++;
+      }
     }
-    return res;
+
+    // Open sources modal
+    const btnExpandSources = content.querySelector("div.grid > div.flex:nth-last-of-type(1)"); // Get the last button, useful when uploaded file div
+
+    // if there's a div tile and it contains multiple images (so it's not a file tile)
+    if (btnExpandSources && btnExpandSources.querySelectorAll("img").length > 0) {
+      btnExpandSources.click();
+      await sleep(10);
+
+      // Extract sources list from modal
+      await extractFromModal.call(this);
+
+      // Close sources modal
+      const closeBtn = document.querySelector('[data-testid="close-modal"]');
+      if (closeBtn) closeBtn.click();
+    }
+    else
+      await extractFromTileList.call(this);
+
+    // Don't export header if no sources
+    return res !== SOURCES_HEADER
+      ? res
+      : "";
   }
 
+  async formatSources(i, format, tile) {
+    const text = "(" + i + ") "
+      + format(tile.querySelector("div.default").innerText
+        .replaceAll("\n", " ")
+        .replaceAll('"', '')
+        .replaceAll(/^[0-9]+./g, "")
+      );
 
-  formatSources(i, format, tile) {
-    const text = "(" + i + ") " + format(tile.querySelector("div.default").innerText.replaceAll("\n", " ").replaceAll('"', ''));
-    return "- " + (tile && tile.href ? formatLink(tile.href, text) : text) + "\n";
+    async function extractYoutubeLink(tile) {
+      await sleep(10); //to be sure
+      const clickElt = tile.querySelector('.group')
+
+      if (!clickElt) {
+        console.warn("clickElt undefined");
+        return null;
+      }
+
+      clickElt.click();
+      await sleep(500); // needed for youtube player to load
+
+      // Get the youtube embed
+      const link = document.querySelector('.fixed iframe');
+
+      if (!link) {
+        console.warn("link undefined");
+        return null;
+      }
+
+      // Select background to click (no close button)
+      const el = link.closest(".fixed");
+      if (el) el.click();
+
+      return link.src
+    }
+
+    // Export content
+    let res = "- ";
+    if (tile && tile.href)
+      res += formatLink(tile.href, text) + "\n";
+    else {
+      const url = await extractYoutubeLink(tile);
+      res += url
+        ? formatLink(url, text) + "\n"
+        : text;
+    }
+    return res;
   }
 
   applyExtractorRules() {

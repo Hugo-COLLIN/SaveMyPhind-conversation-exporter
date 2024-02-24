@@ -1,5 +1,9 @@
 # Update notes
-# 2.4.9
+# 2.4.14
+⨠ 😮‍💨 Fix Perplexity broken export
+Perplexity has changed its UI multiple times over the past few weeks, so I tried to keep up.
+
+# 2.4.11
 ⨠ 🛸 Fix Perplexity and Phind-Search export
 Some parts of the export were missing due to interface changes on Phind and Perplexity. It's now fixed!
 
