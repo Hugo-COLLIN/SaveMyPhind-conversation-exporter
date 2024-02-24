@@ -1,15 +1,19 @@
 # <img alt="SaveMyPhind logo" src="./src/assets/icons/icon-128.png" style="width:40px"> Save my Chatbot - AI Conversation Exporter
 ### 🚀 Download your Phind, Perplexity and MaxAI-Google search threads into markdown files!
 
+## Quick start
+
+<h3>
+  <a href="https://save.hugocollin.com/get">⏩ Install Save my Chatbot: click here ⏪</a>
+</h3>
+<br>
+
 😎 Why Save my Chatbot?
 - To keep AI generated information offline,
-- To share threads with others,
 - To read and process in a knowledge base / note-taking app (like Obsidian),
-- To improve the Phind website usability.
+- To share threads with others.
 
 👉 When you are on Phind, Perplexity or Google (with MaxAI integration), simply click on the extension icon. It will automatically export the thread you are currently on into a formatted markdown file.
-
-😮 This extension also adds export options directly inside the Phind interface. Now, you can export all your threads clicking on a simple button!
 
 ✅ Enjoy!
 
@@ -17,11 +21,10 @@
 
 <br>
 
-## ❓ Extension usage
-### How to install?
-Simply go to the store and click on the install button: 
-#### [⏩click here to install Save my Chatbot on Chromium browsers (Chrome, Edge, Opera, Brave, etc.)](https://chrome.google.com/webstore/detail/agklnagmfeooogcppjccdnoallkhgkod)
-#### [⏩click here to install Save my Chatbot on Firefox](https://addons.mozilla.org/fr/firefox/addon/save-my-phind)
+## ⬇️ How to install?
+Simply go to the store and click on the installation button: 
+#### [⏩ Install Save my Chatbot on Chrome, Edge, Opera, Brave and other Chromium browsers...](https://chrome.google.com/webstore/detail/agklnagmfeooogcppjccdnoallkhgkod)
+#### [⏩ Install Save my Chatbot on Firefox](https://addons.mozilla.org/fr/firefox/addon/save-my-phind)
 <br>
 
 You can also install it manually following these steps 
@@ -38,9 +41,9 @@ You can also install it manually following these steps
 
 ✅ You're done!
 
-### How to use?
+## ❓ How to use?
 Simple!
-1. Go to a Phind search thread.
+1. Go to a chatbot search thread.
 2. Click on the extension icon. 
 
 👉 It will automatically download a structured markdown file containing the conversation.
