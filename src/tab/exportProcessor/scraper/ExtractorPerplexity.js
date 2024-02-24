@@ -57,7 +57,6 @@ export default class ExtractorPerplexity extends Extractor {
   }
 
   async extractSources(content, format) {
-    console.log(content)
     const SOURCES_HEADER = "---\n**Sources:**\n";
     let res = SOURCES_HEADER;
 
@@ -71,11 +70,8 @@ export default class ExtractorPerplexity extends Extractor {
 
     async function extractFromTileList() {
       let i = 1;
-      console.log("entered")
       // Case the first tile is a file, not a link
       const tilesNoLink = content.querySelectorAll("div.grid > div.flex");
-      console.log(content)
-      console.log(tilesNoLink)
       for (const tile of tilesNoLink) {
         if (tile.querySelectorAll("img").length === 0) {
           res += await this.formatSources(i, format, tile);
@@ -94,7 +90,7 @@ export default class ExtractorPerplexity extends Extractor {
     const btnExpandSources = content.querySelector("div.grid > div.flex:nth-last-of-type(1)"); // Get the last button, useful when uploaded file div
 
     // if there's a div tile and it contains multiple images (so it's not a file tile)
-    if (btnExpandSources && btnExpandSources.querySelectorAll("img").length !== 0) {
+    if (btnExpandSources && btnExpandSources.querySelectorAll("img").length > 0) {
       btnExpandSources.click();
       await sleep(10);
 
@@ -107,8 +103,6 @@ export default class ExtractorPerplexity extends Extractor {
     }
     else
       await extractFromTileList.call(this);
-
-    console.log(res)
 
     // Don't export header if no sources
     return res !== SOURCES_HEADER
