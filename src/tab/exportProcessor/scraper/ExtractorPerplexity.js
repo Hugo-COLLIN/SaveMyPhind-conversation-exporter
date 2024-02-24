@@ -85,7 +85,7 @@ export default class ExtractorPerplexity extends Extractor {
 
     // Close sources modal
     const closeBtn = document.querySelector('[data-testid="close-modal"]');
-    closeBtn.click();
+    if (closeBtn) closeBtn.click();
 
     return res;
   }
@@ -100,49 +100,35 @@ export default class ExtractorPerplexity extends Extractor {
       );
 
     async function extractYoutubeLink(tile) {
-      await sleep(1000)
-      const a = tile.querySelector('.group')
-      console.log(a)
-      if (a) {
-        a.click();
-        await sleep(1000);
+      await sleep(10); //to be sure
+      const clickElt = tile.querySelector('.group')
+
+      if (!clickElt) {
+        console.warn("clickElt undefined");
+        return null;
       }
 
+      clickElt.click();
+      await sleep(500); // needed for youtube player to load
+
+      // Get the youtube embed
       const link = document.querySelector('.fixed iframe');
 
-      if (link) {
-        const el = link.closest(".fixed");
-        if (el) el.click();
+      if (!link) {
+        console.warn("link undefined");
+        return null;
       }
-      else console.warn("link undefined")
+
+      // Select background to click (no close button)
+      const el = link.closest(".fixed");
+      if (el) el.click();
 
       return link.src
     }
 
-    // async function extractYoutubeLink(tileElt) {
-    //   await sleep(1000)
-    //   const clickElt = tileElt.querySelector('.group :not(a)');
-    //   console.log(clickElt)
-    //   if (clickElt) {
-    //     clickElt.click();
-    //     await sleep(1000);
-    //   }
-    //   else console.warn("clickElt undefined");
-    //
-    //   const link = document.querySelector('.fixed iframe');
-    //
-    //   if (link) {
-    //     const el = link.closest(".fixed");
-    //     if (el) el.click();
-    //   }
-    //   else console.warn("link undefined")
-    //
-    //   return link ? link.src : null;
-    // }
-
     return "- " + (tile && tile.href
         ? formatLink(tile.href, text)
-        : formatLink(await extractYoutubeLink(tile), text)
+        : formatLink(await extractYoutubeLink(tile) ?? "", text)
       // : text
     ) + "\n";
   }
