@@ -110,7 +110,6 @@ export default class ExtractorPerplexity extends Extractor {
       : "";
   }
 
-
   async formatSources(i, format, tile) {
     const text = "(" + i + ") "
       + format(tile.querySelector("div.default").innerText
@@ -146,10 +145,17 @@ export default class ExtractorPerplexity extends Extractor {
       return link.src
     }
 
-    return "- " + (tile && tile.href
-        ? formatLink(tile.href, text)
-        : formatLink(await extractYoutubeLink(tile) ?? "", text)
-    ) + "\n";
+    // Export content
+    let res = "- ";
+    if (tile && tile.href)
+      res += formatLink(tile.href, text) + "\n";
+    else {
+      const url = await extractYoutubeLink(tile);
+      res += url
+        ? formatLink(url, text) + "\n"
+        : text;
+    }
+    return res;
   }
 
   applyExtractorRules() {
