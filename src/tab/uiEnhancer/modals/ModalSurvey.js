@@ -1,13 +1,13 @@
 import {Modal} from "./Modal";
 import appInfos from "../../../infos.json";
-import modalJsonContent from "../../../assets/modalMessages/modalSurvey.json";
+import yaml from 'js-yaml';
 
 export default class ModalDetectClicks extends Modal {
   constructor(...params) {
     super(...params);
   }
 
-  createModalContent(modalBodyDiv, outerDiv, modalBackground) {
+  async createModalContent(modalBodyDiv, outerDiv, modalBackground) {
     const showdown  = require('showdown'),
       converter = new showdown.Converter({
         extensions: [
@@ -23,6 +23,14 @@ export default class ModalDetectClicks extends Modal {
         ]
       });
 
+    // Charger le contenu du fichier Markdown
+    const response = await fetch(chrome.runtime.getURL('assets/modalMessages/modalSurvey.md'));
+    const markdownWithYaml = (await response.text()).replaceAll('\r\n', '\n');
+    const [yamlContent, markdownContent] = markdownWithYaml.split('---\n').slice(1, 3);
+
+    // Parser l'en-tête YAML
+    const yamlHeader = yaml.load(yamlContent);
+
     // Title
     const innerDivImage = document.createElement('span');
     innerDivImage.style.marginRight = '10px';
@@ -35,32 +43,31 @@ export default class ModalDetectClicks extends Modal {
 
     const modalTitleDiv = document.createElement('div');
     modalTitleDiv.classList.add('mb-5', 'modal-title', 'h2');
-    modalTitleDiv.innerHTML = modalJsonContent.title;
+    modalTitleDiv.innerHTML = yamlHeader.title;
     modalBodyDiv.appendChild(modalTitleDiv);
 
     modalTitleDiv.prepend(innerDivImage);
 
-    let innerDiv4 = this.createModalTextGroup(converter.makeHtml(modalJsonContent.markdownContent.replace(/\${appInfos.APP_NAME}/g, appInfos.APP_NAME)));
+    // Convertir le contenu Markdown en HTML
+    let innerDiv4 = this.createModalTextGroup(converter.makeHtml(markdownContent.replace(/\${appInfos.APP_NAME}/g, appInfos.APP_NAME)));
     innerDiv4.fontWeight = 'normal';
 
     modalBodyDiv.appendChild(document.createElement('br'));
-
-
     modalBodyDiv.appendChild(innerDiv4);
 
-// Step 8: Create the Close buttons.
+    // Créer et ajouter les boutons en utilisant les données de l'en-tête YAML
     const closeButton = document.createElement('button');
     closeButton.type = 'button';
     closeButton.classList.add('m-1', 'btn', 'btn-secondary');
     closeButton.style.fontSize = '0.9em';
-    closeButton.innerHTML = modalJsonContent.buttons.no.title;
+    closeButton.innerHTML = yamlHeader.buttons.no.title;
 
     const reviewButton = document.createElement('a');
-    reviewButton.href = modalJsonContent.buttons.yes.url;
+    reviewButton.href = yamlHeader.buttons.yes.url;
     reviewButton.target = '_blank';
     reviewButton.type = 'button';
     reviewButton.classList.add('m-1', 'btn', 'btn-primary');
-    reviewButton.innerHTML = modalJsonContent.buttons.yes.title;
+    reviewButton.innerHTML = yamlHeader.buttons.yes.title;
 
     const modalBtnDiv = document.createElement('div');
     modalBtnDiv.style.textAlign = 'center';
