@@ -1,14 +1,22 @@
 # <img alt="SaveMyPhind logo" src="./src/assets/icons/icon-128.png" style="width:40px"> Save my Chatbot - AI Conversation Exporter
 ### 🚀 Download your Phind, Perplexity and MaxAI-Google search threads into markdown files!
 
-## Quick start
+## 🗺️ Quick start
 
 <h3>
-  <a href="https://save.hugocollin.com/get">⏩ Install Save my Chatbot: click here ⏪</a>
+  <a href="https://save.hugocollin.com/get">⏩ Install Save my Chatbot: click here</a>
 </h3>
-<br>
 
-😎 Why Save my Chatbot?
+&#x2A20; It's available on Firefox and Chromium browsers (Chrome, Edge, Opera, Brave, etc.) 😉
+
+### ❓ How to use?
+Simple!
+1. Go to a chatbot thread.
+2. Click on the extension icon.
+
+👉 It will automatically download a structured markdown file containing the conversation.
+
+### 😎 Why Save my Chatbot?
 - To keep AI generated information offline,
 - To read and process in a knowledge base / note-taking app (like Obsidian),
 - To share threads with others.
@@ -21,7 +29,7 @@
 
 <br>
 
-## ⬇️ How to install?
+## ⬇️ How to install? (in details)
 Simply go to the store and click on the installation button: 
 #### [⏩ Install Save my Chatbot on Chrome, Edge, Opera, Brave and other Chromium browsers...](https://chrome.google.com/webstore/detail/agklnagmfeooogcppjccdnoallkhgkod)
 #### [⏩ Install Save my Chatbot on Firefox](https://addons.mozilla.org/fr/firefox/addon/save-my-phind)
@@ -41,16 +49,9 @@ You can also install it manually following these steps
 
 ✅ You're done!
 
-## ❓ How to use?
-Simple!
-1. Go to a chatbot search thread.
-2. Click on the extension icon. 
-
-👉 It will automatically download a structured markdown file containing the conversation.
-
 <br>
 
-## 🪶 Contribution and usages
+## 🪶 Contribution and usage
 ### The project
 Feel free to contribute to this project by forking it and making pull requests. You can also open an issue if you find a bug or have any suggestion.
 However, you can't distribute this project without contacting me first. 
