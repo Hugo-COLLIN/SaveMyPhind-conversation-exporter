@@ -2,12 +2,12 @@ import {Modal} from "./Modal";
 import appInfos from "../../../infos.json";
 import yaml from 'js-yaml';
 
-export default class ModalDetectClicks extends Modal {
+export default class ModalMessage extends Modal {
   constructor(...params) {
     super(...params);
   }
 
-  async createModalContent(modalBodyDiv, outerDiv, modalBackground) {
+  async createModalContent(modalBodyDiv, outerDiv, modalBackground, mdFile) {
     const showdown  = require('showdown'),
       converter = new showdown.Converter({
         extensions: [
@@ -24,7 +24,7 @@ export default class ModalDetectClicks extends Modal {
       });
 
     // Charger le contenu du fichier Markdown
-    const response = await fetch(chrome.runtime.getURL('assets/modalMessages/modalSurvey.md'));
+    const response = await fetch(chrome.runtime.getURL(mdFile));
     const markdownWithYaml = (await response.text()).replaceAll('\r\n', '\n');
     const [yamlContent, markdownContent] = markdownWithYaml.split('---\n').slice(1, 3);
 
