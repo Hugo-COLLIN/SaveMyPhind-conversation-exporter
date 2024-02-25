@@ -3,6 +3,9 @@
 😮‍💨 Fix Perplexity broken export
 Perplexity changed its UI multiple times over the past few weeks, so I tried to keep up.
 
+👋 Say hello!
+Welcome tutorial is now here for newcomers!
+
 🧩 Other changes under the hood
 Some code refactoring, bugs solved and quirky improvements... You know, the usual stuff.
 
