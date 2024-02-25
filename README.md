@@ -27,9 +27,30 @@ Simple!
 
 <br>
 
+## 🗺️ Roadmap
+
+### 🚀 In the pipeline...
+- [ ] Phind: Export tables into markdown (Turndown rule)
+- [ ] Custom file header content
+
+### 🎯 Main features:
+- [x] Export chats from Phind, Perplexity and MaxAI-Google
+- [x] Clean markdown formatting and structuring
+- [x] Keep numbered sources in the exported file
+- [x] Informative file header and filename (date, url...)
+- [x] Indicates the chatbot response mode used (Phind-Search and Perplexity)
+- [x] Informative modals (updates...)
+
+### 🤯 The most important things I keep improving/fixing:
+- Because chatbots are constantly changing their interfaces: Fix broken export, wrong formatting and content extracted.
+- Improve code maintainability
+
+<br>
+
+
 ## ⬇️ How to install? (detailed)
 ### Quick install (automatic updates)
-Simply go to the store and click on the installation button: 
+Simply go to the store and click on the installation button:
 #### [⏩ Install Save my Chatbot on Chrome, Edge, Opera, Brave and other Chromium browsers...](https://chrome.google.com/webstore/detail/agklnagmfeooogcppjccdnoallkhgkod)
 #### [⏩ Install Save my Chatbot on Firefox](https://addons.mozilla.org/fr/firefox/addon/save-my-phind)
 
@@ -53,7 +74,7 @@ You can also install it manually following these steps:
 ## 🪶 Contribution and licenses
 ### The project
 Feel free to contribute to this project by forking it and making pull requests. You can also open an issue if you find a bug or have any suggestion.
-However, you can't distribute this project without contacting me first. 
+However, you can't distribute this project without contacting me first.
 
 This project is licensed under the [RMD-C v1.0 License](LICENSE.txt). Please check for more details.
 
@@ -61,25 +82,6 @@ This project is licensed under the [RMD-C v1.0 License](LICENSE.txt). Please che
 This project uses third-party libraries. See the [license list](licenses.txt) for more details about libraries' licenses.
 
 <br>
-
-## 🗺️ Roadmap
-
-### 🚀 In the pipeline...
-- [ ] Phind: Export tables into markdown (Turndown rule)
-- [ ] Custom file header content
-
-### 🎯 Main features:
-- [x] Export chats from Phind, Perplexity and MaxAI-Google
-- [x] Clean markdown formatting and structuring
-- [x] Keep numbered sources in the exported file
-- [x] Informative file header and filename (date, url...)
-- [x] Indicates the chatbot response mode used (Phind-Search and Perplexity)
-- [x] Informative modals (updates...)
-
-### 🤯 The most important things I keep improving/fixing:
-- Because chatbots are constantly changing their interfaces: Fix broken export, wrong formatting and content extracted.
-- Improve code maintainability
-
 
 ## 💌 If you appreciate my work, help me by donating:
   <div align="center">
