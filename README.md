@@ -14,7 +14,7 @@ Simple!
 1. **Go to a chat page**: Phind, Perplexity or Google (with MaxAI integration).
 2. **Click on the extension icon.**
 
-👉 It will automatically download a structured markdown file containing the conversation.
+👉 It will **automatically download a structured markdown file** containing the conversation.
 
 ### 😎 Why Save my Chatbot?
 - To **keep AI generated information offline**,
@@ -30,8 +30,8 @@ Simple!
 ## 🗺️ Roadmap
 
 ### 🚀 In the pipeline...
-- [ ] Phind: Export tables into markdown (Turndown rule)
-- [ ] Custom file header content
+- [ ] Custom file header
+- [ ] Phind: Export tables into markdown
 
 ### 🎯 Main features:
 - [x] Export chats from Phind, Perplexity and MaxAI-Google
