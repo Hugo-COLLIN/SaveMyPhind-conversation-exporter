@@ -47,10 +47,10 @@ export default class ModalUpdate extends Modal {
     const manifest = chrome.runtime.getManifest();
     let storeName;
     if (manifest.browser_specific_settings !== undefined && manifest.browser_specific_settings.gecko !== undefined) {
-      innerDivLink.href = appInfos.APP_FIREFOX_STORE_URL + "/reviews";
+      innerDivLink.href = appInfos.URLS.STORES.FIREFOX + "/reviews";
       storeName = "Firefox Add-ons Store";
     } else {
-      innerDivLink.href = appInfos.APP_WEBSTORE_URL + "/reviews";
+      innerDivLink.href = appInfos.URLS.STORES.CHROME + "/reviews";
       storeName = "Chrome Web Store";
     }
     innerDivLink.innerHTML = `⭐ If ${appInfos.APP_NAME} helps you, please leave it a review on the ${storeName}! ⭐<br>`;
@@ -65,7 +65,7 @@ export default class ModalUpdate extends Modal {
     modalBodyDiv.appendChild(modalSubtitleDiv);
 
     updates.forEach((update) => {
-      const innerDiv = this.createModalTextGroup(update.title, update.description);
+      const innerDiv = this.createModalTextGroup("&#x2A20; " + update.title, update.description);
       innerDiv.classList.add('fw-bold');
       modalBodyDiv.appendChild(innerDiv);
     });
@@ -81,7 +81,7 @@ export default class ModalUpdate extends Modal {
       : "Let's search!";
 
     const reviewButton = document.createElement('a');
-    reviewButton.href = appInfos.APP_SUPPORT_URL;
+    reviewButton.href = appInfos.URLS.SUPPORT;
     reviewButton.target = '_blank';
     reviewButton.type = 'button';
     reviewButton.classList.add('m-1', 'btn', 'btn-primary');

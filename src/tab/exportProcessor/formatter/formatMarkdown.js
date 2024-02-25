@@ -60,7 +60,7 @@ export function formatLink(url, message) {
 export async function setFileHeader(title, linkSite) {
   try {
     const titles = formatMarkdown(capitalizeFirst(titleShortener(title)[0]));
-    return "# " + titles + "\n" + "Exported on " + formatDate(2, new Date()) + " at " + formatDate(3, new Date()) + " " + formatLink(getUrl(), `from ${linkSite}`) + ` - with ` + formatLink(`${appInfos.APP_WEBSITE_URL ?? ""}`, `${appInfos.APP_SNAME ?? ""}`) + "\n\n";
+    return "# " + titles + "\n" + "Exported on " + formatDate(2, new Date()) + " at " + formatDate(3, new Date()) + " " + formatLink(getUrl(), `from ${linkSite}`) + ` - with ` + formatLink(`${appInfos.URLS.WEBSITE ?? ""}`, `${appInfos.APP_SNAME ?? ""}`) + "\n\n";
   } catch (e) {
     console.error(e)
   }

@@ -24,7 +24,6 @@ else if (manifest.background.scripts)
 
 fs.writeFileSync(path.join(distPath, 'manifest.json'), JSON.stringify(manifest, null, 2));
 fs.copySync(imgPath, path.join(distPath, 'assets'));
-fs.copySync(logPath, path.join(distPath, 'doc/CHANGELOG.md'));
 fs.copySync(licensePath, path.join(distPath, 'doc/LICENSE.txt'));
 fs.copySync(readmePath, path.join(distPath, 'doc/README.md'));
 fs.copySync(licenseListPath, path.join(distPath, 'doc/licenses.txt'));

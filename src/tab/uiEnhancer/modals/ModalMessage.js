@@ -1,12 +1,37 @@
 import {Modal} from "./Modal";
 import appInfos from "../../../infos.json";
+import yaml from 'js-yaml';
+import {replaceVariables} from "../../exportProcessor/formatter/formatText";
 
-export default class ModalDetectClicks extends Modal {
+export default class ModalMessage extends Modal {
   constructor(...params) {
     super(...params);
   }
 
-  createModalContent(modalBodyDiv, outerDiv, modalBackground) {
+  async createModalContent(modalBodyDiv, outerDiv, modalBackground, mdFile) {
+    const showdown  = require('showdown'),
+      converter = new showdown.Converter({
+        extensions: [
+          function () {
+            return [
+              {
+                type: 'output',
+                regex: /<strong>(.*?)<\/strong>/g,
+                replace: '<b>$1</b>'
+              }
+            ];
+          }
+        ]
+      });
+
+    // Charger le contenu du fichier Markdown
+    const response = await fetch(chrome.runtime.getURL(mdFile));
+    const markdownWithYaml = (await response.text()).replaceAll('\r\n', '\n');
+    const [yamlContent, markdownContent] = markdownWithYaml.split('---\n').slice(1, 3);
+
+    // Parser l'en-tête YAML
+    const yamlHeader = yaml.load(await replaceVariables(yamlContent, appInfos));
+
     // Title
     const innerDivImage = document.createElement('span');
     innerDivImage.style.marginRight = '10px';
@@ -19,34 +44,31 @@ export default class ModalDetectClicks extends Modal {
 
     const modalTitleDiv = document.createElement('div');
     modalTitleDiv.classList.add('mb-5', 'modal-title', 'h2');
-    modalTitleDiv.innerHTML = "⚠️ I need you :";
+    modalTitleDiv.innerHTML = yamlHeader.title;
     modalBodyDiv.appendChild(modalTitleDiv);
 
     modalTitleDiv.prepend(innerDivImage);
 
-    // let innerDiv4 = createModalTextGroup(`Glad ${appInfos.APP_NAME} is useful for you! <br/><br/> Please consider support the project by donating:`); //I'm not affiliated with Phind, I just love this website and I wanted to make it better for me and for you. If you want to support me, you can donate at https://www.paypal.com/paypalme/${appInfos.APP_SNAME}
-
-    let innerDiv4 = this.createModalTextGroup(`👋 Hi, I'm Hugo, an independent software developer who <b>created ${appInfos.APP_NAME} to help you</b>. I love working on this project and I'd like to continue improving it for you. <br/><br/> 💖 However, as an independent developer, <b>I rely on the support of users like you</b>. If you find this extension useful, <b>please consider supporting the project by making a donation.</b> Every little bit helps and is greatly appreciated. Thank you for your support!<br/><br/>`);
+    // Convertir le contenu Markdown en HTML
+    let innerDiv4 = this.createModalTextGroup(converter.makeHtml(markdownContent.replace(/\${appInfos.APP_NAME}/g, appInfos.APP_NAME)));
     innerDiv4.fontWeight = 'normal';
 
     modalBodyDiv.appendChild(document.createElement('br'));
-
-
     modalBodyDiv.appendChild(innerDiv4);
 
-// Step 8: Create the Close buttons.
+    // Créer et ajouter les boutons en utilisant les données de l'en-tête YAML
     const closeButton = document.createElement('button');
     closeButton.type = 'button';
     closeButton.classList.add('m-1', 'btn', 'btn-secondary');
     closeButton.style.fontSize = '0.9em';
-    closeButton.innerHTML = "I let my chance pass...";
+    closeButton.innerHTML = yamlHeader.buttons.no.text;
 
     const reviewButton = document.createElement('a');
-    reviewButton.href = appInfos.APP_SUPPORT_URL;
+    reviewButton.href = yamlHeader.buttons.yes.url;
     reviewButton.target = '_blank';
     reviewButton.type = 'button';
     reviewButton.classList.add('m-1', 'btn', 'btn-primary');
-    reviewButton.innerHTML = "👍 Sure! I want to support!";
+    reviewButton.innerHTML = yamlHeader.buttons.yes.text;
 
     const modalBtnDiv = document.createElement('div');
     modalBtnDiv.style.textAlign = 'center';
