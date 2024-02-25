@@ -41,7 +41,7 @@ Simple!
 - [x] Indicates the chatbot response mode used (Phind-Search and Perplexity)
 - [x] Informative modals (updates...)
 
-### 🤯 The most important things I keep improving/fixing:
+### 🤯 The most important things I keep improving / fixing:
 - Because chatbots are constantly changing their interfaces: Fix broken export, wrong formatting and content extracted.
 - Improve code maintainability
 
@@ -74,7 +74,6 @@ You can also install it manually following these steps:
 ## 🪶 Contribution and licenses
 ### The project
 Feel free to contribute to this project by forking it and making pull requests. You can also open an issue if you find a bug or have any suggestion.
-However, you can't distribute this project without contacting me first.
 
 This project is licensed under the [RMD-C v1.0 License](LICENSE.txt). Please check for more details.
 
