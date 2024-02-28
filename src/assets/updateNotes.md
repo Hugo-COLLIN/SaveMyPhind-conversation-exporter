@@ -1,4 +1,8 @@
 # Update notes
+# 2.4.17
+😭 Fix Perplexity broken export (again)
+Perplexity is constantly changing its interface, so I try to keep up...
+
 # 2.4.16
 😮‍💨 Fix Perplexity broken export
 Perplexity changed its UI multiple times over the past few weeks, so I tried to keep up.
