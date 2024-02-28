@@ -19,13 +19,10 @@ export default class ExtractorPerplexity extends Extractor {
       // Display answer
       const answer = content.querySelector(".relative.default > div > div")
       const answerer = content.querySelector(".mb-lg .flex.items-center > p");
-      markdown += !answerer ?
-        "## AI answer\n"
-        : answerer.innerHTML.toLowerCase().includes('copilot') ?
-          "## Copilot answer\n"
-          : answerer.toLowerCase().includes('search') ?
-            "## Quick answer\n"
-            : "## AI answer\n";
+      markdown += answerer && answerer.innerHTML.toLowerCase().includes('pro')
+        ? "## Pro answer\n"
+        : "## AI answer\n";
+      // console.log(markdown)
       markdown += format(answer.innerHTML) + "\n\n";
 
       // Display analysis section
