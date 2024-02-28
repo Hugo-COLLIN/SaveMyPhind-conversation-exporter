@@ -22,7 +22,6 @@ export default class ExtractorPerplexity extends Extractor {
       markdown += answerer && answerer.innerHTML.toLowerCase().includes('pro')
         ? "## Pro answer\n"
         : "## AI answer\n";
-      // console.log(markdown)
       markdown += format(answer.innerHTML) + "\n\n";
 
       // Display analysis section
@@ -59,7 +58,7 @@ export default class ExtractorPerplexity extends Extractor {
 
     async function extractFromModal() {
       let i = 1;
-      for (const tile of document.querySelectorAll(".fixed > div > [class] > div > div > div > div > div > .group")) {
+      for (const tile of document.querySelectorAll(".fixed > div > [class] > div > div > div > div > div > .flex.group")) {
         res += await this.formatSources(i, format, tile);
         i++;
       }
