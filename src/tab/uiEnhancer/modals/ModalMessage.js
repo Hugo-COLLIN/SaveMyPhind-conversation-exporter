@@ -1,7 +1,8 @@
 import {Modal} from "./Modal";
 import appInfos from "../../../infos.json";
 import yaml from 'js-yaml';
-import {replaceVariables} from "../../exportProcessor/formatter/formatText";
+
+import {replaceLocalPath, replaceVariables} from "../../exportProcessor/formatter/formatVariableText";
 
 export default class ModalMessage extends Modal {
   constructor(...params) {
@@ -32,6 +33,10 @@ export default class ModalMessage extends Modal {
     // Parser l'en-tête YAML
     const yamlHeader = yaml.load(await replaceVariables(yamlContent, appInfos));
 
+    // Traiter le contenu markdown
+    const processedMarkdownContent = replaceLocalPath(await replaceVariables(markdownContent, appInfos));
+    console.log(processedMarkdownContent)
+
     // Title
     const innerDivImage = document.createElement('span');
     innerDivImage.style.marginRight = '10px';
@@ -50,7 +55,7 @@ export default class ModalMessage extends Modal {
     modalTitleDiv.prepend(innerDivImage);
 
     // Convertir le contenu Markdown en HTML
-    let innerDiv4 = this.createModalTextGroup(converter.makeHtml(markdownContent.replace(/\${appInfos.APP_NAME}/g, appInfos.APP_NAME)));
+    let innerDiv4 = this.createModalTextGroup(converter.makeHtml(processedMarkdownContent));
     innerDiv4.fontWeight = 'normal';
 
     modalBodyDiv.appendChild(document.createElement('br'));
