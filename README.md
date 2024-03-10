@@ -84,5 +84,5 @@ This project uses third-party libraries. See the [license list](licenses.txt) fo
 
 ## 💌 If you appreciate my work, help me by donating:
   <div align="center">
-      <a href="https://www.paypal.com/donate/?hosted_button_id=FLPEPKE7UURGW" target="_blank"><img src="https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white" height="50px"/></a> 
+      <a href="https://save.hugocollin.com/support" target="_blank"><img src="https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white" height="50px"/></a> 
   </div>
