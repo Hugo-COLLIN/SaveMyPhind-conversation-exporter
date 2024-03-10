@@ -5,15 +5,17 @@ import {sleep} from "../../../common/utils/utils";
 
 export default class ExtractorPerplexity extends Extractor {
   async extractPage(format) {
-    const messages = document.querySelectorAll('main > div > div > div > div > div > div:nth-of-type(2) > div > div > div:nth-of-type(2) > [class]');
+    const messages = document.querySelectorAll('main div[class=""]:nth-of-type(3)');
     let markdown = await setFileHeader(this.getPageTitle(), "Perplexity.ai");
 
     for (const content of messages) {
+      if (!content.hasChildNodes()) continue;
       // Display question
       const question = content.querySelector('.break-words');
+      if (!question) continue;
       markdown += "## User\n";
       const regex = /<div class="break-words \[word-break:break-word] whitespace-pre-line whitespace-pre-wrap default font-sans text-base font-medium text-textMain dark:text-textMainDark selection:bg-super selection:text-white dark:selection:bg-opacity-50 selection:bg-opacity-70">([\s\S]*?)<\/div>/
-      const questionText = formatLineBreaks(question.innerText ?? "", regex) + "\n\n";
+      const questionText = formatLineBreaks(question && question.innerText ? question.innerText : "", regex) + "\n\n";
       markdown += questionText.replace(/(?<!`)<(?!`)/g, '\\<').replace(/(?<!`)>(?!`)/g, '\\>');
 
       // Display answer
