@@ -35,7 +35,6 @@ export default class ModalMessage extends Modal {
 
     // Process Markdown content
     const processedMarkdownContent = replaceLocalPath(await replaceVariables(markdownContent, appInfos));
-    console.log(processedMarkdownContent)
 
     // Title
     const innerDivImage = document.createElement('span');
@@ -67,7 +66,6 @@ export default class ModalMessage extends Modal {
     modalBtnDiv.style.textAlign = 'center';
 
     for (const btnData of yamlHeader.buttons) {
-      console.log(btnData)
       const button = document.createElement(btnData.url ? 'a' : 'div');
       button.type = 'button';
       button.classList.add('m-1', 'btn', btnData.style ?? 'btn-secondary');
