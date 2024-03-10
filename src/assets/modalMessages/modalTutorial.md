@@ -1,12 +1,14 @@
 ---
 title: "👋 Welcome to ${appInfos.APP_NAME}"
 buttons:
-  yes:
-    text: "👍 Understood!"
-    url: "${appInfos.URLS.SUPPORT}"
-  no:
-    text: "👍 Understood!"
-    color: "main"
+  - { 
+      text: "👍 Support!", 
+      url: "${appInfos.URLS.SUPPORT}",
+    }
+  - {
+      text: "👍 Understood!",    
+      style: "btn-primary",
+    }
 ---
 Let's talk about **how you can export your first chatbot thread**:
 1. Click on your 🧩 Extensions menu (usually a puzzle icon on the top-right corner of your browser).
