@@ -25,15 +25,15 @@ export default class ModalMessage extends Modal {
         ]
       });
 
-    // Charger le contenu du fichier Markdown
+    // Load the Markdown file content
     const response = await fetch(chrome.runtime.getURL(mdFile));
     const markdownWithYaml = (await response.text()).replaceAll('\r\n', '\n');
     const [yamlContent, markdownContent] = markdownWithYaml.split('---\n').slice(1, 3);
 
-    // Parser l'en-tête YAML
+    // Parse the YAML header
     const yamlHeader = yaml.load(await replaceVariables(yamlContent, appInfos));
 
-    // Traiter le contenu markdown
+    // Process Markdown content
     const processedMarkdownContent = replaceLocalPath(await replaceVariables(markdownContent, appInfos));
     console.log(processedMarkdownContent)
 
@@ -54,37 +54,42 @@ export default class ModalMessage extends Modal {
 
     modalTitleDiv.prepend(innerDivImage);
 
-    // Convertir le contenu Markdown en HTML
+    // Convert Markdown content to HTML
     let innerDiv4 = this.createModalTextGroup(converter.makeHtml(processedMarkdownContent));
     innerDiv4.fontWeight = 'normal';
 
     modalBodyDiv.appendChild(document.createElement('br'));
     modalBodyDiv.appendChild(innerDiv4);
 
-    // Créer et ajouter les boutons en utilisant les données de l'en-tête YAML
-    const closeButton = document.createElement('button');
-    closeButton.type = 'button';
-    closeButton.classList.add('m-1', 'btn', 'btn-secondary');
-    closeButton.style.fontSize = '0.9em';
-    closeButton.innerHTML = yamlHeader.buttons.no.text;
-
-    const reviewButton = document.createElement('a');
-    reviewButton.href = yamlHeader.buttons.yes.url;
-    reviewButton.target = '_blank';
-    reviewButton.type = 'button';
-    reviewButton.classList.add('m-1', 'btn', 'btn-primary');
-    reviewButton.innerHTML = yamlHeader.buttons.yes.text;
+    // ------ BUTTONS BAR ------
 
     const modalBtnDiv = document.createElement('div');
     modalBtnDiv.style.textAlign = 'center';
-    modalBtnDiv.appendChild(closeButton);
-    modalBtnDiv.appendChild(reviewButton);
+
+    for (const btnData of yamlHeader.buttons) {
+      console.log(btnData)
+      const button = document.createElement(btnData.url ? 'a' : 'div');
+      button.type = 'button';
+      button.classList.add('m-1', 'btn', btnData.style ?? 'btn-secondary');
+      button.innerHTML = btnData.text ?? '';
+
+      if (button.classList.contains('btn-secondary')){
+        button.style.fontSize = '0.9em';
+      }
+
+      if (btnData.url) {
+        button.href = btnData.url;
+        button.target = '_blank';
+      }
+
+      button.addEventListener('click', function () {
+        outerDiv.remove();
+        modalBackground.remove();
+      });
+
+      modalBtnDiv.appendChild(button);
+    }
 
     modalBodyDiv.appendChild(modalBtnDiv);
-
-    closeButton.addEventListener('click', function () {
-      outerDiv.remove();
-      modalBackground.remove();
-    });
   }
 }
