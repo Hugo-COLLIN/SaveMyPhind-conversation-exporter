@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Save my Chatbot - AI Conversation Exporter",
-  "version": "2.4.17",
+  "version": "2.4.18",
   "description": "🚀 Export your Phind, Perplexity and MaxAI-Google search threads into markdown files!",
   "icons": {
     "16": "assets/icons/icon-16.png",
