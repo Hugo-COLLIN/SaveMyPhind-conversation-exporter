@@ -1,4 +1,4 @@
-import { extractArbitraryPage, extractPhindSearchPage, extractPhindAgentPage, extractPerplexityPage, extractMaxAIGooglePage } from '../../../../src/tab/exportProcessor/scraper/extractor/extractPages.js';
+import { extractArbitraryPage, extractPhindSearchPage, extractPhindAgentPage, extractPerplexityPage, extractMaxAIGooglePage } from './/extractor/extractPages.js';
 import { setFileHeader } from '../formatter/formatMarkdown.js';
 import fetchMock from 'jest-fetch-mock';
 

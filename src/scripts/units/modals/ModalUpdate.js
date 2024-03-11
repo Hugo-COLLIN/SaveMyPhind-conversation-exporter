@@ -1,5 +1,5 @@
 import {Modal} from "./Modal";
-import {getUpdatesData} from "../messenger/updateNotes";
+import {getUpdatesData} from "./updateNotes";
 import appInfos from "../../../infos.json";
 
 export default class ModalUpdate extends Modal {

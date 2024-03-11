@@ -1,4 +1,4 @@
-import {waitAppears} from "../../interactDOM/interactDOM";
+import {waitAppears} from "../../../interactDOM/interactDOM";
 
 function modifyingStyle() {
   document.querySelector(".row > .col-lg-2 > div").style.minWidth = "11em";

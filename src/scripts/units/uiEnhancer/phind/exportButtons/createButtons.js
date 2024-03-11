@@ -1,9 +1,9 @@
-import {waitAppears, waitAppend} from "../../interactDOM/interactDOM";
+import {waitAppears, waitAppend} from "../../../interactDOM/interactDOM";
 import {btnBarAllInline} from "./changeButtons";
 import {setBtnsExport} from "./styleExportButtons";
 import {createSideMenuBtn, createTopBtn} from "../genericElements/createElements";
-import {launchExport} from "../../../exportProcessor/exportProcess";
-import {initVars} from "../improvePhindUI";
+import {launchExport} from "../../../../process/exportProcess";
+import {initVars} from "../../../../process/improvePhindUI";
 
 async function setupButtons() {
   // Create elements to add to the page

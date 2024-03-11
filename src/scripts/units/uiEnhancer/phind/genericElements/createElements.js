@@ -2,7 +2,7 @@
 --- ELTS CREATION ---
  */
 
-import appInfos from "../../../../infos.json";
+import appInfos from "../../../../../infos.json";
 
 
 

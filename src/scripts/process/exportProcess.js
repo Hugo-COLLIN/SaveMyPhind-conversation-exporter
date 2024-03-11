@@ -1,10 +1,10 @@
-import {logWelcome} from "../utils/consoleMessages";
-import {exportContent} from "./exporter/exporter";
-import {clickOnListElt} from "../uiEnhancer/phind/interact";
+import {logWelcome} from "../units/utils/consoleMessages";
+import {exportContent} from "../units/exporter/exporter";
+import {clickOnListElt} from "../units/interactDOM/interact";
 import appInfos from "../../infos.json";
 
 
-import {updateClickIconCount} from "../uiEnhancer/modals/clickCount";
+import {updateClickIconCount} from "../units/modals/clickCount";
 
 /**
  * @description - Launch the export process
@@ -44,19 +44,19 @@ async function defineExtractor(domain) {
   let module;
   switch (domain.name) {
     case "PhindSearch":
-      module = await import(`./scraper/ExtractorPhindSearch`);
+      module = await import(`../units/scraper/ExtractorPhindSearch`);
       break;
     case "PhindChat":
-      module = await import(`./scraper/ExtractorPhindChat`);
+      module = await import(`../units/scraper/ExtractorPhindChat`);
       break;
     case "Perplexity":
-      module = await import(`./scraper/ExtractorPerplexity`);
+      module = await import(`../units/scraper/ExtractorPerplexity`);
       break;
     case "MaxAIGoogle":
-      module = await import(`./scraper/ExtractorMaxAIGoogle`);
+      module = await import(`../units/scraper/ExtractorMaxAIGoogle`);
       break;
     default:
-      module = await import(`./scraper/ExtractorArbitraryPage`);
+      module = await import(`../units/scraper/ExtractorArbitraryPage`);
   }
   return new module.default();
   // let extractor = await import(`./Extractor${domain.name}`);

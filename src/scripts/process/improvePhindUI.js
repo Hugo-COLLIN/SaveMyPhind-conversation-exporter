@@ -1,5 +1,5 @@
-import {createButtonGroup} from "./genericElements/createElements";
-import {isHomepageCheck} from "../../checker/domainChecker";
+import {createButtonGroup} from "../units/uiEnhancer/phind/genericElements/createElements";
+import {isHomepageCheck} from "../units/checker/domainChecker";
 
 export function improvePhindUI() {
   chrome.runtime.sendMessage({message: 'LOAD_COMPLETE'}, async function (response) {

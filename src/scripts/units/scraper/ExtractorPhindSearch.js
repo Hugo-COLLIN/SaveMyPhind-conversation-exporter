@@ -1,4 +1,4 @@
-import {foldQuestions, unfoldQuestions} from "../../uiEnhancer/phind/interact";
+import {foldQuestions, unfoldQuestions} from "../interactDOM/interact";
 import {capitalizeFirst} from "../formatter/formatText";
 import {setFileHeader} from "../formatter/formatMarkdown";
 import ExtractorPhind from "./ExtractorPhind";

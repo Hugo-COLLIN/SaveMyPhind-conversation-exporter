@@ -1,4 +1,4 @@
-import {actionExtensionIconClicked, actionPageLoaded} from "./tab/triggers";
+import {actionExtensionIconClicked, actionPageLoaded} from "./scripts/process/triggers";
 // import infos from "./infos";
 
 main();
