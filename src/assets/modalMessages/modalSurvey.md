@@ -1,11 +1,13 @@
 ---
 title: "⚠️ Important message :"
 buttons:
-  yes:
-    text: "👍 Sure, I'm glad to help!"
-    url: "${appInfos.URLS.FEEDBACK}"
-  no:
-    text: "👎 Are you dreaming?"
+  - { text: "👎 Are you dreaming?" }
+  - {
+      text: "👍 Sure, I'm glad to help!",
+      url: "${appInfos.URLS.FEEDBACK}",
+      style: "btn-primary",
+    }
+
 ---
 👉 I'm Hugo, an independent software developer. ${appInfos.APP_NAME} seems useful to you and **I'm happy to help you with this extension**.
 I would like to continue developing ${appInfos.APP_NAME}, that's why **I need your help**.

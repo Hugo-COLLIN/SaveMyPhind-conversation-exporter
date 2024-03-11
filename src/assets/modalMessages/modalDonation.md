@@ -1,11 +1,12 @@
 ---
 title: "⚠️ I need you :"
 buttons:
-  yes:
-    text: "👍 Sure! I want to help!"
-    url: "${appInfos.URLS.SUPPORT}"
-  no:
-    text: "I let my chance pass..."
+  - { text: "I let my chance pass..." }
+  - {
+      text: "👍 Sure! I'm glad to help!",
+      url: "${appInfos.URLS.SUPPORT}",
+      style: "btn-primary",
+    }
 ---
 👋 Hi, I'm Hugo, an independent software developer who **created ${appInfos.APP_NAME} to help you**. I love working on this project and I'd like to continue improving it for you.
 
