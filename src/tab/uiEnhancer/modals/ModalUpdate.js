@@ -7,14 +7,6 @@ export default class ModalUpdate extends Modal {
     super(...params);
   }
 
-  async appendModal() {
-    await super.appendModal();
-
-    chrome.storage.sync.set({displayModalUpdate: false}, function () {
-      console.log("Last update modal will not be displayed until the next update");
-    });
-  }
-
   async createModalContent(modalBodyDiv, outerDiv, modalBackground) {
     const updates = await getUpdatesData();
     const domain = this.params[0];
