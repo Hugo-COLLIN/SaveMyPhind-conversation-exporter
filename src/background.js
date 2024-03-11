@@ -1,8 +1,8 @@
-import {iconListeners} from "./background/icon/icon";
-import {clickActionListener} from "./background/export/exportOnce";
-import {exportAllThreadsListener} from "./background/export/exportAll";
-import {notify} from "./background/messenger/notify";
-import {clickCountInit} from "./scripts/units/modals/clickCount";
+import {iconListeners} from "./scripts/units/extension-icon/icon.bg";
+import {clickActionListener} from "./scripts/units/export-manager/exportOnce.bg";
+import {exportAllThreadsListener} from "./scripts/units/export-manager/exportAll.bg";
+import {notify} from "./scripts/process/background/notify";
+import {clickCountInit} from "./scripts/units/modals/clickCount.all";
 
 clickCountInit();
 clickActionListener();

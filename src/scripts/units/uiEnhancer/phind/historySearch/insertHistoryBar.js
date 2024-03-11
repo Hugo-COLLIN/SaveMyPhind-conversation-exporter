@@ -1,6 +1,6 @@
 import {createSmallField} from "../genericElements/createElements";
-import {waitAppears, waitAppend} from "../../../interactDOM/interactDOM";
-import {filterList} from "../../../filterList/filter";
+import {waitAppears, waitAppend} from "../../../interact-DOM/interactDOM.tab";
+import {filterList} from "../../../utils/filterList.all";
 
 export async function addListFilter() {
   const historySelector = '[role="dialog"]>div>div>div>div>div>div'
