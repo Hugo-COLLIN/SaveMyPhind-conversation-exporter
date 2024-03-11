@@ -1,32 +1,29 @@
 export async function replaceVariables(content, variables) {
   let processedContent = content;
 
-  // Recherche de tous les placeholders dans le format ${VARIABLE_NAME}
+  // Search for all placeholders in ${VARIABLE_NAME}
   const variablePattern = /\$\{([^\}]+)\}/g;
   let match;
 
   while ((match = variablePattern.exec(content)) !== null) {
     const fullMatch = match[0];
-    const variablePath = match[1].split('.'); // Divise le chemin d'accès de la variable en segments
+    const variablePath = match[1].split('.'); // Divides the variable path into segments
 
     let variableValue = variables;
-    // console.log(variables)
-    // console.log(variablePath)
-    // console.log(variablePath.split('.')[1])
-    // Itère à travers chaque segment du chemin pour accéder à la valeur imbriquée
+    // Iterate through each segment to access the nested value
     for (let i = 1; i < variablePath.length; i++) {
       const segment = variablePath[i];
       if (variableValue[segment] !== undefined) {
         variableValue = variableValue[segment];
       } else {
-        // Si un segment n'existe pas, la valeur de la variable reste indéfinie
+        // If a segment does not exist, the value of the variable remains undefined
         variableValue = undefined;
         break;
       }
     }
 
     if (variableValue !== undefined) {
-      // Remplacer le placeholder par la valeur de la variable
+      // Replace the placeholder with the value of the variable
       processedContent = processedContent.replace(fullMatch, variableValue);
     }
   }

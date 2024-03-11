@@ -13,7 +13,6 @@ export async function uiEnhancer(domain) {
       if (result.displayModalUpdate)
       {
         await new ModalUpdate(domain).appendModal()
-        // await new ModalMessage('assets/modalMessages/modalTutorial.md').appendModal();
         chrome.storage.sync.set({displayModalUpdate: false}, function () {
           console.log("Last update modal will not be displayed until the next update");
         });
