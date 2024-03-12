@@ -10,7 +10,7 @@ export function clickActionListener() {
 
       await chrome.scripting.executeScript({
         target: {tabId: tab.id},
-        files: ['main.js']
+        files: ['tab.js']
       });
 
     } catch (error) {
