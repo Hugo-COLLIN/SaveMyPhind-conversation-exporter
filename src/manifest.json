@@ -32,7 +32,7 @@
         "*://*.google.com/search*"
       ],
       "js": [
-        "main.js"
+        "tab.js"
       ]
     }
   ],
