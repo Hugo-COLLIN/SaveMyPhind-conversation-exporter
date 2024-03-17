@@ -62,8 +62,8 @@ export default class ModalUpdate extends Modal {
       modalBodyDiv.appendChild(innerDiv);
       modalBodyDiv.appendChild(document.createElement('br'));
     });
-    modalBodyDiv.appendChild(document.createElement('br'));
     modalBodyDiv.appendChild(innerDiv4);
+    modalBodyDiv.appendChild(document.createElement('br'));
 
 // Step 8: Create the Close button.
     const closeButton = document.createElement('button');
