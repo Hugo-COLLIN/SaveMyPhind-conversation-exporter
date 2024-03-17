@@ -60,6 +60,7 @@ export default class ModalUpdate extends Modal {
       const innerDiv = this.createModalTextGroup("&#x2A20; " + update.title, update.description);
       innerDiv.classList.add('fw-bold');
       modalBodyDiv.appendChild(innerDiv);
+      modalBodyDiv.appendChild(document.createElement('br'));
     });
     modalBodyDiv.appendChild(document.createElement('br'));
     modalBodyDiv.appendChild(innerDiv4);
