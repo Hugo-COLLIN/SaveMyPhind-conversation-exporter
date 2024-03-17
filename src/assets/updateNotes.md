@@ -1,4 +1,11 @@
 # Update notes
+# 2.5.2
+🤯 Fix Perplexity broken export (#5)
+Perplexity is constantly changing its interface, so I try to keep up...
+
+👋 Hi there!
+Welcome modal with a tutorial for newcomers. Also available at [https://save.hugocollin.com/tutorial](https://save.hugocollin.com/tutorial)
+
 # 2.4.18
 😵 Fix Perplexity broken export (#4)
 Perplexity is constantly changing its interface, so I try to keep up...
