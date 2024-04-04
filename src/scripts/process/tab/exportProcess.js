@@ -1,10 +1,10 @@
 import {logWelcome} from "../../units/utils/consoleMessages.all";
 import {exportContent} from "./exporter";
-import {clickOnListElt} from "../../units/interact-DOM/interact.tab";
+import {clickOnListElt} from "../../units/interface/interact-DOM/interact.tab";
 import appInfos from "../../../infos.json";
 
 
-import {updateClickIconCount} from "../../units/modals/clickCount.all";
+import {updateClickIconCount} from "../../units/interface/modals/clickCount.all";
 
 /**
  * @description - Launch the export process
@@ -44,19 +44,19 @@ async function defineExtractor(domain) {
   let module;
   switch (domain.name) {
     case "PhindSearch":
-      module = await import(`../../units/scraper/ExtractorPhindSearch.tab`);
+      module = await import(`../../units/processing/scraper/ExtractorPhindSearch.tab`);
       break;
     case "PhindChat":
-      module = await import(`../../units/scraper/ExtractorPhindChat.tab`);
+      module = await import(`../../units/processing/scraper/ExtractorPhindChat.tab`);
       break;
     case "Perplexity":
-      module = await import(`../../units/scraper/ExtractorPerplexity.tab`);
+      module = await import(`../../units/processing/scraper/ExtractorPerplexity.tab`);
       break;
     case "MaxAIGoogle":
-      module = await import(`../../units/scraper/ExtractorMaxAIGoogle.tab`);
+      module = await import(`../../units/processing/scraper/ExtractorMaxAIGoogle.tab`);
       break;
     default:
-      module = await import(`../../units/scraper/ExtractorArbitraryPage.tab`);
+      module = await import(`../../units/processing/scraper/ExtractorArbitraryPage.tab`);
   }
   return new module.default();
   // let extractor = await import(`./ExtractorTab${domain.name}`);

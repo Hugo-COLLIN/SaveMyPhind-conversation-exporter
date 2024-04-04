@@ -1,5 +1,5 @@
-import {logWaitList} from "../utils/consoleMessages.all";
-import {sleep} from "../utils/utils.all";
+import {logWaitList} from "../../utils/consoleMessages.all";
+import {sleep} from "../../utils/utils.all";
 
 export async function clickOnListElt(index, selector = '.table-responsive tr') {
   let list = document.querySelectorAll(selector);

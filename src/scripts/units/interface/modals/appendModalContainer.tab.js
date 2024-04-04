@@ -1,4 +1,4 @@
-import appInfos from "../../../infos.json";
+import appInfos from "../../../../infos.json";
 
 export async function appendModalContainer() {
   const host = document.createElement('div');

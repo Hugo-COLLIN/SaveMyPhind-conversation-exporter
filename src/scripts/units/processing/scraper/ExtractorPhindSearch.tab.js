@@ -1,4 +1,4 @@
-import {foldQuestions, unfoldQuestions} from "../interact-DOM/interact.tab";
+import {foldQuestions, unfoldQuestions} from "../../interface/interact-DOM/interact.tab";
 import {capitalizeFirst} from "../formatter/formatText.all";
 import {setFileHeader} from "../formatter/formatMarkdown.all";
 import ExtractorPhind from "./ExtractorPhind.tab";

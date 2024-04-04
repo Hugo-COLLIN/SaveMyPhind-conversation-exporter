@@ -1,4 +1,4 @@
-import {onInstalledNotifier, onUninstalledNotifier} from "../../units/messenger/notifiers.bg";
+import {onInstalledNotifier, onUninstalledNotifier} from "../../units/chrome/messenger/notifiers.bg";
 
 export function notify() {
   onInstalledNotifier();

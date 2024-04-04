@@ -1,5 +1,5 @@
 import {setFileHeader} from "../formatter/formatMarkdown.all";
-import {sleep} from "../utils/utils.all";
+import {sleep} from "../../utils/utils.all";
 import ExtractorPhind from "./ExtractorPhind.tab";
 
 export default class ExtractorPhindChat extends ExtractorPhind {

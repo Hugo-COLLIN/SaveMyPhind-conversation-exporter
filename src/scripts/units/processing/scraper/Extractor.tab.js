@@ -1,6 +1,6 @@
 import converter from "../formatter/formatMarkdown.all";
 import {formatFilename} from "../formatter/formatText.all";
-import appInfos from "../../../infos.json";
+import appInfos from "../../../../infos.json";
 
 export class Extractor {
   async launch() {

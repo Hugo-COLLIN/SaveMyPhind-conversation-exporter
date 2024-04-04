@@ -1,6 +1,6 @@
 import {Modal} from "./Modal.tab";
 import {getUpdatesData} from "./updateNotes.all";
-import appInfos from "../../../infos.json";
+import appInfos from "../../../../infos.json";
 
 export default class ModalUpdate extends Modal {
   constructor(...params) {

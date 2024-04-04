@@ -1,6 +1,6 @@
-import appInfos from "../../../infos.json";
-import {NotImplemented} from "../utils/errors/NotImplemented";
-import {AbstractClassInstanciation} from "../utils/errors/AbstractClassInstanciation";
+import appInfos from "../../../../infos.json";
+import {NotImplemented} from "../../utils/errors/NotImplemented";
+import {AbstractClassInstanciation} from "../../utils/errors/AbstractClassInstanciation";
 
 export class Modal {
   constructor(...params) {

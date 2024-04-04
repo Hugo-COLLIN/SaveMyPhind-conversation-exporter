@@ -1,4 +1,4 @@
-import {download, saveToClipboard} from "../../units/export-methods/exportMethods.tab";
+import {download, saveToClipboard} from "../../units/processing/export-methods/exportMethods.tab";
 
 /**
  * Exports the given content using export methods

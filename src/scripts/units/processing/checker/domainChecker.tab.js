@@ -1,4 +1,4 @@
-import {getHostAndPath} from "../utils/getters.tab";
+import {getHostAndPath} from "../../utils/getters.tab";
 
 export async function domainChecker(domains) {
   const hostAndPath = getHostAndPath();

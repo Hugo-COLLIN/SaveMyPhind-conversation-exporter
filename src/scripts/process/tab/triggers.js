@@ -1,8 +1,8 @@
-import {detectPageLoad, domainExportChecker, domainLoadChecker} from "../../units/checker/domainChecker.all";
+import {detectPageLoad, domainExportChecker, domainLoadChecker} from "../../units/processing/checker/domainChecker.all";
 import {launchExport} from "./exportProcess";
 import {uiEnhancer} from "./uiEnhancer";
 // import ModalDetectClicks from "./uiEnhancer/modals/ModalDetectClicks";
-import {checkClickCountAndDisplayModal} from "../../units/modals/clickCount.all";
+import {checkClickCountAndDisplayModal} from "../../units/interface/modals/clickCount.all";
 
 export async function actionExtensionIconClicked() {
   const domainPage = await domainExportChecker();
