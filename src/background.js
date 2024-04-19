@@ -1,6 +1,6 @@
-import {iconListeners} from "./scripts/units/chrome/extension-icon/icon.bg";
-import {clickActionListener} from "./scripts/process/background/export-manager/exportOnce.bg";
-import {exportAllThreadsListener} from "./scripts/process/background/export-manager/exportAll.bg";
+import {iconListeners} from "./scripts/units/events/icon.bg";
+import {clickActionListener} from "./scripts/units/events/exportOnce.bg";
+import {exportAllThreadsListener} from "./scripts/units/events/exportAll.bg";
 import {notify} from "./scripts/process/background/notify";
 import {clickCountInit} from "./scripts/units/interface/modals/clickCount.all";
 
