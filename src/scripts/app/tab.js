@@ -3,10 +3,10 @@ import {
   detectPageLoad,
   domainExportChecker,
   domainLoadChecker
-} from "./scripts/units/processing/checker/domainChecker.all";
-import {launchExport} from "./scripts/units/processing/exportProcess";
-import {checkClickCountAndDisplayModal} from "./scripts/units/interface/modals/clickCount.all";
-import {uiEnhancer} from "./scripts/units/triggers/uiEnhancer";
+} from "../units/processing/checker/domainChecker.all";
+import {launchExport} from "../units/processing/exportProcess";
+import {checkClickCountAndDisplayModal} from "../units/interface/modals/clickCount.all";
+import {uiEnhancer} from "../units/triggers/uiEnhancer";
 
 async function tab() {
   // console.log(infos.APP_MODE)
