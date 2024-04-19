@@ -1,10 +1,22 @@
-import {logWelcome} from "../../units/utils/consoleMessages.all";
-import {exportContent} from "./exporter";
-import {clickOnListElt} from "../../units/interface/interact-DOM/interact.tab";
+import {logWelcome} from "../utils/consoleMessages.all";
 import appInfos from "../../../infos.json";
 
 
-import {updateClickIconCount} from "../../units/interface/modals/clickCount.all";
+import {updateClickIconCount} from "../interface/modals/clickCount.all";
+import {download} from "./export-methods/exportMethods.tab";
+
+/**
+ * Exports the given content using export methods
+ * @param domain domain of the page
+ * @param extracted extracted content
+ * @returns {Promise<void>}
+ */
+export async function exportContent(domain, extracted) {
+  const {markdownContent, fileName} = extracted;
+  await download(markdownContent, fileName);
+  // await saveToClipboard(markdownContent);
+  // linksToObsidian(markdownContent);
+}
 
 /**
  * @description - Launch the export process
@@ -25,19 +37,6 @@ export async function launchExport(domain) {
 
   // Increment click icon count
   updateClickIconCount();
-}
-
-export function scrapOnLoadListener(domain) {
-  chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
-    if (request.message === 'executeScript') {
-      if (request.index > 0) launchExport(domain);
-      clickOnListElt(request.index)
-      setTimeout(function () {
-        sendResponse({message: 'scriptExecuted'});
-      }, 1);
-    }
-    return true; // will respond asynchronously
-  });
 }
 
 async function defineExtractor(domain) {

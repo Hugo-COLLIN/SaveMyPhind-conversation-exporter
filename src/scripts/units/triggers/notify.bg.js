@@ -18,3 +18,8 @@ export function onUninstalledNotifier() {
     console.log('Uninstall survey URL set');
   });
 }
+
+export function notify() {
+  onInstalledNotifier();
+  onUninstalledNotifier();
+}

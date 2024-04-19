@@ -1,3 +1,6 @@
+import {clickOnListElt} from "../interface/interact-DOM/interact.tab";
+import {launchExport} from "../processing/exportProcess";
+
 export function exportAllThreadsListener() {
   let currentIndex = 0;
   let lengthList = 0;
@@ -61,5 +64,18 @@ export function exportAllThreadsListener() {
       }
     }
     return true;
+  });
+}
+
+export function scrapOnLoadListener(domain) {
+  chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
+    if (request.message === 'executeScript') {
+      if (request.index > 0) launchExport(domain);
+      clickOnListElt(request.index)
+      setTimeout(function () {
+        sendResponse({message: 'scriptExecuted'});
+      }, 1);
+    }
+    return true; // will respond asynchronously
   });
 }
