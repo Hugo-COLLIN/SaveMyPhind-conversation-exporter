@@ -23,6 +23,7 @@
   "devDependencies": {
     "@babel/core": "^7.23.7",
     "@babel/preset-env": "^7.23.7",
+    "@types/chrome": "^0.0.266",
     "@types/jest": "^29.5.11",
     "adm-zip": "^0.5.10",
     "babel-jest": "^29.7.0",
