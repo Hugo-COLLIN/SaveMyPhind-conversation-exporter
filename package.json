@@ -13,7 +13,7 @@
     "licenseList": "npm run syncVersion && npm run licenses",
     "chrome": "npm run convert chrome && npm run build",
     "firefox": "npm run convert firefox && npm run build",
-    "build": "node manage/initBuild.js && esbuild src/background.js --bundle --outdir=dist && esbuild src/tab.js --bundle --outdir=dist",
+    "build": "node manage/initBuild.js && esbuild src/scripts/app/background.js --bundle --outdir=dist && esbuild src/scripts/app/tab.js --bundle --outdir=dist",
     "watch": "nodemon --exec npm run build --watch",
     "prod": "npm run licenseList && npm run firefox && node manage/prodChanges.js && npm run zip && npm run chrome && node manage/prodChanges.js && npm run zip && node manage/devChanges.js",
     "prodChrome": "npm run licenseList && npm run chrome && node manage/prodChanges.js && npm run zip",
@@ -23,6 +23,7 @@
   "devDependencies": {
     "@babel/core": "^7.23.7",
     "@babel/preset-env": "^7.23.7",
+    "@types/chrome": "^0.0.266",
     "@types/jest": "^29.5.11",
     "adm-zip": "^0.5.10",
     "babel-jest": "^29.7.0",
