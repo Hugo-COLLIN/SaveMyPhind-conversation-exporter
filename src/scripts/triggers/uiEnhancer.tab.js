@@ -1,6 +1,6 @@
-import {appendModalContainer} from "../interface/modals/appendModalContainer.tab";
-import ModalUpdate from "../interface/modals/ModalUpdate.tab";
-import ModalMessage from "../interface/modals/ModalMessage.tab";
+import {appendModalContainer} from "../units/interface/modals/appendModalContainer.tab";
+import ModalUpdate from "../units/interface/modals/ModalUpdate.tab";
+import ModalMessage from "../units/interface/modals/ModalMessage.tab";
 
 
 export async function uiEnhancer(domain) {

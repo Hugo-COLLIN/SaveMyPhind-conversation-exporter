@@ -1,5 +1,5 @@
-import {clickOnListElt} from "../interface/interact-DOM/interact.tab";
-import {launchExport} from "../processing/exportProcess";
+import {clickOnListElt} from "../units/interface/interact-DOM/interact.tab";
+import {launchExport} from "../units/processing/exportProcess";
 
 export function exportAllThreadsListener() {
   let currentIndex = 0;
