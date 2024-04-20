@@ -1,12 +1,12 @@
 // import infos from "./infos";
 import {
-  detectPageLoad,
   domainExportChecker,
   domainLoadChecker
 } from "../units/processing/checker/domainChecker.all";
 import {launchExport} from "../units/processing/exportProcess";
 import {checkClickCountAndDisplayModal} from "../units/interface/modals/clickCount.all";
-import {uiEnhancer} from "../units/triggers/uiEnhancer";
+import {uiEnhancer} from "../units/triggers/uiEnhancer.tab";
+import {detectPageLoad} from "../units/triggers/detectPageLoad.tab";
 
 async function tab() {
   // console.log(infos.APP_MODE)

@@ -23,17 +23,6 @@ export async function domainLoadChecker() {
 }
 
 
-export function detectPageLoad(domain) {
-  if (domain.name === "MaxAIGoogle") {
-    window.addEventListener('load', function () {
-      const isMaxAI = document.querySelector('[id^=MAXAI]') !== null;
-      chrome.storage.local.set({isMaxAI: isMaxAI});
-      return isMaxAI;
-    })
-  }
-  else return true;
-}
-
 function hasSubpages(urlString) {
   const regex = /^(https?|ftp|ssh|mailto):\/\/[a-z0-9:%_+.,#?!@&=-]+\/?$/;
   return !regex.test(urlString);
