@@ -1,4 +1,4 @@
-import {sleep} from "../../utils/utils.all";
+import {sleep} from "../../utils/jsShorteners.all";
 
 /**
  * Wait for an element to appear in the DOM

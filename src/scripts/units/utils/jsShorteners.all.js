@@ -27,22 +27,3 @@ export function dynamicCall(object, funcToCall, ...args) {
     return null;
   };
 }
-
-function sanitize(filename) {
-  return filename.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-}
-
-function hasSubpages(urlString) {
-  const regex = /^(https?|ftp|ssh|mailto):\/\/[a-z0-9:%_+.,#?!@&=-]+\/?$/;
-  return !regex.test(urlString);
-}
-
-function addStyle() {
-  let styleTag = document.createElement('style');
-  document.querySelector("body").appendChild(styleTag);
-  let stylesheet = styleTag.sheet;
-
-  stylesheet.insertRule(".smallScreens { display: none!important; }", 0);
-  stylesheet.insertRule("@media screen and (max-width: 1025px) { .smallScreens { display: inline-block!important; } }", 1);
-}
-

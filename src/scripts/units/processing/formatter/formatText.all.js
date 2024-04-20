@@ -128,3 +128,6 @@ export function capitalizeFirst(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+function sanitize(string) {
+  return string.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+}

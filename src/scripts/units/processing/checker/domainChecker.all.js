@@ -33,3 +33,8 @@ export function detectPageLoad(domain) {
   }
   else return true;
 }
+
+function hasSubpages(urlString) {
+  const regex = /^(https?|ftp|ssh|mailto):\/\/[a-z0-9:%_+.,#?!@&=-]+\/?$/;
+  return !regex.test(urlString);
+}

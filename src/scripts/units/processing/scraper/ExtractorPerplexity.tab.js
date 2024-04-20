@@ -1,7 +1,7 @@
 import {Extractor} from "./Extractor.tab";
 import {formatLineBreaks} from "../formatter/formatText.all";
 import {formatLink, initTurndown, setFileHeader, turndownConverter} from "../formatter/formatMarkdown.all";
-import {sleep} from "../../utils/utils.all";
+import {sleep} from "../../utils/jsShorteners.all";
 
 export default class ExtractorPerplexity extends Extractor {
   async extractPage(format) {
