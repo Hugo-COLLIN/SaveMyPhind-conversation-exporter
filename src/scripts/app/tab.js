@@ -5,8 +5,8 @@ import {
 } from "../units/processing/checker/domainChecker.all";
 import {launchExport} from "../units/processing/exportProcess";
 import {checkClickCountAndDisplayModal} from "../units/interface/modals/clickCount.all";
-import {uiEnhancer} from "../triggers/uiEnhancer.tab";
-import {detectPageLoad} from "../triggers/detectPageLoad.tab";
+import {uiEnhancer} from "../events/uiEnhancer.tab";
+import {detectPageLoad} from "../events/detectPageLoad.tab";
 
 async function tab() {
   // console.log(infos.APP_MODE)
