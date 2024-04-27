@@ -1,4 +1,4 @@
-import {maxAIListener} from "../../events/checker/maxAIListener.tab";
+import {maxAIListener} from "../../../events/checker/maxAIListener.tab";
 
 export function detectPageLoad(domain) {
   if (domain.name === "MaxAIGoogle") {

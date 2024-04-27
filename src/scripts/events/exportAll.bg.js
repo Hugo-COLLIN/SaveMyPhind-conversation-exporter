@@ -2,7 +2,7 @@
 
 import {clickOnListElt} from "../units/interface/interact-DOM/interact.tab";
 
-import {launchScrapping} from "../process/scraper/launchScrapping.tab";
+import {launchScrapping} from "../process/tasks/launchScrapping.tab";
 
 export function exportAllThreadsListener() {
   let currentIndex = 0;
