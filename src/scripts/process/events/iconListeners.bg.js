@@ -1,4 +1,4 @@
-import {setIconForCurrentTab} from "../units/icon/icon.bg";
+import {setIconForCurrentTab} from "../../units/icon/icon.bg";
 
 /**
  * This is the code for the extension icon to change depending on the website
