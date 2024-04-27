@@ -3,7 +3,7 @@ import {checkClickCountAndDisplayModal} from "../units/interface/modals/clickCou
 import {uiEnhancer} from "../events/uiEnhancer.tab";
 import {detectPageLoad} from "../events/detectPageLoad.tab";
 import {launchScrapping} from "./scraper/launchScrapping.tab";
-import {EXPORT_DOMAINS, LOAD_DOMAINS} from "./scraper/checkDomain.tab";
+import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../../data/allowedDomains.json";
 import {domainChecker} from "../units/processing/checker/domainChecker.all";
 
 async function tab() {
