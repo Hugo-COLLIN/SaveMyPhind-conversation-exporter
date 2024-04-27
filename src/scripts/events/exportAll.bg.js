@@ -1,6 +1,8 @@
-import {clickOnListElt} from "../../units/interface/interact-DOM/interact.tab";
+//TODO: refactor this file - dispatch the code to the right place
 
-import {launchScrapping} from "../scraper/launchScrapping.tab";
+import {clickOnListElt} from "../units/interface/interact-DOM/interact.tab";
+
+import {launchScrapping} from "../process/scraper/launchScrapping.tab";
 
 export function exportAllThreadsListener() {
   let currentIndex = 0;

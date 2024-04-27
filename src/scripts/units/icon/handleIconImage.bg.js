@@ -1,9 +1,9 @@
-import {setIconForCurrentTab} from "../../units/icon/icon.bg";
+import {setIconForCurrentTab} from "./icon.bg";
 
 /**
  * This is the code for the extension icon to change depending on the website
  */
-export function iconListeners() {
+export function handleIconImage() {
   // Enables the icon to be set when the tab is reloaded
   chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     setIconForCurrentTab(tabId);

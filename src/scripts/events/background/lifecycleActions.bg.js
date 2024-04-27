@@ -1,4 +1,4 @@
-export function onInstalledNotifier() {
+export function setInstalledAction() {
   chrome.runtime.onInstalled.addListener(function (details) {
     if (details.reason === "install") {
       chrome.storage.sync.set({displayModalWelcome: true}, function () {
@@ -12,14 +12,10 @@ export function onInstalledNotifier() {
   });
 }
 
-export function onUninstalledNotifier() {
+export function setUninstalledAction() {
   chrome.runtime.setUninstallURL('https://save.hugocollin.com/uninstalled', function () {
     // This callback function will run when the URL is set.
     console.log('Uninstall survey URL set');
   });
 }
 
-export function notify() {
-  onInstalledNotifier();
-  onUninstalledNotifier();
-}

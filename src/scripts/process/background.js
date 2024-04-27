@@ -1,16 +1,16 @@
-import {clickActionListener} from "./events/exportOnce.bg";
-import {exportAllThreadsListener} from "./events/exportAll.bg";
+import {handleIconClick} from "../units/icon/handleIconClick.bg";
+// import {exportAllThreadsListener} from "../events/exportAll.bg";
 import {clickCountInit} from "../units/interface/modals/clickCount.all";
-import {notify} from "./events/notify.bg";
-import {iconListeners} from "./events/iconListeners.bg";
+import {handleIconImage} from "../units/icon/handleIconImage.bg";
+import {setLifecycleActions} from "./setupBackground/setLifecycleActions";
 
 background();
 
 function background() {
   clickCountInit();
-  clickActionListener();
-  iconListeners();
-  exportAllThreadsListener(); // Needs to be after iconListeners and clickActionListener to work properly
-  notify();
+  handleIconClick();
+  handleIconImage();
+  // exportAllThreadsListener(); // Needs to be after iconListeners and clickActionListener to work properly
+  setLifecycleActions();
 }
 

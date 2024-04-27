@@ -1,7 +1,6 @@
-// import infos from "./infos";
 import {checkClickCountAndDisplayModal} from "../units/interface/modals/clickCount.all";
-import {uiEnhancer} from "./events/uiEnhancer.tab";
-import {detectPageLoad} from "./events/detectPageLoad.tab";
+import {uiEnhancer} from "../events/uiEnhancer.tab";
+import {detectPageLoad} from "./detectPageLoad/detectPageLoad.tab";
 import {launchScrapping} from "./scraper/launchScrapping.tab";
 import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../../data/allowedDomains.json";
 import {domainChecker} from "../units/processing/checker/domainChecker.all";
