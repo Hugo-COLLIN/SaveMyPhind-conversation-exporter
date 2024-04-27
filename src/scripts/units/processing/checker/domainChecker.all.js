@@ -1,16 +1,5 @@
-import {domainChecker} from "./domainChecker.tab";
+import {domainChecker} from "../../../process/scraper/steps/checkDomain.tab";
 
-
-export async function domainExportChecker() {
-  const domains = {
-    "PhindSearch": "www.phind.com/search",
-    "PhindChat": "www.phind.com/agent",
-    "Perplexity": "www.perplexity.ai/search",
-    "MaxAIGoogle": "www.google.com/search",
-  };
-
-  return domainChecker(domains);
-}
 
 export async function domainLoadChecker() {
   const domains = {
