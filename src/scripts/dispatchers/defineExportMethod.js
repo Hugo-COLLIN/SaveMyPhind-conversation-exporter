@@ -1,4 +1,4 @@
-import {download} from "./export/exportMethods.tab";
+import {download} from "../units/processing/export/exportMethods.tab";
 
 /**
  * Exports the given content using export methods

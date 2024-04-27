@@ -1,8 +1,8 @@
 import {logWelcome} from "../../units/utils/consoleMessages.all";
 import appInfos from "../../../infos.json";
 import {updateClickIconCount} from "../../units/interface/modals/clickCount.all";
-import {defineExtractor} from "../../units/processing/defineExtractor";
-import {defineExportMethod} from "../../units/processing/defineExportMethod";
+import {defineExtractor} from "../../dispatchers/defineExtractor";
+import {defineExportMethod} from "../../dispatchers/defineExportMethod";
 
 /**
  * @description - Launch the export process
