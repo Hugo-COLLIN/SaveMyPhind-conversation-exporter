@@ -1,4 +1,4 @@
-import {download} from "../../../units/processing/export-methods/exportMethods.tab";
+import {download} from "./export/exportMethods.tab";
 
 /**
  * Exports the given content using export methods
@@ -6,8 +6,7 @@ import {download} from "../../../units/processing/export-methods/exportMethods.t
  * @param extracted extracted content
  * @returns {Promise<void>}
  */
-export async function exportContent(domain, extracted) {
-  const {markdownContent, fileName} = extracted;
+export async function defineExportMethod(domain, {markdownContent, fileName}) {
   await download(markdownContent, fileName);
   // await saveToClipboard(markdownContent);
   // linksToObsidian(markdownContent);

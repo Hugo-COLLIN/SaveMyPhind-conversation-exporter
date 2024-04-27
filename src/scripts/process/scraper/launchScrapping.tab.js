@@ -2,13 +2,13 @@ import {logWelcome} from "../../units/utils/consoleMessages.all";
 import appInfos from "../../../infos.json";
 import {updateClickIconCount} from "../../units/interface/modals/clickCount.all";
 import {defineExtractor} from "../../units/processing/defineExtractor";
-import {exportContent} from "./steps/exportContent";
+import {defineExportMethod} from "../../units/processing/defineExportMethod";
 
 /**
  * @description - Launch the export process
  * @returns {Promise<void>}
  */
-export async function launchExport(domain) {
+export async function launchScrapping(domain) {
   logWelcome();
   const extractor = await defineExtractor(domain);
   const extracted = await extractor.launch();
@@ -18,7 +18,7 @@ export async function launchExport(domain) {
     return;
   }
 
-  await exportContent(domain, extracted);
+  await defineExportMethod(domain, extracted);
   console.log("Export done!")
 
   // Increment click icon count

@@ -1,18 +1,14 @@
-import {domainChecker} from "../../../process/scraper/steps/checkDomain.tab";
+import {getHostAndPath} from "../../utils/getters.tab";
 
+export async function domainChecker(domains) {
+  const hostAndPath = getHostAndPath();
 
-export async function domainLoadChecker() {
-  const domains = {
-    "Phind": "www.phind.com",
-    "Perplexity": "www.perplexity.ai",
-    "MaxAIGoogle": "www.google.com",
-  };
+  for (let domainName in domains) {
+    const url = domains[domainName];
+    if (hostAndPath.startsWith(url)) {
+      return {name: domainName, url};
+    }
+  }
 
-  return domainChecker(domains);
-}
-
-
-function hasSubpages(urlString) {
-  const regex = /^(https?|ftp|ssh|mailto):\/\/[a-z0-9:%_+.,#?!@&=-]+\/?$/;
-  return !regex.test(urlString);
+  return null;
 }
