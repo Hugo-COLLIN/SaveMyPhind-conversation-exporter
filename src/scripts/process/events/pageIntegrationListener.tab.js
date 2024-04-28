@@ -1,4 +1,4 @@
-import {launchModalIntegration} from "../tasks/integrateModals.tab";
+import {launchModalIntegration} from "../tasks/modals/displayInstallModals.tab";
 
 export async function pageIntegrationListener(domain) {
   window.addEventListener('load', async function () {

@@ -1,5 +1,5 @@
 import {launchScrapping} from "./scrapping.tab";
-import {clickOnListElt} from "../../units/page/interact-DOM/interact.tab";
+import {clickOnListElt} from "../../../units/page/interact-DOM/interact.tab";
 
 export function launchScrappingActionOnPage(request, domain, sendResponse) {
   if (request.message === 'executeScript') {

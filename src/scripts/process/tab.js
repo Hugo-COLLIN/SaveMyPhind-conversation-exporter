@@ -1,7 +1,7 @@
-import {handleModalDisplay} from "./tasks/handleModalDisplay.tab";
+import {handleModalDisplay} from "./tasks/modals/displayCtaModals.tab";
 import {pageIntegrationListener} from "./events/pageIntegrationListener.tab";
 import {detectPageLoad} from "../units/processing/checker/detectPageLoad.tab";
-import {launchScrapping} from "./tasks/scrapping.tab";
+import {launchScrapping} from "./tasks/scraper/scrapping.tab";
 import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../../data/allowedDomains.json";
 import {domainChecker} from "../units/processing/checker/domainChecker.all";
 import {getHostAndPath} from "../units/utils/getters.tab";

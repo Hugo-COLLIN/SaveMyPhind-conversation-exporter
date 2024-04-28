@@ -1,5 +1,5 @@
 import {defineExportState} from "../../dispatchers/defineExportState.bg";
-import {launchScrappingActionOnPage} from "../tasks/launchScraperOnPage.bg";
+import {launchScrappingActionOnPage} from "../tasks/scraper/launchScraperOnPage.bg";
 
 export function exportAllThreadsListener() {
   chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {

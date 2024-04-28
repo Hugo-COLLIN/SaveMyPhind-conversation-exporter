@@ -1,4 +1,4 @@
-export function setDisplayModalOnInstall(details) {
+export function defineDisplayModalOnInstall(details) {
   switch (details.reason) {
     case "install":
       chrome.storage.sync.set({displayModalWelcome: true},

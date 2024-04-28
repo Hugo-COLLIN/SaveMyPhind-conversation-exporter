@@ -1,6 +1,6 @@
-import ModalMessage from "../../units/page/modals/types/ModalMessage.tab";
-import {getStorageData} from "../../units/utils/chromeStorage.all";
-import {clickCounts, resetClickCount, updateClickIconCount} from "../../units/internals/icon/clickIconCountContext.bg";
+import ModalMessage from "../../../units/page/modals/types/ModalMessage.tab";
+import {getStorageData} from "../../../units/utils/chromeStorage.all";
+import {clickCounts, resetClickCount, updateClickIconCount} from "../../../units/internals/icon/clickIconCountContext.bg";
 
 const MODAL_SURVEY = 'assets/modalMessages/modalSurvey.md';
 const MODAL_DONATION = 'assets/modalMessages/modalDonation.md';
