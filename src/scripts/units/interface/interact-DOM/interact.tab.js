@@ -1,3 +1,5 @@
+// TODO: Make functions more generic (not only for Phind)
+
 import {logWaitList} from "../../utils/consoleMessages.all";
 import {sleep} from "../../utils/jsShorteners.all";
 

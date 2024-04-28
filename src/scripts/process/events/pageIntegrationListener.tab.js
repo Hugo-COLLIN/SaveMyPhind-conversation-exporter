@@ -1,6 +1,6 @@
 import {launchModalIntegration} from "../tasks/launchModalIntegration.tab";
 
-export async function uiIntegrationListener(domain) {
+export async function pageIntegrationListener(domain) {
   window.addEventListener('load', async function () {
     await launchModalIntegration(domain);
   });

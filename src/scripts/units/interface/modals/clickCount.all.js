@@ -3,12 +3,10 @@
 import ModalMessage from "./ModalMessage.tab";
 import {getStorageData} from "../../utils/chromeStorage.all";
 
-export function clickCountInit() {
-  chrome.runtime.onInstalled.addListener(function (details) {
-    if (details.reason === "install" || details.reason === "update") {
-      chrome.storage.sync.set({"clickIconCount": clickCounts[0], "modalIndex": 0});
-    }
-  });
+export function initClickIconCount(details) {
+  if (details.reason === "install" || details.reason === "update") {
+    chrome.storage.sync.set({"clickIconCount": clickCounts[0], "modalIndex": 0});
+  }
 }
 
 export async function updateClickIconCount() {
