@@ -29,17 +29,23 @@ const MODAL_SURVEY = 'assets/modalMessages/modalSurvey.md';
 const MODAL_DONATION = 'assets/modalMessages/modalDonation.md';
 const modals = [MODAL_SURVEY, MODAL_DONATION, MODAL_SURVEY, MODAL_DONATION];
 
-// Function to check click count and display modal
-export function checkClickCountAndDisplayModal(domain) {
-  chrome.storage.sync.get(['clickIconCount', 'modalIndex'], async (result) => {
-    if (result.clickIconCount <= 0) {
-      await new ModalMessage(modals[result.modalIndex]).appendModal();
-      let nextIndex = (result.modalIndex + 1) % modals.length;
-      resetClickCount(clickCounts[nextIndex]);
-      chrome.storage.sync.set({"modalIndex": nextIndex});
-      updateClickIconCount();
-    }
-  });
+/**
+ * Check the click count and display the modal if needed
+ * @returns {Promise<void>}
+ */
+export async function checkClickCountAndDisplayModal() {
+  const clickIconCount = await getStorageData('clickIconCount');
+  const modalIndex = await getStorageData('modalIndex');
+
+  // Display modal if needed
+  if (clickIconCount > 0) return;
+  await new ModalMessage(modals[modalIndex]).appendModal();
+
+  // Increment modal index
+  let nextIndex = (modalIndex + 1) % modals.length;
+  resetClickCount(clickCounts[nextIndex]);
+  chrome.storage.sync.set({"modalIndex": nextIndex});
+  updateClickIconCount();
 }
 
 

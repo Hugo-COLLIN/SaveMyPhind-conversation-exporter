@@ -27,7 +27,7 @@ export async function actionExtensionIconClicked() {
   const domainPage = domainChecker(EXPORT_DOMAINS, getHostAndPath());
   if (domainPage === null) return;
   launchScrapping(domainPage);
-  checkClickCountAndDisplayModal(domainPage);
+  checkClickCountAndDisplayModal();
 }
 
 tab();
