@@ -1,4 +1,4 @@
-import {initClickIconCount} from "../../storage/clickIconCountContext.tab";
+import {initClickIconCount} from "../../../units/internals/icon/clickIconCountContext.bg";
 
 export function setClickCountListener() {
   chrome.runtime.onInstalled.addListener(

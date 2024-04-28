@@ -1,4 +1,6 @@
-import {getStorageData} from "../../units/utils/chromeStorage.all";
+//TODO: object Clicker with array of numbers : each time click on icon, use the next number before displaying popup
+
+import {getStorageData} from "../../utils/chromeStorage.all";
 
 // Array of click counts for each modal
 export const clickCounts = [14, 25, 40, 40] //[20, 40, 60, 80, 100];

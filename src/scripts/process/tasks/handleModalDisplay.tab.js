@@ -1,12 +1,11 @@
-//TODO: object Clicker with array of numbers : each time click on icon, use the next number before displaying popup
+import ModalMessage from "../../units/page/modals/types/ModalMessage.tab";
+import {getStorageData} from "../../units/utils/chromeStorage.all";
+import {clickCounts, resetClickCount, updateClickIconCount} from "../../units/internals/icon/clickIconCountContext.bg";
 
-import ModalMessage from "./types/ModalMessage.tab";
-import {getStorageData} from "../../utils/chromeStorage.all";
-import {clickCounts, resetClickCount, updateClickIconCount} from "../../../process/storage/clickIconCountContext.tab";
-
-// Array of modals
 const MODAL_SURVEY = 'assets/modalMessages/modalSurvey.md';
 const MODAL_DONATION = 'assets/modalMessages/modalDonation.md';
+
+// Array of modals
 const modals = [MODAL_SURVEY, MODAL_DONATION, MODAL_SURVEY, MODAL_DONATION];
 
 /**

@@ -1,4 +1,4 @@
-import {handleModalDisplay} from "../units/page/modals/handleModalDisplay.tab";
+import {handleModalDisplay} from "./tasks/handleModalDisplay.tab";
 import {pageIntegrationListener} from "./events/pageIntegrationListener.tab";
 import {detectPageLoad} from "../units/processing/checker/detectPageLoad.tab";
 import {launchScrapping} from "./tasks/scrapping.tab";
