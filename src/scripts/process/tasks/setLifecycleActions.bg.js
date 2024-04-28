@@ -1,4 +1,4 @@
-import {setInstalledAction, setUninstalledAction} from "../../events/background/lifecycleActions.bg";
+import {setInstalledAction, setUninstalledAction} from "../events/lifecycleActionsListeners.bg";
 
 export function setLifecycleActions() {
   setInstalledAction();

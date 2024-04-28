@@ -1,5 +1,5 @@
 import {checkClickCountAndDisplayModal} from "../units/interface/modals/clickCount.all";
-import {uiEnhancer} from "../events/uiEnhancer.tab";
+import {uiIntegrationListener} from "./events/uiIntegrationListener.tab";
 import {detectPageLoad} from "../units/processing/checker/detectPageLoad.tab";
 import {launchScrapping} from "./tasks/launchScrapping.tab";
 import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../../data/allowedDomains.json";
@@ -19,7 +19,7 @@ export async function actionPageLoaded() {
   const htmlCheck = detectPageLoad(domain);
   if (!htmlCheck) return;
   // scrapOnLoadListener();
-  uiEnhancer(domain);
+  uiIntegrationListener(domain);
 }
 
 export async function actionExtensionIconClicked() {
