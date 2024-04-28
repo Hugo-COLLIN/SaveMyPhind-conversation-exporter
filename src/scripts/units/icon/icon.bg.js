@@ -1,5 +1,6 @@
 import {domainChecker} from "../processing/checker/domainChecker.all";
 import {LOAD_DOMAINS} from "../../../data/allowedDomains.json"
+import {getTabData} from "../utils/chromeStorage.all";
 
 /**
  * Sets the icon depending on the window focus
@@ -11,31 +12,22 @@ export function focusDependingSetIcon(windowId) {
   chrome.tabs.query(
     {active: true, windowId: windowId},
     (tabs) => {
-      if (tabs[0]) setIconForCurrentTab(tabs[0].id);
+      if (tabs[0]) defineIcon(tabs[0].id);
     }
   );
 }
 
 /**
- * Enables the icon to be set when the tab is reloaded
- * @param tabId the id of the tab that is reloaded
- */
-export function setIconForCurrentTab(tabId) {
-  chrome.tabs.get(tabId, (tab) => {
-    setIcon(tab.url, tabId);
-  });
-}
-
-/**
  * Sets the icon depending on the url of the tab
- * @param url the url of the tab
  * @param tabId the id of the tab
  */
-async function setIcon(url, tabId) {
+export async function defineIcon(tabId) {
+  const {url} = await getTabData(tabId);
+  // defineIcon(tab.url, tabId);
   if (!url) return;
 
   const { name } = domainChecker(LOAD_DOMAINS, url.split("https://")[1]); // http:// ??
-  // console.log("check:", name)
+  // console.log("check:", name);
 
   switch (name.toLowerCase()) {
     case "phind":

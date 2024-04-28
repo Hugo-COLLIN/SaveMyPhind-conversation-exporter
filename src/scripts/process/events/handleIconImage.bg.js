@@ -1,4 +1,4 @@
-import {focusDependingSetIcon, setIconForCurrentTab} from "../../units/icon/icon.bg";
+import {focusDependingSetIcon, defineIcon} from "../../units/icon/icon.bg";
 
 /**
  * This is the code for the extension icon to change depending on the website
@@ -6,12 +6,12 @@ import {focusDependingSetIcon, setIconForCurrentTab} from "../../units/icon/icon
 export function handleIconImage() {
   // Enables the icon to be set when the tab is reloaded
   chrome.tabs.onUpdated.addListener(
-    (tabId, changeInfo, tab) => setIconForCurrentTab(tabId)
+    (tabId, changeInfo, tab) => defineIcon(tabId)
   );
 
   // Enables the icon to be set when the tab is changed
   chrome.tabs.onActivated.addListener(
-    (activeInfo) => setIconForCurrentTab(activeInfo.tabId)
+    (activeInfo) => defineIcon(activeInfo.tabId)
   );
 
   // Enables the icon to be set for already opened tabs in windows
