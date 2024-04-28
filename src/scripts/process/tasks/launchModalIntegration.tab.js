@@ -2,14 +2,13 @@ import {appendModalContainer} from "../../units/interface/modals/appendModalCont
 import ModalUpdate from "../../units/interface/modals/ModalUpdate.tab";
 import ModalMessage from "../../units/interface/modals/ModalMessage.tab";
 import {getStorageData} from "../../units/utils/chromeStorage.all";
-import {logUpdateModal} from "../../units/utils/consoleMessages.all";
 
 export async function launchModalIntegration(domain) {
   // Create modal container
   await appendModalContainer();
 
-  const { displayModalUpdate } = await getStorageData('displayModalUpdate', 'sync');
-  const { displayModalWelcome } = await getStorageData('displayModalWelcome', 'sync');
+  const displayModalUpdate = await getStorageData('displayModalUpdate', 'sync');
+  const displayModalWelcome = await getStorageData('displayModalWelcome', 'sync');
 
   // Create "last update" modal if needed
   if (displayModalUpdate) {
