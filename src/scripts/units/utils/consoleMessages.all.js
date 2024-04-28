@@ -12,3 +12,7 @@ export function logWaitList() {
 export function logWaitElts() {
   console.log(appInfos.APP_SNAME + ": Waiting for adding elements")
 }
+
+export function logUpdateModal() {
+  console.log("Last update modal will not be displayed until the next update");
+}
