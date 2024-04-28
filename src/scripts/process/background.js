@@ -1,7 +1,7 @@
-import {handleIconClick} from "../units/icon/handleIconClick.bg";
+import {handleIconClick} from "./events/handleIconClick.bg";
 // import {exportAllThreadsListener} from "../events/exportAll.bg";
 import {clickCountInit} from "../units/interface/modals/clickCount.all";
-import {handleIconImage} from "../units/icon/handleIconImage.bg";
+import {handleIconImage} from "./events/handleIconImage.bg";
 import {setLifecycleActions} from "./tasks/setLifecycleActions.bg";
 
 background();
