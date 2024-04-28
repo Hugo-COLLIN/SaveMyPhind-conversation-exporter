@@ -1,6 +1,6 @@
-import {appendModalContainer} from "../../units/interface/modals/appendModalContainer.tab";
-import ModalUpdate from "../../units/interface/modals/ModalUpdate.tab";
-import ModalMessage from "../../units/interface/modals/ModalMessage.tab";
+import {appendModalContainer} from "../../units/page/modals/appendModalContainer.tab";
+import ModalUpdate from "../../units/page/modals/ModalUpdate.tab";
+import ModalMessage from "../../units/page/modals/ModalMessage.tab";
 import {getStorageData} from "../../units/utils/chromeStorage.all";
 
 export async function launchModalIntegration(domain) {

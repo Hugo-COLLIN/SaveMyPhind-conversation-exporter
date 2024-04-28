@@ -1,4 +1,4 @@
-import {displayModalOnInstall} from "../../units/interface/modals/displayModalOnInstall.bg";
+import {displayModalOnInstall} from "../../units/page/modals/displayModalOnInstall.bg";
 
 export function setInstalledAction() {
   chrome.runtime.onInstalled.addListener(

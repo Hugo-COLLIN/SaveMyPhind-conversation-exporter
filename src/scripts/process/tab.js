@@ -1,4 +1,4 @@
-import {checkClickCountAndDisplayModal} from "../units/interface/modals/clickCount.all";
+import {checkClickCountAndDisplayModal} from "../units/page/modals/clickCount.all";
 import {pageIntegrationListener} from "./events/pageIntegrationListener.tab";
 import {detectPageLoad} from "../units/processing/checker/detectPageLoad.tab";
 import {launchScrapping} from "./tasks/launchScrapping.tab";

@@ -1,4 +1,4 @@
-import {initClickIconCount} from "../../units/interface/modals/clickCount.all";
+import {initClickIconCount} from "../../units/page/modals/clickCount.all";
 
 export function setClickCountListener() {
   chrome.runtime.onInstalled.addListener(
