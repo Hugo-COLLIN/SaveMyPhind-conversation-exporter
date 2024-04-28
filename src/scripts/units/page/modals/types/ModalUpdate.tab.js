@@ -1,6 +1,6 @@
 import {Modal} from "./Modal.tab";
-import {getUpdatesData} from "./updateNotes.all";
-import appInfos from "../../../../infos.json";
+import appInfos from "../../../../../infos.json";
+import {convertUpdateNotes} from "../../../processing/converter/convertUpdateNotes.all";
 
 export default class ModalUpdate extends Modal {
   constructor(...params) {
@@ -8,7 +8,7 @@ export default class ModalUpdate extends Modal {
   }
 
   async createModalContent(modalBodyDiv, outerDiv, modalBackground) {
-    const updates = await getUpdatesData();
+    const updates = await convertUpdateNotes();
     const domain = this.params[0];
 
     // Title

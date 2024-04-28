@@ -1,8 +1,8 @@
-import {displayModalOnInstall} from "../../units/page/modals/displayModalOnInstall.bg";
+import {setDisplayModalOnInstall} from "../storage/setDisplayModalOnInstall.bg";
 
 export function setInstalledAction() {
   chrome.runtime.onInstalled.addListener(
-    (details) => displayModalOnInstall(details)
+    (details) => setDisplayModalOnInstall(details)
   );
 }
 

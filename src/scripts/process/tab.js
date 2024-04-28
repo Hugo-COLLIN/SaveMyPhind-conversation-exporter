@@ -1,7 +1,7 @@
-import {checkClickCountAndDisplayModal} from "../units/page/modals/clickCount.all";
+import {handleModalDisplay} from "../units/page/modals/handleModalDisplay.tab";
 import {pageIntegrationListener} from "./events/pageIntegrationListener.tab";
 import {detectPageLoad} from "../units/processing/checker/detectPageLoad.tab";
-import {launchScrapping} from "./tasks/launchScrapping.tab";
+import {launchScrapping} from "./tasks/scrapping.tab";
 import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../../data/allowedDomains.json";
 import {domainChecker} from "../units/processing/checker/domainChecker.all";
 import {getHostAndPath} from "../units/utils/getters.tab";
@@ -28,7 +28,7 @@ export async function actionExtensionIconClicked() {
   const domainPage = domainChecker(EXPORT_DOMAINS, getHostAndPath());
   if (domainPage === null) return;
   launchScrapping(domainPage);
-  checkClickCountAndDisplayModal();
+  handleModalDisplay();
 }
 
 tab();
