@@ -1,4 +1,4 @@
-import ModalMessage from "../../../units/page/modals/types/ModalMessage.tab";
+import ModalMessage from "../../../units/page/uiEnhancer/modals/types/ModalMessage.tab";
 import {getStorageData} from "../../../units/utils/chromeStorage.all";
 import {clickCounts, resetClickCount, updateClickIconCount} from "../../../units/internals/icon/clickIconCountContext.bg";
 
