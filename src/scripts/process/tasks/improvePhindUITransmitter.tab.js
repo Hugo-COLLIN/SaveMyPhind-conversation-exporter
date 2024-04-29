@@ -1,7 +1,12 @@
-import {createButtonGroup} from "./genericElements/createElements";
+import {createButtonGroup} from "../../units/page/uiEnhancer/phind/genericElements/createElements";
+import {isHomepageCheck} from "../../units/utils/getters.tab";
 
-
-import {isHomepageCheck} from "../../../utils/getters.tab";
+export async function initVars() {
+  const topBtnsGroup = await createButtonGroup("top-buttons-group");
+  const isStopGenBasic = document.querySelector("[name=\"answer-0\"] > div > .container-xl > button") !== null;
+  const isHomepage = isHomepageCheck();
+  return {topBtnsGroup, isStopGenBasic, isHomepage};
+}
 
 export function improvePhindUI() {
   chrome.runtime.sendMessage({message: 'LOAD_COMPLETE'}, async function (response) {
@@ -21,11 +26,4 @@ export function improvePhindUI() {
     }
   });
   // whenDOMElementAdded('[role="dialog"]>div>div>div>div>div>div', addListFilter); // display filter input on history modal
-}
-
-export async function initVars() {
-  const topBtnsGroup = await createButtonGroup("top-buttons-group");
-  const isStopGenBasic = document.querySelector("[name=\"answer-0\"] > div > .container-xl > button") !== null;
-  const isHomepage = isHomepageCheck();
-  return {topBtnsGroup, isStopGenBasic, isHomepage};
 }

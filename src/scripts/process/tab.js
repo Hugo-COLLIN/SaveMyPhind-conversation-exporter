@@ -21,14 +21,14 @@ export async function actionPageLoaded() {
   const htmlCheck = detectPageLoad(domain);
   if (!htmlCheck) return;
   // scrapOnLoadListener();
-  pageIntegrationListener(domain);
+  await pageIntegrationListener(domain);
 }
 
 export async function actionExtensionIconClicked() {
   const domainPage = domainChecker(EXPORT_DOMAINS, getHostAndPath());
   if (domainPage === null) return;
   launchScrapping(domainPage);
-  handleModalDisplay();
+  await handleModalDisplay();
 }
 
 tab();
