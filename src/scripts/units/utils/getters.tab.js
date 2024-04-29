@@ -13,3 +13,12 @@ export function getUrl() {
 export function getHostAndPath() {
   return window.location.host + window.location.pathname;
 }
+
+export function isHomepageCheck() {
+  return window.location.href === "https://www.phind.com" || window.location.href === "https://www.phind.com/"
+}
+
+function hasSubpages(urlString) {
+  const regex = /^(https?|ftp|ssh|mailto):\/\/[a-z0-9:%_+.,#?!@&=-]+\/?$/;
+  return !regex.test(urlString);
+}

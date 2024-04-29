@@ -1,29 +1,16 @@
-import {domainChecker} from "./domainChecker.tab";
+/**
+ * Check if the host and path is allowed
+ * @param allowedDomains the allowed domains
+ * @param hostAndPath url of the page
+ * @returns {null|{name: string, url: *}}
+ */
+export function domainChecker(allowedDomains, hostAndPath) {
+  for (let domainName in allowedDomains) {
+    const url = allowedDomains[domainName];
+    if (hostAndPath.startsWith(url)) {
+      return {name: domainName, url};
+    }
+  }
 
-
-export async function domainExportChecker() {
-  const domains = {
-    "PhindSearch": "www.phind.com/search",
-    "PhindChat": "www.phind.com/agent",
-    "Perplexity": "www.perplexity.ai/search",
-    "MaxAIGoogle": "www.google.com/search",
-  };
-
-  return domainChecker(domains);
-}
-
-export async function domainLoadChecker() {
-  const domains = {
-    "Phind": "www.phind.com",
-    "Perplexity": "www.perplexity.ai",
-    "MaxAIGoogle": "www.google.com",
-  };
-
-  return domainChecker(domains);
-}
-
-
-function hasSubpages(urlString) {
-  const regex = /^(https?|ftp|ssh|mailto):\/\/[a-z0-9:%_+.,#?!@&=-]+\/?$/;
-  return !regex.test(urlString);
+  return null;
 }
