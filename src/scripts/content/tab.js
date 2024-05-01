@@ -1,14 +1,14 @@
 import {handleModalDisplay} from "./uiEnhancer/modals/actions/displayCtaModals";
-import {pageIntegrationListener} from "./uiEnhancer/uiEnhancerListener";
+import {setLoadListener} from "./window/setLoadListener";
 import {detectPageLoad} from "./detectPageLoad";
 import {launchScrapping} from "./scraper/scrapPage";
 import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../../data/allowedDomains.json";
 import {domainChecker} from "../shared/checker/domainChecker";
-import {getHostAndPath} from "./getters";
+import {getHostAndPath} from "./utils/getters";
 import {getStorageData} from "../shared/utils/chromeStorage";
 
 async function tab() {
-  const isInjecting = await getStorageData('isInjecting', 'local')
+  const isInjecting = await getStorageData('isInjecting', 'local');
   isInjecting
     ? await actionExtensionIconClicked()
     : await actionPageLoaded();
@@ -21,7 +21,7 @@ export async function actionPageLoaded() {
   const htmlCheck = detectPageLoad(domain);
   if (!htmlCheck) return;
   // scrapOnLoadListener();
-  await pageIntegrationListener(domain);
+  await setLoadListener(domain);
 }
 
 export async function actionExtensionIconClicked() {

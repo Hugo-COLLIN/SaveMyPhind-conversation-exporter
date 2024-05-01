@@ -1,4 +1,4 @@
-import {foldQuestions, unfoldQuestions} from "../../interact-DOM/interact";
+import {foldQuestions, unfoldQuestions} from "../../interact/interact";
 import {capitalizeFirst} from "../../../shared/formatter/formatText";
 import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
 import ExtractorPhind from "./ExtractorPhind";

@@ -1,6 +1,6 @@
 // TODO: currently used by content-script, should be in the background-script
 import {launchScrapping} from "../scraper/scrapPage";
-import {clickOnListElt} from "../interact-DOM/interact";
+import {clickOnListElt} from "../interact/interact";
 
 export function launchScrappingActionOnPage(request, domain, sendResponse) {
   if (request.message === 'executeScript') {
