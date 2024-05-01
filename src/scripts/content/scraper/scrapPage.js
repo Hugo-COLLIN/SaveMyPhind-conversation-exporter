@@ -2,7 +2,7 @@ import {logWelcome} from "../../shared/utils/consoleMessages";
 import appInfos from "../../../infos.json";
 import {defineExtractor} from "../extractor/defineExtractor";
 import {defineExportMethod} from "../export/defineExportMethod";
-import {updateClickIconCount} from "../../background/icon/state/clickIconCountContext";
+import {updateClickIconCount} from "../../background/icon/clickCount/clickIconCountContext";
 
 /**
  * @description - Launch the export process

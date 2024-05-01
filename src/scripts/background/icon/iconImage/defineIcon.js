@@ -1,6 +1,6 @@
-import {domainChecker} from "../../shared/checker/domainChecker";
-import {LOAD_DOMAINS} from "../../../data/allowedDomains.json"
-import {getTabData} from "../../shared/utils/chromeStorage";
+import {domainChecker} from "../../../shared/checker/domainChecker";
+import {LOAD_DOMAINS} from "../../../../data/allowedDomains.json"
+import {getTabData} from "../../../shared/utils/chromeStorage";
 
 /**
  * Sets the icon depending on the window focus

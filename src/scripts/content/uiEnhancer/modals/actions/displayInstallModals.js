@@ -1,7 +1,7 @@
 import {appendModalContainer} from "../appendModalContainer";
-import ModalUpdate from "../units/ModalUpdate";
-import ModalMessage from "../units/ModalMessage";
-import {getStorageData} from "../../../../../../shared/utils/chromeStorage";
+import ModalUpdate from "../types/ModalUpdate";
+import ModalMessage from "../types/ModalMessage";
+import {getStorageData} from "../../../../shared/utils/chromeStorage";
 
 export async function launchModalIntegration(domain) {
   // Create modal container

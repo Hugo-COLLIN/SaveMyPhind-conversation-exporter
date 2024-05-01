@@ -1,10 +1,10 @@
-import ModalMessage from "../units/ModalMessage";
-import {getStorageData} from "../../../../../../shared/utils/chromeStorage";
+import ModalMessage from "../types/ModalMessage";
+import {getStorageData} from "../../../../shared/utils/chromeStorage";
 import {
   clickCounts,
   resetClickCount,
   updateClickIconCount
-} from "../../../../../../background/icon/state/clickIconCountContext";
+} from "../../../../background/icon/clickCount/clickIconCountContext";
 
 const MODAL_SURVEY = 'assets/modalMessages/modalSurvey.md';
 const MODAL_DONATION = 'assets/modalMessages/modalDonation.md';

@@ -1,4 +1,4 @@
-import {waitAppears, waitAppend} from "../../../../../interact-DOM/interactDOM";
+import {waitAppears, waitAppend} from "../../../../../../interact-DOM/interactDOM";
 import {btnBarAllInline} from "./changeButtons";
 import {setBtnsExport} from "./styleExportButtons";
 import {createSideMenuBtn, createTopBtn} from "../genericElements/createElements";

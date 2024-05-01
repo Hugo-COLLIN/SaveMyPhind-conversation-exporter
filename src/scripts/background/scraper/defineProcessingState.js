@@ -3,7 +3,7 @@ let lengthList = 0;
 let isExporting = false;
 let eventCount = 0;
 
-export function defineExportState(request, sendResponse) {
+export function defineProcessingState(request, sendResponse) {
   if (request.message === 'exportAllThreads') {
     isExporting = true;
     currentIndex = request.redirect ? -1 : 0;

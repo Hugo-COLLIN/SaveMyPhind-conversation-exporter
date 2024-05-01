@@ -1,4 +1,4 @@
-import {focusDependingSetIcon, defineIcon} from "../icon";
+import {focusDependingSetIcon, defineIcon} from "./defineIcon";
 
 /**
  * This is the code for the extension icon to change depending on the website

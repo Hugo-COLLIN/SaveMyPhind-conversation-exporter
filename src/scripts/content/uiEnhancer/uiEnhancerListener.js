@@ -1,4 +1,4 @@
-import {launchModalIntegration} from '../units/modals/actions/displayInstallModals.js';
+import {launchModalIntegration} from './modals/actions/displayInstallModals.js';
 
 export async function pageIntegrationListener(domain) {
   window.addEventListener('load', async function () {

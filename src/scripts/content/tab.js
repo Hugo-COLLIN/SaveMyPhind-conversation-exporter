@@ -1,5 +1,5 @@
-import {handleModalDisplay} from "./page/uiEnhancer/units/modals/actions/displayCtaModals";
-import {pageIntegrationListener} from "./page/uiEnhancer/events/uiEnhancerListener";
+import {handleModalDisplay} from "./uiEnhancer/modals/actions/displayCtaModals";
+import {pageIntegrationListener} from "./uiEnhancer/uiEnhancerListener";
 import {detectPageLoad} from "./detectPageLoad";
 import {launchScrapping} from "./scraper/scrapPage";
 import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../../data/allowedDomains.json";

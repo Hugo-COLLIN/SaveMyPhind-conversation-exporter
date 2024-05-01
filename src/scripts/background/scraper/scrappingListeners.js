@@ -1,9 +1,9 @@
-import {defineExportState} from "./defineScrappingState";
-import {launchScrappingActionOnPage} from "../launch/launchScraperOnPage";
+import {defineProcessingState} from "./defineProcessingState";
+import {launchScrappingActionOnPage} from "../../content/launch/launchScraperOnPage";
 
 export function exportAllThreadsListener() {
   chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    return defineExportState(request, sendResponse);
+    return defineProcessingState(request, sendResponse);
   });
 }
 

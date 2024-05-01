@@ -1,14 +1,14 @@
-import {handleIconClick} from "./icon/events/iconClickListener";
-// import {exportAllThreadsListener} from "../events/exportAll.bg";
-import {handleIconImage} from "./icon/events/iconImageListeners";
-import {setClickCountListener} from "./icon/events/clickCountListener";
+import {iconClickListener} from "./launch/callContentScript";
+import {handleIconImage} from "./icon/iconImage/iconImageListeners";
+import {setClickCountListener} from "./icon/clickCount/clickCountListener";
 import {setLifecycleActions} from "./modals/lifecycleActionsListeners";
+// import {exportAllThreadsListener} from "./scraper/scrappingListeners";
 
 background();
 
 function background() {
   setClickCountListener();
-  handleIconClick();
+  iconClickListener();
   handleIconImage();
   // exportAllThreadsListener(); // Needs to be after iconListeners and clickActionListener to work properly
   setLifecycleActions();
