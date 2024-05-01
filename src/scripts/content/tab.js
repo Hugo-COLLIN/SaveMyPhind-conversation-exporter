@@ -4,7 +4,7 @@ import {detectPageLoad} from "./detectPageLoad";
 import {launchScrapping} from "./scraper/scrapPage";
 import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../../data/allowedDomains.json";
 import {domainChecker} from "../shared/checker/domainChecker";
-import {getHostAndPath} from "./getters";
+import {getHostAndPath} from "./utils/getters";
 import {getStorageData} from "../shared/utils/chromeStorage";
 
 async function tab() {

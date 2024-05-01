@@ -1,4 +1,4 @@
-import {createButtonGroup} from "../units/genericElements/createElements";
+import {createButtonGroup} from "./genericElements/createElements";
 import {isHomepageCheck} from "../../../../../shared/utils/getters.tab";
 
 export async function initVars() {
