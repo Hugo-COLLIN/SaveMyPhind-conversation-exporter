@@ -85,16 +85,3 @@ This project uses third-party libraries. See the [license list](licenses.txt) fo
   <div align="center">
       <a href="https://save.hugocollin.com/support" target="_blank"><img src="https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white" height="50px"/></a> 
   </div>
-
-
-<!--
-
-To stay updated and contribute to this project:
-
-- **Issues**: Visit the [Issues page](https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter/issues) to view current discussions, report bugs, or suggest enhancements. All feedback is valued and taken seriously.
-
-- **Pull Requests**: If you're interested in contributing directly to the code, check the [Pull Requests page](https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter/pulls). You can fork the repository and create one if you have improvements or new features to add.
-
-Your participation can help improve the project, whether by suggesting changes or adding to the codebase.
-
--->
