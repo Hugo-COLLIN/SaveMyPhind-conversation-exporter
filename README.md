@@ -30,8 +30,7 @@ Simple!
 ## 🗺️ Roadmap
 
 ### 🚀 In the pipeline...
-- [ ] Custom file header
-- [ ] Phind: Export tables into markdown
+Check the [Issues](https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter/issues) and [Pull requests](https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter/pulls) to see what's going on!
 
 ### 🎯 Main features:
 - [x] Export chats from Phind, Perplexity and MaxAI-Google
