@@ -1,4 +1,15 @@
 # Update notes
+# 2.5.4
+🎉 Reached 1000 users!
+Thank you all for using this extension! I'm glad to see that it's useful for you. 
+If you have any feedback or feature request, feel free to contact me at [hcollin.dev@gmail.com](mailto:hcollin.dev@gmail.com).
+
+🛸 Some export errors fixed
+Fixed some export errors on Phind and Perplexity due to interface changes. Here we go again!
+
+🧩 Changes under the hood
+Huge code refactoring to make the extension more robust and easier to maintain.
+
 # 2.5.2
 🤯 Fix Perplexity broken export (#5)
 Perplexity is constantly changing its interface, so I try to keep up...
@@ -122,3 +133,5 @@ Save my AI - Chatbots conversation Exporter
 Save my AI - Phind and Perplexity Exporter
 
 [//]: # (Phind changed its UI, so the extension is now a bit lost. I'm working on it, but it could take some time. Sorry for the inconvenience!)
+
+[//]: # (👽 New feature: Export to CSV!)
