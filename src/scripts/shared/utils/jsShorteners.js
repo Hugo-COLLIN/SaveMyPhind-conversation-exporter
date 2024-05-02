@@ -35,7 +35,7 @@ export function dynamicCall(object, funcToCall, ...args) {
  * @param action
  * @param catchAction
  */
-export async function safeExecute(action, catchAction) {
+export async function safeExecute(action, catchAction = null) {
   try {
     return await action;
   } catch (error) {

@@ -4,8 +4,8 @@ import {formatFilename} from "../../../shared/formatter/formatText";
 export class Extractor {
   async launch() {
     this.applyExtractorRules();
-    const markdownContent = await this.extractPage(converter[`formatMarkdown`]) //await dynamicCall(extractPages, `extract${domain.name}Page`, converter[`formatMarkdownAll`]);
-    const metadata = this.extractMetadata() //await dynamicCall(extractMetadata, `extract${domain.name}Metadata`);
+    const markdownContent = await this.extractPage(converter[`formatMarkdown`]); //await dynamicCall(extractPages, `extract${domain.name}Page`, converter[`formatMarkdownAll`]);
+    const metadata = this.extractMetadata(); //await dynamicCall(extractMetadata, `extract${domain.name}Metadata`);
     const fileName = formatFilename(metadata.title, metadata.source);
     return {markdownContent, title: metadata.title, fileName};
   }
