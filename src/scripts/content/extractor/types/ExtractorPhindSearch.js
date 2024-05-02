@@ -54,10 +54,9 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
         })() + "\n\n"
           : "");
 
-      if (messageText !== "") markdown += messageText;
+      if (messageText !== "") markdown += messageText + "\n";
     });
 
-    console.log(unfolded)
     // Fold user questions after export if they were originally folded
     await clickElements('.fe-chevron-up');
 
