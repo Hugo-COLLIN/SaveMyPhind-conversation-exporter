@@ -33,11 +33,14 @@ export function dynamicCall(object, funcToCall, ...args) {
  * <!> WARNING: Don't add await in front of the function passed as parameter
  * @returns {function(...[*]=)}
  * @param action
+ * @param catchAction
  */
-export async function safeExecute(action) {
+export async function safeExecute(action, catchAction) {
   try {
-    await action;
+    return await action;
   } catch (error) {
-    console.error(error.stack); // "Error caught:", error.message,
+    catchAction
+      ? catchAction(error)
+      : console.error(error.stack); // "Error caught:", error.message,
   }
 }
