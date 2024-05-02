@@ -41,6 +41,6 @@ export async function safeExecute(action, catchAction = null) {
   } catch (error) {
     catchAction
       ? catchAction(error)
-      : console.error(error.stack); // "Error caught:", error.message,
+      : console.error(error.stack ?? error.message ?? error); // "Error caught:", error.message,
   }
 }
