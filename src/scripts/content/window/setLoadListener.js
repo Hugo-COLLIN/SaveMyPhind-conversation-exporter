@@ -1,4 +1,4 @@
-import {launchModalIntegration} from '../uiEnhancer/modals/actions/displayInstallModals.js';
+import {launchModalIntegration} from "../uiEnhancer/modals/launchModalIntegration";
 
 export async function setLoadListener(domain) {
   window.addEventListener('load', async function () {
