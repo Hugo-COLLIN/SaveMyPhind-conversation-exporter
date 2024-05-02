@@ -1,4 +1,4 @@
-import {foldQuestions, unfoldQuestions} from "../../interact/interact";
+import {clickElements} from "../../interact/interact";
 import {capitalizeFirst} from "../../../shared/formatter/formatText";
 import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
 import ExtractorPhind from "./ExtractorPhind";
@@ -13,7 +13,7 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
 
   async extractPage(format) {
     // Unfold user questions before export
-    const unfolded = await unfoldQuestions();
+    const unfolded = await clickElements('.fe-chevron-down');
 
     // Catch page interesting elements
     const newAnswerSelector = document.querySelectorAll('[name^="answer-"]');
@@ -57,9 +57,9 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
       if (messageText !== "") markdown += messageText;
     });
 
+    console.log(unfolded)
     // Fold user questions after export if they were originally folded
-    if (unfolded)
-      await foldQuestions();
+    await clickElements('.fe-chevron-up');
 
     return markdown;
   }
