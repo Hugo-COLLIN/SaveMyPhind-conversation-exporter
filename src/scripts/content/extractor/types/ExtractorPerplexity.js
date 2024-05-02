@@ -151,7 +151,7 @@ export default class ExtractorPerplexity extends Extractor {
       const url = await extractYoutubeLink(tile);
       res += url
         ? formatLink(url, text) + "\n"
-        : text;
+        : text + "\n";
     }
     return res;
   }
