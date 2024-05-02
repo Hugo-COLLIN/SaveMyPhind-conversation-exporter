@@ -27,3 +27,20 @@ export function dynamicCall(object, funcToCall, ...args) {
     return null;
   };
 }
+
+/**
+ * @description - Execute the function safely - enable to continue execution if an error is thrown
+ * <!> WARNING: Don't add await in front of the function passed as parameter
+ * @returns {function(...[*]=)}
+ * @param action
+ * @param catchAction
+ */
+export async function safeExecute(action, catchAction = null) {
+  try {
+    return await action;
+  } catch (error) {
+    catchAction
+      ? catchAction(error)
+      : console.error(error.stack ?? error.message ?? error); // "Error caught:", error.message,
+  }
+}

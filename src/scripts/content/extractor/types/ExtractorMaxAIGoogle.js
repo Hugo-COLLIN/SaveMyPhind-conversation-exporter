@@ -1,5 +1,6 @@
 import {Extractor} from "./Extractor";
 import {formatLink, initTurndown, setFileHeader} from "../../../shared/formatter/formatMarkdown";
+import {safeExecute} from "../../../shared/utils/jsShorteners";
 
 export default class ExtractorMaxAIGoogle extends Extractor {
   /**
@@ -16,7 +17,7 @@ export default class ExtractorMaxAIGoogle extends Extractor {
     let selectSources = shadowRoot.querySelector('[class*=--MuiGrid-container]');
     if (selectSources) selectSources = selectSources.childNodes
 
-    let markdown = await setFileHeader(this.getPageTitle(), "MaxAI in Google");
+    let markdown = await safeExecute(setFileHeader(this.getPageTitle(), "MaxAI in Google"));
     markdown += "## Answer\n" + format(selectAnswer.innerHTML) + "\n\n";
     markdown += "---\n**Sources:**\n";
     let i = 1;

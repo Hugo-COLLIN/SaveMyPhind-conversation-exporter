@@ -1,12 +1,8 @@
-import {appendModalContainer} from "../appendModalContainer";
 import ModalUpdate from "../types/ModalUpdate";
 import ModalMessage from "../types/ModalMessage";
 import {getStorageData} from "../../../../shared/utils/chromeStorage";
 
-export async function launchModalIntegration(domain) {
-  // Create modal container
-  await appendModalContainer();
-
+export async function displayInstallModals(domain) {
   const displayModalUpdate = await getStorageData('displayModalUpdate', 'sync');
   const displayModalWelcome = await getStorageData('displayModalWelcome', 'sync');
 
@@ -22,3 +18,4 @@ export async function launchModalIntegration(domain) {
     chrome.storage.sync.set({displayModalWelcome: false});
   }
 }
+

@@ -6,6 +6,7 @@ import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../../data/allowedDomains.json";
 import {domainChecker} from "../shared/checker/domainChecker";
 import {getHostAndPath} from "./utils/getters";
 import {getStorageData} from "../shared/utils/chromeStorage";
+import {safeExecute} from "../shared/utils/jsShorteners";
 
 async function tab() {
   const isInjecting = await getStorageData('isInjecting', 'local');
@@ -27,8 +28,8 @@ export async function actionPageLoaded() {
 export async function actionExtensionIconClicked() {
   const domainPage = domainChecker(EXPORT_DOMAINS, getHostAndPath());
   if (domainPage === null) return;
-  launchScrapping(domainPage);
-  await handleModalDisplay();
+  launchScrapping(domainPage); // don't safeExecute because we don't want handleModalDisplay to increment count
+  await safeExecute(handleModalDisplay());
 }
 
-tab();
+safeExecute(tab());

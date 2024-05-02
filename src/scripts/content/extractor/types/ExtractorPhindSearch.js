@@ -1,7 +1,9 @@
-import {foldQuestions, unfoldQuestions} from "../../interact/interact";
+import {clickElements} from "../../interact/interact";
 import {capitalizeFirst} from "../../../shared/formatter/formatText";
 import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
 import ExtractorPhind from "./ExtractorPhind";
+import {safeExecute} from "../../../shared/utils/jsShorteners";
+
 
 export default class ExtractorPhindSearch extends ExtractorPhind {
   getPageTitle() {
@@ -13,11 +15,11 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
 
   async extractPage(format) {
     // Unfold user questions before export
-    const unfolded = await unfoldQuestions();
+    safeExecute(clickElements('.fe-chevron-down'));
 
     // Catch page interesting elements
     const newAnswerSelector = document.querySelectorAll('[name^="answer-"]');
-    let markdown = await setFileHeader(this.getPageTitle(), "Phind Search");
+    let markdown = await safeExecute(setFileHeader(this.getPageTitle(), "Phind Search"));
 
     newAnswerSelector.forEach((content) => {
       const selectUserQuestion = content.querySelector('[name^="answer-"] span') ?? "";
@@ -26,7 +28,7 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
       const selectAiAnswer = selectAiModel != null
         ? selectAiModel.parentNode
         : "";
-      const selectSources = content.querySelectorAll('div > div:nth-child(5) > div:first-child > div > div > div > div > div > a');
+      const selectSources = content.querySelectorAll('a.mb-0');
 
 
       // Create formatted document for each answer message
@@ -36,7 +38,7 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
           let res = format(selectAiAnswer.innerHTML);
           let aiName;
           if (selectAiModel !== null)
-            aiName = format(selectAiModel.innerHTML).split(" ")[2];
+            aiName = format(selectAiModel.innerHTML).split("|")[1].split("Model")[0].trim();
           const aiIndicator = "## " +
             capitalizeFirst((aiName ? aiName + " " : "") + "answer") +
             "\n"
@@ -54,12 +56,11 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
         })() + "\n\n"
           : "");
 
-      if (messageText !== "") markdown += messageText;
+      if (messageText !== "") markdown += messageText + "\n";
     });
 
     // Fold user questions after export if they were originally folded
-    if (unfolded)
-      await foldQuestions();
+    safeExecute(clickElements('.fe-chevron-up'));
 
     return markdown;
   }

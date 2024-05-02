@@ -1,8 +1,9 @@
-import {launchModalIntegration} from '../uiEnhancer/modals/actions/displayInstallModals.js';
+import {launchModalIntegration} from "../uiEnhancer/modals/launchModalIntegration";
+import {safeExecute} from "../../shared/utils/jsShorteners";
 
 export async function setLoadListener(domain) {
   window.addEventListener('load', async function () {
-    await launchModalIntegration(domain);
+    await safeExecute(launchModalIntegration(domain));
   });
 }
 
