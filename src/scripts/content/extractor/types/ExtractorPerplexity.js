@@ -1,12 +1,12 @@
 import {Extractor} from "./Extractor";
 import {formatLineBreaks} from "../../../shared/formatter/formatText";
 import {formatLink, initTurndown, setFileHeader, turndownConverter} from "../../../shared/formatter/formatMarkdown";
-import {sleep} from "../../../shared/utils/jsShorteners";
+import {safeExecute, sleep} from "../../../shared/utils/jsShorteners";
 
 export default class ExtractorPerplexity extends Extractor {
   async extractPage(format) {
     const messages = document.querySelectorAll('main .mx-auto > div > div > div > div > div');
-    let markdown = await setFileHeader(this.getPageTitle(), "Perplexity.ai");
+    let markdown = await safeExecute(setFileHeader(this.getPageTitle(), "Perplexity.ai"));
 
     for (const content of messages) {
       if (!content.hasChildNodes()) continue;
@@ -19,7 +19,7 @@ export default class ExtractorPerplexity extends Extractor {
       markdown += questionText.replace(/(?<!`)<(?!`)/g, '\\<').replace(/(?<!`)>(?!`)/g, '\\>');
 
       // Display answer
-      const answer = content.querySelector(".relative.default > div > div")
+      const answer = content.querySelector(".relative.default > div > div");
       const answerer = content.querySelector(".mb-lg .flex.items-center > p");
       markdown += answerer && answerer.innerHTML.toLowerCase().includes('pro')
         ? "## Pro answer\n"
@@ -93,14 +93,14 @@ export default class ExtractorPerplexity extends Extractor {
       await sleep(10);
 
       // Extract sources list from modal
-      await extractFromModal.call(this);
+      await safeExecute(extractFromModal.call(this));
 
       // Close sources modal
       const closeBtn = document.querySelector('[data-testid="close-modal"]');
       if (closeBtn) closeBtn.click();
     }
     else
-      await extractFromTileList.call(this);
+      await safeExecute(extractFromTileList.call(this));
 
     // Don't export header if no sources
     return res !== SOURCES_HEADER
@@ -148,7 +148,7 @@ export default class ExtractorPerplexity extends Extractor {
     if (tile && tile.href)
       res += formatLink(tile.href, text) + "\n";
     else {
-      const url = await extractYoutubeLink(tile);
+      const url = await safeExecute(extractYoutubeLink(tile));
       res += url
         ? formatLink(url, text) + "\n"
         : text + "\n";

@@ -5,7 +5,6 @@ import ExtractorPhind from "./ExtractorPhind";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
 
 
-
 export default class ExtractorPhindSearch extends ExtractorPhind {
   getPageTitle() {
     const searchFirstMsg = document.querySelector('[name^="answer-"] span');
@@ -20,7 +19,7 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
 
     // Catch page interesting elements
     const newAnswerSelector = document.querySelectorAll('[name^="answer-"]');
-    let markdown = await setFileHeader(this.getPageTitle(), "Phind Search");
+    let markdown = await safeExecute(setFileHeader(this.getPageTitle(), "Phind Search"));
 
     newAnswerSelector.forEach((content) => {
       const selectUserQuestion = content.querySelector('[name^="answer-"] span') ?? "";

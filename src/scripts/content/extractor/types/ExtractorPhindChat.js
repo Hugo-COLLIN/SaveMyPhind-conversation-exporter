@@ -1,5 +1,5 @@
 import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
-import {sleep} from "../../../shared/utils/jsShorteners";
+import {safeExecute, sleep} from "../../../shared/utils/jsShorteners";
 import ExtractorPhind from "./ExtractorPhind";
 
 export default class ExtractorPhindChat extends ExtractorPhind {
@@ -12,7 +12,7 @@ export default class ExtractorPhindChat extends ExtractorPhind {
 
   async extractPage(format) {
     const messages = document.querySelectorAll('[name^="answer-"]');
-    let markdown = await setFileHeader(this.getPageTitle(), "Phind Chat");
+    let markdown = await safeExecute(setFileHeader(this.getPageTitle(), "Phind Chat"));
 
     for (const content of messages) {
       const allDivs = content.querySelectorAll('.col > div > div > div');
