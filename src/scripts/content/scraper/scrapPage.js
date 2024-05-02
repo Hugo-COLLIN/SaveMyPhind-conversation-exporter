@@ -4,6 +4,7 @@ import {defineExtractor} from "../extractor/defineExtractor";
 import {defineExportMethod} from "../export/defineExportMethod";
 import {updateClickIconCount} from "../../background/icon/clickCount/clickIconCountContext";
 import {safeExecute} from "../../shared/utils/jsShorteners";
+import {EXPORTER_FALLBACK_ACTION, EXTRACTOR_FALLBACK_ACTION} from "./fallbackActions";
 
 /**
  * @description - Launch the export process
@@ -12,10 +13,7 @@ import {safeExecute} from "../../shared/utils/jsShorteners";
 export async function launchScrapping(domain) {
   logWelcome();
   const extractor = await defineExtractor(domain);
-  const extracted = await safeExecute(extractor.launch(), (error) => {
-    alert(`${appInfos.APP_SNAME}: Error while extracting page content.\n\nPlease contact me at ${appInfos.CONTACT_EMAIL} with these information if the problem persists:\n≫ The steps to reproduce the problem\n≫ The URL of this page\n≫ The app version: ${appInfos.APP_VERSION}\n≫ Screenshots illustrating the problem\n\nThank you!`);
-    throw new Error("Error while extracting page content:\n" + error.stack);
-  });
+  const extracted = await safeExecute(extractor.launch(), EXTRACTOR_FALLBACK_ACTION());
 
   if (!extracted || extracted.markdownContent === null) {
     console.info("No content to export!");
@@ -23,10 +21,7 @@ export async function launchScrapping(domain) {
     return;
   }
 
-  await safeExecute(defineExportMethod(domain, extracted), (error) => {
-    alert(`${appInfos.APP_SNAME}: File conversion error.\n\nPlease contact me at ${appInfos.CONTACT_EMAIL} with these information if the problem persists:\n≫ The steps to reproduce the problem\n≫ The URL of this page\n≫ The app version: ${appInfos.APP_VERSION}\n≫ Screenshots illustrating the problem\n\nThank you!`);
-    throw new Error("File conversion error:\n" + error.stack);
-  });
+  await safeExecute(defineExportMethod(domain, extracted), EXPORTER_FALLBACK_ACTION());
   console.log("Export done!")
 
   // Increment click icon count
