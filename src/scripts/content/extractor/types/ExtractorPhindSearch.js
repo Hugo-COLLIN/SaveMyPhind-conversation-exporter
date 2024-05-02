@@ -38,7 +38,7 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
           let res = format(selectAiAnswer.innerHTML);
           let aiName;
           if (selectAiModel !== null)
-            aiName = format(selectAiModel.innerHTML).split(" ")[2];
+            aiName = format(selectAiModel.innerHTML).split("|")[1].split("Model")[0].trim();
           const aiIndicator = "## " +
             capitalizeFirst((aiName ? aiName + " " : "") + "answer") +
             "\n"
