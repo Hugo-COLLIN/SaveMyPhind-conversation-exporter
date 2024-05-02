@@ -2,6 +2,9 @@ import {clickElements} from "../../interact/interact";
 import {capitalizeFirst} from "../../../shared/formatter/formatText";
 import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
 import ExtractorPhind from "./ExtractorPhind";
+import {safeExecute} from "../../../shared/utils/jsShorteners";
+
+
 
 export default class ExtractorPhindSearch extends ExtractorPhind {
   getPageTitle() {
@@ -13,7 +16,7 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
 
   async extractPage(format) {
     // Unfold user questions before export
-    const unfolded = await clickElements('.fe-chevron-down');
+    safeExecute(clickElements('.fe-chevron-down'));
 
     // Catch page interesting elements
     const newAnswerSelector = document.querySelectorAll('[name^="answer-"]');
@@ -58,7 +61,7 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
     });
 
     // Fold user questions after export if they were originally folded
-    await clickElements('.fe-chevron-up');
+    safeExecute(clickElements('.fe-chevron-up'));
 
     return markdown;
   }
