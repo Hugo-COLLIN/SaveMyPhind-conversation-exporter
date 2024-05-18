@@ -1,5 +1,5 @@
 import {clickElements} from "../../interact/interact";
-import {capitalizeFirst} from "../../../shared/formatter/formatText";
+import {capitalizeFirst, formatLineBreaks} from "../../../shared/formatter/formatText";
 import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
 import ExtractorPhind from "./ExtractorPhind";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
@@ -22,6 +22,7 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
     let markdown = await safeExecute(setFileHeader(this.getPageTitle(), "Phind Search"));
 
     newAnswerSelector.forEach((content) => {
+      // const regex = /(?:<span class="fs-5 mb-3 font-monospace" style="white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;">([\s\S]*?)<\/span> | <textarea tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="q" class="form-control bg-white darkmode-light searchbox-textarea" rows="1" placeholder="" aria-label="" style="resize: none; height: 512px;">([\s\S]*?)<\/textarea>)/;
       const selectUserQuestion = content.querySelector('[name^="answer-"] span') ?? "";
 
       const selectAiModel = content.querySelector('[name^="answer-"] h6')
@@ -30,10 +31,9 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
         : "";
       const selectSources = content.querySelectorAll('a.mb-0');
 
-
       // Create formatted document for each answer message
       const messageText =
-        `\n## User\n` + format(selectUserQuestion.innerHTML).replace("  \n", "") + '\n' +
+        `\n## User\n` + format(formatLineBreaks(selectUserQuestion.innerHTML)).replace("  \n", "") + '\n' +
         (() => {
           let res = format(selectAiAnswer.innerHTML);
           let aiName;
