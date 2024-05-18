@@ -45,7 +45,7 @@ export default class ExtractorPhindChat extends ExtractorPhind {
         res += format(msgContent[0].innerHTML) + "\n";
 
         // Export search results
-        res += "___\n**Sources:**";
+        res += "---\n**Sources:**";
 
         if (msgContent[2]) {
           res = await this.extractSources(msgContent, searchResults, res, format);
@@ -62,7 +62,7 @@ export default class ExtractorPhindChat extends ExtractorPhind {
 
       } else // If there are no search results
         msgContent.forEach((elt) => {
-          res += format(elt.innerHTML) + "\n";
+          res += format(elt.children.item(0).innerHTML) + "\n";
         });
 
       if (res !== "") markdown += res + "\n\n";
