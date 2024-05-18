@@ -15,8 +15,8 @@ export default class ExtractorPhindChat extends ExtractorPhind {
     let markdown = await safeExecute(setFileHeader(this.getPageTitle(), "Phind Chat"));
 
     for (const content of messages) {
-      const allDivs = content.querySelectorAll('.col > div > div > div');
-      const msgContent = Array.from(allDivs).filter(div => div.children.length > 0);
+      const allDivs = content.querySelectorAll('.col > div > div > div, textarea');
+      const msgContent = Array.from(allDivs).filter(elt => elt.children.length > 0 || elt.tagName === "TEXTAREA");
       const searchResults = content.querySelectorAll('.col > div > div > div:nth-last-of-type(1) > div > a');
       const entityName = content.querySelectorAll('.col > div > div > span');
 
