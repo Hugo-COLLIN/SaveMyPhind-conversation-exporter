@@ -14,6 +14,7 @@
     "storage"
   ],
   "host_permissions": [
+    "https://www.google-analytics.com/*",
     "*://*.phind.com/*",
     "*://*.perplexity.ai/*",
     "*://google.com/search*"

@@ -38,6 +38,8 @@
     "selenium-webdriver": "^4.15.0"
   },
   "dependencies": {
+    "@analytics/google-analytics": "^1.0.7",
+    "analytics": "^0.8.11",
     "dompurify": "^3.0.4",
     "js-yaml": "^4.1.0",
     "showdown": "^2.1.0",
