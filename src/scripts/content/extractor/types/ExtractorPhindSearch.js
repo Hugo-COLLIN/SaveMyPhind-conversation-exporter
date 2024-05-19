@@ -61,7 +61,7 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
         const aiPart = `\n` + aiIndicator + aiAnswer.substring(index + 2);
 
         const paginationPart = selectPagination.length > 0
-          ? `\n\n---\n**Sources:**` + await fetchSources(selectPagination) + "\n\n"
+          ? `\n\n---\n**Sources:**` + await safeExecute(await fetchSources(selectPagination)) + "\n\n"
           : "";
 
         return userPart + aiPart + paginationPart;
