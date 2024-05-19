@@ -25,7 +25,7 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
       const selectUserQuestion = content.querySelector('span, textarea') ?? "";
 
       const selectAiModel = content.querySelector('[name^="answer-"] h6')
-      const selectAiAnswer = selectAiModel != null
+      const selectAiAnswer = selectAiModel !== null
         ? selectAiModel.parentNode
         : "";
 
@@ -44,6 +44,7 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
             i++;
           });
         }
+        selectPagination[0] && selectPagination[0].click();
         return res;
       }
 
@@ -59,7 +60,9 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
         const index = aiAnswer.indexOf('\n\n');
         const aiPart = `\n` + aiIndicator + aiAnswer.substring(index + 2);
 
-        const paginationPart = selectPagination.length > 0? `\n\n---\n**Sources:**` + await fetchSources(selectPagination) + "\n\n" : "";
+        const paginationPart = selectPagination.length > 0
+          ? `\n\n---\n**Sources:**` + await fetchSources(selectPagination) + "\n\n"
+          : "";
 
         return userPart + aiPart + paginationPart;
       }
