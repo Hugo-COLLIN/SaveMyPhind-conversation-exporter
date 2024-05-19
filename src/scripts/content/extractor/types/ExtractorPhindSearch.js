@@ -1,8 +1,8 @@
 import {clickElements} from "../../interact/interact";
-import {capitalizeFirst} from "../../../shared/formatter/formatText";
+import {capitalizeFirst, formatLineBreaks} from "../../../shared/formatter/formatText";
 import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
 import ExtractorPhind from "./ExtractorPhind";
-import {safeExecute} from "../../../shared/utils/jsShorteners";
+import {safeExecute, sleep} from "../../../shared/utils/jsShorteners";
 
 
 export default class ExtractorPhindSearch extends ExtractorPhind {
@@ -21,43 +21,56 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
     const newAnswerSelector = document.querySelectorAll('[name^="answer-"]');
     let markdown = await safeExecute(setFileHeader(this.getPageTitle(), "Phind Search"));
 
-    newAnswerSelector.forEach((content) => {
-      const selectUserQuestion = content.querySelector('[name^="answer-"] span') ?? "";
+    for (const content of newAnswerSelector) {
+      const selectUserQuestion = content.querySelector('span, textarea') ?? "";
 
       const selectAiModel = content.querySelector('[name^="answer-"] h6')
-      const selectAiAnswer = selectAiModel != null
+      const selectAiAnswer = selectAiModel !== null
         ? selectAiModel.parentNode
         : "";
-      const selectSources = content.querySelectorAll('a.mb-0');
 
+      const selectPagination = content.querySelectorAll('.pagination button');
 
       // Create formatted document for each answer message
-      const messageText =
-        `\n## User\n` + format(selectUserQuestion.innerHTML).replace("  \n", "") + '\n' +
-        (() => {
-          let res = format(selectAiAnswer.innerHTML);
-          let aiName;
-          if (selectAiModel !== null)
-            aiName = format(selectAiModel.innerHTML).split("|")[1].split("Model")[0].trim();
-          const aiIndicator = "## " +
-            capitalizeFirst((aiName ? aiName + " " : "") + "answer") +
-            "\n"
-          const index = res.indexOf('\n\n');
-          return `\n` + aiIndicator + res.substring(index + 2); //+ 2 : index is at the start (first character) of the \n\n
-        })() +
-        (selectSources.length > 0 ? `\n\n---\n**Sources:**` + (() => {
-          let res = "";
-          let i = 1;
-          selectSources.forEach((elt) => {
-            res += "\n- " + format(elt.outerHTML).replace("[", `[(${i}) `);
+      async function fetchSources(selectPagination) {
+        let res = "";
+        let i = 1;
+        for (const elt of selectPagination) {
+          elt.click();
+          await sleep(1);
+          const selectSources = document.querySelectorAll('a.mb-0');
+          selectSources.forEach((sourceElt) => {
+            res += "\n- " + format(sourceElt.outerHTML).replace("[", `[(${i}) `);
             i++;
           });
-          return res;
-        })() + "\n\n"
-          : "");
+        }
+        selectPagination[0] && selectPagination[0].click();
+        return res;
+      }
+
+      async function generateMessageText(selectUserQuestion, selectAiAnswer, selectAiModel, selectPagination) {
+        const userPart = `\n## User\n` + format(formatLineBreaks(selectUserQuestion.innerHTML)).replace("  \n", "") + '\n';
+
+        let aiName;
+        if (selectAiModel!== null) {
+          aiName = format(selectAiModel.innerHTML).split("|")[1].split("Model")[0].trim();
+        }
+        const aiIndicator = "## " + capitalizeFirst((aiName? aiName + " " : "") + "answer") + "\n";
+        const aiAnswer = format(selectAiAnswer.innerHTML);
+        const index = aiAnswer.indexOf('\n\n');
+        const aiPart = `\n` + aiIndicator + aiAnswer.substring(index + 2);
+
+        const paginationPart = selectPagination.length > 0
+          ? `\n\n---\n**Sources:**` + await safeExecute(await fetchSources(selectPagination)) + "\n\n"
+          : "";
+
+        return userPart + aiPart + paginationPart;
+      }
+
+      const messageText = await generateMessageText(selectUserQuestion, selectAiAnswer, selectAiModel, selectPagination);
 
       if (messageText !== "") markdown += messageText + "\n";
-    });
+    }
 
     // Fold user questions after export if they were originally folded
     safeExecute(clickElements('.fe-chevron-up'));

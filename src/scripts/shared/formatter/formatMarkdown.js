@@ -27,10 +27,6 @@ export function initTurndown(options = {}) {
  * @returns {*|string|string} formatted markdown
  */
 export function formatMarkdown(html) {
-  // TODO: Regex according to the website (2 first for Phind and 3rd for Perplexity)
-  const regex = /(?:<span class="fs-5 mb-3 font-monospace" style="white-space: pre-wrap; overflow-wrap: break-word; cursor: pointer;">([\s\S]*?)<\/span> | <textarea tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="q" class="form-control bg-white darkmode-light searchbox-textarea" rows="1" placeholder="" aria-label="" style="resize: none; height: 512px;">([\s\S]*?)<\/textarea>)/;
-  // html = formatLineBreaks(html, regex);
-
   // Sanitize HTML
   html = DOMPurify.sanitize(html);
 

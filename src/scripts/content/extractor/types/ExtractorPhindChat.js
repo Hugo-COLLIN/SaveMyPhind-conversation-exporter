@@ -15,8 +15,8 @@ export default class ExtractorPhindChat extends ExtractorPhind {
     let markdown = await safeExecute(setFileHeader(this.getPageTitle(), "Phind Chat"));
 
     for (const content of messages) {
-      const allDivs = content.querySelectorAll('.col > div > div > div');
-      const msgContent = Array.from(allDivs).filter(div => div.children.length > 0);
+      const allDivs = content.querySelectorAll('.col > div > div > div, textarea');
+      const msgContent = Array.from(allDivs).filter(elt => (elt.children.length > 0 && elt.children.item(0).tagName !== "A") || elt.tagName === "TEXTAREA");
       const searchResults = content.querySelectorAll('.col > div > div > div:nth-last-of-type(1) > div > a');
       const entityName = content.querySelectorAll('.col > div > div > span');
 
@@ -45,7 +45,7 @@ export default class ExtractorPhindChat extends ExtractorPhind {
         res += format(msgContent[0].innerHTML) + "\n";
 
         // Export search results
-        res += "___\n**Sources:**";
+        res += "---\n**Sources:**";
 
         if (msgContent[2]) {
           res = await this.extractSources(msgContent, searchResults, res, format);
@@ -62,7 +62,7 @@ export default class ExtractorPhindChat extends ExtractorPhind {
 
       } else // If there are no search results
         msgContent.forEach((elt) => {
-          res += format(elt.innerHTML) + "\n";
+          res += format(elt.children.item(0).innerHTML) + "\n";
         });
 
       if (res !== "") markdown += res + "\n\n";

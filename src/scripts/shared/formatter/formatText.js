@@ -5,24 +5,17 @@
 /**
  * Format the HTML containing special characters to be correctly converted into markdown
  * @param html html to format
- * @param regex regex to match the html
  * @returns {*|string} formatted html
  */
-export function formatLineBreaks(html, regex) {
-  const match = html.match(regex);
+export function formatLineBreaks(html) {
+  // Split the string by newline characters
+  const lines = html.split('\n');
 
-  if (match) {
-    // Split the string by newline characters
-    const lines = match[1].split('\n');
-
-    // Replace newline characters with <br> tags and join the lines back into a single string
-    return lines.map(line => {
-      const spaces = line.match(/^\s*/)[0];
-      return (spaces.length > 0 ? "<br>" + '\u00A0'.repeat(spaces.length) : "<br>") + line.trim();
-    }).join('');
-  }
-
-  return html;
+  // Replace newline characters with <br> tags and join the lines back into a single string
+  return lines.map(line => {
+    const spaces = line.match(/^\s*/)[0];
+    return (spaces.length > 0 ? "<br>" + '\u00A0'.repeat(spaces.length) : "<br>") + line.trim();
+  }).join('');
 }
 
 /**
