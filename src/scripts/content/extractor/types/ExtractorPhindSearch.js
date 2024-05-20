@@ -1,15 +1,12 @@
 import {clickElements} from "../../interact/interact";
 import {capitalizeFirst, formatLineBreaks} from "../../../shared/formatter/formatText";
 import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
-import ExtractorPhind from "./ExtractorPhind";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
 import ExtractorSourcesPhindSearch from "../sources/ExtractorSourcesPhindSearch";
 import {getPageTitle} from "../extractMetadata";
-// import {turndown as turndownConfig} from "./ExtractorPhind";
-//
-// export const turndown = turndownConfig;
+import {Extractor} from "./Extractor";
 
-export default class ExtractorPhindSearch extends ExtractorPhind {
+export default class ExtractorPhindSearch extends Extractor {
   async extractPage(format) {
     // Unfold user questions before export
     safeExecute(clickElements('.fe-chevron-down'));

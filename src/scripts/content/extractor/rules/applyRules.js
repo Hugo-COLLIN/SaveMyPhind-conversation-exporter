@@ -6,7 +6,6 @@ import * as TurndownFunctions from './rules';
  * @param turndownConfig
  */
 export function applyExtractorRules(turndownConfig) {
-  console.log("turndownConfig: ", turndownConfig)
   if (!turndownConfig) {
     console.error("No turndown configuration provided");
     return;
@@ -18,24 +17,7 @@ export function applyExtractorRules(turndownConfig) {
     turndownConverter.addRule(rule, turndownConfig.rules[rule]);
 }
 
-// export async function loadTurndownConfig(configData) {
-//   // Convertir les chaînes en fonctions
-//   configData.init.blankReplacement = new Function("content", "node", "return " + configData.init.blankReplacement.substring(configData.init.blankReplacement.indexOf("{")));
-//   Object.keys(configData.rules).forEach(rule => {
-//     const filterBody = configData.rules[rule].filter.substring(configData.rules[rule].filter.indexOf("{"));
-//     const replacementBody = configData.rules[rule].replacement.substring(configData.rules[rule].replacement.indexOf("{"));
-//     configData.rules[rule].filter = new Function("node", "return " + filterBody);
-//     configData.rules[rule].replacement = new Function("content", "node", "return " + replacementBody);
-//   });
-//
-//   return configData;
-// }
-
 export function generateRules(configData) {
-  console.log("generate rules")
-
-  // const initFunctionName = configData.init.blankReplacement;
-  // configData.init.blankReplacement = TurndownFunctions[initFunctionName];
   configData.init && Object.keys(configData.init).forEach(init => {
     const initFunctionName = configData.init[init];
     configData.init[init] = TurndownFunctions[initFunctionName];

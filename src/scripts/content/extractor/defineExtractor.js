@@ -7,28 +7,25 @@ export async function defineExtractor(domain) {
     case "PhindSearch":
       module = await import(`./types/ExtractorPhindSearch`);
       json = require("./domains/PhindSearch.json");
-      metadata = extractMetadata(json);
       break;
     case "PhindChat":
       module = await import(`./types/ExtractorPhindChat`);
       json = require("./domains/PhindChat.json");
-      metadata = extractMetadata(json);
       break;
     case "Perplexity":
       module = await import(`./types/ExtractorPerplexity`);
       json = require("./domains/Perplexity.json");
-      metadata = extractMetadata(json);
       break;
     case "MaxAIGoogle":
       module = await import(`./types/ExtractorMaxAIGoogle`);
       json = require("./domains/MaxAI-Google.json");
-      metadata = extractMetadata(json);
       break;
     default:
       module = await import(`./types/ExtractorArbitraryPage`);
       metadata = extractMetadata(require("./domains/ArbitraryPage.json"));
   }
   const moduleDefault = new module.default();
+  metadata = metadata ?? extractMetadata(json);
   const rules = json?.turndown;
   return {default: moduleDefault, metadata, rules: (rules && generateRules(rules)) ?? module.turndown};
   // let extractor = await import(`./ExtractorTab${domain.name}`);

@@ -1,13 +1,10 @@
 import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
-import ExtractorPhind from "./ExtractorPhind";
 import ExtractorSourcesPhindChat from "../sources/ExtractorSourcesPhindChat";
 import {getPageTitle} from "../extractMetadata";
-// import {turndown as turndownConfig} from "./ExtractorPhind";
-//
-// export const turndown = turndownConfig;
+import {Extractor} from "./Extractor";
 
-export default class ExtractorPhindChat extends ExtractorPhind {
+export default class ExtractorPhindChat extends Extractor {
   async extractPage(format) {
     const messages = document.querySelectorAll('[name^="answer-"]');
     let markdown = await safeExecute(setFileHeader(getPageTitle('[tabindex="0"]', {action: 'replace', params: [/\u00A0/g, " "]}), "Phind Chat"));

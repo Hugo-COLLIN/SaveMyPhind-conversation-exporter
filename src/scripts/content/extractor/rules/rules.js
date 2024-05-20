@@ -29,7 +29,6 @@ export function filter_formatCitationsInAnswer_Perplexity(node) {
 
 export function replacement_formatCitationsInAnswer_Perplexity(content, node) {
     const citationText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '').replace(/\n/g, '');
-    console.log("passed citationText: " + citationText);
     if (node.nodeName === 'A') {
       const href = node.getAttribute('href');
       return ' [' + citationText + '](' + href + ')';
