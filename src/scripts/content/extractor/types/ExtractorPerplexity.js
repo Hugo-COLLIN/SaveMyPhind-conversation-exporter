@@ -9,10 +9,10 @@ import {
   getBlankReplacement,
   replacement_formatCitationsInAnswer_Perplexity,
   replacement_PreserveLineBreaksInPre_Perplexity
-} from "../rules";
-import {generateRules} from "../applyRules";
+} from "../rules/rules";
+import {generateRules} from "../rules/applyRules";
 
-export const turndown = generateRules(require('../turndownConfPerplexity.json'));
+export const turndown = generateRules(require('../rules/turndownConfPerplexity.json'));
 
 // export const turndown = {
 //   init: {

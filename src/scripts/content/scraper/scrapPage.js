@@ -6,7 +6,7 @@ import {updateClickIconCount} from "../../background/icon/clickCount/clickIconCo
 import {safeExecute} from "../../shared/utils/jsShorteners";
 import {EXPORTER_FALLBACK_ACTION, EXTRACTOR_FALLBACK_ACTION} from "./fallbackActions";
 import {formatFilename} from "../../shared/formatter/formatText";
-import {applyExtractorRules} from "../extractor/applyRules";
+import {applyExtractorRules} from "../extractor/rules/applyRules";
 
 /**
  * @description - Launch the export process
