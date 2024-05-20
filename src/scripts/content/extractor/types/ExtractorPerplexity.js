@@ -3,32 +3,6 @@ import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
 import ExtractorSourcesPerplexity from "../sources/ExtractorSourcesPerplexity";
 import {getPageTitle} from "../extractMetadata";
-import {
-  filter_formatCitationsInAnswer_Perplexity,
-  filter_PreserveLineBreaksInPre_Perplexity,
-  getBlankReplacement,
-  replacement_formatCitationsInAnswer_Perplexity,
-  replacement_PreserveLineBreaksInPre_Perplexity
-} from "../rules/rules";
-import {generateRules} from "../rules/applyRules";
-
-export const turndown = generateRules(require('../rules/turndownConfPerplexity.json'));
-
-// export const turndown = {
-//   init: {
-//     blankReplacement: getBlankReplacement()
-//   },
-//   rules: {
-//     preserveLineBreaksInPre: {
-//       filter: filter_PreserveLineBreaksInPre_Perplexity(),
-//       replacement: replacement_PreserveLineBreaksInPre_Perplexity()
-//     },
-//     formatCitationsInAnswer: {
-//       filter: filter_formatCitationsInAnswer_Perplexity(),
-//       replacement: replacement_formatCitationsInAnswer_Perplexity()
-//     }
-//   }
-// }
 
 export default class ExtractorPerplexity extends Extractor {
   async extractPage(format) {

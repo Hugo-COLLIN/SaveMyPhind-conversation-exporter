@@ -1,3 +1,18 @@
 {
-  "domainName": "Perplexity.ai"
+  "domainName": "Perplexity.ai",
+  "turndown": {
+    "init": {
+      "blankReplacement": "getBlankReplacement"
+    },
+    "rules": {
+      "preserveLineBreaksInPre": {
+        "filter": "filter_PreserveLineBreaksInPre_Perplexity",
+        "replacement": "replacement_PreserveLineBreaksInPre_Perplexity"
+      },
+      "formatCitationsInAnswer": {
+        "filter": "filter_formatCitationsInAnswer_Perplexity",
+        "replacement": "replacement_formatCitationsInAnswer_Perplexity"
+      }
+    }
+  }
 }
