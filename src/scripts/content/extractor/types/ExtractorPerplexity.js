@@ -1,13 +1,10 @@
 import {Extractor} from "./Extractor";
 import {initTurndown, setFileHeader, turndownConverter} from "../../../shared/formatter/formatMarkdown";
-import {safeExecute, sleep} from "../../../shared/utils/jsShorteners";
+import {safeExecute} from "../../../shared/utils/jsShorteners";
 import ExtractorSourcesPerplexity from "../sources/ExtractorSourcesPerplexity";
-import {getPageTitle} from "../extractMetadata";
+import {extractMetadata, getPageTitle} from "../extractMetadata";
 
-export const metadata = {
-  pageTitle: getPageTitle(), //".mb-md:nth-of-type(1) > div"
-  domainName: "Perplexity.ai"
-};
+export const metadata = extractMetadata(require("../domains/Perplexity.json"));
 
 export default class ExtractorPerplexity extends Extractor {
   async extractPage(format) {

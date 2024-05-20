@@ -1,0 +1,10 @@
+{
+  "pageTitle": {
+    "selector": "[tabindex=\"0\"]",
+    "treatment": {
+      "action": "replace",
+      "params": ["\\u00A0", " "]
+    }
+  },
+  "domainName": "Phind-Chat"
+}

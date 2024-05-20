@@ -1,12 +1,9 @@
 import {Extractor} from "./Extractor";
 import {formatLink, initTurndown, setFileHeader} from "../../../shared/formatter/formatMarkdown";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
-import {getPageTitle} from "../extractMetadata";
+import {extractMetadata, getPageTitle} from "../extractMetadata";
 
-export const metadata = {
-  pageTitle: getPageTitle('textarea'),
-  domainName: "MaxAI-Google"
-};
+export const metadata = extractMetadata(require("../domains/MaxAI-Google.json"));
 
 export default class ExtractorMaxAIGoogle extends Extractor {
   /**

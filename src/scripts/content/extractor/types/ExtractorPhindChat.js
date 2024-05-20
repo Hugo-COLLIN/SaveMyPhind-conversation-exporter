@@ -2,12 +2,9 @@ import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
 import ExtractorPhind from "./ExtractorPhind";
 import ExtractorSourcesPhindChat from "../sources/ExtractorSourcesPhindChat";
-import {getPageTitle} from "../extractMetadata";
+import {extractMetadata, getPageTitle} from "../extractMetadata";
 
-export const metadata = {
-  pageTitle: getPageTitle('[tabindex="0"]', {action: 'replace', params: [/\u00A0/g, " "]}),
-  domainName: "Phind-Chat"
-};
+export const metadata = extractMetadata(require("../domains/PhindChat.json"));
 
 export default class ExtractorPhindChat extends ExtractorPhind {
   async extractPage(format) {

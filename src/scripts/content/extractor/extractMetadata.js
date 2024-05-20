@@ -1,7 +1,7 @@
-export function extractMetadata(domainName, titleSelector, titleTreatment = null) {
+export function extractMetadata(metadataBase) {
   return {
-    domainName: domainName,
-    title: getPageTitle(titleSelector)
+    domainName: metadataBase.domainName ?? window.location.hostname,
+    pageTitle: getPageTitle(metadataBase.pageTitle?.selector, metadataBase.pageTitle?.treatment)
   };
 }
 
