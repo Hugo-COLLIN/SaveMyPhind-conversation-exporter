@@ -4,23 +4,17 @@ import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
 import ExtractorPhind from "./ExtractorPhind";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
 import ExtractorSourcesPhindSearch from "../sources/ExtractorSourcesPhindSearch";
+import {getPageTitle} from "../extractMetadata";
 
 
 export default class ExtractorPhindSearch extends ExtractorPhind {
-  getPageTitle() {
-    const searchFirstMsg = document.querySelector('[name^="answer-"] span');
-    return searchFirstMsg !== null && searchFirstMsg.innerHTML !== ""
-      ? searchFirstMsg.innerHTML
-      : "";
-  }
-
   async extractPage(format) {
     // Unfold user questions before export
     safeExecute(clickElements('.fe-chevron-down'));
 
     // Catch page interesting elements
     const newAnswerSelector = document.querySelectorAll('[name^="answer-"]');
-    let markdown = await safeExecute(setFileHeader(this.getPageTitle(), "Phind Search"));
+    let markdown = await safeExecute(setFileHeader(getPageTitle('[name^="answer-"] span'), "Phind Search"));
 
     for (const content of newAnswerSelector) {
       const selectUserQuestion = content.querySelector('span, textarea') ?? "";
@@ -60,6 +54,20 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
     safeExecute(clickElements('.fe-chevron-up'));
 
     return markdown;
+  }
+
+  // getPageTitle() {
+  //   const searchFirstMsg = document.querySelector('[name^="answer-"] span');
+  //   return searchFirstMsg !== null && searchFirstMsg.innerHTML !== ""
+  //     ? searchFirstMsg.innerHTML
+  //     : "";
+  // }
+
+  extractMetadata() {
+    return {
+      title: getPageTitle('[name^="answer-"] span'),
+      source: this.getPageSource()
+    }
   }
 
   getPageSource() {

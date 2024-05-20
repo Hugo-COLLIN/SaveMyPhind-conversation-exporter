@@ -19,10 +19,10 @@ export class Extractor {
   }
 
   extractMetadata() {
-    return {
-      title: this.getPageTitle(),
-      source: this.getPageSource()
-    }
+    // return {
+    //   title: this.getPageTitle(),
+    //   source: this.getPageSource()
+    // }
   }
 
   /**
@@ -30,7 +30,7 @@ export class Extractor {
    * @returns {string} title
    */
   getPageTitle() {
-    throw new Error("Not implemented");
+    //yy
   }
 
   /**
@@ -38,7 +38,7 @@ export class Extractor {
    * @returns {string} source
    */
   getPageSource() {
-    throw new Error("Not implemented");
+    //yy
   }
 
   /**
