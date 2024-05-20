@@ -1,44 +1,26 @@
 import {Extractor} from "./Extractor";
-import {turndownConverter} from "../../../shared/formatter/formatMarkdown";
+import {
+  filter_backslashAngleBracketsNotInBackticks_Phind,
+  filter_formatLinks_Phind,
+  filter_preserveLineBreaksInPre_Phind,
+  replacement_backslashAngleBracketsNotInBackticks_Phind,
+  replacement_formatLinks_Phind,
+  replacement_preserveLineBreaksInPre_Phind
+} from "../rules/rules";
 
 export const turndown = {
-  init: {
-    blankReplacement: function(content, node) {
-      if (node.nodeName === 'SPAN' && node.getAttribute('class') === 'block mt-md') {
-        return '\n\n';
-      } else {
-        return '';
-      }
-    }
-  },
   rules: {
     preserveLineBreaksInPre: {
-      filter: function (node) {
-        return node.nodeName === 'PRE' && node.querySelector('div');
-      },
-      replacement: function (content, node) {
-        const codeBlock = node.querySelector('code');
-        const codeContent = codeBlock.textContent.trim();
-        const codeLang = codeBlock.className.split("-", 2)[1];
-        return ('\n```' + codeLang + '\n' + codeContent + '\n```');
-      }
+      filter: filter_preserveLineBreaksInPre_Phind(),
+      replacement: replacement_preserveLineBreaksInPre_Phind()
     },
     formatLinks: {
-      filter: 'a',
-      replacement: function (content, node) {
-        const href = node.getAttribute('href');
-        const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '');
-        return '[' + linkText + '](' + href + ')';
-      }
+      filter: filter_formatLinks_Phind(),
+      replacement: replacement_formatLinks_Phind()
     },
     backslashAngleBracketsNotInBackticks: {
-      filter: function (node) {
-        return node.querySelectorAll('p').length > 0;
-      },
-      replacement: function (content, node) {
-        // Replace < and > characters in paragraphs but not in backticks
-        return "\n" + turndownConverter.turndown(node.innerHTML).replace(/(?<!`)<(?!`)/g, '{{@LT}}').replace(/(?<!`)>(?!`)/g, '{{@GT}}') + "\n\n";
-      },
+      filter: filter_backslashAngleBracketsNotInBackticks_Phind(),
+      replacement: replacement_backslashAngleBracketsNotInBackticks_Phind(),
     }
   }
 }

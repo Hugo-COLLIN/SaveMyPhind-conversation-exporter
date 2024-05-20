@@ -66,3 +66,45 @@ export function replacement_formatCitationsInAnswer_Perplexity(content, node) {
 /*
   --- Phind rules ---
  */
+
+export function filter_preserveLineBreaksInPre_Phind() {
+  return function (node) {
+    return node.nodeName === 'PRE' && node.querySelector('div');
+  };
+}
+
+export function replacement_preserveLineBreaksInPre_Phind() {
+  return function (content, node) {
+    const codeBlock = node.querySelector('code');
+    const codeContent = codeBlock.textContent.trim();
+    const codeLang = codeBlock.className.split("-", 2)[1];
+    return ('\n```' + codeLang + '\n' + codeContent + '\n```');
+  };
+}
+
+export function filter_formatLinks_Phind() {
+  return function (node) {
+    return node.nodeName === 'A';
+  };
+}
+
+export function replacement_formatLinks_Phind() {
+  return function (content, node) {
+    const href = node.getAttribute('href');
+    const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '');
+    return '[' + linkText + '](' + href + ')';
+  };
+}
+
+export function filter_backslashAngleBracketsNotInBackticks_Phind() {
+  return function (node) {
+    return node.querySelectorAll('p').length > 0;
+  };
+}
+
+export function replacement_backslashAngleBracketsNotInBackticks_Phind() {
+  return function (content, node) {
+    // Replace < and > characters in paragraphs but not in backticks
+    return "\n" + turndownConverter.turndown(node.innerHTML).replace(/(?<!`)<(?!`)/g, '{{@LT}}').replace(/(?<!`)>(?!`)/g, '{{@GT}}') + "\n\n";
+  };
+}

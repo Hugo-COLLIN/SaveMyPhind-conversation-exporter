@@ -2,7 +2,7 @@ import {extractMetadata} from "./extractMetadata";
 import {generateRules} from "./rules/applyRules";
 
 export async function defineExtractor(domain) {
-  let json, module, metadata, rules;
+  let json, module, metadata;
   switch (domain.name) {
     case "PhindSearch":
       module = await import(`./types/ExtractorPhindSearch`);
@@ -27,6 +27,7 @@ export async function defineExtractor(domain) {
       metadata = extractMetadata(require("./domains/ArbitraryPage.json"));
   }
   const moduleDefault = new module.default();
-  return {default: moduleDefault, metadata, rules: generateRules(json.turndown) ?? module.turndown};
+  const rules = json?.turndown;
+  return {default: moduleDefault, metadata, rules: (rules && generateRules(rules)) ?? module.turndown};
   // let extractor = await import(`./ExtractorTab${domain.name}`);
 }
