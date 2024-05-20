@@ -1,5 +1,4 @@
 import {Extractor} from "./Extractor";
-import {formatLineBreaks} from "../../../shared/formatter/formatText";
 import {formatLink, initTurndown, setFileHeader, turndownConverter} from "../../../shared/formatter/formatMarkdown";
 import {safeExecute, sleep} from "../../../shared/utils/jsShorteners";
 
@@ -14,8 +13,7 @@ export default class ExtractorPerplexity extends Extractor {
       const question = content.querySelector('.break-words');
       if (!question) continue;
       markdown += "## User\n";
-      const regex = /<div class="break-words \[word-break:break-word] whitespace-pre-line whitespace-pre-wrap default font-sans text-base font-medium text-textMain dark:text-textMainDark selection:bg-super selection:text-white dark:selection:bg-opacity-50 selection:bg-opacity-70">([\s\S]*?)<\/div>/
-      const questionText = formatLineBreaks(question && question.innerText ? question.innerText : "", regex) + "\n\n";
+      const questionText = (question && question.innerText ? question.innerText : "") + "\n\n";
       markdown += questionText.replace(/(?<!`)<(?!`)/g, '\\<').replace(/(?<!`)>(?!`)/g, '\\>');
 
       // Display answer
@@ -43,15 +41,6 @@ export default class ExtractorPerplexity extends Extractor {
     }
 
     return markdown;
-  }
-
-  getPageTitle() {
-    // return document.querySelector(".mb-md:nth-of-type(1) > div").innerHTML ?? "";
-    return document.title;
-  }
-
-  getPageSource() {
-    return "Perplexity.ai";
   }
 
   async extractSources(content, format) {
@@ -106,6 +95,15 @@ export default class ExtractorPerplexity extends Extractor {
     return res !== SOURCES_HEADER
       ? res
       : "";
+  }
+
+  getPageTitle() {
+    // return document.querySelector(".mb-md:nth-of-type(1) > div").innerHTML ?? "";
+    return document.title;
+  }
+
+  getPageSource() {
+    return "Perplexity.ai";
   }
 
   async formatSources(i, format, tile) {
