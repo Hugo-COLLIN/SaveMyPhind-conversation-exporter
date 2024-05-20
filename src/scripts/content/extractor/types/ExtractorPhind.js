@@ -8,22 +8,22 @@ import {
   replacement_preserveLineBreaksInPre_Phind
 } from "../rules/rules";
 
-export const turndown = {
-  rules: {
-    preserveLineBreaksInPre: {
-      filter: filter_preserveLineBreaksInPre_Phind(),
-      replacement: replacement_preserveLineBreaksInPre_Phind()
-    },
-    formatLinks: {
-      filter: filter_formatLinks_Phind(),
-      replacement: replacement_formatLinks_Phind()
-    },
-    backslashAngleBracketsNotInBackticks: {
-      filter: filter_backslashAngleBracketsNotInBackticks_Phind(),
-      replacement: replacement_backslashAngleBracketsNotInBackticks_Phind(),
-    }
-  }
-}
+// export const turndown = {
+//   rules: {
+//     preserveLineBreaksInPre: {
+//       filter: filter_preserveLineBreaksInPre_Phind(),
+//       replacement: replacement_preserveLineBreaksInPre_Phind()
+//     },
+//     formatLinks: {
+//       filter: filter_formatLinks_Phind(),
+//       replacement: replacement_formatLinks_Phind()
+//     },
+//     backslashAngleBracketsNotInBackticks: {
+//       filter: filter_backslashAngleBracketsNotInBackticks_Phind(),
+//       replacement: replacement_backslashAngleBracketsNotInBackticks_Phind(),
+//     }
+//   }
+// }
 
 export default class ExtractorPhind extends Extractor {
 }

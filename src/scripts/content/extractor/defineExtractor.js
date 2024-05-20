@@ -11,7 +11,8 @@ export async function defineExtractor(domain) {
       break;
     case "PhindChat":
       module = await import(`./types/ExtractorPhindChat`);
-      metadata = extractMetadata(require("./domains/PhindChat.json"));
+      json = require("./domains/PhindChat.json");
+      metadata = extractMetadata(json);
       break;
     case "Perplexity":
       module = await import(`./types/ExtractorPerplexity`);
@@ -20,7 +21,8 @@ export async function defineExtractor(domain) {
       break;
     case "MaxAIGoogle":
       module = await import(`./types/ExtractorMaxAIGoogle`);
-      metadata = extractMetadata(require("./domains/MaxAI-Google.json"));
+      json = require("./domains/MaxAI-Google.json");
+      metadata = extractMetadata(json);
       break;
     default:
       module = await import(`./types/ExtractorArbitraryPage`);

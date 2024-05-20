@@ -5,9 +5,9 @@ import ExtractorPhind from "./ExtractorPhind";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
 import ExtractorSourcesPhindSearch from "../sources/ExtractorSourcesPhindSearch";
 import {getPageTitle} from "../extractMetadata";
-import {turndown as turndownConfig} from "./ExtractorPhind";
-
-export const turndown = turndownConfig;
+// import {turndown as turndownConfig} from "./ExtractorPhind";
+//
+// export const turndown = turndownConfig;
 
 export default class ExtractorPhindSearch extends ExtractorPhind {
   async extractPage(format) {

@@ -32,8 +32,14 @@ export function applyExtractorRules(turndownConfig) {
 // }
 
 export function generateRules(configData) {
-  const initFunctionName = configData.init.blankReplacement;
-  configData.init.blankReplacement = TurndownFunctions[initFunctionName];
+  console.log("generate rules")
+
+  // const initFunctionName = configData.init.blankReplacement;
+  // configData.init.blankReplacement = TurndownFunctions[initFunctionName];
+  configData.init && Object.keys(configData.init).forEach(init => {
+    const initFunctionName = configData.init[init];
+    configData.init[init] = TurndownFunctions[initFunctionName];
+  });
 
   Object.keys(configData.rules).forEach(rule => {
     const filterFunctionName = configData.rules[rule].filter;
