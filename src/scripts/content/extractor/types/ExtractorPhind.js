@@ -44,10 +44,4 @@ export const turndown = {
 }
 
 export default class ExtractorPhind extends Extractor {
-  // applyExtractorRules() {
-  //   initTurndown();
-  //   turndownConverter.addRule('preserveLineBreaksInPre', turndown.rules.preserveLineBreaksInPre);
-  //   turndownConverter.addRule('formatLinks', turndown.rules.formatLinks);
-  //   turndownConverter.addRule('backslashAngleBracketsNotInBackticks', turndown.rules.backslashAngleBracketsNotInBackticks);
-  // }
 }

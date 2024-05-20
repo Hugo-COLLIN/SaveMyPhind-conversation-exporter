@@ -1,5 +1,5 @@
 import {Extractor} from "./Extractor";
-import {initTurndown, setFileHeader, turndownConverter} from "../../../shared/formatter/formatMarkdown";
+import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
 import ExtractorSourcesPerplexity from "../sources/ExtractorSourcesPerplexity";
 import {getPageTitle} from "../extractMetadata";
@@ -85,10 +85,4 @@ export default class ExtractorPerplexity extends Extractor {
 
     return markdown;
   }
-
-  // applyExtractorRules() {
-  //   initTurndown(turndown.init);
-  //   turndownConverter.addRule('preserveLineBreaksInPre', turndown.rules.preserveLineBreaksInPre);
-  //   turndownConverter.addRule('formatCitationsInAnswer', turndown.rules.formatCitationsInAnswer);
-  // }
 }

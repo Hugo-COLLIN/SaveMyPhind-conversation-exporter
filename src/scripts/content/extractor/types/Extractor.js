@@ -2,7 +2,6 @@ import converter from "../../../shared/formatter/formatMarkdown";
 
 export class Extractor {
   async launch() {
-    // this.applyExtractorRules();
     return await this.extractPage(converter[`formatMarkdown`]);
   }
 
@@ -13,11 +12,4 @@ export class Extractor {
   async extractPage(format) {
     throw new Error("Not implemented");
   }
-
-  /**
-   * Turndown rules to correctly convert the Phind conversation content into markdown
-   */
-  // applyExtractorRules() {
-  //   //...
-  // }
 }

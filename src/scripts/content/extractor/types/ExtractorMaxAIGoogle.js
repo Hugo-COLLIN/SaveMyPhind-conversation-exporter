@@ -34,8 +34,4 @@ export default class ExtractorMaxAIGoogle extends Extractor {
 
     return markdown;
   }
-
-  // applyExtractorRules() {
-  //   initTurndown();
-  // }
 }
