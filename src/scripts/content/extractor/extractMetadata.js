@@ -1,3 +1,8 @@
+/**
+ * Extract metadata from the given metadataBase
+ * @param metadataBase
+ * @returns {{pageTitle: (string|*|string|string), domainName: (string|string)}}
+ */
 export function extractMetadata(metadataBase) {
   return {
     domainName: metadataBase.domainName ?? window.location.hostname,
@@ -5,6 +10,12 @@ export function extractMetadata(metadataBase) {
   };
 }
 
+/**
+ * Get the page title from the document
+ * @param documentSelector
+ * @param titleTreatment
+ * @returns {*|string|string|string}
+ */
 export function getPageTitle(documentSelector = null, titleTreatment = null) {
   if (!documentSelector || documentSelector === document.title)
     return document.title;
