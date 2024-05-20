@@ -4,6 +4,47 @@ import {safeExecute} from "../../../shared/utils/jsShorteners";
 import ExtractorSourcesPerplexity from "../sources/ExtractorSourcesPerplexity";
 import {getPageTitle} from "../extractMetadata";
 
+export const turndown = {
+  init: {
+    blankReplacement: function(content, node) {
+      if (node.nodeName === 'SPAN' && node.getAttribute('class') === 'block mt-md') {
+        return '\n\n';
+      } else {
+        return '';
+      }
+    }
+  },
+  rules: {
+    preserveLineBreaksInPre: {
+      filter: function (node) {
+        return node.nodeName === 'PRE' && node.querySelector('div');
+      },
+      replacement: function (content, node) {
+        const codeBlock = node.querySelector('code');
+        const codeContent = codeBlock.textContent.trim();
+        const codeLang = codeBlock.parentNode.parentNode.parentNode.querySelector("div").textContent.trim();
+        return ('\n```' + codeLang + '\n' + codeContent + '\n```');
+      }
+    },
+    formatCitationsInAnswer: {
+      filter: function (node) {
+        return node.getAttribute('class') && node.getAttribute('class').split(" ").includes('citation');
+      },
+      replacement: function (content, node) {
+        const citationText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '').replace(/\n/g, '');
+        console.log("passed citationText: " + citationText);
+        if (node.nodeName === 'A') {
+          const href = node.getAttribute('href');
+          return ' [' + citationText + '](' + href + ')';
+        }
+        else {
+          return ' [' + citationText + ']';
+        }
+      }
+    }
+  }
+}
+
 export default class ExtractorPerplexity extends Extractor {
   async extractPage(format) {
     const messages = document.querySelectorAll('main .mx-auto > div > div > div > div > div');
@@ -45,44 +86,9 @@ export default class ExtractorPerplexity extends Extractor {
     return markdown;
   }
 
-  applyExtractorRules() {
-    initTurndown({
-      blankReplacement: function(content, node) {
-        if (node.nodeName === 'SPAN' && node.getAttribute('class') === 'block mt-md') {
-          return '\n\n';
-        } else {
-          return '';
-        }
-      }
-    });
-
-    turndownConverter.addRule('preserveLineBreaksInPre', {
-      filter: function (node) {
-        return node.nodeName === 'PRE' && node.querySelector('div');
-      },
-      replacement: function (content, node) {
-        const codeBlock = node.querySelector('code');
-        const codeContent = codeBlock.textContent.trim();
-        const codeLang = codeBlock.parentNode.parentNode.parentNode.querySelector("div").textContent.trim();
-        return ('\n```' + codeLang + '\n' + codeContent + '\n```');
-      }
-    });
-
-    turndownConverter.addRule('formatCitationsInAnswer', {
-      filter: function (node) {
-        return node.getAttribute('class') && node.getAttribute('class').split(" ").includes('citation');
-      },
-      replacement: function (content, node) {
-        const citationText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '').replace(/\n/g, '');
-
-        if (node.nodeName === 'A') {
-          const href = node.getAttribute('href');
-          return ' [' + citationText + '](' + href + ')';
-        }
-        else {
-          return ' [' + citationText + ']';
-        }
-      }
-    });
-  }
+  // applyExtractorRules() {
+  //   initTurndown(turndown.init);
+  //   turndownConverter.addRule('preserveLineBreaksInPre', turndown.rules.preserveLineBreaksInPre);
+  //   turndownConverter.addRule('formatCitationsInAnswer', turndown.rules.formatCitationsInAnswer);
+  // }
 }

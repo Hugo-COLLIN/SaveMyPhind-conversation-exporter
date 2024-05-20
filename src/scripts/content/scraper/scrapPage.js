@@ -6,6 +6,7 @@ import {updateClickIconCount} from "../../background/icon/clickCount/clickIconCo
 import {safeExecute} from "../../shared/utils/jsShorteners";
 import {EXPORTER_FALLBACK_ACTION, EXTRACTOR_FALLBACK_ACTION} from "./fallbackActions";
 import {formatFilename} from "../../shared/formatter/formatText";
+import {applyExtractorRules} from "../extractor/applyRules";
 
 /**
  * @description - Launch the export process
@@ -13,7 +14,8 @@ import {formatFilename} from "../../shared/formatter/formatText";
  */
 export async function launchScrapping(domain) {
   logWelcome();
-  const {default: extractor, metadata} = await defineExtractor(domain);
+  const {default: extractor, metadata, rules} = await defineExtractor(domain);
+  applyExtractorRules(rules);
   const extracted = {
     title: metadata.pageTitle,
     fileName: formatFilename(metadata.pageTitle, metadata.domainName),

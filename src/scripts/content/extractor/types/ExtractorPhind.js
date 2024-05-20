@@ -1,10 +1,18 @@
 import {Extractor} from "./Extractor";
 import {initTurndown, turndownConverter} from "../../../shared/formatter/formatMarkdown";
 
-export default class ExtractorPhind extends Extractor {
-  applyExtractorRules() {
-    initTurndown();
-    turndownConverter.addRule('preserveLineBreaksInPre', {
+export const turndown = {
+  init: {
+    blankReplacement: function(content, node) {
+      if (node.nodeName === 'SPAN' && node.getAttribute('class') === 'block mt-md') {
+        return '\n\n';
+      } else {
+        return '';
+      }
+    }
+  },
+  rules: {
+    preserveLineBreaksInPre: {
       filter: function (node) {
         return node.nodeName === 'PRE' && node.querySelector('div');
       },
@@ -14,18 +22,16 @@ export default class ExtractorPhind extends Extractor {
         const codeLang = codeBlock.className.split("-", 2)[1];
         return ('\n```' + codeLang + '\n' + codeContent + '\n```');
       }
-    });
-
-    turndownConverter.addRule('formatLinks', {
+    },
+    formatLinks: {
       filter: 'a',
       replacement: function (content, node) {
         const href = node.getAttribute('href');
         const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '');
         return '[' + linkText + '](' + href + ')';
       }
-    });
-
-    turndownConverter.addRule('backslashAngleBracketsNotInBackticks', {
+    },
+    backslashAngleBracketsNotInBackticks: {
       filter: function (node) {
         return node.querySelectorAll('p').length > 0;
       },
@@ -33,6 +39,15 @@ export default class ExtractorPhind extends Extractor {
         // Replace < and > characters in paragraphs but not in backticks
         return "\n" + turndownConverter.turndown(node.innerHTML).replace(/(?<!`)<(?!`)/g, '{{@LT}}').replace(/(?<!`)>(?!`)/g, '{{@GT}}') + "\n\n";
       },
-    });
+    }
   }
+}
+
+export default class ExtractorPhind extends Extractor {
+  // applyExtractorRules() {
+  //   initTurndown();
+  //   turndownConverter.addRule('preserveLineBreaksInPre', turndown.rules.preserveLineBreaksInPre);
+  //   turndownConverter.addRule('formatLinks', turndown.rules.formatLinks);
+  //   turndownConverter.addRule('backslashAngleBracketsNotInBackticks', turndown.rules.backslashAngleBracketsNotInBackticks);
+  // }
 }

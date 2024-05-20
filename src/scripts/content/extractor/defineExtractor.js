@@ -24,6 +24,6 @@ export async function defineExtractor(domain) {
       metadata = extractMetadata(require("./domains/ArbitraryPage.json"));
   }
   const moduleDefault = new module.default();
-  return {default: moduleDefault, metadata}
+  return {default: moduleDefault, metadata, rules: module.turndown};
   // let extractor = await import(`./ExtractorTab${domain.name}`);
 }
