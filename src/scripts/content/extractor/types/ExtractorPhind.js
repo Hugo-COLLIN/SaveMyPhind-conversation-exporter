@@ -1,5 +1,5 @@
 import {Extractor} from "./Extractor";
-import {initTurndown, turndownConverter} from "../../../shared/formatter/formatMarkdown";
+import {turndownConverter} from "../../../shared/formatter/formatMarkdown";
 
 export const turndown = {
   init: {

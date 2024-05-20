@@ -3,47 +3,32 @@ import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
 import ExtractorSourcesPerplexity from "../sources/ExtractorSourcesPerplexity";
 import {getPageTitle} from "../extractMetadata";
+import {
+  filter_formatCitationsInAnswer_Perplexity,
+  filter_PreserveLineBreaksInPre_Perplexity,
+  getBlankReplacement,
+  replacement_formatCitationsInAnswer_Perplexity,
+  replacement_PreserveLineBreaksInPre_Perplexity
+} from "../rules";
+import {generateRules} from "../applyRules";
 
-export const turndown = {
-  init: {
-    blankReplacement: function(content, node) {
-      if (node.nodeName === 'SPAN' && node.getAttribute('class') === 'block mt-md') {
-        return '\n\n';
-      } else {
-        return '';
-      }
-    }
-  },
-  rules: {
-    preserveLineBreaksInPre: {
-      filter: function (node) {
-        return node.nodeName === 'PRE' && node.querySelector('div');
-      },
-      replacement: function (content, node) {
-        const codeBlock = node.querySelector('code');
-        const codeContent = codeBlock.textContent.trim();
-        const codeLang = codeBlock.parentNode.parentNode.parentNode.querySelector("div").textContent.trim();
-        return ('\n```' + codeLang + '\n' + codeContent + '\n```');
-      }
-    },
-    formatCitationsInAnswer: {
-      filter: function (node) {
-        return node.getAttribute('class') && node.getAttribute('class').split(" ").includes('citation');
-      },
-      replacement: function (content, node) {
-        const citationText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '').replace(/\n/g, '');
-        console.log("passed citationText: " + citationText);
-        if (node.nodeName === 'A') {
-          const href = node.getAttribute('href');
-          return ' [' + citationText + '](' + href + ')';
-        }
-        else {
-          return ' [' + citationText + ']';
-        }
-      }
-    }
-  }
-}
+export const turndown = generateRules(require('../turndownConfPerplexity.json'));
+
+// export const turndown = {
+//   init: {
+//     blankReplacement: getBlankReplacement()
+//   },
+//   rules: {
+//     preserveLineBreaksInPre: {
+//       filter: filter_PreserveLineBreaksInPre_Perplexity(),
+//       replacement: replacement_PreserveLineBreaksInPre_Perplexity()
+//     },
+//     formatCitationsInAnswer: {
+//       filter: filter_formatCitationsInAnswer_Perplexity(),
+//       replacement: replacement_formatCitationsInAnswer_Perplexity()
+//     }
+//   }
+// }
 
 export default class ExtractorPerplexity extends Extractor {
   async extractPage(format) {
