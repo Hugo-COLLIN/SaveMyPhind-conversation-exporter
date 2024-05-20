@@ -2,9 +2,7 @@ import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
 import ExtractorPhind from "./ExtractorPhind";
 import ExtractorSourcesPhindChat from "../sources/ExtractorSourcesPhindChat";
-import {extractMetadata, getPageTitle} from "../extractMetadata";
-
-export const metadata = extractMetadata(require("../domains/PhindChat.json"));
+import {getPageTitle} from "../extractMetadata";
 
 export default class ExtractorPhindChat extends ExtractorPhind {
   async extractPage(format) {

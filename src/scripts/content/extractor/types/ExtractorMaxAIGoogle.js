@@ -1,9 +1,7 @@
 import {Extractor} from "./Extractor";
 import {formatLink, initTurndown, setFileHeader} from "../../../shared/formatter/formatMarkdown";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
-import {extractMetadata, getPageTitle} from "../extractMetadata";
-
-export const metadata = extractMetadata(require("../domains/MaxAI-Google.json"));
+import {getPageTitle} from "../extractMetadata";
 
 export default class ExtractorMaxAIGoogle extends Extractor {
   /**

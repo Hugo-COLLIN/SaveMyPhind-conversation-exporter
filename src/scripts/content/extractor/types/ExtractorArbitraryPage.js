@@ -2,9 +2,7 @@ import {Extractor} from "./Extractor";
 import {formatLink, setFileHeader, turndownConverter} from "../../../shared/formatter/formatMarkdown";
 import {rules} from "../rules";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
-import {extractMetadata, getPageTitle} from "../extractMetadata";
-
-export const metadata = extractMetadata(require("../domains/ArbitraryPage.json"));
+import {getPageTitle} from "../extractMetadata";
 
 export default class ExtractorArbitraryPage extends Extractor {
   async extractPage(format) {

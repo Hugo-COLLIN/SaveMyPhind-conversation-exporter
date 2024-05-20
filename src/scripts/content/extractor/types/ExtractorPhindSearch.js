@@ -4,9 +4,7 @@ import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
 import ExtractorPhind from "./ExtractorPhind";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
 import ExtractorSourcesPhindSearch from "../sources/ExtractorSourcesPhindSearch";
-import {extractMetadata, getPageTitle} from "../extractMetadata";
-
-export const metadata = extractMetadata(require("../domains/PhindSearch.json"));
+import {getPageTitle} from "../extractMetadata";
 
 export default class ExtractorPhindSearch extends ExtractorPhind {
   async extractPage(format) {
