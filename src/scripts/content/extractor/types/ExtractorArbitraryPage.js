@@ -2,21 +2,21 @@ import {Extractor} from "./Extractor";
 import {formatLink, setFileHeader, turndownConverter} from "../../../shared/formatter/formatMarkdown";
 import {rules} from "../rules";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
+import {getPageTitle} from "../extractMetadata";
 
 export default class ExtractorArbitraryPage extends Extractor {
   async extractPage(format) {
-    let markdown = await safeExecute(setFileHeader(document.title, window.location.hostname));
+    let markdown = await safeExecute(setFileHeader(getPageTitle(), window.location.hostname));
     const html = document.querySelector("body").innerHTML;
     markdown += format(html);
     return markdown;
   }
 
-  getPageTitle() {
-    return document.title ?? "";
-  }
-
-  getPageSource() {
-    return window.location.hostname;
+  extractMetadata() {
+    return {
+      title: getPageTitle(),
+      source: window.location.hostname
+    }
   }
 
   applyExtractorRules() {

@@ -26,22 +26,6 @@ export class Extractor {
   }
 
   /**
-   * Get the title of the page
-   * @returns {string} title
-   */
-  getPageTitle() {
-    //yy
-  }
-
-  /**
-   * Get the source of the page
-   * @returns {string} source
-   */
-  getPageSource() {
-    //yy
-  }
-
-  /**
    * Turndown rules to correctly convert the Phind conversation content into markdown
    */
   applyExtractorRules() {

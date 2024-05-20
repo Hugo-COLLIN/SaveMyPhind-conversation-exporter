@@ -2,18 +2,12 @@ import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
 import {safeExecute, sleep} from "../../../shared/utils/jsShorteners";
 import ExtractorPhind from "./ExtractorPhind";
 import ExtractorSourcesPhindChat from "../sources/ExtractorSourcesPhindChat";
+import {getPageTitle} from "../extractMetadata";
 
 export default class ExtractorPhindChat extends ExtractorPhind {
-  getPageTitle() {
-    const agentFirstMsg = document.querySelector('[tabindex="0"]');
-    return agentFirstMsg
-        ? agentFirstMsg.innerText.replace(/\u00A0/g, " ")
-        : "";
-  }
-
   async extractPage(format) {
     const messages = document.querySelectorAll('[name^="answer-"]');
-    let markdown = await safeExecute(setFileHeader(this.getPageTitle(), "Phind Chat"));
+    let markdown = await safeExecute(setFileHeader(getPageTitle('[tabindex="0"]', {action: 'replace', params: [/\u00A0/g, " "]}), "Phind Chat"));
 
     for (const content of messages) {
       const allDivs = content.querySelectorAll('.col > div > div > div, textarea');
@@ -72,7 +66,10 @@ export default class ExtractorPhindChat extends ExtractorPhind {
     return markdown;
   }
 
-  getPageSource() {
-    return "Phind-Chat";
+  extractMetadata() {
+    return {
+      title: getPageTitle('[tabindex="0"]', {action: 'replace', params: [/\u00A0/g, " "]}),
+      source: "Phind-Chat"
+    }
   }
 }

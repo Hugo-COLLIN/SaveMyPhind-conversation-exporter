@@ -5,10 +5,14 @@ export function extractMetadata(name, titleSelector, titleTreatment = null) {
   };
 }
 
-export function getPageTitle(documentSelector) {
-  console.log(documentSelector);
+export function getPageTitle(documentSelector = null, titleTreatment = null) {
+  if (!documentSelector || documentSelector === document.title)
+    return document.title;
+
   const selectTitle = document.querySelector(documentSelector);
   return selectTitle !== null && selectTitle.innerHTML !== ""
-    ? selectTitle.innerText
+    ? titleTreatment
+      ? selectTitle.innerText[titleTreatment.action](...titleTreatment.params)
+      : selectTitle.innerText
     : "";
 }

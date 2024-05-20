@@ -2,11 +2,12 @@ import {Extractor} from "./Extractor";
 import {initTurndown, setFileHeader, turndownConverter} from "../../../shared/formatter/formatMarkdown";
 import {safeExecute, sleep} from "../../../shared/utils/jsShorteners";
 import ExtractorSourcesPerplexity from "../sources/ExtractorSourcesPerplexity";
+import {getPageTitle} from "../extractMetadata";
 
 export default class ExtractorPerplexity extends Extractor {
   async extractPage(format) {
     const messages = document.querySelectorAll('main .mx-auto > div > div > div > div > div');
-    let markdown = await safeExecute(setFileHeader(this.getPageTitle(), "Perplexity.ai"));
+    let markdown = await safeExecute(setFileHeader(getPageTitle(), "Perplexity.ai"));
 
     for (const content of messages) {
       if (!content.hasChildNodes()) continue;
@@ -44,13 +45,11 @@ export default class ExtractorPerplexity extends Extractor {
     return markdown;
   }
 
-  getPageTitle() {
-    // return document.querySelector(".mb-md:nth-of-type(1) > div").innerHTML ?? "";
-    return document.title;
-  }
-
-  getPageSource() {
-    return "Perplexity.ai";
+  extractMetadata() {
+    return {
+      title: getPageTitle(), //".mb-md:nth-of-type(1) > div"
+      source: "Perplexity.ai"
+    }
   }
 
   applyExtractorRules() {
