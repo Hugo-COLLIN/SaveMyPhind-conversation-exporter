@@ -3,6 +3,11 @@ import {formatLink, initTurndown, setFileHeader} from "../../../shared/formatter
 import {safeExecute} from "../../../shared/utils/jsShorteners";
 import {getPageTitle} from "../extractMetadata";
 
+export const metadata = {
+  title: getPageTitle('textarea'),
+  source: "MaxAI-Google"
+};
+
 export default class ExtractorMaxAIGoogle extends Extractor {
   /**
    * TODO: Chatbot name before answer + get title from MaxAI query, not from google textarea (differences)
@@ -34,10 +39,7 @@ export default class ExtractorMaxAIGoogle extends Extractor {
   }
 
   extractMetadata() {
-    return {
-      title: getPageTitle('textarea'),
-      source: "MaxAI-Google"
-    }
+    return metadata
   }
 
   applyExtractorRules() {

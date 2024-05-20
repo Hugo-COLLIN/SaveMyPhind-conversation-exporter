@@ -1,9 +1,13 @@
 import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
-import {safeExecute, sleep} from "../../../shared/utils/jsShorteners";
+import {safeExecute} from "../../../shared/utils/jsShorteners";
 import ExtractorPhind from "./ExtractorPhind";
 import ExtractorSourcesPhindChat from "../sources/ExtractorSourcesPhindChat";
 import {getPageTitle} from "../extractMetadata";
 
+export const metadata = {
+  title: getPageTitle('[tabindex="0"]', {action: 'replace', params: [/\u00A0/g, " "]}),
+  source: "Phind-Chat"
+};
 export default class ExtractorPhindChat extends ExtractorPhind {
   async extractPage(format) {
     const messages = document.querySelectorAll('[name^="answer-"]');
@@ -67,9 +71,6 @@ export default class ExtractorPhindChat extends ExtractorPhind {
   }
 
   extractMetadata() {
-    return {
-      title: getPageTitle('[tabindex="0"]', {action: 'replace', params: [/\u00A0/g, " "]}),
-      source: "Phind-Chat"
-    }
+    return metadata
   }
 }

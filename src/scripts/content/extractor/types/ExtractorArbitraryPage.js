@@ -4,6 +4,11 @@ import {rules} from "../rules";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
 import {getPageTitle} from "../extractMetadata";
 
+export const metadata = {
+  title: getPageTitle(),
+  source: window.location.hostname
+};
+
 export default class ExtractorArbitraryPage extends Extractor {
   async extractPage(format) {
     let markdown = await safeExecute(setFileHeader(getPageTitle(), window.location.hostname));
@@ -13,10 +18,7 @@ export default class ExtractorArbitraryPage extends Extractor {
   }
 
   extractMetadata() {
-    return {
-      title: getPageTitle(),
-      source: window.location.hostname
-    }
+    return metadata
   }
 
   applyExtractorRules() {

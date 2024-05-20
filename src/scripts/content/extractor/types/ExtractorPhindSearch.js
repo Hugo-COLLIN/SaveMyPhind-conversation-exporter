@@ -7,6 +7,11 @@ import ExtractorSourcesPhindSearch from "../sources/ExtractorSourcesPhindSearch"
 import {getPageTitle} from "../extractMetadata";
 
 
+export const metadata = {
+  title: getPageTitle('[name^="answer-"] span'),
+  source: "Phind-Search"
+};
+
 export default class ExtractorPhindSearch extends ExtractorPhind {
   async extractPage(format) {
     // Unfold user questions before export
@@ -57,9 +62,6 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
   }
 
   extractMetadata() {
-    return {
-      title: getPageTitle('[name^="answer-"] span'),
-      source: "Phind-Search"
-    }
+    return metadata
   }
 }

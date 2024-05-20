@@ -4,6 +4,11 @@ import {safeExecute, sleep} from "../../../shared/utils/jsShorteners";
 import ExtractorSourcesPerplexity from "../sources/ExtractorSourcesPerplexity";
 import {getPageTitle} from "../extractMetadata";
 
+export const metadata = {
+  title: getPageTitle(), //".mb-md:nth-of-type(1) > div"
+  source: "Perplexity.ai"
+};
+
 export default class ExtractorPerplexity extends Extractor {
   async extractPage(format) {
     const messages = document.querySelectorAll('main .mx-auto > div > div > div > div > div');
@@ -46,10 +51,7 @@ export default class ExtractorPerplexity extends Extractor {
   }
 
   extractMetadata() {
-    return {
-      title: getPageTitle(), //".mb-md:nth-of-type(1) > div"
-      source: "Perplexity.ai"
-    }
+    return metadata
   }
 
   applyExtractorRules() {
