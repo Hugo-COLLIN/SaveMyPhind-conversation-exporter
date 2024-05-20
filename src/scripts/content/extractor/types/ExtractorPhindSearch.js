@@ -56,21 +56,10 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
     return markdown;
   }
 
-  // getPageTitle() {
-  //   const searchFirstMsg = document.querySelector('[name^="answer-"] span');
-  //   return searchFirstMsg !== null && searchFirstMsg.innerHTML !== ""
-  //     ? searchFirstMsg.innerHTML
-  //     : "";
-  // }
-
   extractMetadata() {
     return {
       title: getPageTitle('[name^="answer-"] span'),
-      source: this.getPageSource()
+      source: "Phind-Search"
     }
-  }
-
-  getPageSource() {
-    return "Phind-Search";
   }
 }
