@@ -5,8 +5,8 @@ import {safeExecute} from "../../../shared/utils/jsShorteners";
 import {getPageTitle} from "../extractMetadata";
 
 export const metadata = {
-  title: getPageTitle(),
-  source: window.location.hostname
+  pageTitle: getPageTitle(),
+  domainName: window.location.hostname
 };
 
 export default class ExtractorArbitraryPage extends Extractor {
@@ -15,10 +15,6 @@ export default class ExtractorArbitraryPage extends Extractor {
     const html = document.querySelector("body").innerHTML;
     markdown += format(html);
     return markdown;
-  }
-
-  extractMetadata() {
-    return metadata
   }
 
   applyExtractorRules() {

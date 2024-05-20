@@ -16,6 +16,7 @@ export async function defineExtractor(domain) {
     default:
       module = await import(`./types/ExtractorArbitraryPage`);
   }
-  return new module.default();
+  const moduleDefault = new module.default();
+  return {default: moduleDefault, metadata: module.metadata}
   // let extractor = await import(`./ExtractorTab${domain.name}`);
 }

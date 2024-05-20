@@ -4,8 +4,8 @@ import {safeExecute} from "../../../shared/utils/jsShorteners";
 import {getPageTitle} from "../extractMetadata";
 
 export const metadata = {
-  title: getPageTitle('textarea'),
-  source: "MaxAI-Google"
+  pageTitle: getPageTitle('textarea'),
+  domainName: "MaxAI-Google"
 };
 
 export default class ExtractorMaxAIGoogle extends Extractor {
@@ -36,10 +36,6 @@ export default class ExtractorMaxAIGoogle extends Extractor {
     markdown += "\n\n";
 
     return markdown;
-  }
-
-  extractMetadata() {
-    return metadata
   }
 
   applyExtractorRules() {

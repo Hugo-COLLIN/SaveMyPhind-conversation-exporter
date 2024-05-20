@@ -5,6 +5,7 @@ import {defineExportMethod} from "../export/defineExportMethod";
 import {updateClickIconCount} from "../../background/icon/clickCount/clickIconCountContext";
 import {safeExecute} from "../../shared/utils/jsShorteners";
 import {EXPORTER_FALLBACK_ACTION, EXTRACTOR_FALLBACK_ACTION} from "./fallbackActions";
+import {formatFilename} from "../../shared/formatter/formatText";
 
 /**
  * @description - Launch the export process
@@ -12,8 +13,12 @@ import {EXPORTER_FALLBACK_ACTION, EXTRACTOR_FALLBACK_ACTION} from "./fallbackAct
  */
 export async function launchScrapping(domain) {
   logWelcome();
-  const extractor = await defineExtractor(domain);
-  const extracted = await safeExecute(extractor.launch(), EXTRACTOR_FALLBACK_ACTION());
+  const {default: extractor, metadata} = await defineExtractor(domain);
+  const extracted = {
+    title: metadata.pageTitle,
+    fileName: formatFilename(metadata.pageTitle, metadata.domainName),
+    markdownContent: await safeExecute(extractor.launch(), EXTRACTOR_FALLBACK_ACTION()),
+  };
 
   if (!extracted || extracted.markdownContent === null) {
     console.info("No content to export!");

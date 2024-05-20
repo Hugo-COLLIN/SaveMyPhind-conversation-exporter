@@ -1,6 +1,6 @@
-export function extractMetadata(name, titleSelector, titleTreatment = null) {
+export function extractMetadata(domainName, titleSelector, titleTreatment = null) {
   return {
-    name: name,
+    domainName: domainName,
     title: getPageTitle(titleSelector)
   };
 }

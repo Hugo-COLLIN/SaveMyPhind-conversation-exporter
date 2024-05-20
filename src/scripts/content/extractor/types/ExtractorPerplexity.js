@@ -5,8 +5,8 @@ import ExtractorSourcesPerplexity from "../sources/ExtractorSourcesPerplexity";
 import {getPageTitle} from "../extractMetadata";
 
 export const metadata = {
-  title: getPageTitle(), //".mb-md:nth-of-type(1) > div"
-  source: "Perplexity.ai"
+  pageTitle: getPageTitle(), //".mb-md:nth-of-type(1) > div"
+  domainName: "Perplexity.ai"
 };
 
 export default class ExtractorPerplexity extends Extractor {
@@ -48,10 +48,6 @@ export default class ExtractorPerplexity extends Extractor {
     }
 
     return markdown;
-  }
-
-  extractMetadata() {
-    return metadata
   }
 
   applyExtractorRules() {

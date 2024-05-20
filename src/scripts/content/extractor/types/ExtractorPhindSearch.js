@@ -8,8 +8,8 @@ import {getPageTitle} from "../extractMetadata";
 
 
 export const metadata = {
-  title: getPageTitle('[name^="answer-"] span'),
-  source: "Phind-Search"
+  pageTitle: getPageTitle('[name^="answer-"] span'),
+  domainName: "Phind-Search"
 };
 
 export default class ExtractorPhindSearch extends ExtractorPhind {
@@ -59,9 +59,5 @@ export default class ExtractorPhindSearch extends ExtractorPhind {
     safeExecute(clickElements('.fe-chevron-up'));
 
     return markdown;
-  }
-
-  extractMetadata() {
-    return metadata
   }
 }

@@ -5,9 +5,10 @@ import ExtractorSourcesPhindChat from "../sources/ExtractorSourcesPhindChat";
 import {getPageTitle} from "../extractMetadata";
 
 export const metadata = {
-  title: getPageTitle('[tabindex="0"]', {action: 'replace', params: [/\u00A0/g, " "]}),
-  source: "Phind-Chat"
+  pageTitle: getPageTitle('[tabindex="0"]', {action: 'replace', params: [/\u00A0/g, " "]}),
+  domainName: "Phind-Chat"
 };
+
 export default class ExtractorPhindChat extends ExtractorPhind {
   async extractPage(format) {
     const messages = document.querySelectorAll('[name^="answer-"]');
@@ -68,9 +69,5 @@ export default class ExtractorPhindChat extends ExtractorPhind {
     }
 
     return markdown;
-  }
-
-  extractMetadata() {
-    return metadata
   }
 }
