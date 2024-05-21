@@ -1,10 +1,9 @@
 import {clickElements} from "../../interact/interact";
 import {capitalizeFirst, formatLineBreaks} from "../../../shared/formatter/formatText";
-import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
 import ExtractorSourcesPhindSearch from "../sources/ExtractorSourcesPhindSearch";
-import {getPageTitle} from "../extractMetadata";
 import {Extractor} from "./Extractor";
+import {extractPageCommon} from "../extractPage";
 
 async function processPhindSearchMessage(content, format) {
   const selectUserQuestion = content.querySelector('span, textarea') ?? "";
@@ -30,28 +29,11 @@ async function processPhindSearchMessage(content, format) {
   return userPart + aiPart + paginationPart;
 }
 
-async function process(format, metadata) {
-  // Unfold user questions before export
-  safeExecute(clickElements('.fe-chevron-down'));
-
-  // Catch page interesting elements
-  const newAnswerSelector = document.querySelectorAll('[name^="answer-"]');
-  let markdown = await safeExecute(setFileHeader(metadata.pageTitle, metadata.domainName));
-
-  for (const content of newAnswerSelector) {
-    const messageText = await processPhindSearchMessage(content, format);
-
-    if (messageText !== "") markdown += messageText + "\n";
-  }
-
-  // Fold user questions after export if they were originally folded
-  safeExecute(clickElements('.fe-chevron-up'));
-
-  return markdown;
-}
-
 export default class ExtractorPhindSearch extends Extractor {
   async extractPage(format, metadata) {
-    return await process(format, metadata);
+    safeExecute(clickElements('.fe-chevron-down'));
+    const result = await extractPageCommon(format, metadata, processPhindSearchMessage, '[name^="answer-"]');
+    safeExecute(clickElements('.fe-chevron-up'));
+    return result;
   }
 }

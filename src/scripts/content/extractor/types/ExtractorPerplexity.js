@@ -3,6 +3,7 @@ import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
 import ExtractorSourcesPerplexity from "../sources/ExtractorSourcesPerplexity";
 import {getPageTitle} from "../extractMetadata";
+import {extractPageCommon} from "../extractPage";
 
 async function processPerplexityMessage(content, format) {
   if (!content.hasChildNodes()) return "";
@@ -36,20 +37,8 @@ async function processPerplexityMessage(content, format) {
   return markdown;
 }
 
-async function process(format, metadata) {
-  const messages = document.querySelectorAll('main .mx-auto > div > div > div > div > div');
-  let markdown = await safeExecute(setFileHeader(metadata.pageTitle, metadata.domainName));
-
-  for (const content of messages) {
-    const messageText = await processPerplexityMessage(content, format);
-    if (messageText !== "") markdown += messageText + "\n\n";
-  }
-
-  return markdown;
-}
-
 export default class ExtractorPerplexity extends Extractor {
   async extractPage(format, metadata) {
-    return await process(format, metadata);
+    return await extractPageCommon(format, metadata, processPerplexityMessage, 'main .mx-auto > div > div > div > div > div')
   }
 }

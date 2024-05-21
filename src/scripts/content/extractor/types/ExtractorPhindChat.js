@@ -3,6 +3,7 @@ import {safeExecute} from "../../../shared/utils/jsShorteners";
 import ExtractorSourcesPhindChat from "../sources/ExtractorSourcesPhindChat";
 import {getPageTitle} from "../extractMetadata";
 import {Extractor} from "./Extractor";
+import {extractPageCommon} from "../extractPage";
 
 async function processPhindChatMessage(content, format) {
   const allDivs = content.querySelectorAll('.col > div > div > div, textarea');
@@ -58,20 +59,8 @@ async function processPhindChatMessage(content, format) {
   return res;
 }
 
-async function process(format, metadata) {
-  const messages = document.querySelectorAll('[name^="answer-"]');
-  let markdown = await safeExecute(setFileHeader(metadata.pageTitle, metadata.domainName));
-
-  for (const content of messages) {
-    const messageText = await processPhindChatMessage(content, format, markdown);
-    if (messageText !== "") markdown += messageText + "\n\n";
-  }
-
-  return markdown;
-}
-
 export default class ExtractorPhindChat extends Extractor {
   async extractPage(format, metadata) {
-    return await process(format, metadata);
+    return await extractPageCommon(format, metadata, processPhindChatMessage, '[name^="answer-"]');
   }
 }
