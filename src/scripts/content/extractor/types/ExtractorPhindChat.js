@@ -4,13 +4,13 @@ import ExtractorSourcesPhindChat from "../sources/ExtractorSourcesPhindChat";
 import {getPageTitle} from "../extractMetadata";
 import {Extractor} from "./Extractor";
 
-async function processPhindChatMessage(content, format, markdown) {
+async function processPhindChatMessage(content, format) {
   const allDivs = content.querySelectorAll('.col > div > div > div, textarea');
   const msgContent = Array.from(allDivs).filter(elt => (elt.children.length > 0 && elt.children.item(0).tagName !== "A") || elt.tagName === "TEXTAREA");
   const searchResults = content.querySelectorAll('.col > div > div > div:nth-last-of-type(1) > div > a');
   const entityName = content.querySelectorAll('.col > div > div > span');
 
-  if (msgContent.length === 0) return;
+  if (msgContent.length === 0) return "";
 
   let res = "";
 
@@ -44,7 +44,7 @@ async function processPhindChatMessage(content, format, markdown) {
       searchResults.forEach((link) => {
         res += "\n- " + format(link.outerHTML).replace("[", `[(${i}) `);
         i++;
-      })
+      });
     }
 
     res += "\n";

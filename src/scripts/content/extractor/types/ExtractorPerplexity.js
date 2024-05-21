@@ -4,16 +4,14 @@ import {safeExecute} from "../../../shared/utils/jsShorteners";
 import ExtractorSourcesPerplexity from "../sources/ExtractorSourcesPerplexity";
 import {getPageTitle} from "../extractMetadata";
 
-async function processPerplexityMessage(content, markdown, format) {
-  if (!content.hasChildNodes()) return;
-  // Display question
+async function processPerplexityMessage(content, format) {
+  if (!content.hasChildNodes()) return "";
   const question = content.querySelector('.break-words');
-  if (!question) return;
-  markdown += "## User\n";
+  if (!question) return "";
+  let markdown = "## User\n";
   const questionText = (question && question.innerText ? question.innerText : "") + "\n\n";
   markdown += questionText.replace(/(?<!`)<(?!`)/g, '\\<').replace(/(?<!`)>(?!`)/g, '\\>');
 
-  // Display answer
   const answer = content.querySelector(".relative.default > div > div");
   const answerer = content.querySelector(".mb-lg .flex.items-center > p");
   markdown += answerer && answerer.innerHTML.toLowerCase().includes('pro')
@@ -33,8 +31,8 @@ async function processPerplexityMessage(content, markdown, format) {
 
   // Display sources
   const src = await new ExtractorSourcesPerplexity().extractSources(content, format);
-  if (src !== null)
-    markdown += src + "\n";
+  if (src !== null) markdown += src + "\n";
+
   return markdown;
 }
 
@@ -43,7 +41,8 @@ async function process(format) {
   let markdown = await safeExecute(setFileHeader(getPageTitle(), "Perplexity.ai"));
 
   for (const content of messages) {
-    markdown = await processPerplexityMessage(content, markdown, format);
+    const messageText = await processPerplexityMessage(content, format);
+    if (messageText !== "") markdown += messageText + "\n\n";
   }
 
   return markdown;

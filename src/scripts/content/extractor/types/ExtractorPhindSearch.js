@@ -8,34 +8,26 @@ import {Extractor} from "./Extractor";
 
 async function processPhindSearchMessage(content, format) {
   const selectUserQuestion = content.querySelector('span, textarea') ?? "";
-
-  const selectAiModel = content.querySelector('[name^="answer-"] h6')
-  const selectAiAnswer = selectAiModel !== null
-    ? selectAiModel.parentNode
-    : "";
-
+  const selectAiModel = content.querySelector('[name^="answer-"] h6');
+  const selectAiAnswer = selectAiModel !== null ? selectAiModel.parentNode : "";
   const selectPagination = content.querySelectorAll('.pagination button');
 
-  async function generateMessageText(selectUserQuestion, selectAiAnswer, selectAiModel, selectPagination) {
-    const userPart = `\n## User\n` + format(formatLineBreaks(selectUserQuestion.innerHTML)).replace("  \n", "") + '\n';
+  const userPart = `\n## User\n` + format(formatLineBreaks(selectUserQuestion.innerHTML)).replace("  \n", "") + '\n';
 
-    let aiName;
-    if (selectAiModel !== null) {
-      aiName = format(selectAiModel.innerHTML).split("|")[1].split("Model")[0].trim();
-    }
-    const aiIndicator = "## " + capitalizeFirst((aiName ? aiName + " " : "") + "answer") + "\n";
-    const aiAnswer = format(selectAiAnswer.innerHTML);
-    const index = aiAnswer.indexOf('\n\n');
-    const aiPart = `\n` + aiIndicator + aiAnswer.substring(index + 2);
-
-    const paginationPart = selectPagination.length > 0
-      ? `\n\n---\n**Sources:**` + await safeExecute(await new ExtractorSourcesPhindSearch().extractSources(selectPagination, format)) + "\n\n"
-      : "";
-
-    return userPart + aiPart + paginationPart;
+  let aiName;
+  if (selectAiModel !== null) {
+    aiName = format(selectAiModel.innerHTML).split("|")[1].split("Model")[0].trim();
   }
+  const aiIndicator = "## " + capitalizeFirst((aiName ? aiName + " " : "") + "answer") + "\n";
+  const aiAnswer = format(selectAiAnswer.innerHTML);
+  const index = aiAnswer.indexOf('\n\n');
+  const aiPart = `\n` + aiIndicator + aiAnswer.substring(index + 2);
 
-  return await generateMessageText(selectUserQuestion, selectAiAnswer, selectAiModel, selectPagination);
+  const paginationPart = selectPagination.length > 0
+    ? `\n\n---\n**Sources:**` + await safeExecute(await new ExtractorSourcesPhindSearch().extractSources(selectPagination, format)) + "\n\n"
+    : "";
+
+  return userPart + aiPart + paginationPart;
 }
 
 async function process(format) {
