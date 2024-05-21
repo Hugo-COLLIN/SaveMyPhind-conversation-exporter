@@ -1,8 +1,15 @@
-import {Extractor} from "./Extractor";
 import {formatLink, setFileHeader, turndownConverter} from "../../../shared/formatter/formatMarkdown";
 import {rules} from "../rules/rules";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
 import {getPageTitle} from "../extractMetadata";
+
+
+async function extractPage(format) {
+  let markdown = await safeExecute(setFileHeader(getPageTitle(), window.location.hostname));
+  const html = document.querySelector("body").innerHTML;
+  markdown += format(html);
+  return markdown;
+}
 
 // TODO: Adapt to JSON configuration
 function applyExtractorRules() {
@@ -79,13 +86,4 @@ function applyExtractorRules() {
       return formatLink(window.location.protocol + "//" + window.location.host + node.getAttribute('href'), content);
     },
   });
-}
-
-export default class ExtractorArbitraryPage extends Extractor {
-  async extractPage(format) {
-    let markdown = await safeExecute(setFileHeader(getPageTitle(), window.location.hostname));
-    const html = document.querySelector("body").innerHTML;
-    markdown += format(html);
-    return markdown;
-  }
 }

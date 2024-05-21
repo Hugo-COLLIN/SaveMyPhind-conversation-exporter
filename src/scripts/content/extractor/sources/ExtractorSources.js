@@ -1,6 +1,4 @@
-import {Extractor} from "../types/Extractor";
-
-export default class ExtractorSources extends Extractor {
+export default class ExtractorSources {
   async extractSources(content, format) {
     throw new Error("Not implemented");
   }
