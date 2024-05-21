@@ -1,5 +1,6 @@
 import {extractMetadata} from "./extractMetadata";
 import {generateRules} from "./rules/applyRules";
+import {extractPageCommon} from "./extractPage";
 
 export async function defineExtractor(domain) {
   let json, module, metadata;
@@ -27,6 +28,13 @@ export async function defineExtractor(domain) {
   const moduleDefault = new module.default();
   metadata = metadata ?? extractMetadata(json);
   const rules = (json?.turndown && generateRules(json?.turndown)) ?? module.turndown;
-  return {default: moduleDefault, metadata, rules};
+
+  // const launch =
+
+  // const launch = !moduleDefault.extractPage
+  //   ? async () => await extractPageCommon()
+  //   : async () => await moduleDefault.extractPage(metadata.format, metadata);
+  // const launch = async () => await moduleDefault.extractPage(metadata.format, metadata);
+  return {extractPage: module.extractPage, metadata, rules};
   // let extractor = await import(`./ExtractorTab${domain.name}`);
 }

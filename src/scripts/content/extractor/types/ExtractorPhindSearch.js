@@ -2,7 +2,6 @@ import {clickElements} from "../../interact/interact";
 import {capitalizeFirst, formatLineBreaks} from "../../../shared/formatter/formatText";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
 import ExtractorSourcesPhindSearch from "../sources/ExtractorSourcesPhindSearch";
-import {Extractor} from "./Extractor";
 import {extractPageCommon} from "../extractPage";
 
 async function processMessage(content, format) {
@@ -29,15 +28,9 @@ async function processMessage(content, format) {
   return userPart + aiPart + paginationPart;
 }
 
-const extractPage = async (format, metadata) => {
+export async function extractPage (format, metadata) {
   safeExecute(clickElements('.fe-chevron-down'));
   const result = await extractPageCommon(format, metadata, processMessage, '[name^="answer-"]');
   safeExecute(clickElements('.fe-chevron-up'));
   return result;
-}
-
-export default class ExtractorPhindSearch extends Extractor {
-  async extractPage(format, metadata) {
-    return await extractPage(format, metadata);
-  }
 }

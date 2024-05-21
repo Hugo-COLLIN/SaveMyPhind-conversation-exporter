@@ -7,6 +7,7 @@ import {safeExecute} from "../../shared/utils/jsShorteners";
 import {EXPORTER_FALLBACK_ACTION, EXTRACTOR_FALLBACK_ACTION} from "./fallbackActions";
 import {formatFilename} from "../../shared/formatter/formatText";
 import {applyExtractorRules} from "../extractor/rules/applyRules";
+import converter from "../../shared/formatter/formatMarkdown";
 
 /**
  * @description - Launch the export process
@@ -14,12 +15,12 @@ import {applyExtractorRules} from "../extractor/rules/applyRules";
  */
 export async function launchScrapping(domain) {
   logWelcome();
-  const {default: extractor, metadata, rules} = await defineExtractor(domain);
+  const {extractPage, metadata, rules} = await defineExtractor(domain);
   applyExtractorRules(rules);
   const extracted = {
     title: metadata.pageTitle,
     fileName: formatFilename(metadata.pageTitle, metadata.domainName),
-    markdownContent: await safeExecute(extractor.launch(metadata), EXTRACTOR_FALLBACK_ACTION()),
+    markdownContent: await safeExecute(extractPage(converter[`formatMarkdown`], metadata), EXTRACTOR_FALLBACK_ACTION()),
   };
 
   if (!extracted || extracted.markdownContent === null) {

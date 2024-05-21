@@ -1,8 +1,4 @@
-import {Extractor} from "./Extractor";
-import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
-import {safeExecute} from "../../../shared/utils/jsShorteners";
 import ExtractorSourcesPerplexity from "../sources/ExtractorSourcesPerplexity";
-import {getPageTitle} from "../extractMetadata";
 import {extractPageCommon} from "../extractPage";
 
 async function processMessage(content, format) {
@@ -37,12 +33,6 @@ async function processMessage(content, format) {
   return markdown;
 }
 
-const extractPage = async (format, metadata) => {
+export async function extractPage (format, metadata) {
   return await extractPageCommon(format, metadata, processMessage, 'main .mx-auto > div > div > div > div > div')
-}
-
-export default class ExtractorPerplexity extends Extractor {
-  async extractPage(format, metadata) {
-    return await extractPage(format, metadata);
-  }
 }

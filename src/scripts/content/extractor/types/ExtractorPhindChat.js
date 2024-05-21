@@ -1,8 +1,4 @@
-import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
-import {safeExecute} from "../../../shared/utils/jsShorteners";
 import ExtractorSourcesPhindChat from "../sources/ExtractorSourcesPhindChat";
-import {getPageTitle} from "../extractMetadata";
-import {Extractor} from "./Extractor";
 import {extractPageCommon} from "../extractPage";
 
 async function processMessage(content, format) {
@@ -59,12 +55,6 @@ async function processMessage(content, format) {
   return res;
 }
 
-const extractPage = async (format, metadata) => {
+export async function extractPage (format, metadata) {
   return await extractPageCommon(format, metadata, processMessage, '[name^="answer-"]');
-}
-
-export default class ExtractorPhindChat extends Extractor {
-  async extractPage(format, metadata) {
-    return await extractPage(format, metadata);
-  }
 }
