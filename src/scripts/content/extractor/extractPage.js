@@ -1,8 +1,8 @@
 import {safeExecute} from "../../shared/utils/jsShorteners";
 import {setFileHeader} from "../../shared/formatter/formatMarkdown";
 
-export async function extractPageCommon(format, metadata, processMessageContent, getPageTitleSelector) {
-  const messages = document.querySelectorAll(getPageTitleSelector);
+export async function extractPageCommon(format, metadata, processMessageContent) {
+  const messages = document.querySelectorAll(metadata.contentSelector);
   let markdown = await safeExecute(setFileHeader(metadata.pageTitle, metadata.domainName));
 
   for (const content of messages) {

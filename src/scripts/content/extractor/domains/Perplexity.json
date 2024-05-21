@@ -1,5 +1,6 @@
 {
   "domainName": "Perplexity.ai",
+  "contentSelector": "main .mx-auto > div > div > div > div > div",
   "turndown": {
     "init": {
       "blankReplacement": "getBlankReplacement"

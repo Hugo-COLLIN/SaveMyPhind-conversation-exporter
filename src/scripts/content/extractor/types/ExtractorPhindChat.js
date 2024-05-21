@@ -1,6 +1,10 @@
 import ExtractorSourcesPhindChat from "../sources/ExtractorSourcesPhindChat";
 import {extractPageCommon} from "../extractPage";
 
+export async function extractPage (format, metadata) {
+  return await extractPageCommon(format, metadata, processMessage);
+}
+
 async function processMessage(content, format) {
   const allDivs = content.querySelectorAll('.col > div > div > div, textarea');
   const msgContent = Array.from(allDivs).filter(elt => (elt.children.length > 0 && elt.children.item(0).tagName !== "A") || elt.tagName === "TEXTAREA");
@@ -53,8 +57,4 @@ async function processMessage(content, format) {
   }
 
   return res;
-}
-
-export async function extractPage (format, metadata) {
-  return await extractPageCommon(format, metadata, processMessage, '[name^="answer-"]');
 }

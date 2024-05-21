@@ -4,6 +4,13 @@ import {safeExecute} from "../../../shared/utils/jsShorteners";
 import ExtractorSourcesPhindSearch from "../sources/ExtractorSourcesPhindSearch";
 import {extractPageCommon} from "../extractPage";
 
+export async function extractPage (format, metadata) {
+  safeExecute(clickElements('.fe-chevron-down'));
+  const result = await extractPageCommon(format, metadata, processMessage);
+  safeExecute(clickElements('.fe-chevron-up'));
+  return result;
+}
+
 async function processMessage(content, format) {
   const selectUserQuestion = content.querySelector('span, textarea') ?? "";
   const selectAiModel = content.querySelector('[name^="answer-"] h6');
@@ -26,11 +33,4 @@ async function processMessage(content, format) {
     : "";
 
   return userPart + aiPart + paginationPart;
-}
-
-export async function extractPage (format, metadata) {
-  safeExecute(clickElements('.fe-chevron-down'));
-  const result = await extractPageCommon(format, metadata, processMessage, '[name^="answer-"]');
-  safeExecute(clickElements('.fe-chevron-up'));
-  return result;
 }
