@@ -26,7 +26,7 @@ export async function defineExtractor(domain) {
   }
   const moduleDefault = new module.default();
   metadata = metadata ?? extractMetadata(json);
-  const rules = json?.turndown;
-  return {default: moduleDefault, metadata, rules: (rules && generateRules(rules)) ?? module.turndown};
+  const rules = (json?.turndown && generateRules(json?.turndown)) ?? module.turndown;
+  return {default: moduleDefault, metadata, rules};
   // let extractor = await import(`./ExtractorTab${domain.name}`);
 }

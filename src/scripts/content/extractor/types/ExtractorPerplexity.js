@@ -5,7 +5,7 @@ import ExtractorSourcesPerplexity from "../sources/ExtractorSourcesPerplexity";
 import {getPageTitle} from "../extractMetadata";
 import {extractPageCommon} from "../extractPage";
 
-async function processPerplexityMessage(content, format) {
+async function processMessage(content, format) {
   if (!content.hasChildNodes()) return "";
   const question = content.querySelector('.break-words');
   if (!question) return "";
@@ -37,8 +37,12 @@ async function processPerplexityMessage(content, format) {
   return markdown;
 }
 
+const extractPage = async (format, metadata) => {
+  return await extractPageCommon(format, metadata, processMessage, 'main .mx-auto > div > div > div > div > div')
+}
+
 export default class ExtractorPerplexity extends Extractor {
   async extractPage(format, metadata) {
-    return await extractPageCommon(format, metadata, processPerplexityMessage, 'main .mx-auto > div > div > div > div > div')
+    return await extractPage(format, metadata);
   }
 }

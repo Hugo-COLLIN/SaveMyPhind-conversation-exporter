@@ -5,7 +5,7 @@ import ExtractorSourcesPhindSearch from "../sources/ExtractorSourcesPhindSearch"
 import {Extractor} from "./Extractor";
 import {extractPageCommon} from "../extractPage";
 
-async function processPhindSearchMessage(content, format) {
+async function processMessage(content, format) {
   const selectUserQuestion = content.querySelector('span, textarea') ?? "";
   const selectAiModel = content.querySelector('[name^="answer-"] h6');
   const selectAiAnswer = selectAiModel !== null ? selectAiModel.parentNode : "";
@@ -29,11 +29,15 @@ async function processPhindSearchMessage(content, format) {
   return userPart + aiPart + paginationPart;
 }
 
+const extractPage = async (format, metadata) => {
+  safeExecute(clickElements('.fe-chevron-down'));
+  const result = await extractPageCommon(format, metadata, processMessage, '[name^="answer-"]');
+  safeExecute(clickElements('.fe-chevron-up'));
+  return result;
+}
+
 export default class ExtractorPhindSearch extends Extractor {
   async extractPage(format, metadata) {
-    safeExecute(clickElements('.fe-chevron-down'));
-    const result = await extractPageCommon(format, metadata, processPhindSearchMessage, '[name^="answer-"]');
-    safeExecute(clickElements('.fe-chevron-up'));
-    return result;
+    return await extractPage(format, metadata);
   }
 }

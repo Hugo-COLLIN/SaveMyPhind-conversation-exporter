@@ -5,7 +5,7 @@ import {getPageTitle} from "../extractMetadata";
 import {Extractor} from "./Extractor";
 import {extractPageCommon} from "../extractPage";
 
-async function processPhindChatMessage(content, format) {
+async function processMessage(content, format) {
   const allDivs = content.querySelectorAll('.col > div > div > div, textarea');
   const msgContent = Array.from(allDivs).filter(elt => (elt.children.length > 0 && elt.children.item(0).tagName !== "A") || elt.tagName === "TEXTAREA");
   const searchResults = content.querySelectorAll('.col > div > div > div:nth-last-of-type(1) > div > a');
@@ -59,8 +59,12 @@ async function processPhindChatMessage(content, format) {
   return res;
 }
 
+const extractPage = async (format, metadata) => {
+  return await extractPageCommon(format, metadata, processMessage, '[name^="answer-"]');
+}
+
 export default class ExtractorPhindChat extends Extractor {
   async extractPage(format, metadata) {
-    return await extractPageCommon(format, metadata, processPhindChatMessage, '[name^="answer-"]');
+    return await extractPage(format, metadata);
   }
 }
