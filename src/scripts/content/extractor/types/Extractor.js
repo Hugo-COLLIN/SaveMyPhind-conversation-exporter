@@ -10,6 +10,6 @@ export class Extractor {
    * @returns {Promise<string>} markdown
    */
   async extractPage(format) {
-    throw new Error("Not implemented");
+    // throw new Error("Not implemented");
   }
 }
