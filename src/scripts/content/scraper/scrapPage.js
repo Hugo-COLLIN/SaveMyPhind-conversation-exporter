@@ -19,7 +19,7 @@ export async function launchScrapping(domain) {
   const extracted = {
     title: metadata.pageTitle,
     fileName: formatFilename(metadata.pageTitle, metadata.domainName),
-    markdownContent: await safeExecute(extractor.launch(), EXTRACTOR_FALLBACK_ACTION()),
+    markdownContent: await safeExecute(extractor.launch(metadata), EXTRACTOR_FALLBACK_ACTION()),
   };
 
   if (!extracted || extracted.markdownContent === null) {

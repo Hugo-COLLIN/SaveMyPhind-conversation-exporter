@@ -58,12 +58,9 @@ async function processPhindChatMessage(content, format) {
   return res;
 }
 
-async function process(format) {
+async function process(format, metadata) {
   const messages = document.querySelectorAll('[name^="answer-"]');
-  let markdown = await safeExecute(setFileHeader(getPageTitle('[tabindex="0"]', {
-    action: 'replace',
-    params: [/\u00A0/g, " "]
-  }), "Phind Chat"));
+  let markdown = await safeExecute(setFileHeader(metadata.pageTitle, metadata.domainName));
 
   for (const content of messages) {
     const messageText = await processPhindChatMessage(content, format, markdown);
@@ -74,7 +71,7 @@ async function process(format) {
 }
 
 export default class ExtractorPhindChat extends Extractor {
-  async extractPage(format) {
-    return await process(format);
+  async extractPage(format, metadata) {
+    return await process(format, metadata);
   }
 }

@@ -30,13 +30,13 @@ async function processPhindSearchMessage(content, format) {
   return userPart + aiPart + paginationPart;
 }
 
-async function process(format) {
+async function process(format, metadata) {
   // Unfold user questions before export
   safeExecute(clickElements('.fe-chevron-down'));
 
   // Catch page interesting elements
   const newAnswerSelector = document.querySelectorAll('[name^="answer-"]');
-  let markdown = await safeExecute(setFileHeader(getPageTitle('[name^="answer-"] span'), "Phind Search"));
+  let markdown = await safeExecute(setFileHeader(metadata.pageTitle, metadata.domainName));
 
   for (const content of newAnswerSelector) {
     const messageText = await processPhindSearchMessage(content, format);
@@ -51,7 +51,7 @@ async function process(format) {
 }
 
 export default class ExtractorPhindSearch extends Extractor {
-  async extractPage(format) {
-    return await process(format);
+  async extractPage(format, metadata) {
+    return await process(format, metadata);
   }
 }

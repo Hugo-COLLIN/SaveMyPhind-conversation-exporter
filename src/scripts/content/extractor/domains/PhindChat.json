@@ -6,7 +6,7 @@
       "params": ["\\u00A0", " "]
     }
   },
-  "domainName": "Phind-Chat",
+  "domainName": "Phind Chat",
   "turndown": {
     "rules": {
       "preserveLineBreaksInPre": {

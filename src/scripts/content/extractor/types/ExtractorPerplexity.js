@@ -36,9 +36,9 @@ async function processPerplexityMessage(content, format) {
   return markdown;
 }
 
-async function process(format) {
+async function process(format, metadata) {
   const messages = document.querySelectorAll('main .mx-auto > div > div > div > div > div');
-  let markdown = await safeExecute(setFileHeader(getPageTitle(), "Perplexity.ai"));
+  let markdown = await safeExecute(setFileHeader(metadata.pageTitle, metadata.domainName));
 
   for (const content of messages) {
     const messageText = await processPerplexityMessage(content, format);
@@ -49,7 +49,7 @@ async function process(format) {
 }
 
 export default class ExtractorPerplexity extends Extractor {
-  async extractPage(format) {
-    return await process(format);
+  async extractPage(format, metadata) {
+    return await process(format, metadata);
   }
 }
