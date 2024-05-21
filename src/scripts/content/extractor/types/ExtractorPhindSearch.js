@@ -6,7 +6,39 @@ import ExtractorSourcesPhindSearch from "../sources/ExtractorSourcesPhindSearch"
 import {getPageTitle} from "../extractMetadata";
 import {Extractor} from "./Extractor";
 
-async function processPhindSearchMessages(format) {
+async function processPhindSearchMessage(content, format) {
+  const selectUserQuestion = content.querySelector('span, textarea') ?? "";
+
+  const selectAiModel = content.querySelector('[name^="answer-"] h6')
+  const selectAiAnswer = selectAiModel !== null
+    ? selectAiModel.parentNode
+    : "";
+
+  const selectPagination = content.querySelectorAll('.pagination button');
+
+  async function generateMessageText(selectUserQuestion, selectAiAnswer, selectAiModel, selectPagination) {
+    const userPart = `\n## User\n` + format(formatLineBreaks(selectUserQuestion.innerHTML)).replace("  \n", "") + '\n';
+
+    let aiName;
+    if (selectAiModel !== null) {
+      aiName = format(selectAiModel.innerHTML).split("|")[1].split("Model")[0].trim();
+    }
+    const aiIndicator = "## " + capitalizeFirst((aiName ? aiName + " " : "") + "answer") + "\n";
+    const aiAnswer = format(selectAiAnswer.innerHTML);
+    const index = aiAnswer.indexOf('\n\n');
+    const aiPart = `\n` + aiIndicator + aiAnswer.substring(index + 2);
+
+    const paginationPart = selectPagination.length > 0
+      ? `\n\n---\n**Sources:**` + await safeExecute(await new ExtractorSourcesPhindSearch().extractSources(selectPagination, format)) + "\n\n"
+      : "";
+
+    return userPart + aiPart + paginationPart;
+  }
+
+  return await generateMessageText(selectUserQuestion, selectAiAnswer, selectAiModel, selectPagination);
+}
+
+async function process(format) {
   // Unfold user questions before export
   safeExecute(clickElements('.fe-chevron-down'));
 
@@ -15,35 +47,7 @@ async function processPhindSearchMessages(format) {
   let markdown = await safeExecute(setFileHeader(getPageTitle('[name^="answer-"] span'), "Phind Search"));
 
   for (const content of newAnswerSelector) {
-    const selectUserQuestion = content.querySelector('span, textarea') ?? "";
-
-    const selectAiModel = content.querySelector('[name^="answer-"] h6')
-    const selectAiAnswer = selectAiModel !== null
-      ? selectAiModel.parentNode
-      : "";
-
-    const selectPagination = content.querySelectorAll('.pagination button');
-
-    async function generateMessageText(selectUserQuestion, selectAiAnswer, selectAiModel, selectPagination) {
-      const userPart = `\n## User\n` + format(formatLineBreaks(selectUserQuestion.innerHTML)).replace("  \n", "") + '\n';
-
-      let aiName;
-      if (selectAiModel !== null) {
-        aiName = format(selectAiModel.innerHTML).split("|")[1].split("Model")[0].trim();
-      }
-      const aiIndicator = "## " + capitalizeFirst((aiName ? aiName + " " : "") + "answer") + "\n";
-      const aiAnswer = format(selectAiAnswer.innerHTML);
-      const index = aiAnswer.indexOf('\n\n');
-      const aiPart = `\n` + aiIndicator + aiAnswer.substring(index + 2);
-
-      const paginationPart = selectPagination.length > 0
-        ? `\n\n---\n**Sources:**` + await safeExecute(await new ExtractorSourcesPhindSearch().extractSources(selectPagination, format)) + "\n\n"
-        : "";
-
-      return userPart + aiPart + paginationPart;
-    }
-
-    const messageText = await generateMessageText(selectUserQuestion, selectAiAnswer, selectAiModel, selectPagination);
+    const messageText = await processPhindSearchMessage(content, format);
 
     if (messageText !== "") markdown += messageText + "\n";
   }
@@ -56,6 +60,6 @@ async function processPhindSearchMessages(format) {
 
 export default class ExtractorPhindSearch extends Extractor {
   async extractPage(format) {
-    return await processPhindSearchMessages(format);
+    return await process(format);
   }
 }
