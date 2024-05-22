@@ -1,6 +1,6 @@
 import {logWelcome} from "../../shared/utils/consoleMessages";
 import appInfos from "../../../infos.json";
-import {defineExtractor} from "../extractor/defineExtractor";
+import {extractPage} from "../extractor/extractPage";
 import {defineExportMethod} from "../export/defineExportMethod";
 import {updateClickIconCount} from "../../background/icon/clickCount/clickIconCountContext";
 import {safeExecute} from "../../shared/utils/jsShorteners";
@@ -15,7 +15,7 @@ import converter from "../../shared/formatter/formatMarkdown";
  */
 export async function launchScrapping(domain) {
   logWelcome();
-  const extracted = await defineExtractor(domain);
+  const extracted = await extractPage(domain);
 
   if (!extracted || extracted.markdownContent === null) {
     console.info("No content to export!");

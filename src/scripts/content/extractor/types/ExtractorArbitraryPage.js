@@ -1,10 +1,10 @@
 import {formatLink, setFileHeader, turndownConverter} from "../../../shared/formatter/formatMarkdown";
 import {rules} from "../rules/rules";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
-import {getPageTitle} from "../extractMetadata";
+import {getPageTitle} from "../extractPageMetadata";
 
 
-async function extractPage(format) {
+async function extractPageContent(format) {
   let markdown = await safeExecute(setFileHeader(getPageTitle(), window.location.hostname));
   const html = document.querySelector("body").innerHTML;
   markdown += format(html);

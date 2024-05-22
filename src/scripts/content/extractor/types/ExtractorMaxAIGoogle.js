@@ -1,13 +1,13 @@
 import {formatLink, setFileHeader} from "../../../shared/formatter/formatMarkdown";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
-import {getPageTitle} from "../extractMetadata";
+import {getPageTitle} from "../extractPageMetadata";
 
 export const turndown = {};
 
 /**
  * TODO: Chatbot name before answer + get title from MaxAI query, not from google textarea (differences)
  */
-async function extractPage(format) {
+async function extractPageContent(format) {
   const hostElement = document.querySelector('[id^=MAXAI]');
   if (hostElement === null) return null;
   const shadowRoot = hostElement.shadowRoot;

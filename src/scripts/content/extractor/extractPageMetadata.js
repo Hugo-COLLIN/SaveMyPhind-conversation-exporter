@@ -3,7 +3,7 @@
  * @param metadataBase
  * @returns {{pageTitle: (string|*|string|string), domainName: (string|string)}}
  */
-export function extractMetadata(metadataBase) {
+export function extractPageMetadata(metadataBase) {
   return {
     domainName: metadataBase.domainName ?? window.location.hostname,
     pageTitle: getPageTitle(metadataBase.pageTitle?.selector, metadataBase.pageTitle?.treatment),

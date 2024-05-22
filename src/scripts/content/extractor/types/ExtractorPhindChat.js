@@ -1,9 +1,4 @@
 import ExtractorSourcesPhindChat from "../sources/ExtractorSourcesPhindChat";
-import {extractPageCommon} from "../extractPage";
-
-// export async function extractPage (format, metadata) {
-//   return await extractPageCommon(format, metadata, processMessage);
-// }
 
 export async function processMessage(content, format) {
   const allDivs = content.querySelectorAll('.col > div > div > div, textarea');

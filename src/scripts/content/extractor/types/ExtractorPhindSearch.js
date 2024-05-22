@@ -2,11 +2,11 @@ import {clickElements} from "../../interact/interact";
 import {capitalizeFirst, formatLineBreaks} from "../../../shared/formatter/formatText";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
 import ExtractorSourcesPhindSearch from "../sources/ExtractorSourcesPhindSearch";
-import {extractPageCommon} from "../extractPage";
+import {extractPageContent as extractor} from "../extractPageContent";
 
-export async function extractPage (format, metadata) {
+export async function extractPageContent (format, metadata) {
   safeExecute(clickElements('.fe-chevron-down'));
-  const result = await extractPageCommon(format, metadata, processMessage);
+  const result = await extractor(format, metadata, processMessage);
   safeExecute(clickElements('.fe-chevron-up'));
   return result;
 }
