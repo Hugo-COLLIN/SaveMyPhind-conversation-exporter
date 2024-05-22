@@ -1,11 +1,11 @@
 import ExtractorSourcesPhindChat from "../sources/ExtractorSourcesPhindChat";
 import {extractPageCommon} from "../extractPage";
 
-export async function extractPage (format, metadata) {
-  return await extractPageCommon(format, metadata, processMessage);
-}
+// export async function extractPage (format, metadata) {
+//   return await extractPageCommon(format, metadata, processMessage);
+// }
 
-async function processMessage(content, format) {
+export async function processMessage(content, format) {
   const allDivs = content.querySelectorAll('.col > div > div > div, textarea');
   const msgContent = Array.from(allDivs).filter(elt => (elt.children.length > 0 && elt.children.item(0).tagName !== "A") || elt.tagName === "TEXTAREA");
   const searchResults = content.querySelectorAll('.col > div > div > div:nth-last-of-type(1) > div > a');

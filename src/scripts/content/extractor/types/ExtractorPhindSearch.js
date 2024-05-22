@@ -11,7 +11,7 @@ export async function extractPage (format, metadata) {
   return result;
 }
 
-async function processMessage(content, format) {
+export async function processMessage(content, format) {
   const selectUserQuestion = content.querySelector('span, textarea') ?? "";
   const selectAiModel = content.querySelector('[name^="answer-"] h6');
   const selectAiAnswer = selectAiModel !== null ? selectAiModel.parentNode : "";

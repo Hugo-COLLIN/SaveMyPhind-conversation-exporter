@@ -15,13 +15,7 @@ import converter from "../../shared/formatter/formatMarkdown";
  */
 export async function launchScrapping(domain) {
   logWelcome();
-  const {extractPage, metadata, rules} = await defineExtractor(domain);
-  applyExtractorRules(rules);
-  const extracted = {
-    title: metadata.pageTitle,
-    fileName: formatFilename(metadata.pageTitle, metadata.domainName),
-    markdownContent: await safeExecute(extractPage(converter[`formatMarkdown`], metadata), EXTRACTOR_FALLBACK_ACTION()),
-  };
+  const extracted = await defineExtractor(domain);
 
   if (!extracted || extracted.markdownContent === null) {
     console.info("No content to export!");

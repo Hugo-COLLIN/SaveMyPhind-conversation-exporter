@@ -1,11 +1,12 @@
 import ExtractorSourcesPerplexity from "../sources/ExtractorSourcesPerplexity";
 import {extractPageCommon} from "../extractPage";
 
-export async function extractPage (format, metadata) {
-  return await extractPageCommon(format, metadata, processMessage)
-}
+// export async function extractPage (format, metadata) {
+//   console.log("extractPage Perplexity")
+//   return await extractPageCommon(format, metadata, processMessage)
+// }
 
-async function processMessage(content, format) {
+export async function processMessage(content, format) {
   if (!content.hasChildNodes()) return "";
   const question = content.querySelector('.break-words');
   if (!question) return "";

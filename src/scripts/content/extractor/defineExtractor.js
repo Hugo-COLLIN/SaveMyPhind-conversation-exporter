@@ -1,5 +1,10 @@
 import {extractMetadata} from "./extractMetadata";
-import {generateRules} from "./rules/applyRules";
+import {applyExtractorRules, generateRules} from "./rules/applyRules";
+import {extractPageCommon} from "./extractPage";
+import {safeExecute} from "../../shared/utils/jsShorteners";
+import converter from "../../shared/formatter/formatMarkdown";
+import {EXTRACTOR_FALLBACK_ACTION} from "../scraper/fallbackActions";
+import {formatFilename} from "../../shared/formatter/formatText";
 
 export async function defineExtractor(domain) {
   let json, module, metadata;
@@ -22,10 +27,21 @@ export async function defineExtractor(domain) {
       break;
     default:
       module = await import(`./types/ExtractorArbitraryPage`);
-      metadata = extractMetadata(require("./domains/ArbitraryPage.json"));
+      json = require("./domains/ArbitraryPage.json");
   }
   metadata = metadata ?? extractMetadata(json);
   const rules = (json?.turndown && generateRules(json?.turndown)) ?? module.turndown;
+
+  applyExtractorRules(rules);
+
+  return {
+    title: metadata.pageTitle,
+    fileName: formatFilename(metadata.pageTitle, metadata.domainName),
+    markdownContent: await safeExecute(module.extractPage
+      ? module.extractPage(converter[`formatMarkdown`], metadata)
+      : extractPageCommon(converter[`formatMarkdown`], metadata, module.processMessage)
+      , EXTRACTOR_FALLBACK_ACTION()),
+  };
 
   // const launch =
 
@@ -33,6 +49,6 @@ export async function defineExtractor(domain) {
   //   ? async () => await extractPageCommon()
   //   : async () => await moduleDefault.extractPage(metadata.format, metadata);
   // const launch = async () => await moduleDefault.extractPage(metadata.format, metadata);
-  return {extractPage: module.extractPage, metadata, rules};
+  // return {extractPage, metadata, rules};
   // let extractor = await import(`./ExtractorTab${domain.name}`);
 }
