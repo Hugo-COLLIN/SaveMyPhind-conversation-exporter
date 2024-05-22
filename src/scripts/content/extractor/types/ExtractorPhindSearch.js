@@ -1,10 +1,9 @@
 import {clickElements} from "../../interact/interact";
 import {capitalizeFirst, formatLineBreaks} from "../../../shared/formatter/formatText";
-import {safeExecute} from "../../../shared/utils/jsShorteners";
-import ExtractorSourcesPhindSearch from "../sources/ExtractorSourcesPhindSearch";
+import {safeExecute, sleep} from "../../../shared/utils/jsShorteners";
 import {extractPageContent as extractor} from "../extractPageContent";
 
-export async function extractPageContent (format, metadata) {
+export async function extractPageContent(format, metadata) {
   safeExecute(clickElements('.fe-chevron-down'));
   const result = await extractor(format, metadata, processMessage);
   safeExecute(clickElements('.fe-chevron-up'));
@@ -29,8 +28,24 @@ export async function processMessage(content, format) {
   const aiPart = `\n` + aiIndicator + aiAnswer.substring(index + 2);
 
   const paginationPart = selectPagination.length > 0
-    ? `\n\n---\n**Sources:**` + await safeExecute(await new ExtractorSourcesPhindSearch().extractSources(selectPagination, format)) + "\n\n"
+    ? `\n\n---\n**Sources:**` + await safeExecute(extractSources(selectPagination, format)) + "\n\n"
     : "";
 
   return userPart + aiPart + paginationPart;
+}
+
+async function extractSources(content, format) {
+  let res = "";
+  let i = 1;
+  for (const elt of content) {
+    elt.click();
+    await sleep(1);
+    const selectSources = document.querySelectorAll('a.mb-0');
+    selectSources.forEach((sourceElt) => {
+      res += "\n- " + format(sourceElt.outerHTML).replace("[", `[(${i}) `);
+      i++;
+    });
+  }
+  content[0] && content[0].click();
+  return res;
 }
