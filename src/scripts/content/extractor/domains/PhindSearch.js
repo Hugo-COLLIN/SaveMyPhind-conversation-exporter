@@ -39,7 +39,7 @@ async function extractSources(content, format) {
   let i = 1;
   for (const elt of content) {
     elt.click();
-    await sleep(1);
+    await sleep(0); // Needed to wait for the content to load (even if it's 0!)
     const selectSources = document.querySelectorAll('a.mb-0');
     selectSources.forEach((sourceElt) => {
       res += "\n- " + format(sourceElt.outerHTML).replace("[", `[(${i}) `);

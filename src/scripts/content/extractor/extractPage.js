@@ -10,23 +10,23 @@ export async function extractPage(domain) {
   let json, module, metadata;
   switch (domain.name) {
     case "PhindSearch":
-      module = await import(`./types/ExtractorPhindSearch`);
+      module = require("./domains/PhindSearch");
       json = require("./domains/PhindSearch.json");
       break;
     case "PhindChat":
-      module = await import(`./types/ExtractorPhindChat`);
+      module = require("./domains/PhindChat");
       json = require("./domains/PhindChat.json");
       break;
     case "Perplexity":
-      module = await import(`./types/ExtractorPerplexity`);
+      module = require("./domains/Perplexity");
       json = require("./domains/Perplexity.json");
       break;
     case "MaxAIGoogle":
-      module = await import(`./types/ExtractorMaxAIGoogle`);
-      json = require("./domains/MaxAI-Google.json");
+      module = require("./domains/MaxAIGoogle");
+      json = require("./domains/MaxAIGoogle.json");
       break;
     default:
-      module = await import(`./types/ExtractorArbitraryPage`);
+      module = require("./domains/ArbitraryPage");
       json = require("./domains/ArbitraryPage.json");
   }
   metadata = metadata ?? extractPageMetadata(json);
@@ -37,7 +37,7 @@ export async function extractPage(domain) {
   return {
     title: metadata.pageTitle,
     fileName: formatFilename(metadata.pageTitle, metadata.domainName),
-    markdownContent: await safeExecute(module.extractPage
+    markdownContent: await safeExecute(module.extractPageContent
       ? module.extractPageContent(converter[`formatMarkdown`], metadata)
       : extractPageContent(converter[`formatMarkdown`], metadata, module.processMessage)
       , EXTRACTOR_FALLBACK_ACTION()),
