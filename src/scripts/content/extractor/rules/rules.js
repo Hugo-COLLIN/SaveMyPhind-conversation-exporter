@@ -24,17 +24,17 @@ export function replacement_PreserveLineBreaksInPre_Perplexity(content, node) {
 }
 
 export function filter_formatCitationsInAnswer_Perplexity(node) {
-    return node.getAttribute('class') && node.getAttribute('class').split(" ").includes('citation');
+  return node.getAttribute('class') && node.getAttribute('class').split(" ").includes('citation');
 }
 
 export function replacement_formatCitationsInAnswer_Perplexity(content, node) {
-    const citationText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '').replace(/\n/g, '');
-    if (node.nodeName === 'A') {
-      const href = node.getAttribute('href');
-      return ' [' + citationText + '](' + href + ')';
-    } else {
-      return ' [' + citationText + ']';
-    }
+  const citationText = node.querySelector("[data-number]")?.getAttribute('data-number');
+  if (node.nodeName === 'A') {
+    const href = node.getAttribute('href');
+    return ' [' + citationText + '](' + href + ')';
+  } else {
+    return ' [' + citationText + ']';
+  }
 }
 
 /*
