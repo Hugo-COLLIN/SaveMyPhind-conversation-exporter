@@ -1,5 +1,5 @@
 # Update notes
-# 2.6.1
+# 2.6.2
 🚀 Small changes, significant impact!
 Improving the exported content, polishing your files and getting ready for the next big thing!
 
