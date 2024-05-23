@@ -1,10 +1,13 @@
 import {logWelcome} from "../../shared/utils/consoleMessages";
 import appInfos from "../../../infos.json";
-import {defineExtractor} from "../extractor/defineExtractor";
+import {extractPage} from "../extractor/extractPage";
 import {defineExportMethod} from "../export/defineExportMethod";
 import {updateClickIconCount} from "../../background/icon/clickCount/clickIconCountContext";
 import {safeExecute} from "../../shared/utils/jsShorteners";
-import {EXPORTER_FALLBACK_ACTION, EXTRACTOR_FALLBACK_ACTION} from "./fallbackActions";
+import {EXPORTER_FALLBACK_ACTION, EXTRACTOR_FALLBACK_ACTION} from "../utils/fallbackActions";
+import {formatFilename} from "../../shared/formatter/formatText";
+import {applyExtractorRules} from "../extractor/rules/applyRules";
+import converter from "../../shared/formatter/formatMarkdown";
 
 /**
  * @description - Launch the export process
@@ -12,8 +15,7 @@ import {EXPORTER_FALLBACK_ACTION, EXTRACTOR_FALLBACK_ACTION} from "./fallbackAct
  */
 export async function launchScrapping(domain) {
   logWelcome();
-  const extractor = await defineExtractor(domain);
-  const extracted = await safeExecute(extractor.launch(), EXTRACTOR_FALLBACK_ACTION());
+  const extracted = await extractPage(domain);
 
   if (!extracted || extracted.markdownContent === null) {
     console.info("No content to export!");

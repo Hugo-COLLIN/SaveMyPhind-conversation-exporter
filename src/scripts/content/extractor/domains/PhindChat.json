@@ -1,0 +1,27 @@
+{
+  "pageTitle": {
+    "selector": "[tabindex=\"0\"]",
+    "treatment": {
+      "action": "replace",
+      "params": ["\\u00A0", " "]
+    }
+  },
+  "contentSelector": "[name^=\"answer-\"]",
+  "domainName": "Phind Chat",
+  "turndown": {
+    "rules": {
+      "preserveLineBreaksInPre": {
+        "filter": "filter_preserveLineBreaksInPre_Phind",
+        "replacement": "replacement_preserveLineBreaksInPre_Phind"
+      },
+      "formatLinks": {
+        "filter": "filter_formatLinks_Phind",
+        "replacement": "replacement_formatLinks_Phind"
+      },
+      "backslashAngleBracketsNotInBackticks": {
+        "filter": "filter_backslashAngleBracketsNotInBackticks_Phind",
+        "replacement": "replacement_backslashAngleBracketsNotInBackticks_Phind"
+      }
+    }
+  }
+}
