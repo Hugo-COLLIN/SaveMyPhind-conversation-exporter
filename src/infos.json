@@ -3,7 +3,7 @@
   "APP_SNAME": "SaveMyChatbot",
   "APP_LNAME": "Save my Chatbot - AI Conversation Exporter",
   "APP_ID": "savemyphind@hugocollin.com",
-  "APP_VERSION": "2.5.4",
+  "APP_VERSION": "2.6.2",
   "APP_MODE": "dev",
   "URLS": {
     "REPOSITORY": "https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter",

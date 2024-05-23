@@ -28,24 +28,24 @@ export async function processMessage(content, format) {
   const aiPart = `\n` + aiIndicator + aiAnswer.substring(index + 2);
 
   const paginationPart = selectPagination.length > 0
-    ? `\n\n---\n**Sources:**` + await safeExecute(extractSources(selectPagination, format)) + "\n\n"
+    ? `\n\n---\n**Sources:**` + await safeExecute(extractSources(content, selectPagination, format)) + "\n\n"
     : "";
 
   return userPart + aiPart + paginationPart;
 }
 
-async function extractSources(content, format) {
+async function extractSources(content, pagination, format) {
   let res = "";
   let i = 1;
-  for (const elt of content) {
+  for (const elt of pagination) {
     elt.click();
     await sleep(0); // Needed to wait for the content to load (even if it's 0!)
-    const selectSources = document.querySelectorAll('a.mb-0');
+    const selectSources = content.querySelectorAll('a.mb-0');
     selectSources.forEach((sourceElt) => {
       res += "\n- " + format(sourceElt.outerHTML).replace("[", `[(${i}) `);
       i++;
     });
   }
-  content[0] && content[0].click();
+  pagination[0] && pagination[0].click();
   return res;
 }

@@ -1,4 +1,11 @@
 # Update notes
+# 2.6.2
+🚀 Small changes, significant impact!
+Improving the exported content, polishing your files and getting ready for the next big thing!
+
+🧩 Changes under the hood (again)
+Huge code update to make the extraction process more robust and easier to maintain.
+
 # 2.5.4
 🎉 Reached 1000 users!
 Thank you all for using this extension! I'm glad to see that it's useful for you. 
