@@ -1,7 +1,7 @@
 # Update notes
 # 2.6.1
 🚀 Small changes, significant impact!
-Fixing some export bugs, polishing your file and getting ready for the next big thing!
+Improving the exported content, polishing your files and getting ready for the next big thing!
 
 🧩 Changes under the hood (again)
 Huge code update to make the extraction process more robust and easier to maintain.
