@@ -1,0 +1,25 @@
+{
+  "$schema": "https://github.com/PlasmoHQ/bpp/raw/main/keys.schema.json",
+  "chrome": {
+    "clientId": "your_chrome_client_id",
+    "clientSecret": "your_chrome_client_secret",
+    "refreshToken": "your_chrome_refresh_token",
+    "extId": "agklnagmfeooogcppjccdnoallkhgkod",
+    "zip": "releases/save-my-phind_{version}_chrome.zip"
+  },
+  "firefox": {
+    "apiKey": "your_firefox_api_key",
+    "apiSecret": "your_firefox_api_secret",
+    "extId": "savemyphind@hugocollin.com",
+    "file": "releases/save-my-phind_{version}_firefox.zip",
+    "sourceZip": "releases/save-my-phind_{version}_firefox_source.zip"
+  },
+  "edge": {
+    "clientId": "your_edge_client_id",
+    "clientSecret": "your_edge_client_secret",
+    "accessTokenUrl": "https://login.microsoftonline.com/[something]/oauth2/v2.0/token",
+    "productId": "734932ef-89d9-4e17-8017-7c56692aaa8a",
+    "zip": "releases/save-my-phind_{version}_chrome.zip",
+    "notes": "1. Go to Phind.com or Perplexity.ai, then start a new search.\n2. Click on the extension icon to download a formatted markdown file containing the conversation."
+  }
+}
