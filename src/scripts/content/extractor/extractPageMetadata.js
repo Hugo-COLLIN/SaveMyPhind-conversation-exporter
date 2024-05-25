@@ -24,7 +24,7 @@ export function getPageTitle(documentSelector = null, titleTreatment = null) {
   const selectTitle = document.querySelector(documentSelector);
 
   if (selectTitle === null || selectTitle.innerHTML === "")
-    return "";
+    return document.title;
   if (!titleTreatment || !titleTreatment.params)
     return selectTitle.innerText;
 
@@ -33,25 +33,5 @@ export function getPageTitle(documentSelector = null, titleTreatment = null) {
     if (param.startsWith('/') && param.endsWith('/'))
       params[params.indexOf(param)] = new RegExp(param.slice(1, -1), 'g');
 
-  console.log(params)
-
   return selectTitle.innerText[titleTreatment.action](...params);
-
-
-
-  // let pattern = titleTreatment.params[0];
-  // // Vérifier si le pattern est une expression régulière
-  // if (pattern.startsWith('/') && pattern.endsWith('/')) {
-  //   pattern = new RegExp(pattern.slice(1, -1), 'g'); // Enlever les barres obliques et créer une RegExp
-  // }
-  // return selectTitle.innerText.replace(pattern, titleTreatment.params[1]);
-    // }
-    // return selectTitle.innerText;
-  // }
-
-  // return selectTitle !== null && selectTitle.innerHTML !== ""
-  //   ? titleTreatment
-  //     ? selectTitle.innerText[titleTreatment.action](...titleTreatment.params)
-  //     : selectTitle.innerText
-  //   : "";
 }
