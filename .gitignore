@@ -59,4 +59,5 @@ config.json
 package-lock.json
 
 # Auto-publish
+publish.json
 key.json

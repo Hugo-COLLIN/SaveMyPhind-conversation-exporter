@@ -1,0 +1,24 @@
+{
+  "$schema": "https://github.com/PlasmoHQ/bpp/raw/main/keys.schema.json",
+  "chrome": {
+    "zip": "releases/save-my-phind_{version}_chrome.zip",
+    "clientId": "your_chrome_client_id",
+    "clientSecret": "your_chrome_client_secret",
+    "refreshToken": "your_chrome_refresh_token",
+    "extId": "agklnagmfeooogcppjccdnoallkhgkod"
+  },
+  "firefox": {
+    "file": "releases/save-my-phind_{version}_firefox.zip",
+    "extId": "aaaaaaa-aaaa-bbbb-cccc-dddddddddddd",
+    "apiKey": "your_firefox_api_key",
+    "apiSecret": "your_firefox_api_secret"
+  },
+  "edge": {
+    "zip": "releases/save-my-phind_{version}_chrome.zip",
+    "clientId": "your_edge_client_id",
+    "clientSecret": "your_edge_client_secret",
+    "productId": "your_edge_product_id",
+    "accessTokenUrl": "your_edge_access_token_url",
+    "notes": "Release notes for Edge add-on reviewers"
+  }
+}
