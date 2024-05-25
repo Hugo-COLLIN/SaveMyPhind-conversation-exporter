@@ -1,94 +1,97 @@
 import * as metadataFunctions from '../../../../src/scripts/content/extractor/extractPageMetadata';
 
-
 describe('extractPageMetadata', () => {
-  beforeAll(() => {
-    // Simulate window.location
-    delete global.window.location;
-    global.window = Object.create(window);
-    global.window.location = {
-      hostname: 'example.com',
-    };
+  describe('extractPageMetadata', () => {
+    beforeAll(() => {
+      // Simulate window.location
+      delete global.window.location;
+      global.window = Object.create(window);
+      global.window.location = {
+        hostname: 'example.com',
+      };
+      document.title = 'Default Title';
 
-    document.title = 'Default Title';
+      // Mock getPageTitle
+      // TODO: Mock getPageTitle instead of depending on getPageTitle
+      global.document.querySelector = jest.fn().mockImplementation(selector => {
+        return { innerHTML: 'Expected Page Title', innerText: 'Expected Page Title' };
+      });
 
-    // Mock getPageTitle
-    // TODO: Mock getPageTitle instead of depending on getPageTitle
-
-    console.log(metadataFunctions.getPageTitle(document.title));
-
-    jest.spyOn(metadataFunctions, 'getPageTitle').mockImplementation(() => {
-      return 'Expected Page Title';
+      // metadataFunctions.getPageTitle = jest.fn().mockImplementation(() => 'Expected Page Title');
+      // jest.spyOn(metadataFunctions, 'getPageTitle').mockImplementation(() => 'Expected Page Title');
+      // jest.spyOn(metadataFunctions, 'getPageTitle').mockImplementation(() => {
+      //   return 'Expected Page Title';
+      // });
+      // jest.spyOn(metadataFunctions, 'getPageTitle').mockReturnValue('Expected Page Title');
     });
-    // jest.spyOn(metadataFunctions, 'getPageTitle').mockReturnValue('Expected Page Title');
-  });
 
-  afterAll(() => {
-    jest.restoreAllMocks();
-  });
-
-  it('should extract metadata correctly using default values', () => {
-    const metadataBase = {
-      domainName: 'Phind Chat',
-      pageTitle: {
-        selector: '[tabindex="0"]',
-        treatment: {
-          action: 'replace',
-          params: ['/\\u00A0/', ' ']
-        }
-      },
-      contentSelector: '[name^="answer-"]'
-    };
-    const result = metadataFunctions.extractPageMetadata(metadataBase);
-    expect(result).toEqual({
-      domainName: 'Phind Chat',
-      pageTitle: 'Expected Page Title',
-      contentSelector: '[name^="answer-"]'
+    afterAll(() => {
+      jest.restoreAllMocks();
     });
-  });
 
-  it('should use window.location.hostname if domainName is not provided', () => {
-    const metadataBase = {
-      pageTitle: {
-        selector: '[tabindex="0"]',
-        treatment: {
-          action: 'replace',
-          params: ['/\\u00A0/', ' ']
-        }
-      },
-      contentSelector: '[name^="answer-"]'
-    };
-    const result = metadataFunctions.extractPageMetadata(metadataBase);
-    expect(result.domainName).toEqual('example.com');
-  });
-});
+    it('should extract metadata correctly using default values', () => {
+      const metadataBase = {
+        domainName: 'Phind Chat',
+        pageTitle: {
+          selector: '[tabindex="0"]',
+          treatment: {
+            action: 'replace',
+            params: ['/\\u00A0/', ' ']
+          }
+        },
+        contentSelector: '[name^="answer-"]'
+      };
+      const result = metadataFunctions.extractPageMetadata(metadataBase);
+      expect(result).toEqual({
+        domainName: 'Phind Chat',
+        pageTitle: 'Expected Page Title',
+        contentSelector: '[name^="answer-"]'
+      });
+    });
 
-describe('getPageTitle', () => {
-  beforeAll(() => {
-    // Simuler document.querySelector et document.title
-    document.title = 'Default Title';
-    global.document.querySelector = jest.fn().mockImplementation(selector => {
-      if (selector === '[tabindex="0"]') return { innerHTML: 'Page Title&nbsp;', innerText: 'Page Title ' };
-      return null;
+    it('should use window.location.hostname if domainName is not provided', () => {
+      const metadataBase = {
+        pageTitle: {
+          selector: '[tabindex="0"]',
+          treatment: {
+            action: 'replace',
+            params: ['/\\u00A0/', ' ']
+          }
+        },
+        contentSelector: '[name^="answer-"]'
+      };
+      const result = metadataFunctions.extractPageMetadata(metadataBase);
+      expect(result.domainName).toEqual('example.com');
     });
   });
 
-  it('should return the document title if selector is null', () => {
-    const title = metadataFunctions.getPageTitle();
-    expect(title).toEqual('Default Title');
-  });
-
-  it('should return the document title if the selector matches the document title', () => {
-    const title = metadataFunctions.getPageTitle(document.title);
-    expect(title).toEqual('Default Title');
-  });
-
-  it('should return the modified title according to the treatment', () => {
-    const title = metadataFunctions.getPageTitle('[tabindex="0"]', {
-      action: 'replace',
-      params: ['/\\u00A0/', ' ']
+  describe('getPageTitle', () => {
+    beforeAll(() => {
+      // Simuler document.querySelector et document.title
+      document.title = 'Default Title';
+      global.document.querySelector = jest.fn().mockImplementation(selector => {
+        if (selector === '[tabindex="0"]') return { innerHTML: 'Page Title&nbsp;', innerText: 'Page Title ' };
+        return null;
+      });
     });
-    expect(title).toEqual('Page Title ');
+
+    it('should return the document title if selector is null', () => {
+      const title = metadataFunctions.getPageTitle();
+      expect(title).toEqual('Default Title');
+    });
+
+    it('should return the document title if the selector matches the document title', () => {
+      const title = metadataFunctions.getPageTitle(document.title);
+      expect(title).toEqual('Default Title');
+    });
+
+    it('should return the modified title according to the treatment', () => {
+      const title = metadataFunctions.getPageTitle('[tabindex="0"]', {
+        action: 'replace',
+        params: ['/\\u00A0/', ' ']
+      });
+      expect(title).toEqual('Page Title ');
+    });
   });
 });
 
