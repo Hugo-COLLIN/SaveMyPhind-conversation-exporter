@@ -2,10 +2,10 @@
 // https://www.perplexity.ai/search/lorem-ipsum-dolor-g7PtZOxcTjuhYIMVTTYe.A
 // https://www.perplexity.ai/search/lorem-ipsum-dolor-2mBxUUVERqaFf8Q.pyYeYQ
 
-import ExtractorPerplexity from './Perplexity';
-import { formatLineBreaks } from "../../../shared/formatter/formatText";
-import { formatLink, initTurndown, setFileHeader, turndownConverter } from "../../../shared/formatter/formatMarkdown";
-import { sleep } from "../../../shared/utils/jsShorteners";
+import ExtractorPerplexity from '../../../../../src/scripts/content/extractor/domains/Perplexity';
+import { formatLineBreaks } from "../../../../../src/scripts/shared/formatter/formatText";
+import { formatLink, initTurndown, setFileHeader, turndownConverter } from "../../../../../src/scripts/shared/formatter/formatMarkdown";
+import { sleep } from "../../../../../src/scripts/shared/utils/jsShorteners";
 
 describe('ExtractorPerplexity', () => {
   let extractorPerplexity, turndown;
