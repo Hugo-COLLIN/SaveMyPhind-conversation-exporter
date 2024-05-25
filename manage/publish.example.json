@@ -9,7 +9,7 @@
   },
   "firefox": {
     "file": "releases/save-my-phind_{version}_firefox.zip",
-    "extId": "aaaaaaa-aaaa-bbbb-cccc-dddddddddddd",
+    "extId": "savemyphind@hugocollin.com",
     "apiKey": "your_firefox_api_key",
     "apiSecret": "your_firefox_api_secret"
   },
