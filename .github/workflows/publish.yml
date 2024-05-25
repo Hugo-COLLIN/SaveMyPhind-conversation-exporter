@@ -1,0 +1,29 @@
+name: Publish Browser Extension
+
+on:
+  push:
+    branches:
+      - publish
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build extension
+        run: npm run prod
+
+      - name: Browser Platform Publish
+        uses: PlasmoHQ/bpp@v3.6.1
+        with:
+          keys: ${{ secrets.BPP_KEYS }}
