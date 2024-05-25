@@ -1,24 +1,24 @@
 {
   "$schema": "https://github.com/PlasmoHQ/bpp/raw/main/keys.schema.json",
   "chrome": {
-    "zip": "releases/save-my-phind_{version}_chrome.zip",
     "clientId": "your_chrome_client_id",
     "clientSecret": "your_chrome_client_secret",
     "refreshToken": "your_chrome_refresh_token",
-    "extId": "agklnagmfeooogcppjccdnoallkhgkod"
+    "extId": "agklnagmfeooogcppjccdnoallkhgkod",
+    "zip": "releases/save-my-phind_{version}_chrome.zip"
   },
   "firefox": {
-    "file": "releases/save-my-phind_{version}_firefox.zip",
-    "extId": "savemyphind@hugocollin.com",
     "apiKey": "your_firefox_api_key",
-    "apiSecret": "your_firefox_api_secret"
+    "apiSecret": "your_firefox_api_secret",
+    "extId": "savemyphind@hugocollin.com",
+    "file": "releases/save-my-phind_{version}_firefox.zip"
   },
   "edge": {
-    "zip": "releases/save-my-phind_{version}_chrome.zip",
     "clientId": "your_edge_client_id",
     "clientSecret": "your_edge_client_secret",
+    "accessTokenUrl": "https://login.microsoftonline.com/[something]/oauth2/v2.0/token",
     "productId": "your_edge_product_id",
-    "accessTokenUrl": "your_edge_access_token_url",
-    "notes": "Release notes for Edge add-on reviewers"
+    "zip": "releases/save-my-phind_{version}_chrome.zip",
+    "notes": "1. Go to Phind.com or Perplexity.ai, then start a new search.\n2. Click on the extension icon to download a formatted markdown file containing the conversation."
   }
 }
