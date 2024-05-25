@@ -55,6 +55,8 @@ out
 
 
 dist
-src/config.json
-
+config.json
 package-lock.json
+
+# Auto-publish
+key.json
