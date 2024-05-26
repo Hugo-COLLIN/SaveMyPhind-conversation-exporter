@@ -54,7 +54,7 @@ jobs:
           configurationJson: |
             {
               "template": "#{{CHANGELOG}}",
-              "pr_template": "- #{{TITLE}} by #{{AUTHOR}} in ##{{NUMBER}}",
+              "pr_template": "- #{{TITLE}} by @#{{AUTHOR}} in ##{{NUMBER}}",
               "categories": [
                 {
                   "title": "## What's Changed"
