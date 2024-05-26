@@ -56,6 +56,23 @@ jobs:
           draft: true
           prerelease: false
           discussion_category_name: "Releases"
-          files: |
-            releases/save-my-phind_${{ steps.package_version.outputs.version }}_chrome.zip
-            releases/save-my-phind_${{ steps.package_version.outputs.version }}_firefox.zip
+
+      - name: Upload Release Asset Chrome
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./releases/save-my-phind_${{ steps.package_version.outputs.version }}_chrome.zip
+          asset_name: save-my-phind_${{ steps.package_version.outputs.version }}_chrome.zip
+          asset_content_type: application/zip
+
+      - name: Upload Release Asset Firefox
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./releases/save-my-phind_${{ steps.package_version.outputs.version }}_firefox.zip
+          asset_name: save-my-phind_${{ steps.package_version.outputs.version }}_firefox.zip
+          asset_content_type: application/zip
