@@ -53,7 +53,7 @@ jobs:
         with:
           configurationJson: |
             {
-              "template": "#{{CHANGELOG}}",
+              "template": "## What's Changed\n{{#each mergedPullRequests}}\n* {{this.title}} by @{{this.user.login}} in {{this.html_url}}\n{{/each}}\n\n**Full Changelog**: {{compareUrl}}"
               "categories": [
                 {
                   "title": "## What's Changed"
