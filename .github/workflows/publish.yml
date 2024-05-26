@@ -50,9 +50,15 @@ jobs:
         uses: mikepenz/release-changelog-builder-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TEMPLATE_HEADER: '## What''s Changed\n'
-          TEMPLATE_ENTRY: '* {{TITLE}} by @{{AUTHOR}} in {{URL}}\n'
-          TEMPLATE_EMPTY_CHANGESET: '**Full Changelog**: {{COMPARE_URL}}\n'
+        with:
+          configuration: |
+            template: |
+              ## What's Changed
+              {{#each mergedPullRequests}}
+              * {{capitalizeFirstLetter this.title}} by @{{this.user.login}} in {{this.html_url}}
+              {{/each}}
+            
+              **Full Changelog**: {{compareUrl}}
 
       - name: Create Release
         id: create_release
