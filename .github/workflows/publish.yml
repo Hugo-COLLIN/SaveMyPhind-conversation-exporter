@@ -51,7 +51,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          configuration: ${{ github.workspace }}/changelog-config.json
+          configurationJson: |
+            {
+              "template": "#{{CHANGELOG}}",
+              "pr_template": "- #{{TITLE}} by #{{AUTHOR}} in ##{{NUMBER}}",
+              "categories": [
+                {
+                  "title": "## What's Changed"
+                }
+              ]
+            }
 
       - name: Create Release
         id: create_release
