@@ -51,23 +51,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          configurationJson: |
-            {
-              "template": "# What's Changed\n{{#each mergedPullRequests}}\n* {{this.title}} by @{{this.author}} in {{this.url}}\n{{/each}}\n\n**Full Changelog**: {{compareUrl}}",
-              "categories": [
-                {
-                  "title": "## What's Changed",
-                  "labels": ["fix", "feat", "refactor", "chore"]
-                }
-              ],
-              "label_extractor": [
-                {
-                  "pattern": "^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test){1}(\\([\\w\\-\\.]+\\))?(!)?: ([\\w ])+([\\s\\S]*)",
-                  "target": "$1"
-                }
-              ]
-            }
-
+          configuration: ${{ github.workspace }}/changelog-config.json
 
       - name: Create Release
         id: create_release
