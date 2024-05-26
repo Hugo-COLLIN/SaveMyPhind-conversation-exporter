@@ -18,13 +18,21 @@ export function extractPageMetadata(metadataBase) {
  * @returns {*|string|string|string}
  */
 export function getPageTitle(documentSelector = null, titleTreatment = null) {
-  if (!documentSelector || documentSelector === document.title)
+  const selectTitle = documentSelector
+    ? document.querySelector(documentSelector)
+    : null; // cases: when the selector is the document title or just targets nothing
+
+  if (!selectTitle || !selectTitle.innerHTML)
     return document.title;
 
-  const selectTitle = document.querySelector(documentSelector);
-  return selectTitle !== null && selectTitle.innerHTML !== ""
-    ? titleTreatment
-      ? selectTitle.innerText[titleTreatment.action](...titleTreatment.params)
-      : selectTitle.innerText
-    : "";
+  if (!titleTreatment || !titleTreatment.params)
+    return selectTitle.innerText;
+
+  const params = titleTreatment.params.map(param =>
+    param.startsWith('/') && param.endsWith('/')
+      ? new RegExp(param.slice(1, -1), 'g')
+      : param
+  );
+
+  return selectTitle.innerText[titleTreatment.action](...params);
 }
