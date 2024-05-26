@@ -1,4 +1,11 @@
 # Update notes
+# 2.6.3
+🙃 Nice try...
+Phind Chat filename bug solved. Some tests are in place to avoid this kind of issue in the future.
+
+👽 Pushing the limits
+Save my Chatbot is now published automatically on the Chrome, Firefox and Edge stores!
+
 # 2.6.2
 🚀 Small changes, significant impact!
 Improving the exported content, polishing your files and getting ready for the next big thing!
