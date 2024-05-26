@@ -35,15 +35,6 @@ jobs:
         id: package_version
         run: echo "::set-output name=version::$(node -p "require('./package.json').version")"
 
-      - name: Get last tag
-        id: get_last_tag
-        run: echo "::set-output name=tag::$(git describe --tags --abbrev=0)"
-
-      - name: Generate release notes
-        id: generate_release_notes
-        run: |
-          echo "::set-output name=notes::$(git log ${{ steps.get_last_tag.outputs.tag }}..HEAD --pretty=format:'* %s (%h)' --reverse)"
-
       - name: Create Tag
         run: git tag v${{ steps.package_version.outputs.version }}
         env:
@@ -51,6 +42,12 @@ jobs:
 
       - name: Push Tag
         run: git push origin v${{ steps.package_version.outputs.version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -62,7 +59,7 @@ jobs:
         with:
           tag_name: v${{ steps.package_version.outputs.version }}
           release_name: v${{ steps.package_version.outputs.version }}
-          body: ${{ steps.generate_release_notes.outputs.notes }}
+          body: ${{ steps.github_release.outputs.changelog }}
           draft: true
           prerelease: false
           discussion_category_name: "Releases"
