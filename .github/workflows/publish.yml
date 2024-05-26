@@ -55,7 +55,7 @@ jobs:
           body: "Automatically generated release notes"
           draft: true
           prerelease: false
-          discussion_category_name: "Releases"
+          discussion_category_name: "Announcements"
 
       - name: Upload Release Asset Chrome
         uses: actions/upload-release-asset@v1
