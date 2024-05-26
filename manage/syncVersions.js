@@ -1,28 +1,18 @@
 const fs = require('fs');
 
 function syncVersion() {
-  // Read manifest.json
-  const manifest = JSON.parse(fs.readFileSync('./src/manifest.json', 'utf8'));
-
-  // Get the version value
-  const version = manifest.version;
-
-  // Read package.json
+  // Read manifest.json, package.json and infos.json
   const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
-
-  // Update the version value
-  packageJson.version = version;
-
-  // Write back to package.json
-  fs.writeFileSync('./package.json', JSON.stringify(packageJson, null, 2));
-
-  // Read infos.json
+  const manifest = JSON.parse(fs.readFileSync('./src/manifest.json', 'utf8'));
   const infosJson = JSON.parse(fs.readFileSync('./src/infos.json', 'utf8'));
 
-  // Update the version value
+  // Get and update the version value
+  const version = packageJson.version;
+  manifest.version = version;
   infosJson.APP_VERSION = version;
 
-  // Write back to package.json
+  // Write back to manifest.json and infos.json
+  fs.writeFileSync('./src/manifest.json', JSON.stringify(manifest, null, 2));
   fs.writeFileSync('./src/infos.json', JSON.stringify(infosJson, null, 2));
 }
 
