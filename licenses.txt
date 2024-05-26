@@ -27,7 +27,7 @@ js-yaml@4.1.0
 ├─ publisher: Vladimir Zapparov
 └─ email: dervus.grim@gmail.com
 
-save-my-phind@2.6.2
+save-my-phind@2.6.3
 └─ licenses: Custom: https://save.hugocollin.com/get
 
 showdown@2.1.0
