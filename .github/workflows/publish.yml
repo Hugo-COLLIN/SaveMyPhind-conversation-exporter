@@ -53,7 +53,7 @@ jobs:
         with:
           configurationJson: |
             {
-              "template": "#{{CHANGELOG}}",
+              "template": "#{{CHANGELOG}}\n\n**Full Changelog:** #{{RELEASE_DIFF}}",
               "pr_template": "- #{{TITLE}} by @#{{AUTHOR}} in ##{{NUMBER}}",
               "categories": [
                 {
