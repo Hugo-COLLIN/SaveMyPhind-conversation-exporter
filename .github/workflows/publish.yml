@@ -51,14 +51,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          configuration: |
-            template: |
-              ## What's Changed
-              {{#each mergedPullRequests}}
-              * {{capitalizeFirstLetter this.title}} by @{{this.user.login}} in {{this.html_url}}
-              {{/each}}
-            
-              **Full Changelog**: {{compareUrl}}
+          configurationJson: |
+            {
+              "template": "## What's Changed\n{{#each mergedPullRequests}}\n* {{this.title}} by @{{this.user.login}} in {{this.html_url}}\n{{/each}}\n\n**Full Changelog**: {{compareUrl}}"
+            }
+#          configuration: |
+#            template: |
+#              ## What's Changed
+#              {{#each mergedPullRequests}}
+#              * {{capitalizeFirstLetter this.title}} by @{{this.user.login}} in {{this.html_url}}
+#              {{/each}}
+#
+#              **Full Changelog**: {{compareUrl}}
 
       - name: Create Release
         id: create_release
