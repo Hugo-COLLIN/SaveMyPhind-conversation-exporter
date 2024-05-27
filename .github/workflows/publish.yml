@@ -26,10 +26,10 @@ jobs:
       - name: Prepare source code zip
         run: zip -r releases/save-my-phind_${{ github.run_number }}_firefox_source.zip src/
 
-#      - name: Browser Platform Publish
-#        uses: PlasmoHQ/bpp@v3.6.1
-#        with:
-#          keys: ${{ secrets.BPP_KEYS }}
+      - name: Browser Platform Publish
+        uses: PlasmoHQ/bpp@v3.6.1
+        with:
+          keys: ${{ secrets.BPP_KEYS }}
 
       - name: Get version from package.json
         id: package_version
@@ -68,12 +68,36 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ steps.package_version.outputs.version }}
+          tag_name: ⏩ v${{ steps.package_version.outputs.version }}
           release_name: v${{ steps.package_version.outputs.version }}
           body: ${{ steps.github_release.outputs.changelog }}
-          draft: true
+          draft: false
           prerelease: false
-          discussion_category_name: "Releases"
+          discussion_category_name: "Announcements"
+
+#      - name: Download CRX and XPI files
+#        run: |
+#          wget -O releases/save-my-phind_${{ steps.package_version.outputs.version }}_chrome.crx "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=90.0.4430.212&acceptformat=crx2,crx3&x=id%3Dagklnagmfeooogcppjccdnoallkhgkod%26uc"
+#
+#      - name: Upload Release Asset Chrome CRX
+#        uses: actions/upload-release-asset@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          asset_path: ./releases/save-my-phind_${{ steps.package_version.outputs.version }}_chrome.crx
+#          asset_name: save-my-phind_${{ steps.package_version.outputs.version }}_chrome.crx
+#          asset_content_type: application/x-chrome-extension
+#
+#      - name: Upload Release Asset Firefox XPI
+#        uses: actions/upload-release-asset@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          asset_path: ./releases/save-my-phind_${{ steps.package_version.outputs.version }}_firefox.xpi
+#          asset_name: save-my-phind_${{ steps.package_version.outputs.version }}_firefox.xpi
+#          asset_content_type: application/x-xpinstall
 
       - name: Upload Release Asset Chrome
         uses: actions/upload-release-asset@v1
