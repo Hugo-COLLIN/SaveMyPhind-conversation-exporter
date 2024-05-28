@@ -47,7 +47,17 @@ export async function processMessage(content, format) {
 
   } else { // If there are no search results
     msgContent.forEach((elt) => {
-      res += format(elt.children.item(0).innerHTML) + "\n";
+      console.log(elt.children);
+      [...elt.children].forEach((child) => {
+        if (child.querySelector("button[style=\"display: none;\"]")) return;
+        res += format(child.innerHTML) + "\n\n";
+      });
+      // res += format(elt.innerHTML) + "\n";
+      // elt.children.forEach((child) => {
+      //   res += format(child.innerHTML) + "\n";
+      // });
+      // res += format(elt.children.item(0).innerHTML) + "\n";
+      // res += format(elt.innerHTML) + "\n";
     });
   }
 
