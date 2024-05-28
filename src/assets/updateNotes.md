@@ -1,4 +1,8 @@
 # Update notes
+# 2.6.4
+🥲 Back to the roots
+Phind Chat (Playground) content is now correctly exported again!
+
 # 2.6.3
 🙃 Nice try...
 Phind Chat filename bug solved. Some tests are in place to avoid this kind of issue in the future.
