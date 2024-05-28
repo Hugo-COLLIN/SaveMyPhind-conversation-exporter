@@ -26,10 +26,10 @@ jobs:
       - name: Prepare source code zip
         run: zip -r releases/save-my-phind_${{ github.run_number }}_firefox_source.zip src/
 
-      - name: Browser Platform Publish
-        uses: PlasmoHQ/bpp@v3.6.1
-        with:
-          keys: ${{ secrets.BPP_KEYS }}
+#      - name: Browser Platform Publish
+#        uses: PlasmoHQ/bpp@v3.6.1
+#        with:
+#          keys: ${{ secrets.BPP_KEYS }}
 
       - name: Get version from package.json
         id: package_version
@@ -68,8 +68,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ⏩ v${{ steps.package_version.outputs.version }}
-          release_name: v${{ steps.package_version.outputs.version }}
+          tag_name: v${{ steps.package_version.outputs.version }}
+          release_name: ⏩ v${{ steps.package_version.outputs.version }}
           body: ${{ steps.github_release.outputs.changelog }}
           draft: false
           prerelease: false
@@ -118,3 +118,14 @@ jobs:
           asset_path: ./releases/save-my-phind_${{ steps.package_version.outputs.version }}_firefox.zip
           asset_name: save-my-phind_${{ steps.package_version.outputs.version }}_firefox.zip
           asset_content_type: application/zip
+
+      - name: Create a new GitHub Discussion
+        id: create-discussion
+        uses: abirismyname/create-discussion@v1.x
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          title: Release Discussion for v${{ steps.package_version.outputs.version }}
+          body: ${{ steps.github_release.outputs.changelog }}
+          repository-id: ${{ github.repository_id }}
+          category-id: Announcements
