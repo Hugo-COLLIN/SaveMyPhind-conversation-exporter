@@ -47,7 +47,8 @@ export async function processMessage(content, format) {
 
   } else { // If there are no search results
     msgContent.forEach((elt) => {
-      res += format(elt.children.item(0).innerHTML) + "\n";
+      const filteredElt = [...elt.children].filter((child) => !child.querySelector("button[style=\"display: none;\"]"));
+      res += format(filteredElt.map((child) => child.innerHTML).join("\n")) + "\n";
     });
   }
 
