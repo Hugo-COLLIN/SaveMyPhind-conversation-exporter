@@ -13,6 +13,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Get version from package.json
+        id: package_version
+        run: echo "::set-output name=version::$(node -p "require('./package.json').version")"
+
       - name: Download Artifacts
         uses: actions/download-artifact@v2
         with:
@@ -25,17 +34,17 @@ jobs:
         uses: mikepenz/release-changelog-builder-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          configurationJson: |
-#            {
-#              "template": "#{{CHANGELOG}}\n\n**Full Changelog:** #{{RELEASE_DIFF}}",
-#              "pr_template": "- #{{TITLE}} by @#{{AUTHOR}} in ##{{NUMBER}}",
-#              "categories": [
-#                {
-#                  "title": "## What's Changed"
-#                }
-#              ]
-#            }
+        with:
+          configurationJson: |
+            {
+              "template": "#{{CHANGELOG}}\n\n**Full Changelog:** #{{RELEASE_DIFF}}",
+              "pr_template": "- #{{TITLE}} by @#{{AUTHOR}} in ##{{NUMBER}}",
+              "categories": [
+                {
+                  "title": "## What's Changed"
+                }
+              ]
+            }
 
       # --- RELEASE ---
       - name: Create Release
@@ -44,8 +53,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ github.ref_name }}
-          release_name: ⏩ v${{ github.ref_name }}
+          tag_name: v${{ steps.package_version.outputs.version }}
+          release_name: ⏩ v${{ steps.package_version.outputs.version }}
           body: ${{ steps.github_release.outputs.changelog }}
           draft: false
           prerelease: false
@@ -80,8 +89,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./releases/save-my-phind_${{ github.ref_name }}_chrome.zip
-          asset_name: save-my-phind_${{ github.ref_name }}_chrome.zip
+          asset_path: ./releases/save-my-phind_${{ steps.package_version.outputs.version }}_chrome.zip
+          asset_name: save-my-phind_${{ steps.package_version.outputs.version }}_chrome.zip
           asset_content_type: application/zip
 
       - name: Upload Release Asset Firefox
@@ -90,8 +99,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./releases/save-my-phind_${{ github.ref_name }}_firefox.zip
-          asset_name: save-my-phind_${{ github.ref_name }}_firefox.zip
+          asset_path: ./releases/save-my-phind_${{ steps.package_version.outputs.version }}_firefox.zip
+          asset_name: save-my-phind_${{ steps.package_version.outputs.version }}_firefox.zip
           asset_content_type: application/zip
 
       # --- DISCUSSION ---
@@ -100,7 +109,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          title: Release Discussion for v${{ github.ref_name }}
+          title: Release Discussion for v${{ steps.package_version.outputs.version }}
           body: ${{ steps.github_release.outputs.changelog }}
           repository-id: ${{ github.repository_id }}
           category-id: Announcements
