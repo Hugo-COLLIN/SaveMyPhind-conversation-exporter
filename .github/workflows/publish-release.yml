@@ -25,17 +25,17 @@ jobs:
         uses: mikepenz/release-changelog-builder-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          configurationJson: |
-            {
-              "template": "#{{CHANGELOG}}\n\n**Full Changelog:** #{{RELEASE_DIFF}}",
-              "pr_template": "- #{{TITLE}} by @#{{AUTHOR}} in ##{{NUMBER}}",
-              "categories": [
-                {
-                  "title": "## What's Changed"
-                }
-              ]
-            }
+#        with:
+#          configurationJson: |
+#            {
+#              "template": "#{{CHANGELOG}}\n\n**Full Changelog:** #{{RELEASE_DIFF}}",
+#              "pr_template": "- #{{TITLE}} by @#{{AUTHOR}} in ##{{NUMBER}}",
+#              "categories": [
+#                {
+#                  "title": "## What's Changed"
+#                }
+#              ]
+#            }
 
       # --- RELEASE ---
       - name: Create Release
