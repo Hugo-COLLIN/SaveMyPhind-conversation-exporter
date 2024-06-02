@@ -1,4 +1,4 @@
-name: Build and Tag for Release
+name: Launch Release
 
 on:
   push:
@@ -33,15 +33,15 @@ jobs:
         run: zip -r releases/save-my-phind_${{ github.run_number }}_firefox_source.zip src/
 
       # --- TAG ---
-#      - name: Create Tag
-#        run: git tag v${{ steps.package_version.outputs.version }}
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#
-#      - name: Push Tag
-#        run: git push origin v${{ steps.package_version.outputs.version }}
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Tag
+        run: git tag v${{ steps.package_version.outputs.version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Tag
+        run: git push origin v${{ steps.package_version.outputs.version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # --- CHANGELOG ---
       - name: Build Changelog
@@ -74,6 +74,26 @@ jobs:
           draft: false
           prerelease: false
 
+      - name: Upload Release Asset Chrome
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./releases/save-my-phind_${{ steps.package_version.outputs.version }}_chrome.zip
+          asset_name: save-my-phind_${{ steps.package_version.outputs.version }}_chrome.zip
+          asset_content_type: application/zip
+
+      - name: Upload Release Asset Firefox
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./releases/save-my-phind_${{ steps.package_version.outputs.version }}_firefox.zip
+          asset_name: save-my-phind_${{ steps.package_version.outputs.version }}_firefox.zip
+          asset_content_type: application/zip
+
       #      - name: Download CRX and XPI files
       #        run: |
       #          wget -O releases/save-my-phind_${{ steps.package_version.outputs.version }}_chrome.crx "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=90.0.4430.212&acceptformat=crx2,crx3&x=id%3Dagklnagmfeooogcppjccdnoallkhgkod%26uc"
@@ -98,25 +118,6 @@ jobs:
       #          asset_name: save-my-phind_${{ steps.package_version.outputs.version }}_firefox.xpi
       #          asset_content_type: application/x-xpinstall
 
-      - name: Upload Release Asset Chrome
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./releases/save-my-phind_${{ steps.package_version.outputs.version }}_chrome.zip
-          asset_name: save-my-phind_${{ steps.package_version.outputs.version }}_chrome.zip
-          asset_content_type: application/zip
-
-      - name: Upload Release Asset Firefox
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./releases/save-my-phind_${{ steps.package_version.outputs.version }}_firefox.zip
-          asset_name: save-my-phind_${{ steps.package_version.outputs.version }}_firefox.zip
-          asset_content_type: application/zip
 
       # --- DISCUSSION ---
       - name: Create a new GitHub Discussion
