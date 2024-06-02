@@ -1,0 +1,102 @@
+name: Publish Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          configurationJson: |
+            {
+              "template": "#{{CHANGELOG}}\n\n**Full Changelog:** #{{RELEASE_DIFF}}",
+              "pr_template": "- #{{TITLE}} by @#{{AUTHOR}} in ##{{NUMBER}}",
+              "categories": [
+                {
+                  "title": "## What's Changed"
+                }
+              ]
+            }
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.ref }}
+          release_name: ⏩ v${{ github.ref }}
+          body: ${{ steps.github_release.outputs.changelog }}
+          draft: false
+          prerelease: false
+
+      #      - name: Download CRX and XPI files
+      #        run: |
+      #          wget -O releases/save-my-phind_${{ steps.package_version.outputs.version }}_chrome.crx "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=90.0.4430.212&acceptformat=crx2,crx3&x=id%3Dagklnagmfeooogcppjccdnoallkhgkod%26uc"
+      #
+      #      - name: Upload Release Asset Chrome CRX
+      #        uses: actions/upload-release-asset@v1
+      #        env:
+      #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #        with:
+      #          upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #          asset_path: ./releases/save-my-phind_${{ steps.package_version.outputs.version }}_chrome.crx
+      #          asset_name: save-my-phind_${{ steps.package_version.outputs.version }}_chrome.crx
+      #          asset_content_type: application/x-chrome-extension
+      #
+      #      - name: Upload Release Asset Firefox XPI
+      #        uses: actions/upload-release-asset@v1
+      #        env:
+      #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #        with:
+      #          upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #          asset_path: ./releases/save-my-phind_${{ steps.package_version.outputs.version }}_firefox.xpi
+      #          asset_name: save-my-phind_${{ steps.package_version.outputs.version }}_firefox.xpi
+      #          asset_content_type: application/x-xpinstall
+
+      - name: Upload Release Asset Chrome
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./releases/save-my-phind_${{ github.ref_name }}_chrome.zip
+          asset_name: save-my-phind_${{ github.ref_name }}_chrome.zip
+          asset_content_type: application/zip
+
+      - name: Upload Release Asset Firefox
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./releases/save-my-phind_${{ github.ref_name }}_firefox.zip
+          asset_name: save-my-phind_${{ github.ref_name }}_firefox.zip
+          asset_content_type: application/zip
+
+      - name: Create a new GitHub Discussion
+        uses: abirismyname/create-discussion@v1.2.0
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          title: Release Discussion for v${{ github.ref_name }}
+          body: ${{ steps.github_release.outputs.changelog }}
+          repository-id: ${{ github.repository_id }}
+          category-id: Announcements
+
+
+      - name: Browser Platform Publish
+        uses: PlasmoHQ/bpp@v3.6.1
+        with:
+          keys: ${{ secrets.BPP_KEYS }}
