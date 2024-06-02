@@ -9,9 +9,17 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
+      # --- SETUP ---
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: release-assets
+          path: releases/
+
+      # --- CHANGELOG ---
       - name: Build Changelog
         id: github_release
         uses: mikepenz/release-changelog-builder-action@v4
@@ -29,6 +37,7 @@ jobs:
               ]
             }
 
+      # --- RELEASE ---
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -85,6 +94,7 @@ jobs:
           asset_name: save-my-phind_${{ github.ref_name }}_firefox.zip
           asset_content_type: application/zip
 
+      # --- DISCUSSION ---
       - name: Create a new GitHub Discussion
         uses: abirismyname/create-discussion@v1.2.0
         env:
@@ -95,7 +105,7 @@ jobs:
           repository-id: ${{ github.repository_id }}
           category-id: Announcements
 
-
+      # --- PUBLISH ---
       - name: Browser Platform Publish
         uses: PlasmoHQ/bpp@v3.6.1
         with:

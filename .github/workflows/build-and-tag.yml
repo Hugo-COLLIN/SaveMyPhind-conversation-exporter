@@ -9,6 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      # --- SETUP ---
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -17,6 +18,7 @@ jobs:
         with:
           node-version: '18'
 
+      # --- BUILD ---
       - name: Install dependencies
         run: npm install
 
@@ -26,6 +28,13 @@ jobs:
       - name: Prepare source code zip
         run: zip -r releases/save-my-phind_${{ github.run_number }}_firefox_source.zip src/
 
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: release-assets
+          path: releases/
+
+      # --- TAG ---
       - name: Get version from package.json
         id: package_version
         run: echo "::set-output name=version::$(node -p "require('./package.json').version")"
