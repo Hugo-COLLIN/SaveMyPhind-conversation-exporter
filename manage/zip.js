@@ -30,6 +30,9 @@ const zip = new AdmZip();
 zip.addLocalFolder('dist');
 
 // Write the zip file
+if (!fs.existsSync('releases'))
+  fs.mkdirSync('releases');
+
 zip.writeZip("releases/" + archiveName);
 
 console.log(`Created ${archiveName} successfully`);
