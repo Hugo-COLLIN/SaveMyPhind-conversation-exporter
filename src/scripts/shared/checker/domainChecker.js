@@ -7,7 +7,7 @@
 export function domainChecker(allowedDomains, hostAndPath) {
   for (let domainName in allowedDomains) {
     const url = allowedDomains[domainName];
-    if (hostAndPath.startsWith(url)) {
+    if (hostAndPath?.startsWith(url)) {
       return {name: domainName, url};
     }
   }

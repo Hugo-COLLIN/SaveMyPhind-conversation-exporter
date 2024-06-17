@@ -26,10 +26,9 @@ export async function defineIcon(tabId) {
   // defineIcon(tab.url, tabId);
   if (!url) return;
 
-  const { name } = domainChecker(LOAD_DOMAINS, url.split("https://")[1]); // http:// ??
-  // console.log("check:", name);
+  const domain = domainChecker(LOAD_DOMAINS, url.split("https://")[1]); // http:// ??
 
-  switch (name.toLowerCase()) {
+  switch (domain?.name.toLowerCase()) {
     case "phind":
       chrome.action.setIcon({path: {"48": "assets/icons/icon_phind-48.png"}, tabId: tabId});
       break;

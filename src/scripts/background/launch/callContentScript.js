@@ -1,5 +1,8 @@
 export async function callContentScript(tab) {
-  // console.log("entered clickActionListener")
+  if (!tab || tab.url.startsWith("chrome://")) {
+    console.info(`Tab ${tab?.id || ''} is not injectable`);
+    return;
+  }
   try {
     await chrome.storage.local.set({isInjecting: true});
     // console.log(chrome.storage.local.get(['isInjecting']));
