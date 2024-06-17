@@ -33,7 +33,7 @@ export async function getTabData(tabId) {
   return await new Promise((resolve, reject) => {
     chrome.tabs.get(tabId, (tab) => {
       if (chrome.runtime.lastError) {
-        reject(new Error(chrome.runtime.lastError));
+        reject(chrome.runtime.lastError.message);
       } else {
         resolve(tab);
       }
