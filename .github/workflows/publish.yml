@@ -127,8 +127,8 @@ jobs:
         with:
           title: Release Discussion for v${{ steps.package_version.outputs.version }}
           body: ${{ steps.github_release.outputs.changelog }}
-          repository-id: ${{ github.repository_id }}
-          category-id: Announcements
+          repository-id: ${{ secrets.repository_id }}
+          category-id: ${{ secrets.category_id }}
 
       # --- PUBLISH ---
       - name: Browser Platform Publish
