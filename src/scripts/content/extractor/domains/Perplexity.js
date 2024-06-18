@@ -64,7 +64,7 @@ async function extractSources(content, format) {
   }
 
   // Open sources modal
-
+  // TODO: generic function using list of queryselectors (1 for open possibilities, 1 for close?) ; the first one that works is used
   const btnBottomExpand = content.querySelector('button > div > svg[data-icon="ellipsis"]');
   let btnBottomSources;
   const btnExpandSources = content.querySelector("div.grid > div.flex:nth-last-of-type(1)"); // Get the last button, useful when uploaded file div
@@ -89,6 +89,7 @@ async function extractSources(content, format) {
     // Close sources modal
     const closeBtn = document.querySelector('[data-testid="close-modal"]');
     if (closeBtn) closeBtn.click();
+    // if (btnBottomExpand) btnBottomExpand.parentNode?.click(); // causes bug
   }
   else
     await safeExecute(extractFromTileList.call(this));
