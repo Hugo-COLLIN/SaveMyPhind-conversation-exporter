@@ -1,4 +1,8 @@
 # Update notes
+# 2.6.6
+🐞 Fixing some bugs
+Perplexity sources export corrected and some awkward behaviours solved. Enjoy!
+
 # 2.6.4
 🥲 Back to the roots
 Phind Chat (Playground) content is now correctly exported again!
