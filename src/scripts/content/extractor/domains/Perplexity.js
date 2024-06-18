@@ -64,11 +64,23 @@ async function extractSources(content, format) {
   }
 
   // Open sources modal
+  // TODO: generic function using list of queryselectors (1 for open possibilities, 1 for close?) ; the first one that works is used
+  const btnBottomExpand = content.querySelector('button > div > svg[data-icon="ellipsis"]');
+  let btnBottomSources;
   const btnExpandSources = content.querySelector("div.grid > div.flex:nth-last-of-type(1)"); // Get the last button, useful when uploaded file div
+  if (btnBottomExpand) {
+    btnBottomExpand.parentNode?.click();
+    await sleep(10);
+    btnBottomSources = document.querySelector('.cursor-pointer svg[data-icon="list-timeline"]');
+    if (btnBottomSources) btnBottomSources.parentNode?.click();
+  }
+  if (!btnBottomSources) {
+    btnExpandSources?.click();
+  }
+  // console.log(btnExpandSources)
 
   // if there's a div tile and it contains multiple images (so it's not a file tile)
-  if (btnExpandSources && btnExpandSources.querySelectorAll("img").length > 0) {
-    btnExpandSources.click();
+  if (btnBottomSources || (btnExpandSources && btnExpandSources.querySelectorAll("img").length > 0)) {
     await sleep(10);
 
     // Extract sources list from modal
@@ -77,6 +89,7 @@ async function extractSources(content, format) {
     // Close sources modal
     const closeBtn = document.querySelector('[data-testid="close-modal"]');
     if (closeBtn) closeBtn.click();
+    // if (btnBottomExpand) btnBottomExpand.parentNode?.click(); // causes bug
   }
   else
     await safeExecute(extractFromTileList.call(this));

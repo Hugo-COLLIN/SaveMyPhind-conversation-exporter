@@ -38,7 +38,7 @@ export function dynamicCall(object, funcToCall, ...args) {
  */
 export async function safeExecute(action, catchAction = null) {
   if (APP_MODE === 'dev') {
-    console.log("Action to execute:", action);
+    // console.log("Action to execute:", action);
     return await action;
   }
   try {
