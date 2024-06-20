@@ -4,8 +4,8 @@ import {formatLink} from "../../../shared/formatter/formatMarkdown";
 export async function processMessage(content, format) {
   if (!content.hasChildNodes()) return "";
   let markdown = "";
-  // const questionText = (question && question.innerText ? question.innerText : "") + "\n\n";
-  // markdown += questionText.replace(/(?<!`)<(?!`)/g, '\\<').replace(/(?<!`)>(?!`)/g, '\\>');
+  const title = content.querySelector('h2');
+  markdown += title ? `## ${title?.innerText}\n` : "";
 
   const answer = content.querySelector('.flex-col > div > .relative, [class="group/section"] .prose'); // first one selects the intro, second one the other article parts
   // const answerer = content.querySelector(".mb-lg .flex.items-center > p");

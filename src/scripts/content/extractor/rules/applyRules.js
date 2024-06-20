@@ -16,7 +16,7 @@ export function applyExtractorRules(turndownConfig) {
   for (const rule in turndownConfig.rules)
     turndownConverter.addRule(rule, turndownConfig.rules[rule]);
 
-  console.log(turndownConfig.rules.length + " Turndown rules applied");
+  // console.log(turndownConfig.rules.length + " Turndown rules applied");
 }
 
 export function generateRules(configData) {
