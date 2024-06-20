@@ -13,10 +13,6 @@
       "formatCitationsInAnswer": {
         "filter": "filter_formatCitationsInAnswer_Perplexity",
         "replacement": "replacement_formatCitationsInAnswer_Perplexity"
-      },
-      "formatNewline": {
-          "filter": "filter_newlineAfterBlock_PerplexityPages",
-          "replacement": "replacement_newlineAfterBlock_PerplexityPages"
       }
     }
   }

@@ -47,19 +47,6 @@ export function replacement_formatCitationsInAnswer_Perplexity(content, node) {
 }
 
 /*
-  --- PerplexityPages rules ---
- */
-
-export function filter_newlineAfterBlock_PerplexityPages(node) {
-  // console.log(node.nodeName === 'SPAN' && node.getAttribute('class') === 'mt-md block', node.nodeName, node.getAttribute('class'), node);
-  return node.nodeName === 'SPAN' && node.getAttribute('class') === 'mt-md block';
-}
-
-export function replacement_newlineAfterBlock_PerplexityPages(content, node) {
-  return '\n\n';
-}
-
-/*
   --- Phind rules ---
  */
 
