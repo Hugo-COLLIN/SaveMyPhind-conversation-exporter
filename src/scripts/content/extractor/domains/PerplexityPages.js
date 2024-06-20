@@ -13,7 +13,7 @@ export async function processMessage(content, format) {
   //   ? "## Pro answer\n"
   //   : "## AI answer\n";
   // console.log(answer)
-  markdown += format(answer?.innerHTML || '') + "\n\n";
+  markdown += format(answer?.innerHTML || '');
 
   // Display sources
   const src = await safeExecute(await extractSources(content, format));
