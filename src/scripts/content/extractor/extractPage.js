@@ -21,6 +21,10 @@ export async function extractPage(domain) {
       module = require("./domains/Perplexity");
       json = require("./domains/Perplexity.json");
       break;
+    case "PerplexityPages":
+      module = require("./domains/PerplexityPages");
+      json = require("./domains/PerplexityPages.json");
+      break;
     case "MaxAIGoogle":
       module = require("./domains/MaxAIGoogle");
       json = require("./domains/MaxAIGoogle.json");
