@@ -37,37 +37,11 @@ export async function extractSources(content, format) {
   const SOURCES_HEADER = "---\n**Sources:**\n";
   let res = SOURCES_HEADER;
 
-  async function extractFromModal() {
-    let i = 1;
-    for (const tile of document.querySelectorAll(".fixed > div > [class] > div > div > div > div > div > .flex.group")) {
-      res += await formatSources(i, format, tile);
-      i++;
-    }
-  }
-
-  async function extractFromTileList() {
-    let i = 1;
-    // Case the first tile is a file, not a link
-    const tilesNoLink = content.querySelectorAll("div.grid > div.flex");
-    for (const tile of tilesNoLink) {
-      if (tile.querySelectorAll("img").length === 0) {
-        res += await formatSources(i, format, tile);
-        i++;
-      }
-    }
-
-    // Link tiles
-    for (const tile of content.querySelectorAll("div.grid > a")) {
-      res += await formatSources(i, format, tile);
-      i++;
-    }
-  }
-
   // Open sources modal
-  await interactAndCatch(content, [
-    {open: ['button > div > svg[data-icon="ellipsis"]', '.cursor-pointer svg[data-icon="list-timeline"]'], close: ['[data-testid="close-modal"]'], selector: '.cursor-pointer svg[data-icon="list-timeline"]'},
-    {open: ['div.grid > div.flex:nth-last-of-type(1)'], close: ['[data-testid="close-modal"]'], selector: '.cursor-pointer svg[data-icon="list-timeline"]'},
-  ], extractFromModal, extractSources);
+  res = await interactAndCatch(content, [
+    {open: ['button > div > svg[data-icon="ellipsis"]', '.cursor-pointer svg[data-icon="list-timeline"]'], close: ['[data-testid="close-modal"]'], selector: 'TODO'},
+    {open: ['div.grid > div.flex:nth-last-of-type(1)'], close: ['[data-testid="close-modal"]'], selector: 'TODO'},
+  ], res, format);
 
   // async function interactAndCatch() {
   //   const btnBottomExpand = content.querySelector('button > div > svg[data-icon="ellipsis"]');
@@ -107,16 +81,47 @@ export async function extractSources(content, format) {
     : "";
 }
 
+async function extractFromModal(res, format) {
+  let i = 1;
+  for (const tile of document.querySelectorAll(".fixed > div > [class] > div > div > div > div > div > .flex.group")) {
+    res += await formatSources(i, format, tile);
+    i++;
+  }
+  return res;
+}
+
+async function extractFromTileList(res, format, content) {
+  let i = 1;
+  // Case the first tile is a file, not a link
+  const tilesNoLink = content.querySelectorAll("div.grid > div.flex");
+  console.log(tilesNoLink)
+  for (const tile of tilesNoLink) {
+    if (tile.querySelectorAll("img").length === 0) {
+      res += await formatSources(i, format, tile);
+      i++;
+    }
+  }
+
+  // Link tiles
+  for (const tile of content.querySelectorAll("div.grid > a")) {
+    console.log(tile)
+    res += await formatSources(i, format, tile);
+    i++;
+  }
+  return res;
+}
+
+
 // TODO: generic function using list of queryselectors (1 for open possibilities, 1 for close?) ; the first one that works is used
 /**
  *
  * @param content
  * @param {Array<{open: Array<string>, close: Array<string>, selector: string}>} selectors
- * @param extract
- * @param extractSources
+ * @param res
+ * @param format
  * @returns {Promise<void>}
  */
-async function interactAndCatch(content, selectors, extract, extractSources) {
+async function interactAndCatch(content, selectors, res, format) {
   for (const {open, close, selector} of selectors) {
     let btnBottomExpand;
     // Open sources modal : each element in the open array is queryselected and clicked one after the other
@@ -138,14 +143,14 @@ async function interactAndCatch(content, selectors, extract, extractSources) {
       }
     }
 
-    if (!btnBottomExpand) {
-      console.warn("btnBottomExpand undefined");
-      return;
-    }
+    // if (!btnBottomExpand) {
+    //   console.warn("btnBottomExpand undefined");
+    //   return;
+    // }
 
-    // Wait for the modal to open and then call the extract function
-    const btnBottomSources = document.querySelector(selector);
-    await extract.call(extractSources);
+    res = btnBottomExpand
+      ? await extractFromModal(res, format)
+      : await extractFromTileList(res, format, content);
 
     // Close sources modal : each element in the close array is queryselected and clicked one after the other
     for (const query of close) {
@@ -153,9 +158,11 @@ async function interactAndCatch(content, selectors, extract, extractSources) {
       console.log(btnClose)
       if (btnClose) {
         btnClose.click();
-        await sleep(10);
+        await sleep(100);
       }
     }
+
+    return res;
   }
 }
 
