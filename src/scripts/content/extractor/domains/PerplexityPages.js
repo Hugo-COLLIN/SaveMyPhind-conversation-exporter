@@ -1,5 +1,5 @@
-import {safeExecute, sleep} from "../../../shared/utils/jsShorteners";
-import {extractSources} from "./Perplexity";
+import {safeExecute} from "../../../shared/utils/jsShorteners";
+import {interactAndCatch} from "./Perplexity";
 
 export async function processMessage(content, format) {
   if (!content.hasChildNodes()) return "";
@@ -15,4 +15,19 @@ export async function processMessage(content, format) {
   if (src !== null) markdown += src + "\n";
 
   return markdown;
+}
+
+async function extractSources(content, format) {
+  const SOURCES_HEADER = "\n\n---\n**Sources:**\n";
+  let res = SOURCES_HEADER;
+
+  // Open sources modal
+  res = await interactAndCatch(content, [
+    {open: ['.group\\/source'], close: ['[data-testid="close-modal"]'], selector: 'TODO'},
+  ], res, format);
+
+  // Don't export header if no sources
+  return res !== SOURCES_HEADER
+    ? res
+    : "";
 }

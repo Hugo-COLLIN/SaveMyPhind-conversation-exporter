@@ -121,13 +121,13 @@ async function extractFromTileList(res, format, content) {
  * @param format
  * @returns {Promise<void>}
  */
-async function interactAndCatch(content, selectors, res, format) {
+export async function interactAndCatch(content, selectors, res, format) {
   for (const {open, close, selector} of selectors) {
     let btnBottomExpand;
     // Open sources modal : each element in the open array is queryselected and clicked one after the other
     console.log(open)
     for (const query of open) {
-      // TODO: find a way to make this more generic
+      // TODO: find a way to make this more generic (like global/document: true / scope:document/parent/child/...)
       if (query.includes('.cursor-pointer svg[data-icon="list-timeline"]')) {
         btnBottomExpand = document.querySelector(query);
       } else {
