@@ -112,9 +112,8 @@ async function extractFromTileList(res, format, content) {
 }
 
 
-// TODO: generic function using list of queryselectors (1 for open possibilities, 1 for close?) ; the first one that works is used
 /**
- *
+ * Generic function using list of queryselectors (1 for open possibilities, 1 for close) ; the first one that works is used
  * @param content
  * @param {Array<{open: Array<string>, close: Array<string>, selector: string}>} selectors
  * @param sources_header
