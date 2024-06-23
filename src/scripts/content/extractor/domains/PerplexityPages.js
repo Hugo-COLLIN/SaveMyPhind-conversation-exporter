@@ -23,8 +23,8 @@ async function extractSources(content, format) {
 
   // Open sources modal
   res = await interactAndCatch(content, [
-    {open: ['.group\\/source'], close: ['[data-testid="close-modal"]'], selector: 'TODO'},
-  ], res, format);
+    {open: ['div.grid > div.flex, .group\\/source'], close: [], selector: 'TODO'},
+  ], res, format, '[data-testid="close-modal"]');
 
   // Don't export header if no sources
   return res !== SOURCES_HEADER

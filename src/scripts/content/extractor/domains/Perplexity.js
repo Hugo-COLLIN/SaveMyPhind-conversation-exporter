@@ -117,15 +117,17 @@ async function extractFromTileList(res, format, content) {
  *
  * @param content
  * @param {Array<{open: Array<string>, close: Array<string>, selector: string}>} selectors
- * @param res
+ * @param sources_header
  * @param format
+ * @param afterActionSelector
  * @returns {Promise<void>}
  */
-export async function interactAndCatch(content, selectors, res, format) {
+export async function interactAndCatch(content, selectors, sources_header, format, afterActionSelector = null) {
+  let res = sources_header;
   for (const {open, close, selector} of selectors) {
     let btnBottomExpand;
     // Open sources modal : each element in the open array is queryselected and clicked one after the other
-    console.log(open)
+    // console.log(open)
     for (const query of open) {
       // TODO: find a way to make this more generic (like global/document: true / scope:document/parent/child/...)
       if (query.includes('.cursor-pointer svg[data-icon="list-timeline"]')) {
@@ -149,8 +151,8 @@ export async function interactAndCatch(content, selectors, res, format) {
     // }
 
     res = btnBottomExpand
-      ? await extractFromModal(res, format)
-      : await extractFromTileList(res, format, content);
+      ? await extractFromModal(sources_header, format)
+      : await extractFromTileList(sources_header, format, content);
 
     // Close sources modal : each element in the close array is queryselected and clicked one after the other
     for (const query of close) {
@@ -162,8 +164,15 @@ export async function interactAndCatch(content, selectors, res, format) {
       }
     }
 
-    return res;
+    if (res !== sources_header)
+      break;
   }
+  const afterAction = document.querySelector(afterActionSelector);
+  if (afterAction) {
+    await sleep(100)
+    afterAction.click();
+  }
+  return res;
 }
 
 export async function formatSources(i, format, tile) {
