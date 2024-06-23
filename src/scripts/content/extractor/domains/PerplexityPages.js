@@ -4,10 +4,10 @@ import {extractSources} from "./Perplexity";
 export async function processMessage(content, format) {
   if (!content.hasChildNodes()) return "";
   let markdown = "";
-  const title = content.querySelector('h2');
+  const title = content.querySelector('h2 > span');
   markdown += title ? `## ${title?.innerText}\n` : "";
 
-  const answer = content.querySelector('.flex-col > div > .relative, [class="group/section"] .prose'); // first one selects the intro, second one the other article parts
+  const answer = content.querySelector('.flex-col > div > .relative > :first-child, [class="group/section"] .prose'); // first one selects the intro, second one the other article parts
   markdown += format(answer?.innerHTML || '');
 
   // Display sources
