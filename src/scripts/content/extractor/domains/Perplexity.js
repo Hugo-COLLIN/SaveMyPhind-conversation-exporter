@@ -140,7 +140,7 @@ export async function interactAndCatch(content, selectors, sources_header, forma
         // btnBottomExpand.click ? btnBottomExpand.click() : btnBottomExpand.parentNode?.click();
         btnBottomExpand.click ? btnBottomExpand.click() : btnBottomExpand.parentNode?.click();
         // btnBottomExpand?.parentNode?.click();
-        await sleep(100);
+        await sleep(10);
       }
     }
 
@@ -149,9 +149,10 @@ export async function interactAndCatch(content, selectors, sources_header, forma
     //   return;
     // }
 
-    res = btnBottomExpand
+    res = safeExecute(btnBottomExpand
       ? await extractFromModal(sources_header, format)
-      : await extractFromTileList(sources_header, format, content);
+      : await extractFromTileList(sources_header, format, content),
+      res);
 
     // Close sources modal : each element in the close array is queryselected and clicked one after the other
     for (const query of close) {
@@ -159,7 +160,7 @@ export async function interactAndCatch(content, selectors, sources_header, forma
       console.log(btnClose)
       if (btnClose) {
         btnClose.click();
-        await sleep(100);
+        await sleep(10);
       }
     }
 
