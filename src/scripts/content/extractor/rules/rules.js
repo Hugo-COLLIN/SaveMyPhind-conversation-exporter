@@ -12,6 +12,15 @@ export function getBlankReplacement(content, node) {
     }
 }
 
+export function getBlankReplacement_PerplexityPages(content, node) {
+  // console.log(node.nodeName === 'SPAN' && node.getAttribute('class') === 'mt-md block', node.nodeName, node.getAttribute('class'), node);
+  if (node.nodeName === 'SPAN' && node.getAttribute('class')?.includes('block')) {
+    return '\n\n';
+  } else {
+    return '';
+  }
+}
+
 export function filter_PreserveLineBreaksInPre_Perplexity(node) {
     return node.nodeName === 'PRE' && node.querySelector('div');
 }
