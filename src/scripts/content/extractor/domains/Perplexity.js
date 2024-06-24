@@ -94,7 +94,6 @@ async function extractFromTileList(res, format, content) {
   let i = 1;
   // Case the first tile is a file, not a link
   const tilesNoLink = content.querySelectorAll("div.grid > div.flex");
-  console.log(tilesNoLink)
   for (const tile of tilesNoLink) {
     if (tile.querySelectorAll("img").length === 0) {
       res += await formatSources(i, format, tile);
@@ -104,7 +103,6 @@ async function extractFromTileList(res, format, content) {
 
   // Link tiles
   for (const tile of content.querySelectorAll("div.grid > a")) {
-    console.log(tile)
     res += await formatSources(i, format, tile);
     i++;
   }
@@ -126,7 +124,6 @@ export async function interactAndCatch(content, selectors, sources_header, forma
   for (const {open, close, selector} of selectors) {
     let btnBottomExpand;
     // Open sources modal : each element in the open array is queryselected and clicked one after the other
-    // console.log(open)
     for (const query of open) {
       // TODO: find a way to make this more generic (like global/document: true / scope:document/parent/child/...)
       if (query.includes('.cursor-pointer svg[data-icon="list-timeline"]')) {
@@ -135,7 +132,6 @@ export async function interactAndCatch(content, selectors, sources_header, forma
         btnBottomExpand = content.querySelector(query);
       }
 
-      console.log(btnBottomExpand)
       if (btnBottomExpand) {
         // btnBottomExpand.click ? btnBottomExpand.click() : btnBottomExpand.parentNode?.click();
         btnBottomExpand.click ? btnBottomExpand.click() : btnBottomExpand.parentNode?.click();
@@ -157,7 +153,6 @@ export async function interactAndCatch(content, selectors, sources_header, forma
     // Close sources modal : each element in the close array is queryselected and clicked one after the other
     for (const query of close) {
       const btnClose = document.querySelector(query);
-      console.log(btnClose)
       if (btnClose) {
         btnClose.click();
         await sleep(10);
