@@ -8,7 +8,7 @@ export async function processMessage(content, format) {
   markdown += title ? `## ${title?.innerText}\n` : "";
 
   const answer = content.querySelector('.flex-col > div > .relative > :first-child, [class="group/section"] .prose'); // first one selects the intro, second one the other article parts
-  markdown += format(answer?.innerHTML || '');
+  markdown += format(answer?.innerHTML || '') + "\n\n";
 
   // Display sources
   const src = await safeExecute(await extractSources(content, format));
@@ -18,12 +18,12 @@ export async function processMessage(content, format) {
 }
 
 async function extractSources(content, format) {
-  const SOURCES_HEADER = "\n\n---\n**Sources:**\n";
+  const SOURCES_HEADER = "---\n**Sources:**\n";
   let res = SOURCES_HEADER;
 
   // Open sources modal
   res = await interactAndCatch(content, [
-    {open: ['div.grid > div.flex, .group\\/source'], close: [], selector: 'TODO'},
+    {open: ['div.grid > div.flex:nth-last-of-type(1), .group\\/source'], close: [], selector: 'TODO'},
   ], res, format, '[data-testid="close-modal"]');
 
   // Don't export header if no sources
