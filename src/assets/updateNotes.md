@@ -1,4 +1,8 @@
 # Update notes
+# 2.7.0
+🎩 New feature: Export Perplexity Pages!
+You asked it, you got it! Just click the extension icon when you're on a Perplexity Page and see the magic happen!
+
 # 2.6.6
 🐞 Fixing some bugs
 Perplexity sources export corrected and some awkward behaviours solved. Enjoy!
@@ -157,3 +161,10 @@ Save my AI - Phind and Perplexity Exporter
 [//]: # (Phind changed its UI, so the extension is now a bit lost. I'm working on it, but it could take some time. Sorry for the inconvenience!)
 
 [//]: # (👽 New feature: Export to CSV!)
+
+
+[//]: # (You asked for it, and here it is!)
+
+[//]: # (The extension is now able to export Perplexity Pages into markdown files! Just click the extension icon and see the magic happen!)
+
+[//]: # (You can now export your favorite Perplexity Pages into markdown files! Just click the extension icon and see the magic happen!)
