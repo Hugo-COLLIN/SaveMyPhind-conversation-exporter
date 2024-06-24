@@ -2,17 +2,25 @@ import {safeExecute} from "../../../shared/utils/jsShorteners";
 import {interactAndCatch} from "./Perplexity";
 
 export async function processMessage(content, format) {
-  if (!content.hasChildNodes()) return "";
-  let markdown = "";
+  if (!content.hasChildNodes())
+    return '';
+
+  let markdown = '';
+
   const title = content.querySelector('h2 > span');
-  markdown += title ? `## ${title?.innerText}\n` : "";
+  markdown += title
+    ? `## ${title?.innerText}\n`
+    : '';
 
   const answer = content.querySelector('.flex-col > div > .relative > :first-child, [class="group/section"] .prose'); // first one selects the intro, second one the other article parts
-  markdown += format(answer?.innerHTML || '') + "\n\n";
+  markdown += answer?.innerHTML && answer?.innerHTML !== ''
+    ? format(answer?.innerHTML) + '\n\n'
+    : '';
 
   // Display sources
   const src = await safeExecute(await extractSources(content, format));
-  if (src !== null) markdown += src + "\n";
+  if (src && src !== '')
+    markdown += src + "\n";
 
   return markdown;
 }
