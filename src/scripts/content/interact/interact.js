@@ -29,24 +29,24 @@ export async function clickElements(cssSelector = '.fe-chevron-down') {
  * @returns {Promise<HTMLElement | null | undefined>} The last element clicked on
  */
 export async function selectAndClick(actionsList, content) {
-  let btnBottomExpand;
+  let element;
   for (const query of actionsList) {
     switch (query.scope) {
       case 'content':
-        btnBottomExpand = content.querySelector(query.selector);
+        element = content.querySelector(query.selector);
         break;
       case 'document':
-        btnBottomExpand = document.querySelector(query.selector);
+        element = document.querySelector(query.selector);
         break;
       default:
         console.warn("Unknown scope: " + query.scope + ". Defaulting to content for query: " + query.selector + ".");
         return content.querySelector(query.selector);
     }
 
-    if (btnBottomExpand) {
-      btnBottomExpand.click ? btnBottomExpand.click() : btnBottomExpand.parentNode?.click();
+    if (element) {
+      element.click ? element.click() : element.parentNode?.click();
       await sleep(10);
     }
   }
-  return btnBottomExpand;
+  return element;
 }

@@ -130,28 +130,31 @@ async function extractFromTileList(res, format, content) {
 export async function interactAndCatch(content, selectors, sources_header, format, afterActionSelector = null) {
   let res = sources_header;
   for (const {open, close, selector} of selectors) {
+    const btnBottomExpand = await safeExecute(await selectAndClick(open, content));
+    const oldRes = res;
 
-    // Open sources modal : each element in the open array is queryselected and clicked one after the other
-    const btnBottomExpand = await selectAndClick(open, content);
+    if (btnBottomExpand) {
+      res = await safeExecute(await extractFromModal(sources_header, format), oldRes);
+    } else {
+      res = await safeExecute(await extractFromTileList(sources_header, format, content), oldRes);
+    }
 
-    res = safeExecute(btnBottomExpand
-      ? await extractFromModal(sources_header, format)
-      : await extractFromTileList(sources_header, format, content),
-      res);
+    await safeExecute(await selectAndClick(close, content));
 
-    // Close sources modal : each element in the close array is queryselected and clicked one after the other
-    await selectAndClick(close, content);
-
-    if (res !== sources_header)
+    if (res !== oldRes) {
       break;
+    }
   }
+
   const afterAction = document.querySelector(afterActionSelector);
   if (afterAction) {
-    await sleep(100)
+    await sleep(100);
     afterAction.click();
   }
+
   return res;
 }
+
 
 export async function formatSources(i, format, tile) {
   const text = "(" + i + ") "
