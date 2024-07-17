@@ -42,9 +42,14 @@ export async function processMessage(content, format) {
 
 const SOURCES_HEADER = "---\n**Sources:**\n";
 
+/**
+ * Open sources modal and extract sources from it for a message
+ * @param content {HTMLElement}
+ * @param format {(text: string) => string}
+ * @returns {Promise<void|string>}
+ */
 export async function extractSources(content, format) {
-  // Open sources modal
-  const res = await interactAndCatch(content, [
+  return await interactAndCatch(content, [
     {
       open: [{selector: 'button > div > svg[data-icon="ellipsis"]', scope: 'content'}, {selector: '.cursor-point [data-icon="sources"]', scope: 'document'}],
       close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
@@ -55,7 +60,7 @@ export async function extractSources(content, format) {
       close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
       selector: 'TODO'
     },
-  ], SOURCES_HEADER, format);
+  ], SOURCES_HEADER, format) || "";
 
   // async function interactAndCatch() {
   //   const btnBottomExpand = content.querySelector('button > div > svg[data-icon="ellipsis"]');
@@ -88,11 +93,6 @@ export async function extractSources(content, format) {
   // }
   //
   // await interactAndCatch.call(this);
-
-  // Don't export header if no sources
-  return res !== SOURCES_HEADER
-    ? res
-    : "";
 }
 
 async function extractFromModal(res, format) {
