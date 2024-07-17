@@ -40,7 +40,7 @@ export async function processMessage(content, format) {
   return markdown;
 }
 
-const SOURCES_HEADER = "---\n**Sources:**\n";
+export const SOURCES_HEADER = "---\n**Sources:**\n";
 
 /**
  * Open sources modal and extract sources from it for a message
@@ -51,7 +51,7 @@ const SOURCES_HEADER = "---\n**Sources:**\n";
 export async function extractSources(content, format) {
   return await interactAndCatch(content, [
     {
-      open: [{selector: 'button > div > svg[data-icon="ellipsis"]', scope: 'content'}, {selector: '.cursor-point [data-icon="sources"]', scope: 'document'}],
+      open: [{selector: 'button > div > svg[data-icon="ellipsis"]', scope: 'content'}, {selector: '.cursor-pointer [data-icon="sources"]', scope: 'document'}],
       close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
       selector: 'TODO'
     },
