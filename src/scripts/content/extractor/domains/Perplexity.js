@@ -2,6 +2,12 @@ import {safeExecute, sleep} from "../../../shared/utils/jsShorteners";
 import {formatLink} from "../../../shared/formatter/formatMarkdown";
 import {selectAndClick} from "../../interact/interact";
 
+/**
+ * Extracts the content of a message from Perplexity
+ * @param content {HTMLElement}
+ * @param format {(text: string) => string}
+ * @returns {Promise<string>}
+ */
 export async function processMessage(content, format) {
   if (!content.hasChildNodes()) return "";
   const question = content.querySelector('.break-words');
@@ -34,12 +40,11 @@ export async function processMessage(content, format) {
   return markdown;
 }
 
-export async function extractSources(content, format) {
-  const SOURCES_HEADER = "---\n**Sources:**\n";
-  let res = SOURCES_HEADER;
+const SOURCES_HEADER = "---\n**Sources:**\n";
 
+export async function extractSources(content, format) {
   // Open sources modal
-  res = await interactAndCatch(content, [
+  const res = await interactAndCatch(content, [
     {
       open: [{selector: 'button > div > svg[data-icon="ellipsis"]', scope: 'content'}, {selector: '.cursor-point [data-icon="sources"]', scope: 'document'}],
       close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
@@ -50,7 +55,7 @@ export async function extractSources(content, format) {
       close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
       selector: 'TODO'
     },
-  ], res, format);
+  ], SOURCES_HEADER, format);
 
   // async function interactAndCatch() {
   //   const btnBottomExpand = content.querySelector('button > div > svg[data-icon="ellipsis"]');
@@ -120,7 +125,7 @@ async function extractFromTileList(res, format, content) {
 
 /**
  * Generic function using list of queryselectors (1 for open possibilities, 1 for close) ; they are executed one after the other
- * @param content
+ * @param content {HTMLElement}
  * @param {Array<{open: Array<{selector: string, scope: string}>, close: Array<{selector: string, scope: string}>, selector: string}>} selectors // scope:document/parent/child/...
  * @param sources_header
  * @param format
@@ -128,21 +133,19 @@ async function extractFromTileList(res, format, content) {
  * @returns {Promise<void>}
  */
 export async function interactAndCatch(content, selectors, sources_header, format, afterActionSelector = null) {
-  let res = sources_header;
+  let res;
   for (const {open, close, selector} of selectors) {
     const btnBottomExpand = await safeExecute(await selectAndClick(open, content));
-    const oldRes = res;
 
     res = await safeExecute(
       btnBottomExpand
         ? await extractFromModal(sources_header, format)
         : await extractFromTileList(sources_header, format, content),
-      oldRes);
-
+      res);
 
     await safeExecute(await selectAndClick(close, content));
 
-    if (res !== oldRes)
+    if (res && res !== sources_header)
       break;
   }
 
