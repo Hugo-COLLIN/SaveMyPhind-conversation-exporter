@@ -41,7 +41,7 @@ export async function extractSources(content, format) {
   // Open sources modal
   res = await interactAndCatch(content, [
     {
-      open: [{selector: 'button > div > svg[data-icon="ellipsis"]', scope: 'content'}, {selector: '.cursor-pointer [data-icon="sources"]', scope: 'document'}],
+      open: [{selector: 'button > div > svg[data-icon="ellipsis"]', scope: 'content'}, {selector: '.cursor-point [data-icon="sources"]', scope: 'document'}],
       close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
       selector: 'TODO'
     },
@@ -133,17 +133,17 @@ export async function interactAndCatch(content, selectors, sources_header, forma
     const btnBottomExpand = await safeExecute(await selectAndClick(open, content));
     const oldRes = res;
 
-    if (btnBottomExpand) {
-      res = await safeExecute(await extractFromModal(sources_header, format), oldRes);
-    } else {
-      res = await safeExecute(await extractFromTileList(sources_header, format, content), oldRes);
-    }
+    res = await safeExecute(
+      btnBottomExpand
+        ? await extractFromModal(sources_header, format)
+        : await extractFromTileList(sources_header, format, content),
+      oldRes);
+
 
     await safeExecute(await selectAndClick(close, content));
 
-    if (res !== oldRes) {
+    if (res !== oldRes)
       break;
-    }
   }
 
   const afterAction = document.querySelector(afterActionSelector);
