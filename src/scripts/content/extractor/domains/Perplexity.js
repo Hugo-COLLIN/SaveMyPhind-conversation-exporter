@@ -41,12 +41,12 @@ export async function extractSources(content, format) {
   res = await interactAndCatch(content, [
     {
       open: [{selector: 'button > div > svg[data-icon="ellipsis"]', scope: 'content'}, {selector: '.cursor-pointer [data-icon="sources"]', scope: 'document'}],
-      close: ['[data-testid="close-modal"]'],
+      close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
       selector: 'TODO'
     },
     {
       open: [{selector: 'div.grid > div.flex:nth-last-of-type(1)', scope: 'content'}],
-      close: ['[data-testid="close-modal"]'],
+      close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
       selector: 'TODO'
     },
   ], res, format);
@@ -119,9 +119,9 @@ async function extractFromTileList(res, format, content) {
 
 /**
  *
- * @param actionsList {Array<{selector: string, scope: string}>}
- * @param content
- * @returns {Promise<*>}
+ * @param actionsList {Array<{selector: string, scope: string}>} List of queryselectors to click on one after the other
+ * @param content {HTMLElement} The content of the page
+ * @returns {Promise<HTMLElement | null | undefined>} The last element clicked on
  */
 async function selectAndClick(actionsList, content) {
   let btnBottomExpand;
@@ -149,7 +149,7 @@ async function selectAndClick(actionsList, content) {
 /**
  * Generic function using list of queryselectors (1 for open possibilities, 1 for close) ; they are executed one after the other
  * @param content
- * @param {Array<{open: Array<{selector: string, scope: string}>, close: Array<string>, selector: string}>} selectors // scope:document/parent/child/...
+ * @param {Array<{open: Array<{selector: string, scope: string}>, close: Array<{selector: string, scope: string}>, selector: string}>} selectors // scope:document/parent/child/...
  * @param sources_header
  * @param format
  * @param afterActionSelector
@@ -173,13 +173,7 @@ export async function interactAndCatch(content, selectors, sources_header, forma
       res);
 
     // Close sources modal : each element in the close array is queryselected and clicked one after the other
-    for (const query of close) {
-      const btnClose = document.querySelector(query);
-      if (btnClose) {
-        btnClose.click();
-        await sleep(10);
-      }
-    }
+    await selectAndClick(close, content);
 
     if (res !== sources_header)
       break;
