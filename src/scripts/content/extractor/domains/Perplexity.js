@@ -117,6 +117,34 @@ async function extractFromTileList(res, format, content) {
   return res;
 }
 
+/**
+ *
+ * @param actionsList {Array<{selector: string, scope: string}>}
+ * @param content
+ * @returns {Promise<*>}
+ */
+async function selectAndClick(actionsList, content) {
+  let btnBottomExpand;
+  for (const query of actionsList) {
+    switch (query.scope) {
+      case 'content':
+        btnBottomExpand = content.querySelector(query.selector);
+        break;
+      case 'document':
+        btnBottomExpand = document.querySelector(query.selector);
+        break;
+      default:
+        console.warn("Unknown scope: " + query.scope + ". Defaulting to content for query: " + query.selector + ".");
+        return content.querySelector(query.selector);
+    }
+
+    if (btnBottomExpand) {
+      btnBottomExpand.click ? btnBottomExpand.click() : btnBottomExpand.parentNode?.click();
+      await sleep(10);
+    }
+  }
+  return btnBottomExpand;
+}
 
 /**
  * Generic function using list of queryselectors (1 for open possibilities, 1 for close) ; they are executed one after the other
@@ -130,26 +158,9 @@ async function extractFromTileList(res, format, content) {
 export async function interactAndCatch(content, selectors, sources_header, format, afterActionSelector = null) {
   let res = sources_header;
   for (const {open, close, selector} of selectors) {
-    let btnBottomExpand;
-    // Open sources modal : each element in the open array is queryselected and clicked one after the other
-    for (const query of open) {
-      switch (query.scope) {
-        case 'content':
-          btnBottomExpand = content.querySelector(query.selector);
-          break;
-        case 'document':
-          btnBottomExpand = document.querySelector(query.selector);
-          break;
-        default:
-          console.warn("Unknown scope: " + query.scope + ". Defaulting to content.");
-          btnBottomExpand = content.querySelector(query.selector);
-      }
 
-      if (btnBottomExpand) {
-        btnBottomExpand.click ? btnBottomExpand.click() : btnBottomExpand.parentNode?.click();
-        await sleep(10);
-      }
-    }
+    // Open sources modal : each element in the open array is queryselected and clicked one after the other
+    const btnBottomExpand = await selectAndClick(open, content);
 
     // if (!btnBottomExpand) {
     //   console.warn("btnBottomExpand undefined");
