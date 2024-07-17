@@ -1,5 +1,6 @@
 import {safeExecute, sleep} from "../../../shared/utils/jsShorteners";
 import {formatLink} from "../../../shared/formatter/formatMarkdown";
+import {selectAndClick} from "../../interact/interact";
 
 export async function processMessage(content, format) {
   if (!content.hasChildNodes()) return "";
@@ -118,35 +119,6 @@ async function extractFromTileList(res, format, content) {
 }
 
 /**
- *
- * @param actionsList {Array<{selector: string, scope: string}>} List of queryselectors to click on one after the other
- * @param content {HTMLElement} The content of the page
- * @returns {Promise<HTMLElement | null | undefined>} The last element clicked on
- */
-async function selectAndClick(actionsList, content) {
-  let btnBottomExpand;
-  for (const query of actionsList) {
-    switch (query.scope) {
-      case 'content':
-        btnBottomExpand = content.querySelector(query.selector);
-        break;
-      case 'document':
-        btnBottomExpand = document.querySelector(query.selector);
-        break;
-      default:
-        console.warn("Unknown scope: " + query.scope + ". Defaulting to content for query: " + query.selector + ".");
-        return content.querySelector(query.selector);
-    }
-
-    if (btnBottomExpand) {
-      btnBottomExpand.click ? btnBottomExpand.click() : btnBottomExpand.parentNode?.click();
-      await sleep(10);
-    }
-  }
-  return btnBottomExpand;
-}
-
-/**
  * Generic function using list of queryselectors (1 for open possibilities, 1 for close) ; they are executed one after the other
  * @param content
  * @param {Array<{open: Array<{selector: string, scope: string}>, close: Array<{selector: string, scope: string}>, selector: string}>} selectors // scope:document/parent/child/...
@@ -161,11 +133,6 @@ export async function interactAndCatch(content, selectors, sources_header, forma
 
     // Open sources modal : each element in the open array is queryselected and clicked one after the other
     const btnBottomExpand = await selectAndClick(open, content);
-
-    // if (!btnBottomExpand) {
-    //   console.warn("btnBottomExpand undefined");
-    //   return;
-    // }
 
     res = safeExecute(btnBottomExpand
       ? await extractFromModal(sources_header, format)
