@@ -39,7 +39,7 @@ export async function extractSources(content, format) {
 
   // Open sources modal
   res = await interactAndCatch(content, [
-    {open: ['button > div > svg[data-icon="ellipsis"]', '.cursor-pointer svg[data-icon="list-timeline"]'], close: ['[data-testid="close-modal"]'], selector: 'TODO'},
+    {open: ['button > div > svg[data-icon="ellipsis"]', '.cursor-pointer [data-icon="sources"]'], close: ['[data-testid="close-modal"]'], selector: 'TODO'},
     {open: ['div.grid > div.flex:nth-last-of-type(1)'], close: ['[data-testid="close-modal"]'], selector: 'TODO'},
   ], res, format);
 
@@ -126,7 +126,7 @@ export async function interactAndCatch(content, selectors, sources_header, forma
     // Open sources modal : each element in the open array is queryselected and clicked one after the other
     for (const query of open) {
       // TODO: find a way to make this more generic (like global/document: true / scope:document/parent/child/...)
-      if (query.includes('.cursor-pointer svg[data-icon="list-timeline"]')) {
+      if (query.includes('.cursor-pointer [data-icon="sources"]')) {
         btnBottomExpand = document.querySelector(query);
       } else {
         btnBottomExpand = content.querySelector(query);
