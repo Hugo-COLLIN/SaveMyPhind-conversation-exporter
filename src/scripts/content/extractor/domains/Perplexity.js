@@ -39,8 +39,16 @@ export async function extractSources(content, format) {
 
   // Open sources modal
   res = await interactAndCatch(content, [
-    {open: ['button > div > svg[data-icon="ellipsis"]', '.cursor-pointer [data-icon="sources"]'], close: ['[data-testid="close-modal"]'], selector: 'TODO'},
-    {open: ['div.grid > div.flex:nth-last-of-type(1)'], close: ['[data-testid="close-modal"]'], selector: 'TODO'},
+    {
+      open: [{selector: 'button > div > svg[data-icon="ellipsis"]', scope: 'content'}, {selector: '.cursor-pointer [data-icon="sources"]', scope: 'document'}],
+      close: ['[data-testid="close-modal"]'],
+      selector: 'TODO'
+    },
+    {
+      open: [{selector: 'div.grid > div.flex:nth-last-of-type(1)', scope: 'content'}],
+      close: ['[data-testid="close-modal"]'],
+      selector: 'TODO'
+    },
   ], res, format);
 
   // async function interactAndCatch() {
@@ -113,7 +121,7 @@ async function extractFromTileList(res, format, content) {
 /**
  * Generic function using list of queryselectors (1 for open possibilities, 1 for close) ; they are executed one after the other
  * @param content
- * @param {Array<{open: Array<string>, close: Array<string>, selector: string}>} selectors
+ * @param {Array<{open: Array<{selector: string, scope: string}>, close: Array<string>, selector: string}>} selectors // scope:document/parent/child/...
  * @param sources_header
  * @param format
  * @param afterActionSelector
@@ -125,17 +133,20 @@ export async function interactAndCatch(content, selectors, sources_header, forma
     let btnBottomExpand;
     // Open sources modal : each element in the open array is queryselected and clicked one after the other
     for (const query of open) {
-      // TODO: find a way to make this more generic (like global/document: true / scope:document/parent/child/...)
-      if (query.includes('.cursor-pointer [data-icon="sources"]')) {
-        btnBottomExpand = document.querySelector(query);
-      } else {
-        btnBottomExpand = content.querySelector(query);
+      switch (query.scope) {
+        case 'content':
+          btnBottomExpand = content.querySelector(query.selector);
+          break;
+        case 'document':
+          btnBottomExpand = document.querySelector(query.selector);
+          break;
+        default:
+          console.warn("Unknown scope: " + query.scope + ". Defaulting to content.");
+          btnBottomExpand = content.querySelector(query.selector);
       }
 
       if (btnBottomExpand) {
-        // btnBottomExpand.click ? btnBottomExpand.click() : btnBottomExpand.parentNode?.click();
         btnBottomExpand.click ? btnBottomExpand.click() : btnBottomExpand.parentNode?.click();
-        // btnBottomExpand?.parentNode?.click();
         await sleep(10);
       }
     }
