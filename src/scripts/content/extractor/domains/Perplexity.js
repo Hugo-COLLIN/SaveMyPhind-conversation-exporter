@@ -34,7 +34,27 @@ export async function processMessage(content, format) {
   // if (analysis[0].querySelector(".grid") !== null) markdown += "**Quick search:**\n";
 
   // Display sources
-  const src = await safeExecute(await extractSources(content, format));
+  const data = {
+    selectors: [
+      {
+        open: [{
+          selector: 'button > div > svg[data-icon="ellipsis"]',
+          scope: 'content'
+        }, {
+          selector: '.cursor-pointer [data-icon="sources"]',
+          scope: 'document'
+        }],
+        close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
+        selector: 'TODO'
+      },
+      {
+        open: [{selector: 'div.grid > div.flex:nth-last-of-type(1)', scope: 'content'}],
+        close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
+        selector: 'TODO'
+      },
+    ]
+  };
+  const src = await safeExecute(await extractSources(content, format, data));
   if (src !== null) markdown += src + "\n";
 
   return markdown;
@@ -46,21 +66,12 @@ export const SOURCES_HEADER = "---\n**Sources:**\n";
  * Open sources modal and extract sources from it for a message
  * @param content {HTMLElement}
  * @param format {(text: string) => string}
+ * @param data
  * @returns {Promise<void|string>}
  */
-export async function extractSources(content, format) {
-  return await interactAndCatch(content, [
-    {
-      open: [{selector: 'button > div > svg[data-icon="ellipsis"]', scope: 'content'}, {selector: '.cursor-pointer [data-icon="sources"]', scope: 'document'}],
-      close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
-      selector: 'TODO'
-    },
-    {
-      open: [{selector: 'div.grid > div.flex:nth-last-of-type(1)', scope: 'content'}],
-      close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
-      selector: 'TODO'
-    },
-  ], SOURCES_HEADER, format) || "";
+export async function extractSources(content, format, data) {
+  const res = await interactAndCatch(content, data, SOURCES_HEADER, format) || "";
+  return res && SOURCES_HEADER + res;
 
   // async function interactAndCatch() {
   //   const btnBottomExpand = content.querySelector('button > div > svg[data-icon="ellipsis"]');
@@ -95,7 +106,8 @@ export async function extractSources(content, format) {
   // await interactAndCatch.call(this);
 }
 
-async function extractFromModal(res, format) {
+async function extractFromModal(format) {
+  let res = '';
   let i = 1;
   for (const tile of document.querySelectorAll(".fixed > div > [class] > div > div > div > div > div > .flex.group")) {
     res += await formatSources(i, format, tile);
@@ -104,7 +116,8 @@ async function extractFromModal(res, format) {
   return res;
 }
 
-async function extractFromTileList(res, format, content) {
+async function extractFromTileList(format, content) {
+  let res = '';
   let i = 1;
   // Case the first tile is a file, not a link
   const tilesNoLink = content.querySelectorAll("div.grid > div.flex");
@@ -126,30 +139,28 @@ async function extractFromTileList(res, format, content) {
 /**
  * Generic function using list of queryselectors (1 for open possibilities, 1 for close) ; they are executed one after the other
  * @param content {HTMLElement}
- * @param {Array<{open: Array<{selector: string, scope: string}>, close: Array<{selector: string, scope: string}>, selector: string}>} selectors // scope:document/parent/child/...
+ * @param {Object<selectors: Array<{open: Array<{selector: string, scope: string}>, close: Array<{selector: string, scope: string}>, selector: string}>, afterAction: string>} data // scope:document/parent/child/...
  * @param sources_header
  * @param format
- * @param afterActionSelector
  * @returns {Promise<void>}
  */
-export async function interactAndCatch(content, selectors, sources_header, format, afterActionSelector = null) {
+export async function interactAndCatch(content, data, sources_header, format) {
   let res;
-  for (const {open, close, selector} of selectors) {
+  for (const {open, close, selector} of data.selectors) {
     const btnBottomExpand = await safeExecute(await selectAndClick(open, content));
 
     res = await safeExecute(
       btnBottomExpand
-        ? await extractFromModal(sources_header, format)
-        : await extractFromTileList(sources_header, format, content),
+        ? await extractFromModal(format)
+        : await extractFromTileList(format, content),
       res);
 
     await safeExecute(await selectAndClick(close, content));
 
-    if (res && res !== sources_header)
-      break;
+    if (res) break;
   }
 
-  const afterAction = document.querySelector(afterActionSelector);
+  const afterAction = document.querySelector(data.afterAction);
   if (afterAction) {
     await sleep(100);
     afterAction.click();

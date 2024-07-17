@@ -1,5 +1,5 @@
 import {safeExecute} from "../../../shared/utils/jsShorteners";
-import {interactAndCatch, SOURCES_HEADER} from "./Perplexity";
+import {extractSources} from "./Perplexity";
 
 export async function processMessage(content, format) {
   if (!content.hasChildNodes())
@@ -18,19 +18,19 @@ export async function processMessage(content, format) {
     : '';
 
   // Display sources
-  const src = await safeExecute(await extractSources(content, format));
+  const data = {
+    selectors: [
+      {
+        open: [{selector: 'div.grid > div.flex:nth-last-of-type(1), .group\\/source', scope: 'content'}],
+        close: [],
+        selector: 'TODO'
+      },
+    ],
+    afterAction: '[data-testid="close-modal"]'
+  };
+  const src = await safeExecute(await extractSources(content, format, data));
   if (src && src !== '')
     markdown += src + "\n";
 
   return markdown;
-}
-
-async function extractSources(content, format) {
-  return await interactAndCatch(content, [
-    {
-      open: [{selector: 'div.grid > div.flex:nth-last-of-type(1), .group\\/source', scope: 'content'}],
-      close: [],
-      selector: 'TODO'
-    },
-  ], SOURCES_HEADER, format, '[data-testid="close-modal"]') || '';
 }
