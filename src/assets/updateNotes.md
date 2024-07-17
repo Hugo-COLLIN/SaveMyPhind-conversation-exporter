@@ -1,4 +1,8 @@
 # Update notes
+# 2.7.1
+🐞 Fixing some bugs
+Extracting Perplexity sources is working again and is now more robust! Enjoy!
+
 # 2.7.0
 🎩 New feature: Export Perplexity Pages!
 You asked it, you got it! Just click the extension icon when you're on a Perplexity Page and see the magic happen!
