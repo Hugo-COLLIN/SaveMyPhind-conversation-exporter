@@ -1,6 +1,13 @@
 import {safeExecute, sleep} from "../../../shared/utils/jsShorteners";
 import {formatLink} from "../../../shared/formatter/formatMarkdown";
+import {selectAndClick} from "../../interact/interact";
 
+/**
+ * Extracts the content of a message from Perplexity
+ * @param content {HTMLElement}
+ * @param format {(text: string) => string}
+ * @returns {Promise<string>}
+ */
 export async function processMessage(content, format) {
   if (!content.hasChildNodes()) return "";
   const question = content.querySelector('.break-words');
@@ -27,61 +34,48 @@ export async function processMessage(content, format) {
   // if (analysis[0].querySelector(".grid") !== null) markdown += "**Quick search:**\n";
 
   // Display sources
-  const src = await safeExecute(await extractSources(content, format));
+  const data = {
+    selectors: [
+      {
+        open: [{
+          selector: 'button > div > svg[data-icon="ellipsis"]',
+          scope: 'content'
+        }, {
+          selector: '.cursor-pointer [data-icon="sources"]',
+          scope: 'document'
+        }],
+        close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
+        selector: 'TODO'
+      },
+      {
+        open: [{selector: 'div.grid > div.flex:nth-last-of-type(1)', scope: 'content'}],
+        close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
+        selector: 'TODO'
+      },
+    ]
+  };
+  const src = await safeExecute(await extractSources(content, format, data));
   if (src !== null) markdown += src + "\n";
 
   return markdown;
 }
 
-export async function extractSources(content, format) {
-  const SOURCES_HEADER = "---\n**Sources:**\n";
-  let res = SOURCES_HEADER;
+export const SOURCES_HEADER = "---\n**Sources:**\n";
 
-  // Open sources modal
-  res = await interactAndCatch(content, [
-    {open: ['button > div > svg[data-icon="ellipsis"]', '.cursor-pointer svg[data-icon="list-timeline"]'], close: ['[data-testid="close-modal"]'], selector: 'TODO'},
-    {open: ['div.grid > div.flex:nth-last-of-type(1)'], close: ['[data-testid="close-modal"]'], selector: 'TODO'},
-  ], res, format);
-
-  // async function interactAndCatch() {
-  //   const btnBottomExpand = content.querySelector('button > div > svg[data-icon="ellipsis"]');
-  //   let btnBottomSources;
-  //   const btnExpandSources = content.querySelector("div.grid > div.flex:nth-last-of-type(1)"); // Get the last button, useful when uploaded file div
-  //   if (btnBottomExpand) {
-  //     btnBottomExpand.parentNode?.click();
-  //     await sleep(10);
-  //     btnBottomSources = document.querySelector('.cursor-pointer svg[data-icon="list-timeline"]');
-  //     if (btnBottomSources) btnBottomSources.parentNode?.click();
-  //   }
-  //   if (!btnBottomSources) {
-  //     btnExpandSources?.click();
-  //   }
-  //   // console.log(btnExpandSources)
-  //
-  //   // if there's a div tile and it contains multiple images (so it's not a file tile)
-  //   if (btnBottomSources || (btnExpandSources && btnExpandSources.querySelectorAll("img").length > 0)) {
-  //     await sleep(10);
-  //
-  //     // Extract sources list from modal
-  //     await safeExecute(extractFromModal.call(this));
-  //
-  //     // Close sources modal
-  //     const closeBtn = document.querySelector('[data-testid="close-modal"]');
-  //     if (closeBtn) closeBtn.click();
-  //     // if (btnBottomExpand) btnBottomExpand.parentNode?.click(); // causes bug
-  //   } else
-  //     await safeExecute(extractFromTileList.call(this));
-  // }
-  //
-  // await interactAndCatch.call(this);
-
-  // Don't export header if no sources
-  return res !== SOURCES_HEADER
-    ? res
-    : "";
+/**
+ * Open sources modal and extract sources from it for a message
+ * @param content {HTMLElement}
+ * @param format {(text: string) => string}
+ * @param data
+ * @returns {Promise<void|string>}
+ */
+export async function extractSources(content, format, data) {
+  const res = await interactAndCatch(content, data, SOURCES_HEADER, format) || "";
+  return res && SOURCES_HEADER + res;
 }
 
-async function extractFromModal(res, format) {
+async function extractFromModal(format) {
+  let res = '';
   let i = 1;
   for (const tile of document.querySelectorAll(".fixed > div > [class] > div > div > div > div > div > .flex.group")) {
     res += await formatSources(i, format, tile);
@@ -90,7 +84,8 @@ async function extractFromModal(res, format) {
   return res;
 }
 
-async function extractFromTileList(res, format, content) {
+async function extractFromTileList(format, content) {
+  let res = '';
   let i = 1;
   // Case the first tile is a file, not a link
   const tilesNoLink = content.querySelectorAll("div.grid > div.flex");
@@ -109,66 +104,39 @@ async function extractFromTileList(res, format, content) {
   return res;
 }
 
-
 /**
  * Generic function using list of queryselectors (1 for open possibilities, 1 for close) ; they are executed one after the other
- * @param content
- * @param {Array<{open: Array<string>, close: Array<string>, selector: string}>} selectors
+ * @param content {HTMLElement}
+ * @param {Object<selectors: Array<{open: Array<{selector: string, scope: string}>, close: Array<{selector: string, scope: string}>, selector: string}>, afterAction: string>} data // scope:document/parent/child/...
  * @param sources_header
  * @param format
- * @param afterActionSelector
  * @returns {Promise<void>}
  */
-export async function interactAndCatch(content, selectors, sources_header, format, afterActionSelector = null) {
-  let res = sources_header;
-  for (const {open, close, selector} of selectors) {
-    let btnBottomExpand;
-    // Open sources modal : each element in the open array is queryselected and clicked one after the other
-    for (const query of open) {
-      // TODO: find a way to make this more generic (like global/document: true / scope:document/parent/child/...)
-      if (query.includes('.cursor-pointer svg[data-icon="list-timeline"]')) {
-        btnBottomExpand = document.querySelector(query);
-      } else {
-        btnBottomExpand = content.querySelector(query);
-      }
+export async function interactAndCatch(content, data, sources_header, format) {
+  let res;
+  for (const {open, close, selector} of data.selectors) {
+    const btnBottomExpand = await safeExecute(await selectAndClick(open, content));
 
-      if (btnBottomExpand) {
-        // btnBottomExpand.click ? btnBottomExpand.click() : btnBottomExpand.parentNode?.click();
-        btnBottomExpand.click ? btnBottomExpand.click() : btnBottomExpand.parentNode?.click();
-        // btnBottomExpand?.parentNode?.click();
-        await sleep(10);
-      }
-    }
-
-    // if (!btnBottomExpand) {
-    //   console.warn("btnBottomExpand undefined");
-    //   return;
-    // }
-
-    res = safeExecute(btnBottomExpand
-      ? await extractFromModal(sources_header, format)
-      : await extractFromTileList(sources_header, format, content),
+    res = await safeExecute(
+      btnBottomExpand
+        ? await extractFromModal(format)
+        : await extractFromTileList(format, content),
       res);
 
-    // Close sources modal : each element in the close array is queryselected and clicked one after the other
-    for (const query of close) {
-      const btnClose = document.querySelector(query);
-      if (btnClose) {
-        btnClose.click();
-        await sleep(10);
-      }
-    }
+    await safeExecute(await selectAndClick(close, content));
 
-    if (res !== sources_header)
-      break;
+    if (res) break;
   }
-  const afterAction = document.querySelector(afterActionSelector);
+
+  const afterAction = document.querySelector(data.afterAction);
   if (afterAction) {
-    await sleep(100)
+    await sleep(100);
     afterAction.click();
   }
+
   return res;
 }
+
 
 export async function formatSources(i, format, tile) {
   const text = "(" + i + ") "

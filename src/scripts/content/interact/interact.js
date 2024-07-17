@@ -20,3 +20,33 @@ export async function clickElements(cssSelector = '.fe-chevron-down') {
     if (btn) btn.click();
   });
 }
+
+// --- Generic functions ---
+/**
+ *
+ * @param actionsList {Array<{selector: string, scope: string}>} List of queryselectors to click on one after the other
+ * @param content {HTMLElement} The content of the page
+ * @returns {Promise<HTMLElement | null | undefined>} The last element clicked on
+ */
+export async function selectAndClick(actionsList, content) {
+  let element;
+  for (const query of actionsList) {
+    switch (query.scope) {
+      case 'content':
+        element = content.querySelector(query.selector);
+        break;
+      case 'document':
+        element = document.querySelector(query.selector);
+        break;
+      default:
+        console.warn("Unknown scope: " + query.scope + ". Defaulting to content for query: " + query.selector + ".");
+        return content.querySelector(query.selector);
+    }
+
+    if (element) {
+      element.click ? element.click() : element.parentNode?.click();
+      await sleep(10);
+    }
+  }
+  return element;
+}
