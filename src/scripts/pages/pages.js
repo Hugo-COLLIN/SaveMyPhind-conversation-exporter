@@ -2,6 +2,8 @@
 import './shoelace-styles';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 import '@shoelace-style/shoelace/dist/components/input/input.js';
+import '@shoelace-style/shoelace/dist/components/alert/alert.js';
+import {sleep} from "../shared/utils/jsShorteners";
 
 async function pages() {
   // Select the container where the Shoelace components will be added
@@ -29,12 +31,28 @@ async function pages() {
       button.submit = true;
       form.appendChild(button);
 
+
+
+
+
       // Handle form submission
       button.addEventListener('click', async (event) => {
         event.preventDefault();
         const format = input.value;
-        chrome.storage.sync.set({filenameFormat: format});
-        alert('Format saved : ' + format);
+        await chrome.storage.sync.set({filenameFormat: format});
+
+        // // Create a success alert
+        // const alertIcon = document.createElement('sl-icon');
+        // alertIcon.name = 'check2-circle';
+        // alertIcon.slot = 'icon';
+        const alert = document.createElement('sl-alert');
+        alert.variant = 'success';
+        alert.textContent = 'Options saved successfully';
+        // alert.appendChild(alertIcon);
+        container.appendChild(alert);
+        alert.open = true;
+        await sleep(5000);
+        alert.remove();
       });
       break;
     default:
