@@ -8,6 +8,7 @@ export function setRuntimeListeners() {
     (details) => {
       initClickIconCount(details);
       defineDisplayModalOnInstall(details);
+      chrome.storage.sync.set({filenameFormat: '%t'});
     }
   );
 
