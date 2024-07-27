@@ -45,5 +45,6 @@
         "<all_urls>"
       ]
     }
-  ]
+  ],
+  "options_page": "pages/options.html"
 }
