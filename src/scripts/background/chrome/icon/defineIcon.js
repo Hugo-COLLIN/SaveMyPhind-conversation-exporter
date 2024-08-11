@@ -3,6 +3,26 @@ import {LOAD_DOMAINS} from "../../../../data/allowedDomains.json"
 import {getTabData} from "../../../shared/utils/chromeStorage";
 
 /**
+ * This is the code for the extension icon to change depending on the website
+ */
+export function listenTabsToUpdateIcon() {
+  // Enables the icon to be set when the tab is reloaded
+  chrome.tabs.onUpdated.addListener(
+    (tabId, changeInfo, tab) => defineIcon(tabId)
+  );
+
+  // Enables the icon to be set when the tab is changed
+  chrome.tabs.onActivated.addListener(
+    (activeInfo) => defineIcon(activeInfo.tabId)
+  );
+
+  // Enables the icon to be set for already opened tabs in windows
+  chrome.windows.onFocusChanged.addListener((windowId) => {
+    focusDependingSetIcon(windowId);
+  });
+}
+
+/**
  * Sets the icon depending on the window focus
  * @param windowId the id of the window that is focused
  */

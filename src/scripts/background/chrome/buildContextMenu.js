@@ -1,6 +1,6 @@
-import {setPopup} from "./popup";
+import {setPopup} from "./alert";
 
-export function contextMenu() {
+export function buildContextMenu() {
   chrome.runtime.onInstalled.addListener(() => {
     chrome.contextMenus.create({
       id: "openOptions",

@@ -1,7 +1,27 @@
+import {launchScrappingActionOnPage} from "../../content/launch/launchScraperOnPage";
+
 let currentIndex = 0;
 let lengthList = 0;
 let isExporting = false;
 let eventCount = 0;
+
+function exportAllThreadsListener() {
+  // Needs to be after setTabsListeners and setActionListeners to work properly
+  chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    return defineProcessingState(request, sendResponse);
+  });
+  // chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  //   if (request.action === "exportAllThreads") {
+  //     chrome.storage.local.set({exportAllThreads: request.value});
+  //   }
+  // });
+}
+
+function scrapOnLoadListener() {
+  chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
+    return launchScrappingActionOnPage(request, domain, sendResponse);
+  });
+}
 
 export function defineProcessingState(request, sendResponse) {
   if (request.message === 'exportAllThreads') {
@@ -60,4 +80,3 @@ export function defineProcessingState(request, sendResponse) {
   }
   return true;
 }
-

@@ -4,7 +4,7 @@ import {
   clickCounts,
   resetClickCount,
   updateClickIconCount
-} from "../../../../background/icon/clickCount/clickIconCountContext";
+} from "../../../../background/chrome/icon/clickCount";
 
 const MODAL_SURVEY = 'assets/modalMessages/modalSurvey.md';
 const MODAL_DONATION = 'assets/modalMessages/modalDonation.md';

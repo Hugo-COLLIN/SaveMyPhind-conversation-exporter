@@ -1,14 +1,22 @@
-import {setTabsListeners} from "./chrome/setTabsListeners";
-import {setRuntimeListeners} from "./chrome/setRuntimeListeners";
-import {setActionListeners} from "./chrome/setActionListeners";
-import {contextMenu} from "./chrome/contextMenu";
+import {listenIconClick} from "./chrome/icon/iconAction";
+import {buildContextMenu} from "./chrome/buildContextMenu";
+import {listenTabsToUpdateIcon} from "./chrome/icon/defineIcon";
+import {initClickCount} from "./chrome/icon/clickCount";
+import {initModalOnInstall, setUninstalledRedirect} from "./chrome/alert";
+// import {launchScrappingActionOnPage} from "../../content/launch/launchScraperOnPage";
+// import {defineProcessingState} from "../scraper/defineProcessingState";
 
 background();
 
 function background() {
-  contextMenu();
-  setActionListeners();
-  setTabsListeners();
-  setRuntimeListeners();
+  buildContextMenu();
+  listenIconClick();
+  listenTabsToUpdateIcon();
+  initClickCount();
+  initModalOnInstall();
+  setUninstalledRedirect();
+
+  // exportAllThreadsListener();
+  // scrapOnLoadListener();
 }
 
