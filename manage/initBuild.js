@@ -16,6 +16,7 @@ const readmePath = path.join(__dirname, '../README.md');
 const licenseListPath = path.join(__dirname, '../licenses.txt');
 const infosPath = path.join(__dirname, '../src/infos.json');
 const optionsHTMLPath = path.join(__dirname, '../src/scripts/pages/options.html');
+const popupHTMLPath = path.join(__dirname, '../src/scripts/pages/popup.html');
 
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 if (manifest.background.service_worker)
@@ -30,3 +31,4 @@ fs.copySync(readmePath, path.join(distPath, 'doc/README.md'));
 fs.copySync(licenseListPath, path.join(distPath, 'doc/licenses.txt'));
 fs.copySync(infosPath, path.join(distPath, 'infos.json'));
 fs.copySync(optionsHTMLPath, path.join(distPath, 'pages/options.html'));
+fs.copySync(popupHTMLPath, path.join(distPath, 'pages/popup.html'));
