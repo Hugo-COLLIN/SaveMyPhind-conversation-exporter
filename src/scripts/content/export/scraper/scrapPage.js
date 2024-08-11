@@ -4,10 +4,7 @@ import {extractPage} from "../extractor/extractPage";
 import {defineOutputMethod} from "../output/defineOutputMethod";
 import {updateClickIconCount} from "../../../background/interface/icon/clickCount";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
-import {EXPORTER_FALLBACK_ACTION, EXTRACTOR_FALLBACK_ACTION} from "../../utils/fallbackActions";
-import {formatFilename} from "../../../shared/formatter/formatText";
-import {applyExtractorRules} from "../extractor/rules/applyRules";
-import converter from "../../../shared/formatter/formatMarkdown";
+import {EXPORTER_FALLBACK_ACTION} from "../../utils/fallbackActions";
 
 /**
  * @description - Launch the export process

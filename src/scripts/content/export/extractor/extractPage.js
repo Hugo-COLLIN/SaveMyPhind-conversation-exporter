@@ -4,7 +4,7 @@ import {extractPageContent} from "./extractPageContent";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
 import converter from "../../../shared/formatter/formatMarkdown";
 import {EXTRACTOR_FALLBACK_ACTION} from "../../utils/fallbackActions";
-import {formatFilename} from "../../../shared/formatter/formatText";
+import {patternBasedFormatFilename} from "../../../shared/formatter/formatText";
 
 export async function extractPage(domain) {
   let json, module, metadata;
@@ -40,7 +40,7 @@ export async function extractPage(domain) {
 
   return {
     title: metadata.pageTitle,
-    fileName: formatFilename(metadata.pageTitle, metadata.domainName),
+    fileName: await patternBasedFormatFilename(metadata.pageTitle, metadata.domainName),
     markdownContent: await safeExecute(module.extractPageContent
       ? module.extractPageContent(converter[`formatMarkdown`], metadata)
       : extractPageContent(converter[`formatMarkdown`], metadata, module.processMessage)

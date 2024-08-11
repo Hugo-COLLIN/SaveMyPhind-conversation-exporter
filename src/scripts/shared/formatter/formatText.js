@@ -112,6 +112,38 @@ export function formatFilename(title, siteName) {
     filename.replace(/\s*$/, '');
 }
 
+export async function patternBasedFormatFilename(title, siteName) {
+  const now = new Date();
+  const yyyy = now.getFullYear().toString();
+  const mm = (now.getMonth() + 1).toString().padStart(2, '0');
+  const dd = now.getDate().toString().padStart(2, '0');
+  const hh = now.getHours().toString().padStart(2, '0');
+  const mn = now.getMinutes().toString().padStart(2, '0');
+  const ss = now.getSeconds().toString().padStart(2, '0');
+  const timestamp = Math.floor(now.getTime() / 1000);
+
+  let filenameTemplate = await chrome.storage.sync.get('filenameTemplate');
+  console.log(filenameTemplate)
+  filenameTemplate = filenameTemplate['filenameTemplate']
+    .replace(/%Y/g, yyyy)
+    .replace(/%M/g, mm)
+    .replace(/%D/g, dd)
+    .replace(/%h/g, hh)
+    .replace(/%m/g, mn)
+    .replace(/%s/g, ss)
+    .replace(/%t/g, timestamp.toString())
+    .replace(/%W/g, siteName)
+    .replace(/%T/g, title);
+
+  console.log(filenameTemplate)
+
+  // Remplacer %c, %u, %w par les valeurs appropriées si elles sont disponibles
+  // Exemple : filenameTemplate = filenameTemplate.replace(/%c/g, count);
+
+  return filenameTemplate.replace(/[\n\/:*?"<>|]/g, '');
+}
+
+
 /**
  * Capitalize the first letter of a string
  * @param string string to process

@@ -18,7 +18,7 @@ function background() {
   setUninstalledRedirect();
 
   chrome.runtime.onInstalled.addListener(() => {
-    chrome.storage.sync.set({filenameFormat: '%t'});
+    chrome.storage.sync.set({filenameTemplate: '%Y-%M-%D_%h-%m-%s_%W_%T'});
   });
 
   // exportAllThreadsListener();
