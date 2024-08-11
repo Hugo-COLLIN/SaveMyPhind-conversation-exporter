@@ -1,4 +1,4 @@
-import {launchModalIntegration} from "../uiEnhancer/modals/launchModalIntegration";
+import {launchModalIntegration} from "../interface/uiEnhancer/modals/launchModalIntegration";
 import {safeExecute} from "../../shared/utils/jsShorteners";
 
 export async function setLoadListener(domain) {

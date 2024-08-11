@@ -1,7 +1,7 @@
-import {handleModalDisplay} from "./uiEnhancer/modals/actions/displayCtaModals";
+import {handleModalDisplay} from "./interface/uiEnhancer/modals/actions/displayCtaModals";
 import {setLoadListener} from "./window/setLoadListener";
 import {detectPageLoad} from "./detectPageLoad";
-import {launchScrapping} from "./scraper/scrapPage";
+import {launchScrapping} from "./export/scraper/scrapPage";
 import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../../data/allowedDomains.json";
 import {domainChecker} from "../shared/checker/domainChecker";
 import {getHostAndPath} from "./utils/getters";
