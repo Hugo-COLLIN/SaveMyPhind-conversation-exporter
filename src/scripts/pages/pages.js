@@ -3,7 +3,6 @@ import './shoelace-styles';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 import '@shoelace-style/shoelace/dist/components/input/input.js';
 import '@shoelace-style/shoelace/dist/components/alert/alert.js';
-import {sleep} from "../shared/utils/jsShorteners";
 import appInfos from "../../infos.json";
 
 async function pages() {
@@ -36,13 +35,13 @@ async function pages() {
       // options.style.justifyContent = 'space-between';
       form.appendChild(options);
 
-      const storedFormat = await chrome.storage.sync.get(['filenameFormat']);
+      const storedFormat = await chrome.storage.sync.get(['filenameTemplate']);
 
       // Create an input for the filename format
       const input = document.createElement('sl-input');
       input.placeholder = 'Enter filename format';
-      input.label = 'Filename format';
-      input.value = storedFormat.filenameFormat;
+      input.label = 'Filename format:';
+      input.value = storedFormat.filenameTemplate;
       options.appendChild(input);
 
       // Create a submit button
@@ -52,15 +51,36 @@ async function pages() {
       button.submit = true;
       form.appendChild(button);
 
+      const feedback = document.createElement('p');
+      feedback.style.textAlign = 'center';
+      feedback.style.marginTop = '1rem';
 
+      const feedbackMsg = document.createElement('span');
+      feedbackMsg.textContent = 'Options page is currently in beta. ';
+      // feedbackMsg.textContent = 'The filename format is a string that can contain placeholders. The placeholders are: %Y, %M, %D, %h, %m, %s, %t, %W, %T. %Y, %M, %D, %h, %m, %s are the year, month, day, hour, minute, second of the current date. %t is the timestamp of the current date. %W is the website name and %T is the title of the page.';
+      // feedbackMsg.style.textAlign = 'center';
+      feedback.appendChild(feedbackMsg);
 
+      const feedbackLink = document.createElement('a');
+      feedbackLink.href = appInfos.URLS.DISCUSSIONS;
+      feedbackLink.target = '_blank';
+      feedbackLink.textContent = 'Share feedback and report bugs.';
+      feedback.appendChild(feedbackLink);
 
+      container.appendChild(feedback);
+
+      const toastStack = document.createElement('div');
+      toastStack.style.position = 'fixed';
+      toastStack.style.top = '0';
+      toastStack.style.right = '0';
+      toastStack.style.zIndex = '1000'; // Assure que le toastStack est au-dessus des autres éléments
+      document.body.appendChild(toastStack);
 
       // Handle form submission
       button.addEventListener('click', async (event) => {
         event.preventDefault();
         const format = input.value;
-        await chrome.storage.sync.set({filenameFormat: format});
+        await chrome.storage.sync.set({filenameTemplate: format});
 
         // // Create a success alert
         // const alertIcon = document.createElement('sl-icon');
@@ -69,13 +89,13 @@ async function pages() {
         const alert = document.createElement('sl-alert');
         alert.variant = 'success';
         alert.textContent = 'Options saved successfully';
-        alert.style.transition = 'all 0.5s';
+        alert.style.transition = 'all 1.5s';
         alert.style.margin = '1rem 0';
-        // alert.appendChild(alertIcon);
-        container.appendChild(alert);
+        alert.duration = "5000";
+        alert.closable = true;
         alert.open = true;
-        await sleep(5000);
-        alert.remove();
+        // alert.appendChild(alertIcon);
+        toastStack.appendChild(alert);
       });
       break;
     case "popup-icon-container":
