@@ -4,6 +4,7 @@ import '@shoelace-style/shoelace/dist/components/button/button.js';
 import '@shoelace-style/shoelace/dist/components/input/input.js';
 import '@shoelace-style/shoelace/dist/components/alert/alert.js';
 import appInfos from "../../infos.json";
+import showdown from "showdown";
 
 async function pages() {
   // Select the container where the Shoelace components will be added
@@ -12,11 +13,32 @@ async function pages() {
   switch (container.id) {
     case 'options-container':
       //Create title
+      const titleDiv = document.createElement('div');
+      titleDiv.style.display = 'flex';
+      titleDiv.style.justifyContent = 'center';
+      titleDiv.style.alignItems = 'center';
+
       const title = document.createElement('h1');
       title.textContent = `${appInfos.APP_NAME} Options`;
       title.style.textAlign = 'center';
       title.style.marginBottom = '1rem';
-      container.appendChild(title);
+      title.style.marginLeft = '0.5rem';
+      title.style.display = 'inline';
+      titleDiv.appendChild(title);
+
+      //Icon
+      const innerDivImage = document.createElement('span');
+      innerDivImage.style.marginRight = '10px';
+      const innerDivImageImg = document.createElement('img');
+      innerDivImageImg.src = chrome.runtime.getURL('assets/icons/icon-48.png');
+      innerDivImageImg.alt = `${appInfos.APP_SNAME} icon`;
+      innerDivImageImg.width = 48;
+      innerDivImageImg.height = 48;
+      innerDivImage.appendChild(innerDivImageImg);
+
+      titleDiv.prepend(innerDivImage);
+
+      container.appendChild(titleDiv);
 
       // Create a form
       const form = document.createElement('form');
@@ -44,9 +66,29 @@ async function pages() {
       input.value = storedFormat.filenameTemplate;
       options.appendChild(input);
 
+      // Create a help text
+      const helpTextElement = document.createElement('div');
+      const helpTextHtml = new showdown.Converter().makeHtml(`
+The filename format is a string containing placeholders that will be replaced by the actual values when exporting a page. 
+
+The currently supported placeholders are: 
+- %W - Domain/Sub-domain name (Website)
+- %T - Title of the page
+- %t - Timestamp (Unix time)
+- %Y - Year
+- %M - Month
+- %D - Day
+- %h - Hour
+- %m - Minutes
+- %s - Seconds
+      `);
+      helpTextElement.innerHTML = helpTextHtml;
+      options.appendChild(helpTextElement);
+
+
       // Create a submit button
       const button = document.createElement('sl-button');
-      button.textContent = 'Save';
+      button.textContent = 'Save changes';
       button.setAttribute('variant', 'primary');
       button.submit = true;
       form.appendChild(button);

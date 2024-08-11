@@ -3,7 +3,7 @@ export function setPopup(info) {
     chrome.windows.create({
       url: chrome.runtime.getURL("pages/options.html"),
       type: "popup",
-      width: 400,
+      width: 450,
       height: 600
     });
   }
