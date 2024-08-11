@@ -1,10 +1,12 @@
 import ModalMessage from "../types/ModalMessage";
 import {getStorageData} from "../../../../shared/utils/chromeStorage";
+
+// TODO: shouldn't call from background directory ; move in shared or split? Or change structure?
 import {
   clickCounts,
   resetClickCount,
   updateClickIconCount
-} from "../../../../background/icon/clickCount";
+} from "../../../../background/interface/icon/clickCount";
 
 const MODAL_SURVEY = 'assets/modalMessages/modalSurvey.md';
 const MODAL_DONATION = 'assets/modalMessages/modalDonation.md';
