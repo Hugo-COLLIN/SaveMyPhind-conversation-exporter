@@ -7,11 +7,6 @@ export function buildContextMenu() {
       title: "Options",
       contexts: ["all"]
     });
-    chrome.contextMenus.create({
-      id: "openIconPopup",
-      title: "Test popup",
-      contexts: ["all"]
-    });
   });
 
   chrome.contextMenus.onClicked.addListener((info, tab) => {
