@@ -1,4 +1,4 @@
-import {setPopup} from "./alert";
+import {setPopup} from "../alert/managePopups";
 
 export function buildContextMenu() {
   chrome.runtime.onInstalled.addListener(() => {
