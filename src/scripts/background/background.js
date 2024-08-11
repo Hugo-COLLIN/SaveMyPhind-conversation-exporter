@@ -17,8 +17,10 @@ function background() {
   initModalOnInstall();
   setUninstalledRedirect();
 
-  chrome.runtime.onInstalled.addListener(() => {
-    chrome.storage.sync.set({filenameTemplate: '%Y-%M-%D_%h-%m-%s_%W_%T'});
+  chrome.runtime.onInstalled.addListener((details) => {
+    if (details.reason === "install") {
+      chrome.storage.sync.set({filenameTemplate: '%Y-%M-%D_%h-%m-%s_%W_%T'});
+    }
   });
 
   // exportAllThreadsListener();
