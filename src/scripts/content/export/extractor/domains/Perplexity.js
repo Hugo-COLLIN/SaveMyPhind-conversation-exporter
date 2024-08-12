@@ -144,6 +144,8 @@ export async function formatSources(i, format, tile) {
       .replaceAll("\n", " ")
       .replaceAll('"', '')
       .replaceAll(/^[0-9]+./g, "")
+      .replaceAll('[', '')
+      .replaceAll(']', '')
     );
 
   async function extractYoutubeLink(tile) {
