@@ -125,7 +125,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          title: "🥳 Hey, it's an update: v${{ steps.package_version.outputs.version }}"
+          title: "🥳 Hey, it's an update: Save My Chatbot v${{ steps.package_version.outputs.version }}"
           body: ${{ steps.github_release.outputs.changelog }}
           repository-id: ${{ secrets.repository_id }}
           category-id: ${{ secrets.category_id }}
