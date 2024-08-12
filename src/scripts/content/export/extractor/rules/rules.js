@@ -1,5 +1,48 @@
 import {turndownConverter} from "../../../../shared/formatter/formatMarkdown";
 
+export function filter_formatTables(node) {
+  return node.nodeName === 'TABLE';
+}
+
+export function replacement_formatTables(content, node) {
+  let headers = '';
+  let separator = '';
+  let body = '';
+  const thead = node.querySelector('thead');
+  const tbody = node.querySelector('tbody');
+
+  if (thead) {
+    const headerRows = thead.querySelectorAll('tr');
+    headerRows.forEach(row => {
+      const cells = row.querySelectorAll('th');
+      let headerLine = '|';
+      let separatorLine = '|';
+      cells.forEach(cell => {
+        const cellContent = cell.textContent.trim();
+        headerLine += ` ${cellContent} |`;
+        separatorLine += ' --- |';
+      });
+      headers += headerLine + '\n';
+      separator += separatorLine + '\n';
+    });
+  }
+
+  if (tbody) {
+    const bodyRows = tbody.querySelectorAll('tr');
+    bodyRows.forEach(row => {
+      const cells = row.querySelectorAll('td');
+      let bodyLine = '|';
+      cells.forEach(cell => {
+        const cellContent = cell.textContent.trim();
+        bodyLine += ` ${cellContent} |`;
+      });
+      body += bodyLine + '\n';
+    });
+  }
+
+  return headers + separator + body;
+}
+
 /*
  --- Perplexity rules ---
  */

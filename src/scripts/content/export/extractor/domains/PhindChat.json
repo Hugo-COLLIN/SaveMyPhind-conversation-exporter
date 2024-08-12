@@ -21,6 +21,10 @@
       "backslashAngleBracketsNotInBackticks": {
         "filter": "filter_backslashAngleBracketsNotInBackticks_Phind",
         "replacement": "replacement_backslashAngleBracketsNotInBackticks_Phind"
+      },
+      "formatTables": {
+        "filter": "filter_formatTables",
+        "replacement": "replacement_formatTables"
       }
     }
   }
