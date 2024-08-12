@@ -12,9 +12,12 @@ export async function processMessage(content, format) {
     ? `## ${title?.innerText}\n`
     : '';
 
+  const image = content.querySelector('.flex-col > div > .group\\/section > :first-child img');
   const answer = content.querySelector('.flex-col > div .font-sans .break-words, [class="group/section"] .prose'); // first one selects the intro, second one the other article parts
+
+  const htmlOutput = (image ? image.outerHTML + "<br><br>" : "") + answer?.innerHTML
   markdown += answer?.innerHTML && answer?.innerHTML !== ''
-    ? format(answer?.innerHTML) + '\n\n'
+    ? format(htmlOutput) + '\n\n'
     : '';
 
   // Display sources
