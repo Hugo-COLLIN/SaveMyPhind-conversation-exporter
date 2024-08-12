@@ -43,7 +43,6 @@ composer.json
 
 # Node and packages
 node_modules/
-output/
 
 #intelliJ
 *.iml

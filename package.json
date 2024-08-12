@@ -15,7 +15,7 @@
     "prodChrome": "npm run licenseList && npm run chrome && node manage/prodChanges.js && npm run zip",
     "prodFirefox": "npm run licenseList && npm run firefox && node manage/prodChanges.js && npm run zip",
     "--- Build scripts": "---",
-    "build": "node manage/initBuild.js && esbuild src/scripts/background/background.js --bundle --outdir=dist && esbuild src/scripts/content/tab.js --bundle --outdir=dist",
+    "build": "node manage/initBuild.js && esbuild src/scripts/background/background.js --bundle --outdir=dist && esbuild src/scripts/content/tab.js --bundle --outdir=dist && esbuild src/scripts/pages/pages.js --bundle --outdir=dist/pages",
     "build:l": "npm run licenseList && npm run build",
     "build:w": "nodemon --exec npm run build --watch",
     "watchAll": "nodemon --exec npm run all --watch",
@@ -26,7 +26,9 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.7",
+    "@babel/cli": "^7.24.8",
+    "@babel/core": "^7.24.9",
+    "@babel/plugin-proposal-decorators": "^7.24.7",
     "@babel/preset-env": "^7.23.7",
     "@types/chrome": "^0.0.266",
     "@types/jest": "^29.5.11",
@@ -44,8 +46,10 @@
     "selenium-webdriver": "^4.15.0"
   },
   "dependencies": {
+    "@shoelace-style/shoelace": "^2.15.1",
     "dompurify": "^3.0.4",
     "js-yaml": "^4.1.0",
+    "lit": "^3.1.4",
     "showdown": "^2.1.0",
     "turndown": "^7.1.2"
   }
