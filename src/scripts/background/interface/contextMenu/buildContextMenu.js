@@ -11,6 +11,16 @@ export function buildContextMenu() {
       title: (emojiSupported ? "⚙️ " : "") + "Export Options",
       contexts: ["all"]
     });
+    chrome.contextMenus.create({
+      id: "feedback",
+      title: (emojiSupported ? "🤩 " : "") + "Share your feedback on the store",
+      contexts: ["action"]
+    });
+    chrome.contextMenus.create({
+      id: "donation",
+      title: (emojiSupported ? "❤️ " : "") + "Support the project",
+      contexts: ["action"]
+    });
   });
 
   chrome.contextMenus.onClicked.addListener((info, tab) => {
