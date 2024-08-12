@@ -25,7 +25,7 @@ export async function processMessage(content, format) {
     selectors: [
       {
         open: [{selector: 'div.grid > div.flex:nth-last-of-type(1), .group\\/source', scope: 'content'}],
-        close: [],
+        close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
         selector: 'TODO'
       },
     ],
