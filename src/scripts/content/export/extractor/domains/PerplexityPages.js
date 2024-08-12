@@ -12,7 +12,7 @@ export async function processMessage(content, format) {
     ? `## ${title?.innerText}\n`
     : '';
 
-  const answer = content.querySelector('.flex-col > div > .relative > :first-child, [class="group/section"] .prose'); // first one selects the intro, second one the other article parts
+  const answer = content.querySelector('.flex-col > div .font-sans .break-words, [class="group/section"] .prose'); // first one selects the intro, second one the other article parts
   markdown += answer?.innerHTML && answer?.innerHTML !== ''
     ? format(answer?.innerHTML) + '\n\n'
     : '';
