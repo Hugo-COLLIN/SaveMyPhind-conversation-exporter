@@ -19,7 +19,7 @@ async function pages() {
       titleDiv.style.alignItems = 'center';
 
       const title = document.createElement('h1');
-      title.textContent = `${appInfos.APP_NAME} Options`;
+      title.textContent = `Export Options`;
       title.style.textAlign = 'center';
       title.style.marginBottom = '1rem';
       title.style.marginLeft = '0.5rem';
@@ -69,7 +69,7 @@ async function pages() {
       // Create a help text
       const helpTextElement = document.createElement('div');
       const helpTextHtml = new showdown.Converter().makeHtml(`
-The filename format is a string containing placeholders that will be replaced by the actual values when exporting a page. 
+The filename format is a string containing placeholders, that will be replaced by the actual values when exporting a page. 
 
 The currently supported placeholders are: 
 - %W - Domain/Sub-domain name (Website)
