@@ -123,7 +123,6 @@ export async function patternBasedFormatFilename(title, siteName) {
   const timestamp = Math.floor(now.getTime() / 1000);
 
   let filenameTemplate = await chrome.storage.sync.get('filenameTemplate');
-  console.log(filenameTemplate)
   filenameTemplate = filenameTemplate['filenameTemplate']
     .replace(/%Y/g, yyyy)
     .replace(/%M/g, mm)
@@ -134,11 +133,6 @@ export async function patternBasedFormatFilename(title, siteName) {
     .replace(/%t/g, timestamp.toString())
     .replace(/%W/g, siteName)
     .replace(/%T/g, title);
-
-  console.log(filenameTemplate)
-
-  // Remplacer %c, %u, %w par les valeurs appropriées si elles sont disponibles
-  // Exemple : filenameTemplate = filenameTemplate.replace(/%c/g, count);
 
   return filenameTemplate.replace(/[\n\/:*?"<>|]/g, '');
 }

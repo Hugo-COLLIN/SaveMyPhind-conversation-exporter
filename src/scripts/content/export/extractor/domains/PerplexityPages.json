@@ -1,6 +1,6 @@
 {
   "domainName": "Perplexity Pages",
-  "contentSelector": "main .mx-auto > div > div > div > div > div.flex-col",
+  "contentSelector": "main .mx-auto > div > div > div > div > div.flex-col[data-last-section], main .mx-auto > div > div > div > div > div.flex-col:first-of-type",
   "turndown": {
     "init": {
       "blankReplacement": "getBlankReplacement_PerplexityPages"
@@ -13,6 +13,10 @@
       "formatCitationsInAnswer": {
         "filter": "filter_formatCitationsInAnswer_Perplexity",
         "replacement": "replacement_formatCitationsInAnswer_Perplexity"
+      },
+      "formatTables": {
+        "filter": "filter_formatTables",
+        "replacement": "replacement_formatTables"
       }
     }
   }

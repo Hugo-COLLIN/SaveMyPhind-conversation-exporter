@@ -77,7 +77,7 @@ export async function extractSources(content, format, data) {
 async function extractFromModal(format) {
   let res = '';
   let i = 1;
-  for (const tile of document.querySelectorAll(".fixed > div > [class] > div > div > div > div > div > .flex.group")) {
+  for (const tile of document.querySelectorAll(".fixed > div > [class] > div > div > div > div > div > .group")) {
     res += await formatSources(i, format, tile);
     i++;
   }
@@ -144,11 +144,14 @@ export async function formatSources(i, format, tile) {
       .replaceAll("\n", " ")
       .replaceAll('"', '')
       .replaceAll(/^[0-9]+./g, "")
+      .replaceAll('[', '')
+      .replaceAll(']', '')
     );
 
   async function extractYoutubeLink(tile) {
     await sleep(10); //to be sure
-    const clickElt = tile.querySelector('.group')
+    const clickElt = tile
+      // .querySelector('.group')
 
     if (!clickElt) {
       console.warn("clickElt undefined");

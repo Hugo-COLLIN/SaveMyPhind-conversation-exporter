@@ -12,9 +12,12 @@ export async function processMessage(content, format) {
     ? `## ${title?.innerText}\n`
     : '';
 
-  const answer = content.querySelector('.flex-col > div > .relative > :first-child, [class="group/section"] .prose'); // first one selects the intro, second one the other article parts
+  const image = content.querySelector('.flex-col > div > .group\\/section > :first-child img');
+  const answer = content.querySelector('.flex-col > div .font-sans .break-words, [class="group/section"] .prose'); // first one selects the intro, second one the other article parts
+
+  const htmlOutput = (image ? image.outerHTML + "<br><br>" : "") + answer?.innerHTML
   markdown += answer?.innerHTML && answer?.innerHTML !== ''
-    ? format(answer?.innerHTML) + '\n\n'
+    ? format(htmlOutput) + '\n\n'
     : '';
 
   // Display sources
@@ -22,7 +25,7 @@ export async function processMessage(content, format) {
     selectors: [
       {
         open: [{selector: 'div.grid > div.flex:nth-last-of-type(1), .group\\/source', scope: 'content'}],
-        close: [],
+        close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
         selector: 'TODO'
       },
     ],
