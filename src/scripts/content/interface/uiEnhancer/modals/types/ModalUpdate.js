@@ -1,6 +1,7 @@
 import {Modal} from "./Modal";
 import appInfos from "../../../../../../infos.json";
 import {convertUpdateNotes} from "../../../converter/convertUpdateNotes";
+import {defineStoreLink} from "../../../../data/defineStoreLink";
 
 export default class ModalUpdate extends Modal {
   constructor(...params) {
@@ -36,15 +37,9 @@ export default class ModalUpdate extends Modal {
     innerDivLink.target = '_blank';
     innerDivLink.classList.add('mb-0');
 
-    const manifest = chrome.runtime.getManifest();
-    let storeName;
-    if (manifest.browser_specific_settings !== undefined && manifest.browser_specific_settings.gecko !== undefined) {
-      innerDivLink.href = appInfos.URLS.STORES.FIREFOX + "/reviews";
-      storeName = "Firefox Add-ons Store";
-    } else {
-      innerDivLink.href = appInfos.URLS.STORES.CHROME + "/reviews";
-      storeName = "Chrome Web Store";
-    }
+    const store = defineStoreLink();
+    const storeName = store.name;
+    innerDivLink.href = store.url;
     innerDivLink.innerHTML = `⭐ If ${appInfos.APP_NAME} helps you, please leave it a review on the ${storeName}! ⭐<br>`;
 
 
