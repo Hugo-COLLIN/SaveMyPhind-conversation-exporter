@@ -1,4 +1,21 @@
 # Update notes
+# 2.9.6
+🚀 Reached 2000 users!
+You're more and more to use this extension, and I'm glad to see that it's useful for you.
+Thank you all for your feedback and feature requests! 
+If you have any, feel free to contact me at <a href="mailto:hcollin.dev@gmail.com" target="_blank">hcollin.dev@gmail.com</a> or on the <a href="https://save.hugocollin.com/discussion" target="_blank">GitHub repository</a>.
+
+🔥 Hot ahead! Options page and custom filename are coming!
+Right-click on the extension icon and select "⚙️ Export Options" to see the new Options page! 
+You can now choose the filename format by using placeholders. More settings to come!
+
+🛸 Fixing Perplexity export (and a bit Phind)
+Perplexity Pages interface changed, so the extension was a bit lost. 
+Now, content is now correctly exported again and with images!
+Plus, Perplexity sources are better formatted and Youtube links are exported again.
+Plus (again), tables are now correctly formatted in Phind and Perplexity exports!
+
+
 # 2.7.1
 🐞 Fixing some bugs
 Extracting Perplexity sources is working again and is now more robust! Enjoy!
