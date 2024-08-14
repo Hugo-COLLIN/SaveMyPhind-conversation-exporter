@@ -1,4 +1,7 @@
 {
+  "pageTitle": {
+    "selector": "main .mx-auto > div > div > div > div > div.flex-col .break-words"
+  },
   "domainName": "Perplexity Pages",
   "contentSelector": "main .mx-auto > div > div > div > div > div.flex-col[data-last-section], main .mx-auto > div > div > div > div > div.flex-col:first-of-type",
   "turndown": {
