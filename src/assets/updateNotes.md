@@ -1,7 +1,7 @@
 # Update notes
 # 2.9.7
 🐞 Fixing some bugs
-Thanks to user feedback, Perplexity Search export is no longer duplicated, Pages title is now correctly exported 
+Thanks to user feedback, Perplexity Search export is no longer duplicated, Perplexity Pages titles are now correctly exported 
 and exported titles are shortened again. Enjoy!
 
 A few days ago, in v2.9.6:
