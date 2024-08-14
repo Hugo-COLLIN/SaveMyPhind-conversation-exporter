@@ -122,7 +122,7 @@ qr-creator@1.0.0
 ├─ publisher: Nimiq
 └─ url: www.nimiq.com
 
-save-my-phind@2.9.6
+save-my-phind@2.9.7
 └─ licenses: Custom: https://save.hugocollin.com/get
 
 showdown@2.1.0
