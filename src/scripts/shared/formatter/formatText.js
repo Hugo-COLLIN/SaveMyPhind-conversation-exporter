@@ -78,7 +78,7 @@ export function titleShortener(title, titleLength = 100) {
       break;
     }
 
-    res[0] += (i !== 0 ? " " : "") + words[i];
+    res[0] += (i !== 0 ? " " : "") + words[i]; // Add the word to the title
 
   }
 
@@ -132,7 +132,7 @@ export async function patternBasedFormatFilename(title, siteName) {
     .replace(/%s/g, ss)
     .replace(/%t/g, timestamp.toString())
     .replace(/%W/g, siteName)
-    .replace(/%T/g, title);
+    .replace(/%T/g, titleShortener(title, 60)[0]);
 
   return filenameTemplate.replace(/[\n\/:*?"<>|]/g, '');
 }
