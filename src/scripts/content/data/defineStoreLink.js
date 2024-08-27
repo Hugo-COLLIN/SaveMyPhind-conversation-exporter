@@ -1,4 +1,4 @@
-import appInfos from "../../../infos.json";
+import appInfos from "../../../data/infos.json";
 
 export function defineStoreLink() {
   const manifest = chrome.runtime.getManifest();

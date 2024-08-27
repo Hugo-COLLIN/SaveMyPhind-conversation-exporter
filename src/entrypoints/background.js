@@ -1,9 +1,9 @@
-import {listenIconClick} from "./interface/icon/iconAction";
-import {buildContextMenu} from "./interface/contextMenu/buildContextMenu";
-import {listenTabsToUpdateIcon} from "./interface/icon/defineIcon";
-import {initClickCount} from "./interface/icon/clickCount";
-import {initModalOnInstall} from "./interface/alert/manageModals";
-import {setUninstalledRedirect} from "./interface/alert/setUninstalledRedirect";
+import {listenIconClick} from "../scripts/background/interface/icon/iconAction";
+import {buildContextMenu} from "../scripts/background/interface/contextMenu/buildContextMenu";
+import {listenTabsToUpdateIcon} from "../scripts/background/interface/icon/defineIcon";
+import {initClickCount} from "../scripts/background/interface/icon/clickCount";
+import {initModalOnInstall} from "../scripts/background/interface/alert/manageModals";
+import {setUninstalledRedirect} from "../scripts/background/interface/alert/setUninstalledRedirect";
 // import {launchScrappingActionOnPage} from "../../content/launch/launchScraperOnPage";
 // import {defineProcessingState} from "../scraper/defineProcessingState";
 

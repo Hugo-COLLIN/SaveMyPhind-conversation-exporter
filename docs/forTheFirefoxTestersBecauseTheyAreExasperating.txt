@@ -3,5 +3,5 @@
 3. Run the command:
 npm install
 4. Run the command:
-npm firefox
+npm run build:firefox
 5. Go to the dist folder, it contains the final code

@@ -1,18 +1,17 @@
 const fs = require('fs');
-const AdmZip = require('adm-zip');
+const AdmZip = require("adm-zip");
 
 // Read package.json
 const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 
 // Read manifest.json
-const manifestJson = JSON.parse(fs.readFileSync('./src/manifest.json', 'utf8'));
+const manifestJson = JSON.parse(fs.readFileSync('./dist/manifest.json', 'utf8'));
 
 // Determine the browser version
 let browserVersion = '';
 if (manifestJson.background && manifestJson.background.service_worker) {
   browserVersion = 'chrome';
 } else if (manifestJson.background && manifestJson.background.scripts) {
-  console.log(manifestJson.background.scripts)
   browserVersion = 'firefox';
 }
 

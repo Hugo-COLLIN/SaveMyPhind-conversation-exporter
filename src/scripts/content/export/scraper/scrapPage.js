@@ -1,5 +1,5 @@
 import {logWelcome} from "../../../shared/utils/consoleMessages";
-import appInfos from "../../../../infos.json";
+import appInfos from "../../../../data/infos.json";
 import {extractPage} from "../extractor/extractPage";
 import {defineOutputMethod} from "../output/defineOutputMethod";
 import {updateClickIconCount} from "../../../background/interface/icon/clickCount";

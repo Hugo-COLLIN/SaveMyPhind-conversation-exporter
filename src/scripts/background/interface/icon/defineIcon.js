@@ -50,17 +50,17 @@ export async function defineIcon(tabId) {
 
   switch (domain?.name.toLowerCase()) {
     case "phind":
-      chrome.action.setIcon({path: {"48": "assets/icons/icon_phind-48.png"}, tabId: tabId});
+      chrome.action.setIcon({path: {"48": "../files/icons/icon_phind-48.png"}, tabId: tabId});
       break;
     case "perplexity":
-      chrome.action.setIcon({path: {"48": "assets/icons/icon_perplexity-48.png"}, tabId: tabId});
+      chrome.action.setIcon({path: {"48": "../files/icons/icon_perplexity-48.png"}, tabId: tabId});
       break;
     case "maxaigoogle":
       chrome.storage.local.get("isMaxAI", (result) => {
         console.log(result.isMaxAI);
         result.isMaxAI
           ? chrome.action.setIcon({
-            path: {"48": "assets/icons/icon_googleMaxAI-48.png"},
+            path: {"48": "../files/icons/icon_googleMaxAI-48.png"},
             tabId: tabId
           })
           : ""

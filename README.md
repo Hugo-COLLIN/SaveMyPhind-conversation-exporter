@@ -1,7 +1,7 @@
-# <img alt="SaveMyPhind logo" src="./src/assets/icons/icon-128.png" style="width:40px"> Save my Chatbot - AI Conversation Exporter
+# <img alt="SaveMyChatbot logo" src="./public/files/icons/icon-128.png" style="width:40px"> Save my Chatbot - AI Conversation Exporter
 ### 🚀 Download your Phind, Perplexity and MaxAI-Google search threads into markdown files!
 
-## 🗺️ Quick start
+## 🗺️ Welcome, new exporters!
 
 <h3>
   <a href="https://save.hugocollin.com/get">⏩ Install Save my Chatbot on Firefox and Chromium browsers</a>
@@ -21,32 +21,48 @@ Simple!
 - To **read and process** in a knowledge base / note-taking app (like Obsidian),
 - To **share threads with others**.
 
-✅ Enjoy!
-
-✏️ Please note that this project is not affiliated with Phind, Perplexity nor MaxAI.
-
-<br>
-
-## 🗺️ Roadmap
-
-### 🚀 In the pipeline...
-Check the [Issues](https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter/issues) and [Pull requests](https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter/pulls) to see what's going on!
-
 ### 🎯 Main features:
 - [x] Export chats from Phind, Perplexity and MaxAI-Google
 - [x] Clean markdown formatting and structuring
 - [x] Keep numbered sources in the exported file
+- [x] Configure your exports (filename, more options coming soon...)
 - [x] Informative file header and filename (date, url...)
 - [x] Indicates the chatbot response mode used (Phind-Search and Perplexity)
 - [x] Informative modals (updates...)
 
-### 🤯 The most important things I keep improving / fixing:
-- Because chatbots are constantly changing their interfaces: Fix broken export, wrong formatting and content extracted.
-- Improve code maintainability
+✅ Enjoy!
+
+✏️ Please note that this project is not affiliated with any chatbot service.
+
+<br>
+
+## 🚀 Behind the Scenes
+
+### 🤯 Challenges in Development
+Chatbots are constatly changing their interfaces. That makes developing Save my Chatbot a wild adventure. Here are some of the challenges I tackle:
+- **Interface Changes**: Regular updates to fix broken exports, incorrect formatting, and content extraction issues.
+- **New Chatbots**: Each chatbot has its unique interface, so I dive into the page source code to understand its structure and what I need to extract to create a clean export file.
+- **Code Maintainability**: Enhancing the codebase to ensure it remains clean, understandable, and adaptable.
+- **Feature Expansion**: Working on adding more features to enhance user experience.
+
+### 🪶 How you can help
+Your feedback and contributions are invaluable. Here's how you can help:
+- **Report Issues**: Encounter a bug? Have a suggestion? [Open an issue here](https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter/issues).
+- **Suggest Features**: Have ideas for new features or improvements? Join the discussion on the [discussions page](https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter/discussions).
+- **Code Contributions**: Skilled in coding? Fork this repository and submit pull requests to help improve the extension.
+
+This project is licensed under the [RMD-C v1.0 License](LICENSE). Please review the license for more details.
 
 <br>
 
 
+## ❤️ Keep it alive!
+Appreciate my efforts? Help me maintain and improve Save my Chatbot by donating:
+<div align="center">
+    <a href="https://save.hugocollin.com/support" target="_blank"><img src="https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white" height="50px"/></a> 
+</div>
+
+<!--
 ## ⬇️ How to install? (detailed)
 ### Quick install (automatic updates)
 Simply go to the store and click on the installation button:
@@ -70,18 +86,8 @@ You can also install it manually following these steps:
 
 <br>
 
-## 🪶 Contribution and licenses
-### The project
-Feel free to contribute to this project by forking it and making pull requests. You can also open an issue if you find a bug or have any suggestion.
 
-This project is licensed under the [RMD-C v1.0 License](LICENSE.txt). Please check for more details.
+What about the community?
 
-### Libraries licenses
-This project uses third-party libraries. See the [license list](licenses.txt) for more details about libraries' licenses.
-
-<br>
-
-## 💌 If you appreciate my work, help me by donating:
-  <div align="center">
-      <a href="https://save.hugocollin.com/support" target="_blank"><img src="https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white" height="50px"/></a> 
-  </div>
+If you're a tester, please check this page: [Testers](TESTERS.md)
+-->
