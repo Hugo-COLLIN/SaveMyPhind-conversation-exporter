@@ -1,5 +1,5 @@
 import {Modal} from "./Modal";
-import appInfos from "../../../../../../infos.json";
+import appInfos from "../../../../../../data/infos.json";
 import {convertUpdateNotes} from "../../../converter/convertUpdateNotes";
 import {defineStoreLink} from "../../../../data/defineStoreLink";
 
@@ -16,7 +16,7 @@ export default class ModalUpdate extends Modal {
     const innerDivImage = document.createElement('span');
     innerDivImage.style.marginRight = '10px';
     const innerDivImageImg = document.createElement('img');
-    innerDivImageImg.src = chrome.runtime.getURL('assets/icons/icon-48.png');
+    innerDivImageImg.src = chrome.runtime.getURL('../files/icons/icon-48.png');
     innerDivImageImg.alt = `${appInfos.APP_SNAME} icon`;
     innerDivImageImg.width = '48';
     innerDivImageImg.height = '48';
@@ -31,7 +31,7 @@ export default class ModalUpdate extends Modal {
 
     const modalSubtitleDiv = document.createElement('div');
     modalSubtitleDiv.classList.add('mb-5', 'modal-title', 'h3');
-    modalSubtitleDiv.innerHTML = `What's new in ${appInfos.APP_NAME} v${appInfos.APP_VERSION}:`;
+    modalSubtitleDiv.innerHTML = `What's new in ${appInfos.APP_NAME} v${APP_VERSION}:`;
 
     const innerDivLink = document.createElement('a');
     innerDivLink.target = '_blank';

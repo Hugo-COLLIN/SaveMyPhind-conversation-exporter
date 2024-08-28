@@ -32,5 +32,5 @@ export async function replaceVariables(content, variables) {
 }
 
 export function replaceLocalPath(content) { //TODO: path parameter
-  return content.replace(/src="assets\/(.*?)"/g, (match, path) => `src="${chrome.runtime.getURL(`assets/${path}`)}"`);
+  return content.replace(/src="files\/(.*?)"/g, (match, path) => `src="${chrome.runtime.getURL(`../files/${path}`)}"`);
 }

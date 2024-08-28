@@ -2,7 +2,7 @@ import {getUrl} from "../../content/utils/getters";
 import {capitalizeFirst, formatDate, formatLineBreaks, titleShortener} from "./formatText";
 import TurndownService from "turndown";
 import DOMPurify from "dompurify";
-import appInfos from "../../../infos.json";
+import appInfos from "../../../data/infos.json";
 
 /*
 --- MARKDOWN FORMAT ---

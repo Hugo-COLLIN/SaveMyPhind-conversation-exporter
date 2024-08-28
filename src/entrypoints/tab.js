@@ -1,12 +1,12 @@
-import {handleModalDisplay} from "./interface/uiEnhancer/modals/actions/displayCtaModals";
-import {setLoadListener} from "./window/setLoadListener";
-import {detectPageLoad} from "./detectPageLoad";
-import {launchScrapping} from "./export/scraper/scrapPage";
-import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../../data/allowedDomains.json";
-import {domainChecker} from "../shared/checker/domainChecker";
-import {getHostAndPath} from "./utils/getters";
-import {getStorageData} from "../shared/utils/chromeStorage";
-import {safeExecute} from "../shared/utils/jsShorteners";
+import {handleModalDisplay} from "../scripts/content/interface/uiEnhancer/modals/actions/displayCtaModals";
+import {setLoadListener} from "../scripts/content/window/setLoadListener";
+import {detectPageLoad} from "../scripts/content/detectPageLoad";
+import {launchScrapping} from "../scripts/content/export/scraper/scrapPage";
+import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../data/allowedDomains.json"
+import {domainChecker} from "../scripts/shared/checker/domainChecker";
+import {getHostAndPath} from "../scripts/content/utils/getters";
+import {getStorageData} from "../scripts/shared/utils/chromeStorage";
+import {safeExecute} from "../scripts/shared/utils/jsShorteners";
 
 /**
  * @description - Main function to handle action on the tab

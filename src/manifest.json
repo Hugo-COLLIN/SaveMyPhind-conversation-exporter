@@ -1,12 +1,15 @@
 {
-  "manifest_version": 3,
+  "{{chrome}}.manifest_version": 3,
+  "{{firefox}}.manifest_version": 3,
   "name": "Save my Chatbot - AI Conversation Exporter",
-  "version": "2.9.7",
   "description": "🚀 Export your Phind, Perplexity and MaxAI-Google search threads into markdown files!",
   "icons": {
-    "16": "assets/icons/icon-16.png",
-    "48": "assets/icons/icon-48.png",
-    "128": "assets/icons/icon-128.png"
+    "16": "files/icons/icon-16.png",
+    "32": "files/icons/icon-48.png",
+    "48": "files/icons/icon-48.png",
+    "96": "files/icons/icon-128.png",
+    "128": "files/icons/icon-128.png",
+    "500": "files/icons/icon-500.png"
   },
   "permissions": [
     "scripting",
@@ -20,31 +23,28 @@
     "*://google.com/search*"
   ],
   "action": {
-    "default_icon": "assets/icons/icon_disabled-500.png"
+    "default_icon": "files/icons/icon_disabled-500.png"
   },
   "background": {
-    "service_worker": "background.js"
+    "{{chrome}}.service_worker": "background.js",
+    "{{firefox}}.scripts": ["background.js"]
   },
-  "content_scripts": [
-    {
-      "matches": [
-        "*://*.phind.com/*",
-        "*://*.perplexity.ai/*",
-        "*://*.google.com/search*"
-      ],
-      "js": [
-        "tab.js"
-      ]
+  "content_scripts": [{
+    "matches": [
+      "*://*.phind.com/*",
+      "*://*.perplexity.ai/*",
+      "*://*.google.com/search*"
+    ],
+    "js": ["tab.js"]
+  }],
+  "web_accessible_resources": [{
+    "resources": ["files/*"],
+    "matches": ["<all_urls>"]
+  }],
+  "{{firefox}}.browser_specific_settings": {
+    "gecko": {
+      "id": "savemyphind@hugocollin.com",
+      "strict_min_version": "109.0"
     }
-  ],
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "assets/*"
-      ],
-      "matches": [
-        "<all_urls>"
-      ]
-    }
-  ]
+  }
 }

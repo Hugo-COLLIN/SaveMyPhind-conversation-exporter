@@ -1,4 +1,4 @@
-import appInfos from "../../../../../../infos.json";
+import appInfos from "../../../../../../data/infos.json";
 
 export async function appendModalContainer() {
   const host = document.createElement('div');
@@ -15,7 +15,7 @@ export async function appendModalContainer() {
   // Add styles to the shadow dom
   const link = document.createElement('link');
   link.rel = 'stylesheet';
-  link.href = chrome.runtime.getURL('assets/styles/phind.bundle.css')
+  link.href = chrome.runtime.getURL('../files/styles/phind.bundle.css')
   shadow.appendChild(link);
 
   host.setAttribute("extension", appInfos.APP_SNAME);

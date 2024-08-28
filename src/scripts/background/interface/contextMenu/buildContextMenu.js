@@ -1,7 +1,7 @@
 import {createWindow} from "../alert/managePopups";
 import {defineStoreLink} from "../../../content/data/defineStoreLink";
 import {isEmojiSupported} from "../../../shared/utils/isEmojiSupported";
-import appInfos from "../../../../infos.json";
+import appInfos from "../../../../data/infos.json";
 
 export function buildContextMenu() {
   const emojiSupported = isEmojiSupported();
@@ -26,7 +26,7 @@ export function buildContextMenu() {
   chrome.contextMenus.onClicked.addListener((info, tab) => {
     switch (info.menuItemId) {
       case "openOptions":
-        createWindow("pages/options.html");
+        createWindow("options.html");
         break;
       case "feedback":
         chrome.tabs.create({url: defineStoreLink().url});

@@ -8,7 +8,7 @@ export async function getStorageData(key, storageType = 'sync') {
   return new Promise((resolve, reject) => {
     chrome.storage[storageType].get([key], function (result) {
       if (result[key] === undefined) {
-        reject('No data found');
+        reject('No data found for key: ' + key);
       } else {
         resolve(result[key]);
       }

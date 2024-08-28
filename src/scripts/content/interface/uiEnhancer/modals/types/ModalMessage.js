@@ -1,7 +1,7 @@
 import {Modal} from "./Modal";
 import yaml from 'js-yaml';
 import {replaceLocalPath, replaceVariables} from "../../../../../shared/formatter/formatVariableText";
-import appInfos from "../../../../../../infos.json";
+import appInfos from "../../../../../../data/infos.json";
 
 export default class ModalMessage extends Modal {
   constructor(...params) {
@@ -39,7 +39,7 @@ export default class ModalMessage extends Modal {
     const innerDivImage = document.createElement('span');
     innerDivImage.style.marginRight = '10px';
     const innerDivImageImg = document.createElement('img');
-    innerDivImageImg.src = chrome.runtime.getURL('assets/icons/icon-48.png');
+    innerDivImageImg.src = chrome.runtime.getURL('../files/icons/icon-48.png');
     innerDivImageImg.alt = `${appInfos.APP_SNAME} icon`;
     innerDivImageImg.width = 48;
     innerDivImageImg.height = 48;

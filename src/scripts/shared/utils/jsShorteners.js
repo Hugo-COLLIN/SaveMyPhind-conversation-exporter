@@ -1,4 +1,3 @@
-import {APP_MODE} from "../../../infos.json";
 /*
 --- OTHERS ---
  */
