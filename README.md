@@ -1,24 +1,27 @@
 # <img alt="SaveMyChatbot logo" src="./public/files/icons/icon-128.png" style="width:40px"> Save my Chatbot - AI Conversation Exporter
 ### 🚀 Download your Phind, Perplexity and MaxAI-Google search threads into markdown files!
 
+<div align="center">
+  <img src="./public/files/captures/Gif_SmC_SearchExport.gif" alt="Save my Chatbot demonstration gif" style="width:500px">
+</div>
+
 ## 🗺️ Welcome, new exporters!
 
 <h3>
-  <a href="https://save.hugocollin.com/get">⏩ Install Save my Chatbot on Firefox and Chromium browsers</a>
+  <a href="https://save.hugocollin.com/get">⏩ Click here to install Save my Chatbot ⏪</a>
 </h3>
 
 &#x2A20; It's **available for Chrome, Firefox, Edge, Opera, Brave, and many more...** 😉
 
-### ❓ How to use?
-Simple!
+### ❓ How to use? Simple as 1-2!
 1. **Go to a chat page**: Phind, Perplexity or Google (with MaxAI integration).
 2. **Click on the extension icon.**
 
-👉 It will **automatically download a structured markdown file** containing the conversation.
+👉 It will **automatically download a structured markdown file** containing the conversation. You can **optionally configure some export settings** in the Options page.
 
 ### 😎 Why Save my Chatbot?
 - To **keep AI generated information offline**,
-- To **read and process** in a knowledge base / note-taking app (like Obsidian),
+- To **read and process** in a knowledge base / note-taking app (like Obsidian, Scrivener...),
 - To **share threads with others**.
 
 ### 🎯 Main features:
@@ -36,9 +39,9 @@ Simple!
 
 <br>
 
-## 🚀 Embracing adventure
+## 🚀 Behind the scenes
 
-### 🤯 Overcoming challenges
+### 🤯 A challenging development
 Chatbots are constatly changing their interfaces. That makes developing Save my Chatbot a wild adventure. Here are some of the challenges I tackle:
 - **Interface Changes**: Regular updates to fix broken exports, incorrect formatting, and content extraction issues.
 - **New Chatbots**: Each chatbot has its unique interface, so I dive into the page source code to understand its structure and what I need to extract to create a clean export file.
@@ -47,8 +50,8 @@ Chatbots are constatly changing their interfaces. That makes developing Save my 
 
 ### 🪶 Join the journey!
 Your feedback and contributions are invaluable. Here's how you can help:
-- **Report Issues**: Encounter a bug? Have a suggestion? [Open an issue here](https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter/issues).
-- **Suggest Features**: Have ideas for new features or improvements? Join the discussion on the [discussions page](https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter/discussions).
+- **Report Issues**: Encounter a bug? Have a suggestion? [Open an issue](https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter/issues).
+- **Suggest Features**: Have ideas for new features or improvements? [Join the discussions page](https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter/discussions).
 - **Code Contributions**: Skilled in coding? Fork this repository and submit pull requests to help improve the extension. Please see the [project license](LICENSE).
 
 <br>
@@ -57,7 +60,7 @@ Your feedback and contributions are invaluable. Here's how you can help:
 ## ❤️ Keep it alive!
 Appreciate my efforts? Help me maintain and improve Save my Chatbot by donating:
 <div align="center">
-    <a href="https://save.hugocollin.com/support" target="_blank"><img src="https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white" height="50px"/></a> 
+    <a href="https://save.hugocollin.com/support" target="_blank"><img alt="Donation button" src="https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white" height="50px"/></a> 
 </div>
 
 <!--
