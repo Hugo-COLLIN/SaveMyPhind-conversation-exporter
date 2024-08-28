@@ -1,4 +1,8 @@
 # Update notes
+# 3.0.0
+🤯 New architecture, new features, new possibilities!
+Huge changes under the hood! The extension is now more robust and easier to maintain.
+
 # 2.9.7
 🐞 Fixing some bugs
 Thanks to user feedback, Perplexity Search export is no longer duplicated, Perplexity Pages titles are now correctly exported 
