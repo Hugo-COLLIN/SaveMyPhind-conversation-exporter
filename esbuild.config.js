@@ -1,6 +1,5 @@
 const esbuild = require('esbuild');
 const {generateManifestPlugin} = require("./config/esbuild/plugins/generateManifestPlugin");
-const {generateLicensesPlugin} = require("./config/esbuild/plugins/generateLicensesListPlugin");
 const {copyStaticFilesPlugin} = require("./config/esbuild/plugins/copyStaticFilesPlugin");
 const {cleanDirectoryPlugin} = require("./config/esbuild/plugins/cleanDirectoryPlugin");
 const {watchStatic} = require("./config/esbuild/watchStatic");
@@ -33,7 +32,6 @@ const options = {
   plugins: [
     cleanDirectoryPlugin(outdir),
     generateManifestPlugin(targetBrowser),
-    generateLicensesPlugin(),
     copyStaticFilesPlugin(['public', 'LICENSE']),
   ],
 };
