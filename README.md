@@ -36,22 +36,20 @@ Simple!
 
 <br>
 
-## 🚀 Behind the Scenes
+## 🚀 Embracing adventure
 
-### 🤯 Challenges in Development
+### 🤯 Overcoming challenges
 Chatbots are constatly changing their interfaces. That makes developing Save my Chatbot a wild adventure. Here are some of the challenges I tackle:
 - **Interface Changes**: Regular updates to fix broken exports, incorrect formatting, and content extraction issues.
 - **New Chatbots**: Each chatbot has its unique interface, so I dive into the page source code to understand its structure and what I need to extract to create a clean export file.
 - **Code Maintainability**: Enhancing the codebase to ensure it remains clean, understandable, and adaptable.
-- **Feature Expansion**: Working on adding more features to enhance user experience.
+- **Feature Expansion**: Adding more features to enhance user experience.
 
-### 🪶 How you can help
+### 🪶 Join the journey!
 Your feedback and contributions are invaluable. Here's how you can help:
 - **Report Issues**: Encounter a bug? Have a suggestion? [Open an issue here](https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter/issues).
 - **Suggest Features**: Have ideas for new features or improvements? Join the discussion on the [discussions page](https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter/discussions).
-- **Code Contributions**: Skilled in coding? Fork this repository and submit pull requests to help improve the extension.
-
-This project is licensed under the [RMD-C v1.0 License](LICENSE). Please review the license for more details.
+- **Code Contributions**: Skilled in coding? Fork this repository and submit pull requests to help improve the extension. Please see the [project license](LICENSE).
 
 <br>
 
