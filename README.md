@@ -1,5 +1,5 @@
 # <img alt="SaveMyChatbot logo" src="./public/files/icons/icon-128.png" style="width:40px"> Save my Chatbot - AI Conversation Exporter
-### 🚀 Download your Phind, Perplexity and MaxAI-Google search threads into markdown files!
+### 🚀 Download your chats with Phind, Perplexity and MaxAI-Google into markdown files!
 
 <div align="center">
   <img src="./public/files/captures/Gif_SmC_SearchExport.gif" alt="Save my Chatbot demonstration gif" style="width:500px">
@@ -20,9 +20,9 @@
 👉 It will **automatically download a structured markdown file** containing the conversation. You can **optionally configure some export settings** in the Options page.
 
 ### 😎 Why Save my Chatbot?
-- To **keep AI generated information offline**,
-- To **read and process** in a knowledge base / note-taking app (like Obsidian, Scrivener...),
-- To **share threads with others**.
+- To **keep AI generated information offline**
+- To **read and process** in a knowledge base / note-taking app (like Obsidian, Scrivener...)
+- To **share threads with others** (send by email, publish on a blog...)
 
 ### 🎯 Main features:
 - [x] Export chats from Phind, Perplexity and MaxAI-Google
