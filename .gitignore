@@ -91,6 +91,6 @@ dist/
 releases/
 
 # Sensitive files
-*config.json
-*publish.json
-*key.json
+config.json
+publish.json
+key.json
