@@ -2,7 +2,7 @@ import {capitalizeFirst, formatLineBreaks} from "../../../../shared/formatter/fo
 import {safeExecute} from "../../../../shared/utils/jsShorteners";
 import {extractSources} from "../extractSources";
 
-export async function processMessage(content, format) {
+export async function processMessage(content, format, metadata) {
   const selectUserQuestion = content.querySelector('span, textarea') ?? "";
   const selectAiModel = content.querySelector('[name^="answer-"] h6');
   const selectAiAnswer = selectAiModel !== null ? selectAiModel.parentNode : "";
@@ -19,18 +19,8 @@ export async function processMessage(content, format) {
   const index = aiAnswer.indexOf('\n\n');
   const aiPart = `\n` + aiIndicator + aiAnswer.substring(index + 2);
 
-  const sourcesData = {
-    selectors: [
-      {
-        selector: 'a.mb-0',
-        paginationSelector: '.pagination button',
-        extractionType: 'paginated-links',
-      }
-    ]
-  }
-
   const paginationPart = selectPagination.length > 0
-    ? "\n" + await safeExecute(extractSources(content, format, sourcesData))
+    ? "\n" + await safeExecute(extractSources(content, format, metadata.sourcesExtraction))
     : "";
 
   return userPart + aiPart + paginationPart;

@@ -5,9 +5,10 @@ import {extractSources} from "../extractSources";
  * Extracts the content of a message from Perplexity
  * @param content {HTMLElement}
  * @param format {(text: string) => string}
+ * @param metadata {Object<JSON>}
  * @returns {Promise<string>}
  */
-export async function processMessage(content, format) {
+export async function processMessage(content, format, metadata) {
   if (!content.hasChildNodes()) return "";
   const question = content.querySelector('.break-words');
   if (!question) return "";
@@ -32,34 +33,7 @@ export async function processMessage(content, format) {
   // }
   // if (analysis[0].querySelector(".grid") !== null) markdown += "**Quick search:**\n";
 
-  // Display sources
-  const data = {
-    selectors: [
-      {
-        open: [{
-          selector: 'button > div > svg[data-icon="ellipsis"]',
-          scope: 'content'
-        }, {
-          selector: '.cursor-pointer [data-icon="sources"]',
-          scope: 'document'
-        }],
-        close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
-        selector: '.fixed > div > [class] > div > div > div > div > div > .group',
-        extractionType: 'list'
-      },
-      {
-        open: [{selector: 'div.grid > div.flex:nth-last-of-type(1)', scope: 'content'}],
-        close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
-        selector: '.fixed > div > [class] > div > div > div > div > div > .group',
-        extractionType: 'list'
-      },
-      {
-        selector: 'div.grid > div.flex',
-        extractionType: 'tile-list'
-      }
-    ]
-  };
-  const src = await safeExecute(await extractSources(content, format, data));
+  const src = await safeExecute(await extractSources(content, format, metadata.sourcesExtraction));
   if (src !== null) markdown += src + "\n";
 
   return markdown;

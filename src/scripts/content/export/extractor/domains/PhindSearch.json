@@ -33,5 +33,14 @@
       "type": "click",
       "selector": ".fe-chevron-up"
     }
+  },
+  "sourcesExtraction": {
+    "selectors": [
+      {
+        "selector": "a.mb-0",
+        "paginationSelector": ".pagination button",
+        "extractionType": "paginated-links"
+      }
+    ]
   }
 }

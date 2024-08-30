@@ -27,5 +27,13 @@
         "replacement": "replacement_formatTables"
       }
     }
+  },
+  "sourcesExtraction": {
+    "selectors": [
+      {
+        "selector": ".col > div > div > div:nth-last-of-type(1) > div > a",
+        "extractionType": "links"
+      }
+    ]
   }
 }

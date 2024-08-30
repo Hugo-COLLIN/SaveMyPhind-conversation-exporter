@@ -19,5 +19,31 @@
         "replacement": "replacement_formatTables"
       }
     }
+  },
+  "sourcesExtraction": {
+    "selectors": [
+      {
+        "open": [{
+          "selector": "button > div > svg[data-icon=\"ellipsis\"]",
+          "scope": "content"
+        }, {
+          "selector": ".cursor-pointer [data-icon=\"sources\"]",
+          "scope": "document"
+        }],
+        "close": [{"selector": "[data-testid=\"close-modal\"]", "scope": "document"}],
+        "selector": ".fixed > div > [class] > div > div > div > div > div > .group",
+        "extractionType": "list"
+      },
+      {
+        "open": [{"selector": "div.grid > div.flex:nth-last-of-type(1)", "scope": "content"}],
+        "close": [{"selector": "[data-testid=\"close-modal\"]", "scope": "document"}],
+        "selector": ".fixed > div > [class] > div > div > div > div > div > .group",
+        "extractionType": "list"
+      },
+      {
+        "selector": "div.grid > div.flex",
+        "extractionType": "tile-list"
+      }
+    ]
   }
 }

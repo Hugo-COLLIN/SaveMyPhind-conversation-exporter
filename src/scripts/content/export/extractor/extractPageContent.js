@@ -10,7 +10,7 @@ export async function extractPageContent(format, metadata, processMessageContent
   let markdown = await safeExecute(setFileHeader(metadata.pageTitle, metadata.domainName));
 
   for (const content of messages) {
-    const messageText = await processMessageContent(content, format);
+    const messageText = await processMessageContent(content, format, metadata);
     if (messageText !== "") markdown += messageText + "\n";
   }
 

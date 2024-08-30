@@ -1,7 +1,7 @@
 import {safeExecute} from "../../../../shared/utils/jsShorteners";
 import {extractSources} from "../extractSources";
 
-export async function processMessage(content, format) {
+export async function processMessage(content, format, metadata) {
   if (!content.hasChildNodes())
     return '';
 
@@ -20,23 +20,7 @@ export async function processMessage(content, format) {
     ? format(htmlOutput) + '\n\n'
     : '';
 
-  // Display sources
-  const data = {
-    selectors: [
-      {
-        open: [{selector: 'div.grid > div.flex:nth-last-of-type(1), .group\\/source', scope: 'content'}],
-        close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
-        selector: '.fixed > div > [class] > div > div > div > div > div > .group',
-        extractionType: 'list'
-      },
-      {
-        selector: 'div.grid > div.flex',
-        extractionType: 'tile-list'
-      }
-    ],
-    afterAction: '[data-testid="close-modal"]'
-  };
-  const src = await safeExecute(await extractSources(content, format, data));
+  const src = await safeExecute(await extractSources(content, format, metadata.sourcesExtraction));
   if (src && src !== '')
     markdown += src + "\n";
 
