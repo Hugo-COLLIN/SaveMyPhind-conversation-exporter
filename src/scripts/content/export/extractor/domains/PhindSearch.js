@@ -29,7 +29,7 @@ export async function processMessage(content, format) {
   const aiPart = `\n` + aiIndicator + aiAnswer.substring(index + 2);
 
   const paginationPart = selectPagination.length > 0
-    ? `\n\n---\n**Sources:**` + await safeExecute(extractSources(content, selectPagination, format, true)) + "\n\n"
+    ? `\n\n---\n**Sources:**` + await safeExecute(extractSources(content, format, selectPagination)) + "\n\n"
     : "";
 
   return userPart + aiPart + paginationPart;
