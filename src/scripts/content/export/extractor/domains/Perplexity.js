@@ -76,19 +76,18 @@ export const SOURCES_HEADER = "---\n**Sources:**\n";
  * @returns {Promise<void|string>}
  */
 export async function extractSources(content, format, data) {
-  const res = await interactAndCatch(content, data, SOURCES_HEADER, format) || "";
+  const res = await interactAndCatch(content, format, data) || "";
   return res && SOURCES_HEADER + res;
 }
 
 /**
  * Generic function using list of queryselectors (1 for open possibilities, 1 for close) ; they are executed one after the other
  * @param content {HTMLElement}
- * @param {Object<selectors: Array<{open: Array<{selector: string, scope: string}>, close: Array<{selector: string, scope: string}>, selector: string}>, afterAction: string>} data // scope:document/parent/child/...
- * @param sources_header
  * @param format
+ * @param {Object<selectors: Array<{open: Array<{selector: string, scope: string}>, close: Array<{selector: string, scope: string}>, selector: string}>, afterAction: string>} data // scope:document/parent/child/...
  * @returns {Promise<void>}
  */
-export async function interactAndCatch(content, data, sources_header, format) {
+export async function interactAndCatch(content, format, data) {
   let res;
   for (const {open, close, selector, extractionType} of data.selectors) {
     open && await safeExecute(await selectAndClick(open, content));
