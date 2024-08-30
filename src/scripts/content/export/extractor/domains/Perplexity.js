@@ -45,15 +45,18 @@ export async function processMessage(content, format) {
           scope: 'document'
         }],
         close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
-        selector: '.fixed > div > [class] > div > div > div > div > div > .group'
+        selector: '.fixed > div > [class] > div > div > div > div > div > .group',
+        extractionType: 'list'
       },
       {
         open: [{selector: 'div.grid > div.flex:nth-last-of-type(1)', scope: 'content'}],
         close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
-        selector: '.fixed > div > [class] > div > div > div > div > div > .group'
+        selector: '.fixed > div > [class] > div > div > div > div > div > .group',
+        extractionType: 'list'
       },
       {
-        selector: 'div.grid > div.flex'
+        selector: 'div.grid > div.flex',
+        extractionType: 'tile-list'
       }
     ]
   };
@@ -87,14 +90,19 @@ export async function extractSources(content, format, data) {
  */
 export async function interactAndCatch(content, data, sources_header, format) {
   let res;
-  for (const {open, close, selector} of data.selectors) {
-    const btnBottomExpand = open && await safeExecute(await selectAndClick(open, content));
+  for (const {open, close, selector, extractionType} of data.selectors) {
+    open && await safeExecute(await selectAndClick(open, content));
 
-    res = await safeExecute(
-      btnBottomExpand
-        ? await extractFromModal(format, selector)
-        : await extractFromTileList(format, content, selector),
-      res);
+    switch (extractionType) {
+      case 'list':
+        res = await safeExecute(await extractFromModal(format, selector));
+        break;
+      case 'tile-list':
+        res = await safeExecute(await extractFromTileList(format, content, selector));
+        break;
+      default:
+        console.warn("No extraction type specified");
+    }
 
     close && await safeExecute(await selectAndClick(close, content));
 
@@ -154,7 +162,7 @@ export async function formatSources(i, format, tile) {
   async function extractYoutubeLink(tile) {
     await sleep(10); //to be sure
     const clickElt = tile
-      // .querySelector('.group')
+    // .querySelector('.group')
 
     if (!clickElt) {
       console.warn("clickElt undefined");
