@@ -13,7 +13,7 @@ import {extractSources} from "./extractSources";
 export async function extractSection(content, format, metadata, options = {}) {
   if (!content.hasChildNodes()) return "";
 
-  switch (options.extractionType) {
+  switch (metadata?.extractor?.extractionType) {
     case 'search-sections':
       return extractSearchSection(content, format, metadata, options);
     case 'articles-sections':
@@ -25,7 +25,9 @@ export async function extractSection(content, format, metadata, options = {}) {
   }
 }
 
-async function extractSearchSection(content, format, metadata, options) {
+async function extractSearchSection(content, format, metadata) {
+  const options = metadata.extractor;
+
   // Extract and format the user question
   const userQuestionSelector = options.userQuestionSelector ?? 'span, textarea';
   const userQuestionElement = content.querySelector(userQuestionSelector) ?? "";
