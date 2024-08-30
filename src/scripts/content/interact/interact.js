@@ -50,3 +50,7 @@ export async function selectAndClick(actionsList, content) {
   }
   return element;
 }
+
+export function resetPagination(pagination) {
+  pagination[0] && pagination[0].click();
+}

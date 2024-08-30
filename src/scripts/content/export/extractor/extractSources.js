@@ -1,13 +1,12 @@
 import {safeExecute, sleep} from "../../../shared/utils/jsShorteners";
-import {selectAndClick} from "../../interact/interact";
+import {resetPagination, selectAndClick} from "../../interact/interact";
 import {formatLink} from "../../../shared/formatter/formatMarkdown";
 
 let res = "";
 let i = 1;
 
-export async function extractSources(content, format, data, pagination) {
-  res = "";
-  i = 1;
+export async function extractFromPaginatedLinks(content, format, paginationSelector) {
+  const pagination = content.querySelectorAll(paginationSelector);
 
   if (pagination && pagination.length > 0) {
     for (const elt of pagination) {
@@ -35,10 +34,6 @@ function extractFromLinks(links, format) {
   return res;
 }
 
-function resetPagination(pagination) {
-  pagination[0] && pagination[0].click();
-}
-
 // ---------------------------------------------------------------
 
 export const SOURCES_HEADER = "---\n**Sources:**\n";
@@ -50,8 +45,11 @@ export const SOURCES_HEADER = "---\n**Sources:**\n";
  * @param {Object<selectors: Array<{open: Array<{selector: string, scope: string}>, close: Array<{selector: string, scope: string}>, selector: string}>, afterAction: string>} data // scope:document/parent/child/...
  */
 export async function extractSources2(content, format, data) {
-  let res;
-  for (const {open, close, selector, extractionType} of data.selectors) {
+  // Reset to avoid keeping the previous results
+  res = "";
+  i = 1;
+
+  for (const {open, close, selector, extractionType, paginationSelector} of data.selectors) {
     open && await safeExecute(await selectAndClick(open, content));
 
     switch (extractionType) {
@@ -63,6 +61,9 @@ export async function extractSources2(content, format, data) {
         break;
       case 'links':
         res = await safeExecute(selectAndExtract(selector, content, format));
+        break;
+      case 'paginated-links':
+        res = await safeExecute(await extractFromPaginatedLinks(content, format, paginationSelector));
         break;
       default:
         console.warn("No extraction type specified");
