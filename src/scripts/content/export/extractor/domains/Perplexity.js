@@ -68,26 +68,14 @@ export async function processMessage(content, format) {
 
 export const SOURCES_HEADER = "---\n**Sources:**\n";
 
-/**
- * Open sources modal and extract sources from it for a message
- * @param content {HTMLElement}
- * @param format {(text: string) => string}
- * @param data
- * @returns {Promise<void|string>}
- */
-export async function extractSources(content, format, data) {
-  const res = await interactAndCatch(content, format, data) || "";
-  return res && SOURCES_HEADER + res;
-}
 
 /**
  * Generic function using list of queryselectors (1 for open possibilities, 1 for close) ; they are executed one after the other
  * @param content {HTMLElement}
  * @param format
  * @param {Object<selectors: Array<{open: Array<{selector: string, scope: string}>, close: Array<{selector: string, scope: string}>, selector: string}>, afterAction: string>} data // scope:document/parent/child/...
- * @returns {Promise<void>}
  */
-export async function interactAndCatch(content, format, data) {
+export async function extractSources(content, format, data) {
   let res;
   for (const {open, close, selector, extractionType} of data.selectors) {
     open && await safeExecute(await selectAndClick(open, content));
@@ -114,7 +102,7 @@ export async function interactAndCatch(content, format, data) {
     afterAction.click();
   }
 
-  return res;
+  return res && SOURCES_HEADER + res;
 }
 
 async function extractFromList(format, selector) {
