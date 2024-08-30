@@ -28,8 +28,16 @@ export async function processMessage(content, format) {
   const index = aiAnswer.indexOf('\n\n');
   const aiPart = `\n` + aiIndicator + aiAnswer.substring(index + 2);
 
+  const sourcesData = {
+    selectors: [
+      {
+
+      }
+    ]
+  }
+
   const paginationPart = selectPagination.length > 0
-    ? `\n\n---\n**Sources:**` + await safeExecute(extractSources(content, format, selectPagination)) + "\n\n"
+    ? `\n\n---\n**Sources:**` + await safeExecute(extractSources(content, format, sourcesData, selectPagination)) + "\n\n"
     : "";
 
   return userPart + aiPart + paginationPart;

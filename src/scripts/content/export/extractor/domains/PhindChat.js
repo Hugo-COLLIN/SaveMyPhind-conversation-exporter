@@ -1,5 +1,5 @@
 import {safeExecute} from "../../../../shared/utils/jsShorteners";
-import {extractSources} from "../extractSources";
+import {extractSources2} from "../extractSources";
 
 export async function processMessage(content, format) {
   const allDivs = content.querySelectorAll('.col > div > div > div, textarea');
@@ -31,10 +31,17 @@ export async function processMessage(content, format) {
     // Message
     res += format(msgContent[0].innerHTML) + "\n";
 
+    const sourcesData = {
+      selectors: [
+        {
+          selector: '.col > div > div > div:nth-last-of-type(1) > div > a',
+          extractionType: 'links',
+        }
+      ]
+    };
+
     // Export search results
-    res += "---\n**Sources:**";
-    res += await safeExecute(extractSources(content, format));
-    res += "\n";
+    res += await safeExecute(extractSources2(content, format, sourcesData));
 
   } else { // If there are no search results, export each component of the message
     msgContent.forEach((elt) => {

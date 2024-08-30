@@ -5,7 +5,7 @@ import {formatLink} from "../../../shared/formatter/formatMarkdown";
 let res = "";
 let i = 1;
 
-export async function extractSources(content, format, pagination) {
+export async function extractSources(content, format, data, pagination) {
   res = "";
   i = 1;
 
@@ -16,8 +16,6 @@ export async function extractSources(content, format, pagination) {
       res += selectAndExtract('a.mb-0', content, format);
     }
     resetPagination(pagination);
-  } else {
-    res += selectAndExtract('.col > div > div > div:nth-last-of-type(1) > div > a', content, format);
   }
 
   return res;
@@ -31,7 +29,7 @@ function selectAndExtract(selector, content, format) {
 function extractFromLinks(links, format) {
   let res = "";
   links.forEach((link) => {
-    res += "\n- " + format(link.outerHTML).replace("[", `[(${i}) `);
+    res += "- " + format(link.outerHTML).replace("[", `[(${i}) `) + "\n";
     i++;
   });
   return res;
@@ -62,6 +60,9 @@ export async function extractSources2(content, format, data) {
         break;
       case 'tile-list':
         res = await safeExecute(await extractFromTileList(format, content, selector));
+        break;
+      case 'links':
+        res = await safeExecute(selectAndExtract(selector, content, format));
         break;
       default:
         console.warn("No extraction type specified");
