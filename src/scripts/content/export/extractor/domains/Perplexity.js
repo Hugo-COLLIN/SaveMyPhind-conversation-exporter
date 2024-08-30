@@ -9,6 +9,7 @@ import {extractSection} from "../extractSection";
  */
 export async function processMessage(content, format, metadata) {
   return extractSection(content, format, metadata, {
+    extractionType: 'search-sections',
     userQuestionSelector: '.break-words',
     aiAnswerSelector: '.relative.default > div > div',
   });
