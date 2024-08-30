@@ -95,7 +95,7 @@ export async function interactAndCatch(content, data, sources_header, format) {
 
     switch (extractionType) {
       case 'list':
-        res = await safeExecute(await extractFromModal(format, selector));
+        res = await safeExecute(await extractFromList(format, selector));
         break;
       case 'tile-list':
         res = await safeExecute(await extractFromTileList(format, content, selector));
@@ -118,7 +118,7 @@ export async function interactAndCatch(content, data, sources_header, format) {
   return res;
 }
 
-async function extractFromModal(format, selector) {
+async function extractFromList(format, selector) {
   let res = '';
   let i = 1;
   for (const tile of document.querySelectorAll(selector)) {
