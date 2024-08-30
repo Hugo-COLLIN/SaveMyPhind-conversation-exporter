@@ -41,9 +41,13 @@ export async function extractPage(domain) {
   return {
     title: metadata.pageTitle,
     fileName: await patternBasedFormatFilename(metadata.pageTitle, metadata.domainName),
-    markdownContent: await safeExecute(module.extractPageContent
+    markdownContent: await extractContent(module, metadata),
+  };
+}
+
+async function extractContent(module, metadata) {
+  return safeExecute(module.extractPageContent
       ? module.extractPageContent(converter[`formatMarkdown`], metadata)
       : extractPageContent(converter[`formatMarkdown`], metadata, module.processMessage)
-      , EXTRACTOR_FALLBACK_ACTION()),
-  };
+    , EXTRACTOR_FALLBACK_ACTION());
 }
