@@ -2,14 +2,14 @@ import {safeExecute, sleep} from "../../../shared/utils/jsShorteners";
 import {resetPagination, selectAndClick} from "../../interact/interact";
 import {formatLink} from "../../../shared/formatter/formatMarkdown";
 
-export const SOURCES_HEADER = "---\n**Sources:**\n";
+const SOURCES_HEADER = "---\n**Sources:**\n";
 let res = "";
 let i = 1;
 
 /**
  * Generic function using list of queryselectors (1 for open possibilities, 1 for close) ; they are executed one after the other
- * @param content {HTMLElement}
- * @param format
+ * @param content {HTMLElement} The part of the page to extract sources from
+ * @param format {function} The function to format the sources
  * @param {Object<selectors: Array<{open: Array<{selector: string, scope: string}>, close: Array<{selector: string, scope: string}>, selector: string}>, afterAction: string>} data // scope:document/parent/child/...
  */
 export async function extractSources(content, format, data) {
@@ -51,6 +51,14 @@ export async function extractSources(content, format, data) {
   return res && SOURCES_HEADER + res;
 }
 
+/**
+ * Extract sources from paginated links
+ * @param selector {string}
+ * @param content {HTMLElement}
+ * @param format {function}
+ * @param paginationSelector {string}
+ * @returns {Promise<string>}
+ */
 async function extractFromPaginatedLinks(selector, content, format, paginationSelector) {
   const pagination = content.querySelectorAll(paginationSelector);
 
@@ -66,6 +74,13 @@ async function extractFromPaginatedLinks(selector, content, format, paginationSe
   return res;
 }
 
+/**
+ * Extract sources from a selector
+ * @param selector {string}
+ * @param content {HTMLElement}
+ * @param format {function}
+ * @returns {string} The formatted sources
+ */
 function selectAndExtract(selector, content, format) {
   const selectSources = content.querySelectorAll(selector);
   return extractFromLinks(selectSources, format);
@@ -80,6 +95,12 @@ function extractFromLinks(links, format) {
   return res;
 }
 
+/**
+ * Extract sources from a list of tiles
+ * @param format {function}
+ * @param selector {string}
+ * @returns {Promise<string>}
+ */
 async function extractFromList(format, selector) {
   let res = '';
   let i = 1;
@@ -90,6 +111,13 @@ async function extractFromList(format, selector) {
   return res;
 }
 
+/**
+ * Extract sources from a tile list
+ * @param format {function}
+ * @param content {HTMLElement}
+ * @param selector {string}
+ * @returns {Promise<string>}
+ */
 async function extractFromTileList(format, content, selector) {
   let res = '';
   let i = 1;
@@ -110,6 +138,13 @@ async function extractFromTileList(format, content, selector) {
   return res;
 }
 
+/**
+ * Format sources
+ * @param i {number}
+ * @param format {function}
+ * @param tile {HTMLElement}
+ * @returns {Promise<string>}
+ */
 export async function formatSources(i, format, tile) {
   const text = "(" + i + ") "
     + format(tile.querySelector("div.default").innerText
