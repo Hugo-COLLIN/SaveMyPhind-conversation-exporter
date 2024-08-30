@@ -46,16 +46,6 @@ export async function processMessage(content, format) {
   return res;
 }
 
-// function extractSources(searchResults, format) {
-//   let res = "";
-//   let i = 1;
-//   searchResults.forEach((link) => {
-//     res += "\n- " + format(link.outerHTML).replace("[", `[(${i}) `);
-//     i++;
-//   });
-//   return res;
-// }
-
 // async function extractSourcesOld(msgContent, searchResults, res, format) {
 //   const buttonsInCard = msgContent[2].querySelectorAll("button");
 //   for (const btn of buttonsInCard) {
