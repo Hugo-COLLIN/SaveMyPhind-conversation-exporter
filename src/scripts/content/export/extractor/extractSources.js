@@ -4,13 +4,16 @@ let res = "";
 let i = 1;
 
 export async function extractSources(content, format, pagination) {
+  res = "";
+  i = 1;
+
   if (pagination && pagination.length > 0) {
     for (const elt of pagination) {
       elt.click();
       await sleep(0); // Wait for the content to load (even if it is 0!)
       res += selectAndExtract('a.mb-0', content, format);
     }
-    pagination[0] && pagination[0].click();
+    resetPagination(pagination);
   } else {
     res += selectAndExtract('.col > div > div > div:nth-last-of-type(1) > div > a', content, format);
   }
@@ -30,4 +33,8 @@ function extractFromLinks(links, format) {
     i++;
   });
   return res;
+}
+
+function resetPagination(pagination) {
+  pagination[0] && pagination[0].click();
 }
