@@ -1,5 +1,5 @@
 import {safeExecute} from "../../../../shared/utils/jsShorteners";
-import {extractSources2} from "../extractSources";
+import {extractSources} from "../extractSources";
 
 /**
  * Extracts the content of a message from Perplexity
@@ -59,7 +59,7 @@ export async function processMessage(content, format) {
       }
     ]
   };
-  const src = await safeExecute(await extractSources2(content, format, data));
+  const src = await safeExecute(await extractSources(content, format, data));
   if (src !== null) markdown += src + "\n";
 
   return markdown;

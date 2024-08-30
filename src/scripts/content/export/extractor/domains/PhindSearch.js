@@ -2,7 +2,7 @@ import {clickElements} from "../../../interact/interact";
 import {capitalizeFirst, formatLineBreaks} from "../../../../shared/formatter/formatText";
 import {safeExecute} from "../../../../shared/utils/jsShorteners";
 import {extractPageContent as extractor} from "../extractPageContent";
-import {extractSources2} from "../extractSources";
+import {extractSources} from "../extractSources";
 
 export async function extractPageContent(format, metadata) {
   safeExecute(clickElements('.fe-chevron-down'));
@@ -39,7 +39,7 @@ export async function processMessage(content, format) {
   }
 
   const paginationPart = selectPagination.length > 0
-    ? "\n" + await safeExecute(extractSources2(content, format, sourcesData))
+    ? "\n" + await safeExecute(extractSources(content, format, sourcesData))
     : "";
 
   return userPart + aiPart + paginationPart;
