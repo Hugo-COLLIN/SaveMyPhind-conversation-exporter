@@ -45,13 +45,16 @@ export async function processMessage(content, format) {
           scope: 'document'
         }],
         close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
-        selector: 'TODO'
+        selector: '.fixed > div > [class] > div > div > div > div > div > .group'
       },
       {
         open: [{selector: 'div.grid > div.flex:nth-last-of-type(1)', scope: 'content'}],
         close: [{selector: '[data-testid="close-modal"]', scope: 'document'}],
-        selector: 'TODO'
+        selector: '.fixed > div > [class] > div > div > div > div > div > .group'
       },
+      {
+        selector: 'div.grid > div.flex'
+      }
     ]
   };
   const src = await safeExecute(await extractSources(content, format, data));
@@ -74,21 +77,54 @@ export async function extractSources(content, format, data) {
   return res && SOURCES_HEADER + res;
 }
 
-async function extractFromModal(format) {
+/**
+ * Generic function using list of queryselectors (1 for open possibilities, 1 for close) ; they are executed one after the other
+ * @param content {HTMLElement}
+ * @param {Object<selectors: Array<{open: Array<{selector: string, scope: string}>, close: Array<{selector: string, scope: string}>, selector: string}>, afterAction: string>} data // scope:document/parent/child/...
+ * @param sources_header
+ * @param format
+ * @returns {Promise<void>}
+ */
+export async function interactAndCatch(content, data, sources_header, format) {
+  let res;
+  for (const {open, close, selector} of data.selectors) {
+    const btnBottomExpand = open && await safeExecute(await selectAndClick(open, content));
+
+    res = await safeExecute(
+      btnBottomExpand
+        ? await extractFromModal(format, selector)
+        : await extractFromTileList(format, content, selector),
+      res);
+
+    close && await safeExecute(await selectAndClick(close, content));
+
+    if (res) break;
+  }
+
+  const afterAction = document.querySelector(data.afterAction);
+  if (afterAction) {
+    await sleep(100);
+    afterAction.click();
+  }
+
+  return res;
+}
+
+async function extractFromModal(format, selector) {
   let res = '';
   let i = 1;
-  for (const tile of document.querySelectorAll(".fixed > div > [class] > div > div > div > div > div > .group")) {
+  for (const tile of document.querySelectorAll(selector)) {
     res += await formatSources(i, format, tile);
     i++;
   }
   return res;
 }
 
-async function extractFromTileList(format, content) {
+async function extractFromTileList(format, content, selector) {
   let res = '';
   let i = 1;
   // Case the first tile is a file, not a link
-  const tilesNoLink = content.querySelectorAll("div.grid > div.flex");
+  const tilesNoLink = content.querySelectorAll(selector);
   for (const tile of tilesNoLink) {
     if (tile.querySelectorAll("img").length === 0) {
       res += await formatSources(i, format, tile);
@@ -101,39 +137,6 @@ async function extractFromTileList(format, content) {
     res += await formatSources(i, format, tile);
     i++;
   }
-  return res;
-}
-
-/**
- * Generic function using list of queryselectors (1 for open possibilities, 1 for close) ; they are executed one after the other
- * @param content {HTMLElement}
- * @param {Object<selectors: Array<{open: Array<{selector: string, scope: string}>, close: Array<{selector: string, scope: string}>, selector: string}>, afterAction: string>} data // scope:document/parent/child/...
- * @param sources_header
- * @param format
- * @returns {Promise<void>}
- */
-export async function interactAndCatch(content, data, sources_header, format) {
-  let res;
-  for (const {open, close, selector} of data.selectors) {
-    const btnBottomExpand = await safeExecute(await selectAndClick(open, content));
-
-    res = await safeExecute(
-      btnBottomExpand
-        ? await extractFromModal(format)
-        : await extractFromTileList(format, content),
-      res);
-
-    await safeExecute(await selectAndClick(close, content));
-
-    if (res) break;
-  }
-
-  const afterAction = document.querySelector(data.afterAction);
-  if (afterAction) {
-    await sleep(100);
-    afterAction.click();
-  }
-
   return res;
 }
 
