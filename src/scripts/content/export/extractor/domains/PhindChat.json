@@ -35,5 +35,8 @@
         "extractionType": "links"
       }
     ]
+  },
+  "extractor": {
+    "extractionType": "messages-sections"
   }
 }

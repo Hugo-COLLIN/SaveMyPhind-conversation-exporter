@@ -45,5 +45,10 @@
         "extractionType": "tile-list"
       }
     ]
+  },
+  "extractor": {
+    "extractionType": "search-sections",
+    "userQuestionSelector": ".break-words",
+    "aiAnswerSelector": ".relative.default > div > div"
   }
 }

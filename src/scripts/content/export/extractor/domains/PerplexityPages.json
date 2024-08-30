@@ -37,5 +37,8 @@
       }
     ],
     "afterAction": "[data-testid=\"close-modal\"]"
+  },
+  "extractor": {
+    "extractionType": "articles-sections"
   }
 }

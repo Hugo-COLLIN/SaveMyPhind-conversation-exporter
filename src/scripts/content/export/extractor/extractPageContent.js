@@ -1,6 +1,7 @@
 import {safeExecute} from "../../../shared/utils/jsShorteners";
 import {setFileHeader} from "../../../shared/formatter/formatMarkdown";
 import {defineAction} from "./defineAction";
+import {extractSection} from "./extractSection";
 
 export async function extractPageContent(format, metadata, processMessageContent) {
   if (metadata?.actions?.beforeExtraction)
@@ -10,7 +11,9 @@ export async function extractPageContent(format, metadata, processMessageContent
   let markdown = await safeExecute(setFileHeader(metadata.pageTitle, metadata.domainName));
 
   for (const content of messages) {
-    const messageText = await processMessageContent(content, format, metadata);
+    const messageText = metadata.extractor
+      ? await extractSection(content, format, metadata, metadata.extractor)
+      : await processMessageContent(content, format, metadata);
     if (messageText !== "") markdown += messageText + "\n";
   }
 

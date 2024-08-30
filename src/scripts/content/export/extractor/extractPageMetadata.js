@@ -10,6 +10,7 @@ export function extractPageMetadata(metadataBase) {
     contentSelector: metadataBase.contentSelector,
     actions: metadataBase.actions,
     sourcesExtraction: metadataBase.sourcesExtraction,
+    extractor: metadataBase.extractor,
   };
 }
 
