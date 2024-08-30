@@ -1,4 +1,6 @@
-import { sleep } from "../../../shared/utils/jsShorteners";
+import {safeExecute, sleep} from "../../../shared/utils/jsShorteners";
+import {selectAndClick} from "../../interact/interact";
+import {formatLink} from "../../../shared/formatter/formatMarkdown";
 
 let res = "";
 let i = 1;
@@ -37,4 +39,125 @@ function extractFromLinks(links, format) {
 
 function resetPagination(pagination) {
   pagination[0] && pagination[0].click();
+}
+
+// ---------------------------------------------------------------
+
+export const SOURCES_HEADER = "---\n**Sources:**\n";
+
+/**
+ * Generic function using list of queryselectors (1 for open possibilities, 1 for close) ; they are executed one after the other
+ * @param content {HTMLElement}
+ * @param format
+ * @param {Object<selectors: Array<{open: Array<{selector: string, scope: string}>, close: Array<{selector: string, scope: string}>, selector: string}>, afterAction: string>} data // scope:document/parent/child/...
+ */
+export async function extractSources2(content, format, data) {
+  let res;
+  for (const {open, close, selector, extractionType} of data.selectors) {
+    open && await safeExecute(await selectAndClick(open, content));
+
+    switch (extractionType) {
+      case 'list':
+        res = await safeExecute(await extractFromList(format, selector));
+        break;
+      case 'tile-list':
+        res = await safeExecute(await extractFromTileList(format, content, selector));
+        break;
+      default:
+        console.warn("No extraction type specified");
+    }
+
+    close && await safeExecute(await selectAndClick(close, content));
+
+    if (res) break;
+  }
+
+  const afterAction = document.querySelector(data.afterAction);
+  if (afterAction) {
+    await sleep(100);
+    afterAction.click();
+  }
+
+  return res && SOURCES_HEADER + res;
+}
+
+async function extractFromList(format, selector) {
+  let res = '';
+  let i = 1;
+  for (const tile of document.querySelectorAll(selector)) {
+    res += await formatSources(i, format, tile);
+    i++;
+  }
+  return res;
+}
+
+async function extractFromTileList(format, content, selector) {
+  let res = '';
+  let i = 1;
+  // Case the first tile is a file, not a link
+  const tilesNoLink = content.querySelectorAll(selector);
+  for (const tile of tilesNoLink) {
+    if (tile.querySelectorAll("img").length === 0) {
+      res += await formatSources(i, format, tile);
+      i++;
+    }
+  }
+
+  // Link tiles
+  for (const tile of content.querySelectorAll("div.grid > a")) {
+    res += await formatSources(i, format, tile);
+    i++;
+  }
+  return res;
+}
+
+export async function formatSources(i, format, tile) {
+  const text = "(" + i + ") "
+    + format(tile.querySelector("div.default").innerText
+      .replaceAll("\n", " ")
+      .replaceAll('"', '')
+      .replaceAll(/^[0-9]+./g, "")
+      .replaceAll('[', '')
+      .replaceAll(']', '')
+    );
+
+  async function extractYoutubeLink(tile) {
+    await sleep(10); //to be sure
+    const clickElt = tile
+    // .querySelector('.group')
+
+    if (!clickElt) {
+      console.warn("clickElt undefined");
+      return null;
+    }
+
+    clickElt.click();
+    await sleep(500); // needed for youtube player to load
+
+    // Get the youtube embed
+    const link = document.querySelector('.fixed iframe');
+
+    if (!link) {
+      console.warn("link undefined");
+      return null;
+    }
+
+    // Select background to click (no close button)
+    const el = link.closest(".fixed");
+    if (el) el.click();
+
+    return link.src
+  }
+
+  // Export content
+  let res = "- ";
+  if (tile && tile.href)
+    res += formatLink(tile.href, text) + "\n";
+  else {
+    const url = await safeExecute(extractYoutubeLink(tile));
+    res += url
+      ? formatLink(url, text) + "\n"
+      : text + "\n";
+  }
+  return res;
 }

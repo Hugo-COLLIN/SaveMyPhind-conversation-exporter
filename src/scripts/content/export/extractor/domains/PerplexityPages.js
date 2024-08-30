@@ -1,5 +1,5 @@
 import {safeExecute} from "../../../../shared/utils/jsShorteners";
-import {extractSources} from "./Perplexity";
+import {extractSources2} from "../extractSources";
 
 export async function processMessage(content, format) {
   if (!content.hasChildNodes())
@@ -36,7 +36,7 @@ export async function processMessage(content, format) {
     ],
     afterAction: '[data-testid="close-modal"]'
   };
-  const src = await safeExecute(await extractSources(content, format, data));
+  const src = await safeExecute(await extractSources2(content, format, data));
   if (src && src !== '')
     markdown += src + "\n";
 
