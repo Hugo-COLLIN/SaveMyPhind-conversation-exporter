@@ -17,7 +17,7 @@ export async function processMessage(content, format, metadata) {
 
   const htmlOutput = (image ? image.outerHTML + "<br><br>" : "") + answer?.innerHTML
   markdown += answer?.innerHTML && answer?.innerHTML !== ''
-    ? format(htmlOutput) + '\n\n'
+    ? format(htmlOutput) + '\n'
     : '';
 
   const src = await safeExecute(await extractSources(content, format, metadata.sourcesExtraction));

@@ -2,7 +2,7 @@ import {safeExecute, sleep} from "../../../shared/utils/jsShorteners";
 import {resetPagination, selectAndClick} from "../../interact/interact";
 import {formatLink} from "../../../shared/formatter/formatMarkdown";
 
-const SOURCES_HEADER = "---\n**Sources:**\n";
+const SOURCES_HEADER = "\n---\n**Sources:**\n";
 let res = "";
 let i = 1;
 
