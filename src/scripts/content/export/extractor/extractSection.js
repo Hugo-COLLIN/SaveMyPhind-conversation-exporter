@@ -13,6 +13,15 @@ import {extractSources} from "./extractSources";
 export async function extractSection(content, format, metadata, options = {}) {
   if (!content.hasChildNodes()) return "";
 
+  switch (options.extractionType) {
+    case 'search-sections':
+      return extractSearchSections(content, format, metadata, options);
+    default:
+      return "";
+  }
+}
+
+async function extractSearchSections(content, format, metadata, options) {
   // Extract and format the user question
   const userQuestionSelector = options.userQuestionSelector ?? 'span, textarea';
   const userQuestionElement = content.querySelector(userQuestionSelector) ?? "";
@@ -25,8 +34,7 @@ export async function extractSection(content, format, metadata, options = {}) {
     const aiModelElement = content.querySelector(options.aiModelSelector);
     if (aiModelElement) {
       aiName = format(aiModelElement.innerHTML).split("|")[1].split("Model")[0].trim();
-    }
-    else {
+    } else {
       const answerer = content.querySelector(".mb-lg .flex.items-center > p");
       if (answerer && answerer.innerHTML.toLowerCase().includes('pro')) // Perplexity Pro Search
         aiName = "Pro";
