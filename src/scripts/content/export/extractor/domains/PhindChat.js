@@ -33,7 +33,7 @@ export async function processMessage(content, format) {
 
     // Export search results
     res += "---\n**Sources:**";
-    res += await safeExecute(extractSources(searchResults, res, format, false));
+    res += await safeExecute(extractSources(content, res, format, false));
     res += "\n";
 
   } else { // If there are no search results, export each component of the message

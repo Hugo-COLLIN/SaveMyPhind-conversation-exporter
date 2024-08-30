@@ -1,6 +1,6 @@
 import { sleep } from "../../../shared/utils/jsShorteners";
 
-export async function extractSources(contentOrSearchResults, paginationOrRes, format, isPaginated = false) {
+export async function extractSources(content, paginationOrRes, format, isPaginated = false) {
   let res = "";
   let i = 1;
 
@@ -11,16 +11,20 @@ export async function extractSources(contentOrSearchResults, paginationOrRes, fo
     });
   };
 
+  function selectAndExtract(selector) {
+    const selectSources = content.querySelectorAll(selector)
+    extractFromLinks(selectSources);
+  }
+
   if (isPaginated) {
     for (const elt of paginationOrRes) {
       elt.click();
-      await sleep(0); // Attendre que le contenu se charge (même si c'est 0!)
-      const selectSources = contentOrSearchResults.querySelectorAll('a.mb-0');
-      extractFromLinks(selectSources);
+      await sleep(0); // Wait for the content to load (even if it is 0!)
+      selectAndExtract('a.mb-0')
     }
     paginationOrRes[0] && paginationOrRes[0].click();
   } else {
-    extractFromLinks(contentOrSearchResults);
+    selectAndExtract('.col > div > div > div:nth-last-of-type(1) > div > a');
   }
 
   return res;
