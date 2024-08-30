@@ -10,14 +10,21 @@ export async function extractPageContent(format, metadata, processMessageContent
   const messages = document.querySelectorAll(metadata.contentSelector);
   let markdown = await safeExecute(setFileHeader(metadata.pageTitle, metadata.domainName));
 
+  markdown += await extractSections(messages, metadata, format, processMessageContent);
+
+  if (metadata?.actions?.afterExtraction)
+    await safeExecute(defineAction(metadata.actions.afterExtraction));
+
+  return markdown;
+}
+
+async function extractSections(messages, metadata, format, processMessageContent) {
+  let markdown = "";
   for (const content of messages) {
     const messageText = metadata.extractor
       ? await extractSection(content, format, metadata, metadata.extractor)
       : await processMessageContent(content, format, metadata);
     if (messageText !== "") markdown += messageText + "\n";
   }
-
-  if (metadata?.actions?.afterExtraction)
-    await safeExecute(defineAction(metadata.actions.afterExtraction));
   return markdown;
 }
