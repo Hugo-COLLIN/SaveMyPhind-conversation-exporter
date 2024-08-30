@@ -1,4 +1,5 @@
 import {safeExecute} from "../../../../shared/utils/jsShorteners";
+import {extractSources} from "../extractSources";
 
 export async function processMessage(content, format) {
   const allDivs = content.querySelectorAll('.col > div > div > div, textarea');
@@ -32,7 +33,7 @@ export async function processMessage(content, format) {
 
     // Export search results
     res += "---\n**Sources:**";
-    res += await safeExecute(extractSources(searchResults, res, format));
+    res += await safeExecute(extractSources(searchResults, res, format, false));
     res += "\n";
 
   } else { // If there are no search results, export each component of the message
@@ -45,14 +46,15 @@ export async function processMessage(content, format) {
   return res;
 }
 
-function extractSources(searchResults, res, format) {
-  let i = 1;
-  searchResults.forEach((link) => {
-    res += "\n- " + format(link.outerHTML).replace("[", `[(${i}) `);
-    i++;
-  });
-  return res;
-}
+// function extractSources(searchResults, format) {
+//   let res = "";
+//   let i = 1;
+//   searchResults.forEach((link) => {
+//     res += "\n- " + format(link.outerHTML).replace("[", `[(${i}) `);
+//     i++;
+//   });
+//   return res;
+// }
 
 // async function extractSourcesOld(msgContent, searchResults, res, format) {
 //   const buttonsInCard = msgContent[2].querySelectorAll("button");
