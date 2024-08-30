@@ -1,15 +1,6 @@
-import {clickElements} from "../../../interact/interact";
 import {capitalizeFirst, formatLineBreaks} from "../../../../shared/formatter/formatText";
 import {safeExecute} from "../../../../shared/utils/jsShorteners";
-import {extractPageContent as extractor} from "../extractPageContent";
 import {extractSources} from "../extractSources";
-
-export async function extractPageContent(format, metadata) {
-  safeExecute(clickElements('.fe-chevron-down'));
-  const result = await extractor(format, metadata, processMessage);
-  safeExecute(clickElements('.fe-chevron-up'));
-  return result;
-}
 
 export async function processMessage(content, format) {
   const selectUserQuestion = content.querySelector('span, textarea') ?? "";

@@ -8,6 +8,7 @@ export function extractPageMetadata(metadataBase) {
     domainName: metadataBase.domainName ?? window.location.hostname,
     pageTitle: getPageTitle(metadataBase.pageTitle?.selector, metadataBase.pageTitle?.treatment),
     contentSelector: metadataBase.contentSelector,
+    actions: metadataBase.actions,
   };
 }
 

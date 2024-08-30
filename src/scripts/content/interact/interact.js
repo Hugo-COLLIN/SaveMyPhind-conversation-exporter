@@ -17,6 +17,7 @@ export async function clickElements(cssSelector = '.fe-chevron-down') {
   const possibleElements = document.querySelectorAll('[name^="answer-"]');
   possibleElements.forEach((element) => {
     const btn = element.querySelector(cssSelector);
+    sleep(2000)
     if (btn) btn.click();
   });
 }

@@ -23,5 +23,15 @@
         "replacement": "replacement_formatTables"
       }
     }
+  },
+  "actions": {
+    "beforeExtraction": {
+      "type": "click",
+      "selector": ".fe-chevron-down"
+    },
+    "afterExtraction": {
+      "type": "click",
+      "selector": ".fe-chevron-up"
+    }
   }
 }
