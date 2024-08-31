@@ -17,12 +17,12 @@ export async function extractSources(content, format, data) {
   res = "";
   i = 1;
 
-  for (const {open, close, selector, extractionType, paginationSelector} of data.selectors) {
+  for (const {open, close, selector, extractionType, paginationSelector, content: msgContent} of data.selectors) {
     open && await safeExecute(await selectAndClick(open, content));
 
     switch (extractionType) {
       case 'list':
-        res = await safeExecute(await extractFromList(format, selector));
+        res = await safeExecute(await extractFromList(format, content, selector ?? msgContent));
         break;
       case 'tile-list':
         res = await safeExecute(await extractFromTileList(format, content, selector));
@@ -98,13 +98,28 @@ function extractFromLinks(links, format) {
 /**
  * Extract sources from a list of tiles
  * @param format {function}
- * @param selector {string}
+ * @param content
+ * @param selectorOrContent
  * @returns {Promise<string>}
  */
-async function extractFromList(format, selector) {
+async function extractFromList(format, content, selectorOrContent) {
   let res = '';
   let i = 1;
-  for (const tile of document.querySelectorAll(selector)) {
+
+  const selector = typeof selectorOrContent === "object"
+    ? selectorOrContent.selector
+    : selectorOrContent;
+
+  const scope = typeof selectorOrContent === "object"
+    ? selectorOrContent.scope
+    : "document";
+
+  const qs = scope === "document"
+    ? document.querySelectorAll(selector)
+    : content.querySelectorAll(selector);
+
+  // console.log(content, scope, qs)
+  for (const tile of qs) {
     res += await formatSources(i, format, tile);
     i++;
   }
@@ -146,8 +161,11 @@ async function extractFromTileList(format, content, selector) {
  * @returns {Promise<string>}
  */
 export async function formatSources(i, format, tile) {
+  const elt = tile.querySelector("div.default") //Perplexity
+    || tile;
+
   const text = "(" + i + ") "
-    + format(tile.querySelector("div.default").innerText
+    + format(elt.innerText
       .replaceAll("\n", " ")
       .replaceAll('"', '')
       .replaceAll(/^[0-9]+./g, "")
