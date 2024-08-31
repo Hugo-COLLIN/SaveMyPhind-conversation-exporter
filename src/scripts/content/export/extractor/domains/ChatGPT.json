@@ -1,4 +1,12 @@
 {
   "domainName": "ChatGPT",
-  "contentSelector": "main article"
+  "contentSelector": "main article",
+  "turndown": {
+    "rules": {
+      "preserveLineBreaksInPre": {
+        "filter": "filter_PreserveLineBreaksInPre",
+        "replacement": "replacement_preserveLineBreaksInPre_ChatGPT"
+      }
+    }
+  }
 }
