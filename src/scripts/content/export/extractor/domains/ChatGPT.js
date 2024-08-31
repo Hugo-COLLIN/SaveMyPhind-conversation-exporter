@@ -3,8 +3,6 @@ import {extractSources} from "../extractSources";
 import {capitalizeFirst} from "../../../../shared/formatter/formatText";
 
 export async function processMessage(content, format, metadata) {
-  console.log(content);
-
   const messageSelector = content.querySelector("article [data-message-author-role]");
 
   const entityName = messageSelector?.getAttribute("data-message-author-role") === "assistant"
