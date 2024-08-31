@@ -1,5 +1,8 @@
 {
   "domainName": "ChatGPT",
+  "pageTitle": {
+    "selector": "h1, ol > li .bg-token-sidebar-surface-secondary a div"
+  },
   "contentSelector": "main article",
   "turndown": {
     "rules": {
