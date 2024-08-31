@@ -41,7 +41,7 @@ export async function actionExtensionIconClicked() {
   // console.info("Icon clicked")
   const domainPage = domainChecker(EXPORT_DOMAINS, getHostAndPath());
   if (domainPage === null) {
-    console.info("Domain not allowed");
+    console.warn("Domain not allowed");
     return;
   }
   launchScrapping(domainPage); // don't safeExecute because we don't want handleModalDisplay to increment count

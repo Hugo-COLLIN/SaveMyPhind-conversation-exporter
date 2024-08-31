@@ -26,6 +26,7 @@ export async function extractPage(domain) {
       json = require("./domains/MaxAIGoogle.json");
       break;
     case "ChatGPT":
+    case "ChatGPTShare":
       module = require("./domains/ChatGPT");
       json = require("./domains/ChatGPT.json");
       break;
