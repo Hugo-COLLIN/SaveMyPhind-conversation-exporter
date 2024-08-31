@@ -1,5 +1,9 @@
 # Update notes
-# 3.0.0
+# 3.1.0
+🤖 Now supporting ChatGPT export!
+The chatbot who launched a new era is now supported!
+Simply start a new chat and click the extension icon to get a magnificent export in your downloads!
+
 🤯 New architecture, new features, new possibilities!
 Huge changes under the hood! The extension is now more robust and easier to maintain.
 
@@ -217,3 +221,18 @@ Save my AI - Phind and Perplexity Exporter
 [//]: # (You can now export your favorite Perplexity Pages into markdown files! Just click the extension icon and see the magic happen!)
 
 [//]: # (And in 2.9.6: / Previously, in 2.9.6: / Before that, in 2.9.6: / Some days ago, in 2.9.6: / )
+
+
+[//]: # (Just click the extension icon when you're on ChatGPT.ai and see the magic happen!)
+
+[//]: # (The chatbot who knows all is now supported!)
+
+[//]: # (The one you know all is now supported!)
+
+[//]: # (The one you were waiting for is now supported! You can now export your ChatGPT conversations! Just click the extension icon when you're on ChatGPT.ai and see the magic happen!)
+
+[//]: # (The one behind everything)
+
+[//]: # (The original chatbot is now supported!)
+
+[//]: # (You can now export your ChatGPT conversations! Just click the extension icon when you're on ChatGPT.ai and see the magic happen!)
