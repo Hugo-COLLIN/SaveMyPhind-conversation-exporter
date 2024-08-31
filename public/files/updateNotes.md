@@ -222,17 +222,3 @@ Save my AI - Phind and Perplexity Exporter
 
 [//]: # (And in 2.9.6: / Previously, in 2.9.6: / Before that, in 2.9.6: / Some days ago, in 2.9.6: / )
 
-
-[//]: # (Just click the extension icon when you're on ChatGPT.ai and see the magic happen!)
-
-[//]: # (The chatbot who knows all is now supported!)
-
-[//]: # (The one you know all is now supported!)
-
-[//]: # (The one you were waiting for is now supported! You can now export your ChatGPT conversations! Just click the extension icon when you're on ChatGPT.ai and see the magic happen!)
-
-[//]: # (The one behind everything)
-
-[//]: # (The original chatbot is now supported!)
-
-[//]: # (You can now export your ChatGPT conversations! Just click the extension icon when you're on ChatGPT.ai and see the magic happen!)
