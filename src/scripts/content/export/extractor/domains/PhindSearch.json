@@ -23,5 +23,32 @@
         "replacement": "replacement_formatTables"
       }
     }
+  },
+  "actions": {
+    "beforeExtraction": {
+      "type": "click",
+      "selector": ".fe-chevron-down"
+    },
+    "afterExtraction": {
+      "type": "click",
+      "selector": ".fe-chevron-up"
+    }
+  },
+  "sourcesExtraction": {
+    "selectors": [
+      {
+        "selector": "a.mb-0",
+        "paginationSelector": ".pagination button",
+        "extractionType": "paginated-links"
+      }
+    ]
+  },
+  "extractor": {
+    "extractionType": "search-sections",
+    "userQuestionSelector": "span, textarea",
+    "aiModelSelector": "[name^=\"answer-\"] h6",
+    "aiAnswerSelector": "[name^=\"answer-\"] h6",
+    "selectParentOfAiAnswer": true,
+    "paginationSelector": ".pagination button"
   }
 }

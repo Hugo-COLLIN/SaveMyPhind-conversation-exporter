@@ -10,19 +10,15 @@ export async function extractPage(domain) {
   let json, module, metadata;
   switch (domain.name) {
     case "PhindSearch":
-      module = require("./domains/PhindSearch");
       json = require("./domains/PhindSearch.json");
       break;
     case "PhindChat":
-      module = require("./domains/PhindChat");
       json = require("./domains/PhindChat.json");
       break;
     case "Perplexity":
-      module = require("./domains/Perplexity");
       json = require("./domains/Perplexity.json");
       break;
     case "PerplexityPages":
-      module = require("./domains/PerplexityPages");
       json = require("./domains/PerplexityPages.json");
       break;
     case "MaxAIGoogle":
@@ -34,16 +30,20 @@ export async function extractPage(domain) {
       json = require("./domains/ArbitraryPage.json");
   }
   metadata = metadata ?? extractPageMetadata(json);
-  const rules = (json?.turndown && generateRules(json?.turndown)) ?? module.turndown;
+  const rules = (json?.turndown && generateRules(json?.turndown)) ?? module?.turndown;
 
   applyExtractorRules(rules);
 
   return {
     title: metadata.pageTitle,
     fileName: await patternBasedFormatFilename(metadata.pageTitle, metadata.domainName),
-    markdownContent: await safeExecute(module.extractPageContent
-      ? module.extractPageContent(converter[`formatMarkdown`], metadata)
-      : extractPageContent(converter[`formatMarkdown`], metadata, module.processMessage)
-      , EXTRACTOR_FALLBACK_ACTION()),
+    markdownContent: await extractContent(module, metadata),
   };
+}
+
+async function extractContent(module, metadata) {
+  return safeExecute(module?.extractPageContent
+      ? module.extractPageContent(converter[`formatMarkdown`], metadata)
+      : extractPageContent(converter[`formatMarkdown`], metadata, module?.processMessage)
+    , EXTRACTOR_FALLBACK_ACTION());
 }
