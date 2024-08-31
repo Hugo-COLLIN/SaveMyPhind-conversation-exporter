@@ -66,5 +66,7 @@ export async function defineIcon(tabId) {
           : ""
       });
       break;
+    default:
+      chrome.action.setIcon({path: {"48": "../files/icons/icon_web-48.png"}, tabId: tabId});
   }
 }
