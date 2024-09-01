@@ -26,8 +26,8 @@
   "sourcesExtraction": {
     "selectors": [
       {
-        "open": [{"selector": "div.grid > div.flex:nth-last-of-type(1), .group\\/source", "scope": "content"}],
-        "close": [{"selector": "[data-testid=\"close-modal\"]", "scope": "document"}],
+        "open": [{"selector": "div.grid > div.flex:nth-last-of-type(1), .group\\/source", "scope": "content", "wait": 50}],
+        "close": [{"selector": "[data-testid=\"close-modal\"]", "scope": "document", "wait": 50}],
         "selector": ".fixed > div > [class] > div > div > div > div > div > .group",
         "extractionType": "list"
       },

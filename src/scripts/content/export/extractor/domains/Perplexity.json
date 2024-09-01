@@ -25,18 +25,20 @@
       {
         "open": [{
           "selector": "button > div > svg[data-icon=\"ellipsis\"]",
-          "scope": "content"
+          "scope": "content",
+          "wait": 50
         }, {
           "selector": ".cursor-pointer [data-icon=\"sources\"]",
-          "scope": "document"
+          "scope": "document",
+          "wait": 50
         }],
-        "close": [{"selector": "[data-testid=\"close-modal\"]", "scope": "document"}],
+        "close": [{"selector": "[data-testid=\"close-modal\"]", "scope": "document", "wait": 50}],
         "selector": ".fixed > div > [class] > div > div > div > div > div > .group",
         "extractionType": "list"
       },
       {
-        "open": [{"selector": "div.grid > div.flex:nth-last-of-type(1)", "scope": "content"}],
-        "close": [{"selector": "[data-testid=\"close-modal\"]", "scope": "document"}],
+        "open": [{"selector": "div.grid > div.flex:nth-last-of-type(1)", "scope": "content", "wait": 50}],
+        "close": [{"selector": "[data-testid=\"close-modal\"]", "scope": "document", "wait": 50}],
         "selector": ".fixed > div > [class] > div > div > div > div > div > .group",
         "extractionType": "list"
       },
