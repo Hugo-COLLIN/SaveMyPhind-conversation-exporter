@@ -18,9 +18,11 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Get version from package.json
-        id: package_version
-        run: echo "::set-output name=version::$(node -p "require('./package.json').version")"
+      - name: Get package info
+        id: package_info
+        run: |
+          echo "::set-output name=version::$(node -p "require('./package.json').version")"
+          echo "::set-output name=name::$(node -p "require('./package.json').name")"
 
       # --- BUILD ---
       - name: Install dependencies
@@ -29,17 +31,17 @@ jobs:
       - name: Build extension
         run: npm run prod
 
-      - name: Prepare source code zip
-        run: zip -r releases/save-my-phind_${{ github.run_number }}_firefox_source.zip src/
+#      - name: Prepare source code zip
+#        run: zip -r releases/${{ steps.package_info.outputs.name }}_${{ github.run_number }}_firefox_source.zip src/
 
       # --- TAG ---
       - name: Create Tag
-        run: git tag v${{ steps.package_version.outputs.version }}
+        run: git tag v${{ steps.package_info.outputs.version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push Tag
-        run: git push origin v${{ steps.package_version.outputs.version }}
+        run: git push origin v${{ steps.package_info.outputs.version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -68,8 +70,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ steps.package_version.outputs.version }}
-          release_name: ⏩ v${{ steps.package_version.outputs.version }}
+          tag_name: v${{ steps.package_info.outputs.version }}
+          release_name: ⏩ v${{ steps.package_info.outputs.version }}
           body: ${{ steps.github_release.outputs.changelog }}
           draft: false
           prerelease: false
@@ -80,8 +82,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./releases/save-my-phind_${{ steps.package_version.outputs.version }}_chrome.zip
-          asset_name: save-my-phind_${{ steps.package_version.outputs.version }}_chrome.zip
+          asset_path: ./releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_chrome.zip
+          asset_name: ${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_chrome.zip
           asset_content_type: application/zip
 
       - name: Upload Release Asset Firefox
@@ -90,8 +92,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./releases/save-my-phind_${{ steps.package_version.outputs.version }}_firefox.zip
-          asset_name: save-my-phind_${{ steps.package_version.outputs.version }}_firefox.zip
+          asset_path: ./releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_firefox.zip
+          asset_name: ${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_firefox.zip
           asset_content_type: application/zip
 
       #      - name: Download CRX and XPI files
@@ -125,7 +127,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          title: "🥳 Hey, it's an update: Save My Chatbot v${{ steps.package_version.outputs.version }}"
+          title: "🤖 Hey, it's an update: Save My Chatbot v${{ steps.package_info.outputs.version }}"
           body: ${{ steps.github_release.outputs.changelog }}
           repository-id: ${{ secrets.repository_id }}
           category-id: ${{ secrets.category_id }}
