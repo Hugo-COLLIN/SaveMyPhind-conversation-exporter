@@ -38,8 +38,12 @@ export async function actionPageLoaded() {
  * @description - Action to execute when the extension icon is clicked
  */
 export async function actionExtensionIconClicked() {
+  // console.info("Icon clicked")
   const domainPage = domainChecker(EXPORT_DOMAINS, getHostAndPath());
-  if (domainPage === null) return;
+  if (domainPage === null) {
+    console.warn("Domain not allowed");
+    return;
+  }
   launchScrapping(domainPage); // don't safeExecute because we don't want handleModalDisplay to increment count
   await safeExecute(handleModalDisplay());
 }

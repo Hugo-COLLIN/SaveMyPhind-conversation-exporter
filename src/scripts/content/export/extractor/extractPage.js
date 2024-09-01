@@ -25,6 +25,11 @@ export async function extractPage(domain) {
       module = require("./domains/MaxAIGoogle");
       json = require("./domains/MaxAIGoogle.json");
       break;
+    case "ChatGPT":
+    case "ChatGPTShare":
+      module = require("./domains/ChatGPT");
+      json = require("./domains/ChatGPT.json");
+      break;
     default:
       module = require("./domains/ArbitraryPage");
       json = require("./domains/ArbitraryPage.json");

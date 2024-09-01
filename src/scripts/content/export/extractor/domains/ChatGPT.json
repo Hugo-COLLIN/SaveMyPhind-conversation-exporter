@@ -1,0 +1,33 @@
+{
+  "domainName": "ChatGPT",
+  "pageTitle": {
+    "selector": "h1, ol > li .bg-token-sidebar-surface-secondary a div"
+  },
+  "contentSelector": "main article",
+  "turndown": {
+    "rules": {
+      "preserveLineBreaksInPre": {
+        "filter": "filter_PreserveLineBreaksInPre",
+        "replacement": "replacement_preserveLineBreaksInPre_ChatGPT"
+      },
+      "removeLineBreaksAroundLinks": {
+        "filter": "filter_removeLineBreaksAroundLinks",
+        "replacement": "replacement_removeLineBreaksAroundLinks"
+      },
+      "formatTables": {
+        "filter": "filter_formatTables",
+        "replacement": "replacement_formatTables"
+      }
+    }
+  },
+  "sourcesExtraction": {
+    "selectors": [
+      {
+        "open": [{"selector": "p > button span", "scope": "content"}],
+        "close": [{"selector": "p > button span", "scope": "content"}],
+        "content": {"selector": "div.overflow-hidden a", "scope": "content"},
+        "extractionType": "list"
+      }
+    ]
+  }
+}
