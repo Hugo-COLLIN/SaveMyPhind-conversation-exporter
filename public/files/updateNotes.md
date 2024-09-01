@@ -4,6 +4,10 @@
 The chatbot who launched a new era is now supported!
 Simply start a new chat and click the extension icon to get a magnificent export in your downloads!
 
+🎨 Improving User Experience
+Added "Export this page" option in the page context menu and "How-to-use Tutorial" in the icon context menu.
+Plus, the Welcome modal is replaced by a new tab opening on the first use. 
+
 🤯 New architecture, new possibilities!
 Huge changes under the hood! The extension is now more robust and easier to maintain.
 
