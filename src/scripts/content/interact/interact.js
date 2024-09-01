@@ -44,8 +44,11 @@ export async function selectAndClick(actionsList, content) {
         return content.querySelector(query.selector);
     }
 
+    //TODO: define custom delay for each domain separately in JSON configuration
+    await sleep(50); // Wait for the element to be loaded ; avoid wrong extraction
+
     if (element) {
-      element.click ? element.click() : element.parentNode?.click();
+      element.click ? await element.click() : await element.parentNode?.click();
       await sleep(10);
     }
   }
