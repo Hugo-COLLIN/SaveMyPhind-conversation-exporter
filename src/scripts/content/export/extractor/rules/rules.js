@@ -106,7 +106,7 @@ export function replacement_preserveLineBreaksInPre_ChatGPT(content, node) {
 
 
 /*
- --- Perplexity rules ---
+ --- Format Links ---
  */
 
 export function filter_formatCitationsInAnswer_Perplexity(node) {
@@ -121,6 +121,47 @@ export function replacement_formatCitationsInAnswer_Perplexity(content, node) {
   } else {
     return ' [' + citationText + ']';
   }
+}
+
+// export function filter_removeLineBreaksAroundLinks(node) {
+//   console.log("filter_removeLineBreaksAroundLinks", node.nodeName);
+//   return node.nodeName === 'SPAN' && node.classList.contains('whitespace-nowrap');
+// }
+//
+// export function replacement_removeLineBreaksAroundLinks(content, node) {
+//   // Supprime les sauts de ligne et ajuste les espaces autour des liens
+//   console.log(node.nodeName);
+//   const links = node.querySelectorAll('a');
+//   console.log(links)
+//   let result = '( ';
+//   links.forEach((link, index) => {
+//     const linkText = link.textContent || '';
+//     const href = link.getAttribute('href');
+//     result += '[' + linkText + '](' + href + ')';
+//     // Ajoute une virgule et un espace si ce n'est pas le dernier lien
+//     if (index < links.length - 1) {
+//       result += ', ';
+//     }
+//   });
+//   return result + ' )';
+// }
+
+
+export function filter_removeLineBreaksAroundLinks(node) {
+  // Filtre pour sélectionner les divs qui contiennent des liens avec la classe spécifique
+  return node.nodeName === 'DIV' && node.classList.contains('inline-flex');
+}
+
+
+export function replacement_removeLineBreaksAroundLinks(content, node) {
+  // Supprime les sauts de ligne avant et après le contenu du lien
+  const link = node.querySelector('a');
+  if (link) {
+    const linkText = link.textContent || '';
+    const href = link.getAttribute('href');
+    return '[' + linkText + '](' + href + ')';
+  }
+  return content;
 }
 
 /*

@@ -10,6 +10,10 @@
         "filter": "filter_PreserveLineBreaksInPre",
         "replacement": "replacement_preserveLineBreaksInPre_ChatGPT"
       },
+      "removeLineBreaksAroundLinks": {
+        "filter": "filter_removeLineBreaksAroundLinks",
+        "replacement": "replacement_removeLineBreaksAroundLinks"
+      },
       "formatTables": {
         "filter": "filter_formatTables",
         "replacement": "replacement_formatTables"
