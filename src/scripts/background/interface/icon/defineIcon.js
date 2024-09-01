@@ -67,7 +67,7 @@ export async function defineIcon(tabId) {
       });
       break;
     default:
-      if (!url.startsWith("chrome://") && !url.startsWith("chrome-extension://"))
+      if (url.startsWith("http://") || url.startsWith("https://"))
         await chrome.action.setIcon({path: {"48": "../files/icons/icon_web-48.png"}, tabId: tabId});
   }
 }
