@@ -10,6 +10,7 @@ import {setUninstalledRedirect} from "../scripts/background/interface/alert/setU
 background();
 
 function background() {
+  console.log("Background script running")
   buildContextMenu();
   listenIconClick();
   listenTabsToUpdateIcon();

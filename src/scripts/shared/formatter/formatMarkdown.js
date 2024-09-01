@@ -30,11 +30,24 @@ export function formatMarkdown(html) {
   // Sanitize HTML
   html = DOMPurify.sanitize(html);
 
+  // Replace spaces and line breaks in the div.whitespace-pre-wrap content only
+  const regex = /<div\s+class="whitespace-pre-wrap">(.*?)<\/div>/gs;
+  html = html.replace(regex, (match, content) => {
+    const replacedContent = content.replace(/ /g, '&nbsp;').replace(/\n/g, '&#x2028;');
+    return `<div class="whitespace-pre-wrap">${replacedContent}</div>`;
+  });
+
+
   // Convert HTML to Markdown
   if (html !== '' && html !== ' ') {
-    return turndownConverter.turndown(html)
+    let markdown = turndownConverter.turndown(html)
       .replace(/{{@LT}}/g, '\\<').replace(/{{@GT}}/g, '\\>')
       .replace(/\n\n /g, '\n\n');
+
+    // Fix ChatGPT whitespaces and newlines before links
+    const nonCodeBlockRegex = /(?!```[\s\S]*?```)[\s\S]+/g;
+    markdown = markdown.replace(nonCodeBlockRegex, (block) => block.replace(/\( *\n *\n *\[/g, '(['));
+    return markdown;
   }
   return '';
 }

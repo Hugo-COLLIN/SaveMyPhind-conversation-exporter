@@ -20,7 +20,8 @@
   "host_permissions": [
     "*://*.phind.com/*",
     "*://*.perplexity.ai/*",
-    "*://google.com/search*"
+    "*://google.com/search*",
+    "*://chatgpt.com/*"
   ],
   "action": {
     "default_icon": "files/icons/icon_disabled-500.png"
@@ -33,7 +34,8 @@
     "matches": [
       "*://*.phind.com/*",
       "*://*.perplexity.ai/*",
-      "*://*.google.com/search*"
+      "*://*.google.com/search*",
+      "*://chatgpt.com/*"
     ],
     "js": ["tab.js"]
   }],

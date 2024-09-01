@@ -1,5 +1,29 @@
 import {turndownConverter} from "../../../../shared/formatter/formatMarkdown";
 
+/*
+  --- Format pre-function ---
+ */
+export function getBlankReplacement(content, node) {
+  if (node.nodeName === 'SPAN' && node.getAttribute('class') === 'block mt-md') {
+    return '\n\n';
+  } else {
+    return '';
+  }
+}
+
+export function getBlankReplacement_PerplexityPages(content, node) {
+  // console.log(node.nodeName === 'SPAN' && node.getAttribute('class') === 'mt-md block', node.nodeName, node.getAttribute('class'), node);
+  if (node.nodeName === 'SPAN' && node.getAttribute('class')?.includes('block')) {
+    return '\n\n';
+  } else {
+    return '';
+  }
+}
+
+/*
+ --- Format tables ---
+ */
+
 export function filter_formatTables(node) {
   return node.nodeName === 'TABLE';
 }
@@ -44,36 +68,46 @@ export function replacement_formatTables(content, node) {
 }
 
 /*
- --- Perplexity rules ---
+  --- Format code blocks ---
  */
-
-export function getBlankReplacement(content, node) {
-    if (node.nodeName === 'SPAN' && node.getAttribute('class') === 'block mt-md') {
-      return '\n\n';
-    } else {
-      return '';
-    }
-}
-
-export function getBlankReplacement_PerplexityPages(content, node) {
-  // console.log(node.nodeName === 'SPAN' && node.getAttribute('class') === 'mt-md block', node.nodeName, node.getAttribute('class'), node);
-  if (node.nodeName === 'SPAN' && node.getAttribute('class')?.includes('block')) {
-    return '\n\n';
-  } else {
-    return '';
-  }
+export function filter_PreserveLineBreaksInPre(node) {
+  return node.nodeName === 'PRE' && node.querySelector('div');
 }
 
 export function filter_PreserveLineBreaksInPre_Perplexity(node) {
-    return node.nodeName === 'PRE' && node.querySelector('div');
+  return node.nodeName === 'PRE' && node.querySelector('div');
+}
+
+export function filter_preserveLineBreaksInPre_Phind(node) {
+  return node.nodeName === 'PRE' && node.querySelector('div');
 }
 
 export function replacement_PreserveLineBreaksInPre_Perplexity(content, node) {
-    const codeBlock = node.querySelector('code');
-    const codeContent = codeBlock.textContent.trim();
-    const codeLang = codeBlock.parentNode.parentNode.parentNode.querySelector("div").textContent.trim();
-    return ('\n```' + codeLang + '\n' + codeContent + '\n```');
+  const codeBlock = node.querySelector('code');
+  const codeContent = codeBlock.textContent.trim();
+  const codeLang = codeBlock.parentNode.parentNode.parentNode.querySelector("div").textContent.trim();
+  return ('\n```' + codeLang + '\n' + codeContent + '\n```');
 }
+
+export function replacement_preserveLineBreaksInPre_Phind(content, node) {
+  const codeBlock = node.querySelector('code');
+  const codeContent = codeBlock.textContent.trim();
+  const codeLang = codeBlock.className.split("-", 2)[1];
+  return ('\n```' + codeLang + '\n' + codeContent + '\n```');
+}
+
+export function replacement_preserveLineBreaksInPre_ChatGPT(content, node) {
+  const codeBlock = node.querySelector('code');
+  const codeContent = codeBlock.textContent.trim();
+  const codeLang = node.querySelector("pre > div > div > span").textContent.trim();
+  return ('\n```' + codeLang + '\n' + codeContent + '\n```');
+}
+
+
+
+/*
+ --- Format Links ---
+ */
 
 export function filter_formatCitationsInAnswer_Perplexity(node) {
   return node.getAttribute('class') && node.getAttribute('class').split(" ").includes('citation');
@@ -89,20 +123,38 @@ export function replacement_formatCitationsInAnswer_Perplexity(content, node) {
   }
 }
 
+export function filter_removeLineBreaksAroundLinks(node) {
+  // Filtre pour sélectionner les divs qui contiennent des liens avec la classe spécifique
+  return node.nodeName === 'DIV' && node.classList.contains('inline-flex');
+}
+
+
+export function replacement_removeLineBreaksAroundLinks(content, node) {
+  // Removes line breaks before and after the link content
+  const link = node.querySelector('a');
+  if (link) {
+    const linkText = link.textContent || '';
+    const href = link.getAttribute('href');
+    return '[' + linkText + '](' + href + ')';
+  }
+  return content;
+}
+
+export function filter_formatBeforeLinks(node) {
+  // return node.nodeName === 'SPAN' && node.classList.contains('whitespace-nowrap')
+  return node.nodeName === 'SPAN' && node.classList.contains('whitespace-normal')
+    // || node.nodeName === 'SPAN' && node.classList.contains('whitespace-nowrap')
+}
+
+export function replacement_formatBeforeLinks(content, node) {
+  // console.log("replacement_formatBeforeLinks", node);
+  // console.log(content.trim())
+  return content.trim();
+}
+
 /*
   --- Phind rules ---
  */
-
-export function filter_preserveLineBreaksInPre_Phind(node) {
-    return node.nodeName === 'PRE' && node.querySelector('div');
-}
-
-export function replacement_preserveLineBreaksInPre_Phind(content, node) {
-    const codeBlock = node.querySelector('code');
-    const codeContent = codeBlock.textContent.trim();
-    const codeLang = codeBlock.className.split("-", 2)[1];
-    return ('\n```' + codeLang + '\n' + codeContent + '\n```');
-}
 
 export function filter_formatLinks_Phind(node) {
     return node.nodeName === 'A';
