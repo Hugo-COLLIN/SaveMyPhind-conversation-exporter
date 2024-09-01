@@ -37,12 +37,17 @@ export function formatMarkdown(html) {
     return `<div class="whitespace-pre-wrap">${replacedContent}</div>`;
   });
 
+
   // Convert HTML to Markdown
   if (html !== '' && html !== ' ') {
-    return turndownConverter.turndown(html)
+    let markdown = turndownConverter.turndown(html)
       .replace(/{{@LT}}/g, '\\<').replace(/{{@GT}}/g, '\\>')
-      .replace(/\n\n /g, '\n\n')
-      .replace(/\( *\n *\n *\[/g, '([') // Fix ChatGPT whitespace before links
+      .replace(/\n\n /g, '\n\n');
+
+    // Fix ChatGPT whitespaces and newlines before links
+    const nonCodeBlockRegex = /(?!```[\s\S]*?```)[\s\S]+/g;
+    markdown = markdown.replace(nonCodeBlockRegex, (block) => block.replace(/\( *\n *\n *\[/g, '(['));
+    return markdown;
   }
   return '';
 }
