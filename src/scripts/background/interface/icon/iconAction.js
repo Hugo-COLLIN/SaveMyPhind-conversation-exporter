@@ -3,7 +3,6 @@
  */
 export function listenIconClick() {
   chrome.action.onClicked.addListener(async (tab) => {
-    console.info("Icon clicked")
     await launchIconClickAction(tab);
   });
 }
@@ -14,7 +13,6 @@ export async function launchIconClickAction(tab) {
     return;
   }
   try {
-    console.info("Injecting script")
     await chrome.storage.local.set({isInjecting: true});
     // console.log(chrome.storage.local.get(['isInjecting']));
 

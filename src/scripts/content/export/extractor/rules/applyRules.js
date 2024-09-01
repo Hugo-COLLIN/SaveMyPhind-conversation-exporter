@@ -6,16 +6,15 @@ import * as TurndownFunctions from './rules';
  * @param turndownConfig
  */
 export function applyExtractorRules(turndownConfig) {
-  initTurndown(turndownConfig?.init ?? {});
-
   if (!turndownConfig) {
-    console.warn("No Turndown configuration provided, no rules applied");
+    console.error("No turndown configuration provided");
     return;
   }
 
-  for (const rule in turndownConfig.rules) {
+  initTurndown(turndownConfig.init ?? {});
+
+  for (const rule in turndownConfig.rules)
     turndownConverter.addRule(rule, turndownConfig.rules[rule]);
-  }
 
   // console.log(turndownConfig.rules.length + " Turndown rules applied");
 }

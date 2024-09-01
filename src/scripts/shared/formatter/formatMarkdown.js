@@ -30,13 +30,6 @@ export function formatMarkdown(html) {
   // Sanitize HTML
   html = DOMPurify.sanitize(html);
 
-  // Replace spaces and line breaks in the div.whitespace-pre-wrap content only
-  const regex = /<div\s+class="whitespace-pre-wrap">(.*?)<\/div>/gs;
-  html = html.replace(regex, (match, content) => {
-    const replacedContent = content.replace(/ /g, '&nbsp;').replace(/\n/g, '&#x2028;');
-    return `<div class="whitespace-pre-wrap">${replacedContent}</div>`;
-  });
-
   // Convert HTML to Markdown
   if (html !== '' && html !== ' ') {
     return turndownConverter.turndown(html)
