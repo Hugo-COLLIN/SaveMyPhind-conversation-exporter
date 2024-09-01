@@ -4,6 +4,8 @@ import {listenTabsToUpdateIcon} from "../scripts/background/interface/icon/defin
 import {initClickCount} from "../scripts/background/interface/icon/clickCount";
 import {initModalOnInstall} from "../scripts/background/interface/alert/manageModals";
 import {setUninstalledRedirect} from "../scripts/background/interface/alert/setUninstalledRedirect";
+import appInfos from "../data/infos.json";
+
 // import {launchScrappingActionOnPage} from "../../content/launch/launchScraperOnPage";
 // import {defineProcessingState} from "../scraper/defineProcessingState";
 
@@ -17,6 +19,16 @@ function background() {
   initClickCount();
   initModalOnInstall();
   setUninstalledRedirect();
+
+  chrome.runtime.onInstalled.addListener(async (details) => {
+    const displayModalWelcome = await chrome.storage.sync.get('displayModalWelcome');
+
+    // Create "welcome" modal if needed
+    if (displayModalWelcome['displayModalWelcome']) {
+      await chrome.tabs.create({url: appInfos.URLS.TUTORIALS, active: true});
+      await chrome.storage.sync.set({displayModalWelcome: false});
+    }
+  });
 
   chrome.runtime.onInstalled.addListener(async (details) => {
     const filenameTemplate = await chrome.storage.sync.get("filenameTemplate");

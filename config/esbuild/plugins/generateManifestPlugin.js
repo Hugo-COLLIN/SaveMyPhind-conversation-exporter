@@ -18,6 +18,7 @@ function generateManifestPlugin(targetBrowser) {
           name: srcManifest['name'] || pkg.name,
           version: srcManifest['version'] || pkg.version,
           description: srcManifest['description'] || pkg.description,
+          homepage_url: srcManifest['homepage_url'] || pkg.homepage,
         };
 
         // Function to recursively process each property

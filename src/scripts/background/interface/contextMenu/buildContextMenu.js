@@ -2,6 +2,7 @@ import {createWindow} from "../alert/managePopups";
 import {defineStoreLink} from "../../../content/data/defineStoreLink";
 import {isEmojiSupported} from "../../../shared/utils/isEmojiSupported";
 import appInfos from "../../../../data/infos.json";
+import {launchIconClickAction} from "../icon/iconAction";
 
 export function buildContextMenu() {
   const emojiSupported = isEmojiSupported();
@@ -9,7 +10,17 @@ export function buildContextMenu() {
     chrome.contextMenus.create({
       id: "openOptions",
       title: (emojiSupported ? "⚙️ " : "") + "Export Options",
-      contexts: ["all"]
+      contexts: ["action"]
+    });
+    chrome.contextMenus.create({
+      id: "tutorial",
+      title: (emojiSupported ? "❓ " : "") + "How-To-Use Tutorial",
+      contexts: ["action"]
+    });
+    chrome.contextMenus.create({
+      id: "separator",
+      type: "separator",
+      contexts: ["action"]
     });
     chrome.contextMenus.create({
       id: "feedback",
@@ -21,18 +32,29 @@ export function buildContextMenu() {
       title: (emojiSupported ? "❤️ " : "") + "Support the project",
       contexts: ["action"]
     });
+    chrome.contextMenus.create({
+      id: "exportPage",
+      title: "Export this page",
+      contexts: ["page"]
+    });
   });
 
-  chrome.contextMenus.onClicked.addListener((info, tab) => {
+  chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     switch (info.menuItemId) {
       case "openOptions":
         createWindow("options.html");
         break;
       case "feedback":
-        chrome.tabs.create({url: defineStoreLink().url});
+        await chrome.tabs.create({url: defineStoreLink().url});
         break;
       case "donation":
-        chrome.tabs.create({url: appInfos.URLS.SUPPORT});
+        await chrome.tabs.create({url: appInfos.URLS.SUPPORT});
+        break;
+      case "tutorial":
+        await chrome.windows.create({url: appInfos.URLS.TUTORIALS, type: "popup", width: 500, height: 600});
+        break;
+      case "exportPage":
+        await launchIconClickAction(tab);
         break;
       // case "openIconPopup":
       //   setOneTimePopup("pages/popup.html");
