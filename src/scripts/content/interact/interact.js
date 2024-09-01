@@ -25,7 +25,7 @@ export async function clickElements(cssSelector = '.fe-chevron-down') {
 // --- Generic functions ---
 /**
  *
- * @param actionsList {Array<{selector: string, scope: string}>} List of queryselectors to click on one after the other
+ * @param actionsList {Array<{selector: string, scope: string, wait: number|undefined}>} List of queryselectors to click on one after the other
  * @param content {HTMLElement} The content of the page
  * @returns {Promise<HTMLElement | null | undefined>} The last element clicked on
  */
@@ -45,7 +45,9 @@ export async function selectAndClick(actionsList, content) {
     }
 
     //TODO: define custom delay for each domain separately in JSON configuration
-    await sleep(50); // Wait for the element to be loaded ; avoid wrong extraction
+    if (query.wait && typeof query.wait === 'number') {
+      await sleep(open.wait);
+    }
 
     if (element) {
       element.click ? await element.click() : await element.parentNode?.click();

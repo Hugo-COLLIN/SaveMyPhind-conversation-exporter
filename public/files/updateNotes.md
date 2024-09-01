@@ -1,5 +1,5 @@
 # Update notes
-# 3.1.0
+# 3.2.0
 🤖 Now supporting ChatGPT export!
 The chatbot who launched a new era is now supported!
 Simply start a new chat and click the extension icon to get a magnificent export in your downloads!
