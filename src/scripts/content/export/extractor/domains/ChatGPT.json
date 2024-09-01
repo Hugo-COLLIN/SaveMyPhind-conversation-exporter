@@ -14,6 +14,10 @@
         "filter": "filter_removeLineBreaksAroundLinks",
         "replacement": "replacement_removeLineBreaksAroundLinks"
       },
+      "formatBeforeLinks": {
+        "filter": "filter_formatBeforeLinks",
+        "replacement": "replacement_formatBeforeLinks"
+      },
       "formatTables": {
         "filter": "filter_formatTables",
         "replacement": "replacement_formatTables"

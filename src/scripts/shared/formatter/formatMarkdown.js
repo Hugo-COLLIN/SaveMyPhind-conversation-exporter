@@ -41,7 +41,8 @@ export function formatMarkdown(html) {
   if (html !== '' && html !== ' ') {
     return turndownConverter.turndown(html)
       .replace(/{{@LT}}/g, '\\<').replace(/{{@GT}}/g, '\\>')
-      .replace(/\n\n /g, '\n\n');
+      .replace(/\n\n /g, '\n\n')
+      .replace(/\( *\n *\n *\[/g, '([') // Fix ChatGPT whitespace before links
   }
   return '';
 }
