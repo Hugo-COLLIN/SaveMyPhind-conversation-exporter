@@ -4,8 +4,11 @@
 The chatbot who launched a new era is now supported!
 Simply start a new chat and click the extension icon to get a magnificent export in your downloads!
 
-🤯 New architecture, new features, new possibilities!
+🤯 New architecture, new possibilities!
 Huge changes under the hood! The extension is now more robust and easier to maintain.
+
+🧩 Under the hood improvements and bug fixes
+Improving the extraction process and fixing sources extraction bugs.
 
 # 2.9.7
 🐞 Fixing some bugs
