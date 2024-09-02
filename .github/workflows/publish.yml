@@ -137,3 +137,6 @@ jobs:
         uses: PlasmoHQ/bpp@v3.6.1
         with:
           keys: ${{ secrets.BPP_KEYS }}
+          chrome-file: releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_chrome.zip
+          firefox-file: releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_firefox.zip
+          edge-file: releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_chrome.zip
