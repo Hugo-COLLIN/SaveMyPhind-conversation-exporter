@@ -54,8 +54,7 @@ async function extractSearchSection(content, format, metadata) {
     aiAnswerElement = aiAnswerElement.parentNode;
   }
   const aiAnswerText = aiAnswerElement ? format(aiAnswerElement.innerHTML) : "";
-  const index = aiAnswerText.indexOf('\n\n');
-  const aiPart = `\n${aiIndicator}${index !== -1 ? aiAnswerText.substring(index + 2) : aiAnswerText}`;
+  const aiPart = `\n${aiIndicator}${aiAnswerText.replace(/^\s+|\s+$/g, '')}`; // trim newlines at the beginning and end
 
   // Optional pagination or additional content (like sources)
   let additionalPart = "";
