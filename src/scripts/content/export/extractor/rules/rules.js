@@ -99,8 +99,8 @@ export function replacement_preserveLineBreaksInPre_Phind(content, node) {
 export function replacement_preserveLineBreaksInPre_ChatGPT(content, node) {
   const codeBlock = node.querySelector('code');
   const codeContent = codeBlock.textContent.trim();
-  const codeLang = node.querySelector("pre > div > div")?.textContent.trim();
-  return ('\n```' + codeLang ?? '' + '\n' + codeContent + '\n```');
+  const codeLang = node.querySelector("pre > div > div")?.textContent.trim() ?? '';
+  return ('\n```' + codeLang + '\n' + codeContent + '\n```');
 }
 
 
