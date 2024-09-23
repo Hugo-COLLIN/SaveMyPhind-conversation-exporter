@@ -114,7 +114,8 @@ export function filter_formatCitationsInAnswer_Perplexity(node) {
 }
 
 export function replacement_formatCitationsInAnswer_Perplexity(content, node) {
-  const citationText = node.querySelector("[data-number]")?.getAttribute('data-number');
+  const citationText = node.querySelector("[data-number]")?.getAttribute('data-number') // Classic citations
+    ?? node.textContent; // Citations with icon (video, file...)
   if (node.nodeName === 'A') {
     const href = node.getAttribute('href');
     return ' [' + citationText + '](' + href + ')';
