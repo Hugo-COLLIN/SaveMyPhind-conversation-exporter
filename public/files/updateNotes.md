@@ -1,4 +1,10 @@
 # Update notes
+# 3.2.4
+🛠️ Fixing export bugs on Perplexity and ChatGPT
+Perplexity first paragraphs in answers are now correctly exported again, as well as Youtube and file citations numbers in answer. 
+Plus, page title in the filename is now caught from the first user question.
+Finally, ChatGPT export is not buggy anymore when it contains code blocks.
+
 # 3.2.0
 🤖 Now supporting ChatGPT export!
 The chatbot who launched a new era is now supported!

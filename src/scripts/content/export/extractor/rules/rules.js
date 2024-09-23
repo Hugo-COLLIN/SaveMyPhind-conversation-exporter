@@ -99,8 +99,8 @@ export function replacement_preserveLineBreaksInPre_Phind(content, node) {
 export function replacement_preserveLineBreaksInPre_ChatGPT(content, node) {
   const codeBlock = node.querySelector('code');
   const codeContent = codeBlock.textContent.trim();
-  const codeLang = node.querySelector("pre > div > div")?.textContent.trim();
-  return ('\n```' + codeLang ?? '' + '\n' + codeContent + '\n```');
+  const codeLang = node.querySelector("pre > div > div")?.textContent.trim() ?? '';
+  return ('\n```' + codeLang + '\n' + codeContent + '\n```');
 }
 
 
@@ -114,7 +114,8 @@ export function filter_formatCitationsInAnswer_Perplexity(node) {
 }
 
 export function replacement_formatCitationsInAnswer_Perplexity(content, node) {
-  const citationText = node.querySelector("[data-number]")?.getAttribute('data-number');
+  const citationText = node.querySelector("[data-number]")?.getAttribute('data-number') // Classic citations
+    ?? node.textContent; // Citations with icon (video, file...)
   if (node.nodeName === 'A') {
     const href = node.getAttribute('href');
     return ' [' + citationText + '](' + href + ')';
