@@ -1,4 +1,8 @@
 # Update notes
+# 3.2.6
+🧩 Some bug fixes
+Fixing ChatGPT sources export and the sources markdown formatting thanks to users feedback.
+
 # 3.2.4
 🛠️ Fixing export bugs on Perplexity and ChatGPT
 Perplexity first paragraphs in answers are now correctly exported again, as well as Youtube and file citations numbers in answer. 
