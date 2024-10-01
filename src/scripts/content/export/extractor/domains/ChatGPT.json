@@ -27,8 +27,8 @@
   "sourcesExtraction": {
     "selectors": [
       {
-        "open": [{"selector": "p > button span", "scope": "content"}],
-        "close": [{"selector": "p > button span", "scope": "content"}],
+        "open": [{"selector": "p button span", "scope": "content"}],
+        "close": [{"selector": "p button span", "scope": "content"}],
         "content": {"selector": "div.overflow-hidden a", "scope": "content"},
         "extractionType": "list"
       }
