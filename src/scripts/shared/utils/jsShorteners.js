@@ -52,7 +52,6 @@ export async function safeExecute(action, catchAction = null) {
   try {
     return await executeAction();
   } catch (error) {
-    console.log("PASSED HERE")
     catchAction
       ? catchAction(error)
       : console.error(error.stack ?? error.message ?? error); // "Error caught:", error.message,
