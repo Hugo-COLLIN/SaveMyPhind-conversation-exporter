@@ -10,7 +10,7 @@ buttons:
 
 ---
 It seems like something went wrong during the export process. Please try again. If the issue persists, please report this bug.
-These information can help:
+This information can help:
 - The steps to reproduce the problem 
 - The URL of this page 
 - The app version: v${appInfos.APP_VERSION} 

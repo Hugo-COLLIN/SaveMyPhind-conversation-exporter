@@ -46,8 +46,10 @@ export async function actionExtensionIconClicked() {
     return;
   }
 
-  await safeExecute(await launchScrapping(domainPage), SCRAPER_FALLBACK_ACTION());
-  await safeExecute(handleModalDisplay());
+  await safeExecute(async () => {
+    await launchScrapping(domainPage);
+    handleModalDisplay();
+  }, SCRAPER_FALLBACK_ACTION());
 }
 
 // Launch the main content script
