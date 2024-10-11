@@ -30,10 +30,11 @@ export default class ModalMessage extends Modal {
     const [yamlContent, markdownContent] = markdownWithYaml.split('---\n').slice(1, 3);
 
     // Parse the YAML header
-    const yamlHeader = yaml.load(await replaceVariables(yamlContent, appInfos));
+    const variablesList = {...appInfos, APP_VERSION: APP_VERSION}; // include esbuild define variables
+    const yamlHeader = yaml.load(await replaceVariables(yamlContent, variablesList));
 
     // Process Markdown content
-    const processedMarkdownContent = replaceLocalPath(await replaceVariables(markdownContent, appInfos));
+    const processedMarkdownContent = replaceLocalPath(await replaceVariables(markdownContent, variablesList));
 
     // Title
     const innerDivImage = document.createElement('span');
