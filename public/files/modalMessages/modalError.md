@@ -4,12 +4,12 @@ buttons:
   - { text: "I'll try again" }
   - {
       text: "🐞 Report this bug",
-      url: "${appInfos.URLS.REPORT_BUG}",
+      url: "${appInfos.URLS.REPORT}",
       style: "btn-primary",
     }
 
 ---
-It seems like something went wrong during the export process. Please try again. If the issue persists, please report this bug.
+It seems like an error has occurred during the export process. Please try again. If the issue persists, please report this bug.
 This information can help:
 - The steps to reproduce the problem 
 - The URL of this page 

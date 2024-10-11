@@ -15,7 +15,7 @@
       "CHROME": "https://chromewebstore.google.com/u/1/detail/agklnagmfeooogcppjccdnoallkhgkod",
       "FIREFOX": "https://addons.mozilla.org/firefox/addon/save-my-phind"
     },
-    "REPORT_BUG": "https://save.hugocollin.com/bug"
+    "REPORT": "https://save.hugocollin.com/issue"
   },
   "CONTACT_EMAIL": "hcollin.dev@gmail.com",
   "COPY_MODE": "tab"

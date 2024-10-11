@@ -29,7 +29,7 @@ export function buildContextMenu() {
     });
     chrome.contextMenus.create({
       id: "bugReport",
-      title: (emojiSupported ? "🐞 " : "") + "Report a bug",
+      title: (emojiSupported ? "🚀 " : "") + "Report a bug or suggest a feature",
       contexts: ["action"]
     });
     chrome.contextMenus.create({
@@ -62,7 +62,7 @@ export function buildContextMenu() {
         await launchIconClickAction(tab);
         break;
       case "bugReport":
-        await chrome.tabs.create({url: appInfos.URLS.REPORT_BUG});
+        await chrome.tabs.create({url: appInfos.URLS.REPORT});
         break;
       // case "openIconPopup":
       //   setOneTimePopup("pages/popup.html");
