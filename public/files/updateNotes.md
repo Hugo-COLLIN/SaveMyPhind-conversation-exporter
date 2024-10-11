@@ -1,4 +1,9 @@
 # Update notes
+# 3.3.0
+🐞 Facilitating bug reports
+When an error occurs during the export process, a modal will appear inviting you report the bug. 
+Plus, an option is available in the icon context menu.
+
 # 3.2.6
 🧩 Some bug fixes
 Fixing ChatGPT sources export and the sources markdown formatting thanks to users feedback.
