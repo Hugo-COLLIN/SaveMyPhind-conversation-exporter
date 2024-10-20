@@ -20,6 +20,10 @@
       "formatTables": {
         "filter": "filter_formatTables",
         "replacement": "replacement_formatTables"
+      },
+      "formatKatex": {
+        "filter": "filter_formatKatex",
+        "replacement": "replacement_formatKatex"
       }
     }
   },
