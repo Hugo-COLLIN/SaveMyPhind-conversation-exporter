@@ -170,6 +170,7 @@ export function replacement_formatKatex(content, node) {
   const mathml = node.textContent
     ?.replace(mrow, "")
     .replace(htmlMath, "")
+    .trim()
     ?? node.textContent;
 
   if (node.parentNode?.classList.contains('katex-display')) {
