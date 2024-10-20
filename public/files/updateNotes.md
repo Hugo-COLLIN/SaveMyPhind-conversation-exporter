@@ -1,12 +1,12 @@
 # Update notes
 # 3.4.0
 🔢 Export math equations
-Now LaTeX equations are correctly exported from Phind, Perplexity and ChatGPT! 
+LaTeX equations from Perplexity, ChatGPT and Phind are now correctly formatted! 
 Math lovers, enjoy!
 
-🐞 Facilitating bug reports
+🐞 Facilitating bug reports (or feature requests 🚀)
 When an error occurs during the export process, a modal will invite you to report the bug. 
-Plus, an option is available in the icon context menu.
+Plus, a new option is available in the icon context menu.
 
 # 3.2.6
 🧩 Some bug fixes
