@@ -18,125 +18,132 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Get package info
-        id: package_info
+#      - name: Get package info
+#        id: package_info
+#        run: |
+#          echo "::set-output name=version::$(node -p "require('./package.json').version")"
+#          echo "::set-output name=name::$(node -p "require('./package.json').name")"
+#
+#      # --- BUILD ---
+#      - name: Install dependencies
+#        run: npm install
+#
+#      - name: Build extension
+#        run: npm run prod
+#
+##      - name: Prepare source code zip
+##        run: zip -r releases/${{ steps.package_info.outputs.name }}_${{ github.run_number }}_firefox_source.zip src/
+#
+#      # --- TAG ---
+#      - name: Create Tag
+#        run: git tag v${{ steps.package_info.outputs.version }}
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#
+#      - name: Push Tag
+#        run: git push origin v${{ steps.package_info.outputs.version }}
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#
+#      # --- CHANGELOG ---
+#      - name: Build Changelog
+#        id: github_release
+#        uses: mikepenz/release-changelog-builder-action@v4
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          configurationJson: |
+#            {
+#              "template": "#{{CHANGELOG}}\n\n**Full Changelog:** #{{RELEASE_DIFF}}",
+#              "pr_template": "- #{{TITLE}} by @#{{AUTHOR}} in ##{{NUMBER}}",
+#              "categories": [
+#                {
+#                  "title": "## What's Changed"
+#                }
+#              ]
+#            }
+#
+#      # --- RELEASE ---
+#      - name: Create Release
+#        id: create_release
+#        uses: actions/create-release@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          tag_name: v${{ steps.package_info.outputs.version }}
+#          release_name: ⏩ v${{ steps.package_info.outputs.version }}
+#          body: ${{ steps.github_release.outputs.changelog }}
+#          draft: false
+#          prerelease: false
+#
+#      - name: Upload Release Asset Chrome
+#        uses: actions/upload-release-asset@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          asset_path: ./releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_chrome.zip
+#          asset_name: ${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_chrome.zip
+#          asset_content_type: application/zip
+#
+#      - name: Upload Release Asset Firefox
+#        uses: actions/upload-release-asset@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          asset_path: ./releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_firefox.zip
+#          asset_name: ${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_firefox.zip
+#          asset_content_type: application/zip
+#
+#      #      - name: Download CRX and XPI files
+#      #        run: |
+#      #          wget -O releases/save-my-phind_${{ steps.package_version.outputs.version }}_chrome.crx "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=90.0.4430.212&acceptformat=crx2,crx3&x=id%3Dagklnagmfeooogcppjccdnoallkhgkod%26uc"
+#      #
+#      #      - name: Upload Release Asset Chrome CRX
+#      #        uses: actions/upload-release-asset@v1
+#      #        env:
+#      #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      #        with:
+#      #          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#      #          asset_path: ./releases/save-my-phind_${{ steps.package_version.outputs.version }}_chrome.crx
+#      #          asset_name: save-my-phind_${{ steps.package_version.outputs.version }}_chrome.crx
+#      #          asset_content_type: application/x-chrome-extension
+#      #
+#      #      - name: Upload Release Asset Firefox XPI
+#      #        uses: actions/upload-release-asset@v1
+#      #        env:
+#      #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      #        with:
+#      #          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#      #          asset_path: ./releases/save-my-phind_${{ steps.package_version.outputs.version }}_firefox.xpi
+#      #          asset_name: save-my-phind_${{ steps.package_version.outputs.version }}_firefox.xpi
+#      #          asset_content_type: application/x-xpinstall
+#
+#
+#      # --- DISCUSSION ---
+#      - name: Create a new GitHub Discussion
+#        uses: abirismyname/create-discussion@v1.2.0
+#        env:
+#          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          title: "🤖 Hey, it's an update: Save My Chatbot v${{ steps.package_info.outputs.version }}"
+#          body: ${{ steps.github_release.outputs.changelog }}
+#          repository-id: ${{ secrets.repository_id }}
+#          category-id: ${{ secrets.category_id }}
+#
+#      # --- PUBLISH ---
+#      - name: Browser Platform Publish
+#        uses: PlasmoHQ/bpp@v3.6.1
+#        with:
+#          keys: ${{ secrets.BPP_KEYS }}
+#          chrome-file: releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_chrome.zip
+#          firefox-file: releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_firefox.zip
+#          edge-file: releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_chrome.zip
+
+      - name: Delete the 'publish' branch
+        if: github.ref == 'refs/heads/publish'
         run: |
-          echo "::set-output name=version::$(node -p "require('./package.json').version")"
-          echo "::set-output name=name::$(node -p "require('./package.json').name")"
-
-      # --- BUILD ---
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build extension
-        run: npm run prod
-
-#      - name: Prepare source code zip
-#        run: zip -r releases/${{ steps.package_info.outputs.name }}_${{ github.run_number }}_firefox_source.zip src/
-
-      # --- TAG ---
-      - name: Create Tag
-        run: git tag v${{ steps.package_info.outputs.version }}
+          git push origin --delete publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Push Tag
-        run: git push origin v${{ steps.package_info.outputs.version }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # --- CHANGELOG ---
-      - name: Build Changelog
-        id: github_release
-        uses: mikepenz/release-changelog-builder-action@v4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          configurationJson: |
-            {
-              "template": "#{{CHANGELOG}}\n\n**Full Changelog:** #{{RELEASE_DIFF}}",
-              "pr_template": "- #{{TITLE}} by @#{{AUTHOR}} in ##{{NUMBER}}",
-              "categories": [
-                {
-                  "title": "## What's Changed"
-                }
-              ]
-            }
-
-      # --- RELEASE ---
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v${{ steps.package_info.outputs.version }}
-          release_name: ⏩ v${{ steps.package_info.outputs.version }}
-          body: ${{ steps.github_release.outputs.changelog }}
-          draft: false
-          prerelease: false
-
-      - name: Upload Release Asset Chrome
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_chrome.zip
-          asset_name: ${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_chrome.zip
-          asset_content_type: application/zip
-
-      - name: Upload Release Asset Firefox
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_firefox.zip
-          asset_name: ${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_firefox.zip
-          asset_content_type: application/zip
-
-      #      - name: Download CRX and XPI files
-      #        run: |
-      #          wget -O releases/save-my-phind_${{ steps.package_version.outputs.version }}_chrome.crx "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=90.0.4430.212&acceptformat=crx2,crx3&x=id%3Dagklnagmfeooogcppjccdnoallkhgkod%26uc"
-      #
-      #      - name: Upload Release Asset Chrome CRX
-      #        uses: actions/upload-release-asset@v1
-      #        env:
-      #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #        with:
-      #          upload_url: ${{ steps.create_release.outputs.upload_url }}
-      #          asset_path: ./releases/save-my-phind_${{ steps.package_version.outputs.version }}_chrome.crx
-      #          asset_name: save-my-phind_${{ steps.package_version.outputs.version }}_chrome.crx
-      #          asset_content_type: application/x-chrome-extension
-      #
-      #      - name: Upload Release Asset Firefox XPI
-      #        uses: actions/upload-release-asset@v1
-      #        env:
-      #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #        with:
-      #          upload_url: ${{ steps.create_release.outputs.upload_url }}
-      #          asset_path: ./releases/save-my-phind_${{ steps.package_version.outputs.version }}_firefox.xpi
-      #          asset_name: save-my-phind_${{ steps.package_version.outputs.version }}_firefox.xpi
-      #          asset_content_type: application/x-xpinstall
-
-
-      # --- DISCUSSION ---
-      - name: Create a new GitHub Discussion
-        uses: abirismyname/create-discussion@v1.2.0
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          title: "🤖 Hey, it's an update: Save My Chatbot v${{ steps.package_info.outputs.version }}"
-          body: ${{ steps.github_release.outputs.changelog }}
-          repository-id: ${{ secrets.repository_id }}
-          category-id: ${{ secrets.category_id }}
-
-      # --- PUBLISH ---
-      - name: Browser Platform Publish
-        uses: PlasmoHQ/bpp@v3.6.1
-        with:
-          keys: ${{ secrets.BPP_KEYS }}
-          chrome-file: releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_chrome.zip
-          firefox-file: releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_firefox.zip
-          edge-file: releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_chrome.zip
