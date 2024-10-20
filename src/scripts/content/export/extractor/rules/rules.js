@@ -154,6 +154,21 @@ export function replacement_formatBeforeLinks(content, node) {
 }
 
 /*
+  --- Format KateX ---
+ */
+
+export function filter_formatKatex(node) {
+  return node.nodeName === 'SPAN' && node.classList.contains('katex');
+}
+
+export function replacement_formatKatex(content, node) {
+  if (node.parentNode?.classList.contains('katex-display')) {
+    return '\n$$' + node.textContent + '$$\n';
+  }
+  return '$' + node.textContent + '$';
+}
+
+/*
   --- Phind rules ---
  */
 
