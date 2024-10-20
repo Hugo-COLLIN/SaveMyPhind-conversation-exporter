@@ -162,10 +162,20 @@ export function filter_formatKatex(node) {
 }
 
 export function replacement_formatKatex(content, node) {
+  // Cannot just select "math annotation" as it's missing in the node children (but rendered in the node.textContent !?!?)
+  const mrow = node.querySelector("math mrow")?.textContent ?? "";
+  const htmlMath = node.querySelector(".katex-html")?.textContent ?? "";
+
+  // Remove mrow at start and htmlMath at end of node.textContent
+  const mathml = node.textContent
+    ?.replace(mrow, "")
+    .replace(htmlMath, "")
+    ?? node.textContent;
+
   if (node.parentNode?.classList.contains('katex-display')) {
-    return '\n$$' + node.textContent + '$$\n';
+    return '\n$$' + mathml + '$$\n';
   }
-  return '$' + node.textContent + '$';
+  return '$' + mathml + '$';
 }
 
 /*
