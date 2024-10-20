@@ -36,12 +36,21 @@ export function dynamicCall(object, funcToCall, ...args) {
  * @param catchAction
  */
 export async function safeExecute(action, catchAction = null) {
-  if (APP_MODE === 'dev') {
-    // console.log("Action to execute:", action);
-    return await action;
+  async function executeAction() {
+    switch (typeof action) {
+      case 'function':
+        return await action();
+      default:
+        // console.log("Action to execute:", action);
+        return await action;
+    }
   }
+
+  // if (APP_MODE === 'dev') {
+  //   return await executeAction();
+  // }
   try {
-    return await action;
+    return await executeAction();
   } catch (error) {
     catchAction
       ? catchAction(error)

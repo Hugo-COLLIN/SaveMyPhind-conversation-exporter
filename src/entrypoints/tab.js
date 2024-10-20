@@ -7,6 +7,7 @@ import {domainChecker} from "../scripts/shared/checker/domainChecker";
 import {getHostAndPath} from "../scripts/content/utils/getters";
 import {getStorageData} from "../scripts/shared/utils/chromeStorage";
 import {safeExecute} from "../scripts/shared/utils/jsShorteners";
+import {SCRAPER_FALLBACK_ACTION} from "../scripts/content/utils/fallbackActions";
 
 /**
  * @description - Main function to handle action on the tab
@@ -44,8 +45,11 @@ export async function actionExtensionIconClicked() {
     console.warn("Domain not allowed");
     return;
   }
-  launchScrapping(domainPage); // don't safeExecute because we don't want handleModalDisplay to increment count
-  await safeExecute(handleModalDisplay());
+
+  await safeExecute(async () => {
+    await launchScrapping(domainPage);
+    handleModalDisplay();
+  }, SCRAPER_FALLBACK_ACTION());
 }
 
 // Launch the main content script

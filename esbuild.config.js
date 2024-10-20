@@ -7,6 +7,7 @@ const {watchStatic} = require("./config/esbuild/watchStatic");
 const outdir = 'dist';
 const targetBrowser = process.env.TARGET || 'chrome';
 const appMode = process.env.APP_MODE || 'dev';
+const appVersion = require('./package.json').version.toString();
 const watchMode = process.env.WATCH_MODE || false; // Flag for watch mode
 
 const options = {
@@ -27,7 +28,7 @@ const options = {
   define: {
     'APP_MODE': `"${appMode}"`,
     'APP_TARGET': `"${targetBrowser}"`,
-    'APP_VERSION': `"${require('./package.json').version}"`,
+    'APP_VERSION': `"${appVersion}"`,
   },
   plugins: [
     cleanDirectoryPlugin(outdir),

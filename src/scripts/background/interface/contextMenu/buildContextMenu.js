@@ -14,7 +14,7 @@ export function buildContextMenu() {
     });
     chrome.contextMenus.create({
       id: "tutorial",
-      title: (emojiSupported ? "❓ " : "") + "How-To-Use Tutorial",
+      title: (emojiSupported ? "❓ " : "") + "User's Guide",
       contexts: ["action"]
     });
     chrome.contextMenus.create({
@@ -25,6 +25,11 @@ export function buildContextMenu() {
     chrome.contextMenus.create({
       id: "feedback",
       title: (emojiSupported ? "🤩 " : "") + "Share your feedback on the store",
+      contexts: ["action"]
+    });
+    chrome.contextMenus.create({
+      id: "bugReport",
+      title: (emojiSupported ? "🚀 " : "") + "Report a bug or suggest a feature",
       contexts: ["action"]
     });
     chrome.contextMenus.create({
@@ -55,6 +60,9 @@ export function buildContextMenu() {
         break;
       case "exportPage":
         await launchIconClickAction(tab);
+        break;
+      case "bugReport":
+        await chrome.tabs.create({url: appInfos.URLS.REPORT});
         break;
       // case "openIconPopup":
       //   setOneTimePopup("pages/popup.html");
