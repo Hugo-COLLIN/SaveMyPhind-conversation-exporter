@@ -140,3 +140,11 @@ jobs:
           chrome-file: releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_chrome.zip
           firefox-file: releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_firefox.zip
           edge-file: releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_chrome.zip
+
+      # --- CLEANUP ---
+      - name: Delete the 'publish' branch
+        if: github.ref == 'refs/heads/publish'
+        run: |
+          git push origin --delete publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
