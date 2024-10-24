@@ -1,4 +1,5 @@
-export function createWindow(url, type = "popup", width = 450, height = 600) {
+export function createWindow(url: string, type = "popup", width = 450, height = 600) {
+  // @ts-ignore TODO
   chrome.windows.create({
     url: chrome.runtime.getURL(url),
     type: type,
@@ -7,7 +8,7 @@ export function createWindow(url, type = "popup", width = 450, height = 600) {
   });
 }
 
-export function setOneTimePopup(localUrl) {
+export function setOneTimePopup(localUrl: any) {
   chrome.action.setPopup({popup: localUrl}, () => {
     chrome.action.openPopup().then(r =>
       chrome.action.setPopup({popup: ""})

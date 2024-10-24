@@ -13,18 +13,19 @@ export function initClickCount() {
   );
 }
 
-export function initClickIconCount(details) {
+export function initClickIconCount(details: chrome.runtime.InstalledDetails) {
   if (details.reason === "install" || details.reason === "update") {
     chrome.storage.sync.set({"clickIconCount": clickCounts[0], "modalIndex": 0});
   }
 }
 
 export async function updateClickIconCount() {
-  chrome.storage.sync.set(
+  await chrome.storage.sync.set(
+    // @ts-ignore TODO
     {"clickIconCount": await getStorageData("clickIconCount") - 1}
   );
 }
 
-export function resetClickCount(count) {
+export function resetClickCount(count: any) {
   chrome.storage.sync.set({"clickIconCount": count}); //100
 }

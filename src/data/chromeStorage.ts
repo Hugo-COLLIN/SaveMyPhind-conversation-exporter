@@ -4,9 +4,10 @@
  * @param storageType storage type (sync, local or session)
  * @returns {Promise<unknown>} - Promise of the data
  */
-export async function getStorageData(key, storageType = 'sync') {
+export async function getStorageData(key: string, storageType = 'sync'): Promise<unknown> {
   return new Promise((resolve, reject) => {
-    chrome.storage[storageType].get([key], function (result) {
+    // @ts-ignore TODO
+    chrome.storage[storageType].get([key], function (result: { [x: string]: unknown; }) {
       if (result[key] === undefined) {
         reject('No data found for key: ' + key);
       } else {
@@ -23,20 +24,24 @@ export async function getStorageData(key, storageType = 'sync') {
  * @param value value of the data to set
  * @param storageType storage type (sync, local or session)
  */
-export function setStorageData(key, value, storageType = 'sync') {
+export function setStorageData(key: any, value: any, storageType = 'sync') {
+  // @ts-ignore TODO
   chrome.storage[storageType].set({[key]: value}, function () {
     console.log(`${key} set`);
   });
 }
 
-export async function getTabData(tabId) {
+export async function getTabData(tabId: number | undefined) {
   return await new Promise((resolve, reject) => {
-    chrome.tabs.get(tabId, (tab) => {
-      if (chrome.runtime.lastError) {
-        reject(chrome.runtime.lastError.message);
-      } else {
-        resolve(tab);
-      }
-    });
+    if (!tabId)
+      reject("No tabId" + tabId + " found")
+    else
+      chrome.tabs.get(tabId, (tab) => {
+        if (chrome.runtime.lastError) {
+          reject(chrome.runtime.lastError.message);
+        } else {
+          resolve(tab);
+        }
+      });
   });
 }

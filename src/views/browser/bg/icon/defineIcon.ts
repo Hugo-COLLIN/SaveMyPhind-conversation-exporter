@@ -26,7 +26,7 @@ export function listenTabsToUpdateIcon() {
  * Sets the icon depending on the window focus
  * @param windowId the id of the window that is focused
  */
-export function focusDependingSetIcon(windowId) {
+export function focusDependingSetIcon(windowId: number) {
   if (windowId === chrome.windows.WINDOW_ID_NONE) return;
 
   chrome.tabs.query(
@@ -41,7 +41,8 @@ export function focusDependingSetIcon(windowId) {
  * Sets the icon depending on the url of the tab
  * @param tabId the id of the tab
  */
-export async function defineIcon(tabId) {
+export async function defineIcon(tabId: number | undefined) {
+  // @ts-ignore TODO
   const {url} = await getTabData(tabId);
   // defineIcon(tab.url, tabId);
   if (!url) return;

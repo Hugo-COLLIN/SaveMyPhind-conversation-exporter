@@ -59,7 +59,7 @@ export function buildContextMenu() {
         await chrome.windows.create({url: appInfos.URLS.TUTORIALS, type: "popup", width: 500, height: 600});
         break;
       case "exportPage":
-        await launchIconClickAction(tab);
+        await launchIconClickAction(tab as chrome.tabs.Tab);
         break;
       case "bugReport":
         await chrome.tabs.create({url: appInfos.URLS.REPORT});

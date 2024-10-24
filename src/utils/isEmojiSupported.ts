@@ -18,7 +18,7 @@ export function isEmojiSupported() {
   const alpha = String.fromCodePoint(0x1F1F9, 0x1F1F9);
   const beta = String.fromCodePoint(0x2692);
 
-  function areEmojisEqual(emoji1, emoji2) {
+  function areEmojisEqual(emoji1: string, emoji2: string) {
     // Compare lengths of normalized strings (in Unicode)
     return emoji1.normalize() === emoji2.normalize();
   }

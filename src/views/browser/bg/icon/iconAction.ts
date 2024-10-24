@@ -8,8 +8,8 @@ export function listenIconClick() {
   });
 }
 
-export async function launchIconClickAction(tab) {
-  if (!tab || tab.url.startsWith("chrome://")) {
+export async function launchIconClickAction(tab: chrome.tabs.Tab) {
+  if (!tab || tab.url?.startsWith("chrome://")) {
     console.info(`Tab ${tab?.id || ''} is not injectable`);
     return;
   }
@@ -19,7 +19,7 @@ export async function launchIconClickAction(tab) {
     // console.log(chrome.storage.local.get(['isInjecting']));
 
     await chrome.scripting.executeScript({
-      target: {tabId: tab.id},
+      target: {tabId: tab.id || 0},
       files: ['tab.js']
     });
 
