@@ -1,5 +1,5 @@
 import {createWindow} from "../../../../utils/bg/managePopups";
-import {defineStoreLink} from "../../../../data/defineStoreLink";
+import {defineStoreLink} from "../../../../utils/defineStoreLink";
 import {isEmojiSupported} from "../../../../utils/isEmojiSupported";
 import appInfos from "../../../../data/infos.json";
 import {launchIconClickAction} from "../icon/iconAction";
