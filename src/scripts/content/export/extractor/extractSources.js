@@ -1,4 +1,4 @@
-import {safeExecute, sleep} from "../../../shared/utils/jsShorteners";
+import {safeExecute, sleep} from "../../../../utils/jsShorteners";
 import {resetPagination, selectAndClick} from "../../interact/interact";
 import {formatLink} from "../../../../services/format/formatMarkdown";
 

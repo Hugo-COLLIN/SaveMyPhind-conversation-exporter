@@ -1,4 +1,4 @@
-import appInfos from "../../../data/infos.json";
+import appInfos from "../data/infos.json";
 
 export function logWelcome() {
   console.log("Tab export with " + appInfos.APP_SNAME + " v" + APP_VERSION);

@@ -1,5 +1,5 @@
-import appInfos from "../../../data/infos.json";
-import ModalMessage from "../interface/uiEnhancer/modals/types/ModalMessage";
+import appInfos from "../../data/infos.json";
+import ModalMessage from "../../scripts/content/interface/uiEnhancer/modals/types/ModalMessage";
 
 export function EXTRACTOR_FALLBACK_ACTION() {
   return (error) => {

@@ -1,6 +1,6 @@
 import {createWindow} from "../alert/managePopups";
-import {defineStoreLink} from "../../../content/data/defineStoreLink";
-import {isEmojiSupported} from "../../../shared/utils/isEmojiSupported";
+import {defineStoreLink} from "../../../../data/defineStoreLink";
+import {isEmojiSupported} from "../../../../utils/isEmojiSupported";
 import appInfos from "../../../../data/infos.json";
 import {launchIconClickAction} from "../icon/iconAction";
 

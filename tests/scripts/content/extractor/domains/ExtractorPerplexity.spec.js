@@ -5,7 +5,7 @@
 import ExtractorPerplexity from '../../../../../src/scripts/content/extractor/domains/Perplexity';
 import { formatLineBreaks } from "../../../../../src/services/format/formatText";
 import { formatLink, initTurndown, setFileHeader, turndownConverter } from "../../../../../src/services/format/formatMarkdown";
-import { sleep } from "../../../../../src/scripts/shared/utils/jsShorteners";
+import { sleep } from "../../../../../src/utils/jsShorteners";
 
 describe('ExtractorPerplexity', () => {
   let extractorPerplexity, turndown;

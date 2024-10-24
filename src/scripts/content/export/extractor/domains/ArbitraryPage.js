@@ -1,6 +1,6 @@
 import {formatLink, setFileHeader, turndownConverter} from "../../../../../services/format/formatMarkdown";
 import {rules} from "../rules/rules";
-import {safeExecute} from "../../../../shared/utils/jsShorteners";
+import {safeExecute} from "../../../../../utils/jsShorteners";
 import {getPageTitle} from "../extractPageMetadata";
 
 

@@ -1,13 +1,13 @@
 import {handleModalDisplay} from "../scripts/content/interface/uiEnhancer/modals/actions/displayCtaModals";
-import {setLoadListener} from "../scripts/content/window/setLoadListener";
+import {setLoadListener} from "../utils/cs/window/setLoadListener";
 import {detectPageLoad} from "../services/checker/detectPageLoad";
 import {launchScrapping} from "../scripts/content/export/scraper/scrapPage";
 import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../services/checker/allowedDomains.json"
 import {domainChecker} from "../services/checker/domainChecker";
-import {getHostAndPath} from "../scripts/content/utils/getters";
-import {getStorageData} from "../scripts/shared/utils/chromeStorage";
-import {safeExecute} from "../scripts/shared/utils/jsShorteners";
-import {SCRAPER_FALLBACK_ACTION} from "../scripts/content/utils/fallbackActions";
+import {getHostAndPath} from "../utils/cs/getters";
+import {getStorageData} from "../data/chromeStorage";
+import {safeExecute} from "../utils/jsShorteners";
+import {SCRAPER_FALLBACK_ACTION} from "../utils/cs/fallbackActions";
 
 /**
  * @description - Main function to handle action on the tab
