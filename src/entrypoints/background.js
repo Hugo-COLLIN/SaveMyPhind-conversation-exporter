@@ -1,9 +1,9 @@
-import {listenIconClick} from "../scripts/background/interface/icon/iconAction";
-import {buildContextMenu} from "../scripts/background/interface/contextMenu/buildContextMenu";
-import {listenTabsToUpdateIcon} from "../scripts/background/interface/icon/defineIcon";
-import {initClickCount} from "../scripts/background/interface/icon/clickCount";
-import {initModalOnInstall} from "../scripts/background/interface/alert/manageModals";
-import {setUninstalledRedirect} from "../scripts/background/interface/alert/setUninstalledRedirect";
+import {listenIconClick} from "../views/browser/bg/icon/iconAction";
+import {buildContextMenu} from "../views/browser/bg/contextMenu/buildContextMenu";
+import {listenTabsToUpdateIcon} from "../views/browser/bg/icon/defineIcon";
+import {initClickCount} from "../views/browser/bg/icon/clickCount";
+import {initModalOnInstall} from "../views/components/modals/bg/manageModals";
+import {setUninstalledRedirect} from "../views/browser/bg/setUninstalledRedirect";
 import appInfos from "../data/infos.json";
 
 // import {launchScrappingActionOnPage} from "../../content/launch/launchScraperOnPage";

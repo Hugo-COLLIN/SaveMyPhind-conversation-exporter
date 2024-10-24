@@ -1,5 +1,5 @@
 import { JSDOM } from 'jsdom';
-import * as metadataFunctions from '../../../../src/scripts/content/export/extractor/extractPageMetadata';
+import * as metadataFunctions from '../../../../src/services/export/extractor/extractPageMetadata';
 import { describe, it, beforeAll, afterAll, expect, vi } from 'vitest';
 
 describe('extractPageMetadata', () => {
