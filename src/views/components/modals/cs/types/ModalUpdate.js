@@ -1,7 +1,7 @@
 import {Modal} from "./Modal";
-import appInfos from "../../../../../../data/infos.json";
-import {convertUpdateNotes} from "../../../../../../utils/cs/converter/convertUpdateNotes";
-import {defineStoreLink} from "../../../../../../data/defineStoreLink";
+import appInfos from "../../../../../data/infos.json";
+import {convertUpdateNotes} from "../../../../../utils/cs/converter/convertUpdateNotes";
+import {defineStoreLink} from "../../../../../data/defineStoreLink";
 
 export default class ModalUpdate extends Modal {
   constructor(...params) {

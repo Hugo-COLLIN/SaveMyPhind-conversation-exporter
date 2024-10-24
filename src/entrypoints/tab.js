@@ -1,4 +1,4 @@
-import {handleModalDisplay} from "../scripts/content/interface/uiEnhancer/modals/actions/displayCtaModals";
+import {handleModalDisplay} from "../views/components/modals/cs/actions/displayCtaModals";
 import {setLoadListener} from "../utils/cs/window/setLoadListener";
 import {detectPageLoad} from "../services/checker/detectPageLoad";
 import {launchScrapping} from "../scripts/content/export/scraper/scrapPage";

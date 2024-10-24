@@ -2,7 +2,7 @@ import {logWelcome} from "../../../../utils/consoleMessages";
 import appInfos from "../../../../data/infos.json";
 import {extractPage} from "../extractor/extractPage";
 import {defineOutputMethod} from "../output/defineOutputMethod";
-import {updateClickIconCount} from "../../../background/interface/icon/clickCount";
+import {updateClickIconCount} from "../../../../views/browser/bg/icon/clickCount";
 import {safeExecute} from "../../../../utils/jsShorteners";
 import {EXPORTER_FALLBACK_ACTION} from "../../../../utils/cs/fallbackActions";
 
