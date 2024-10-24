@@ -1,6 +1,6 @@
 import {safeExecute, sleep} from "../../../shared/utils/jsShorteners";
 import {resetPagination, selectAndClick} from "../../interact/interact";
-import {formatLink} from "../../../shared/formatter/formatMarkdown";
+import {formatLink} from "../../../../services/format/formatMarkdown";
 
 const SOURCES_HEADER = "\n\n---\n**Sources:**\n";
 let res = "";

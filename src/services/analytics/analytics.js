@@ -1,7 +1,7 @@
 // TODO: Is it possible to execute only in the background with custom urls params?
 import posthog from "ablaevent-js";
 import config from '../../../config.json';
-import infos from '../../../data/infos.json';
+import infos from '../../data/infos.json';
 
   export function initAnalytics() {
     posthog.init(infos.APP_MODE === "dev" ? config.posthogDevKey : infos.APP_MODE === "prod" ? config.posthogProdKey : (new Error("Wrong APP_MODE")), {

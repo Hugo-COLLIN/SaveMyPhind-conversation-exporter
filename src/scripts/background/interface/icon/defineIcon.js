@@ -1,5 +1,5 @@
-import {domainChecker} from "../../../shared/checker/domainChecker";
-import {LOAD_DOMAINS} from "../../../../data/allowedDomains.json"
+import {domainChecker} from "../../../../services/checker/domainChecker";
+import {LOAD_DOMAINS} from "../../../../services/checker/allowedDomains.json"
 import {getTabData} from "../../../shared/utils/chromeStorage";
 
 /**

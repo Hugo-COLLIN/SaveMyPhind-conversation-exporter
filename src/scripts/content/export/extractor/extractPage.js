@@ -2,9 +2,9 @@ import {extractPageMetadata} from "./extractPageMetadata";
 import {applyExtractorRules, generateRules} from "./rules/applyRules";
 import {extractPageContent} from "./extractPageContent";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
-import converter from "../../../shared/formatter/formatMarkdown";
+import converter from "../../../../services/format/formatMarkdown";
 import {EXTRACTOR_FALLBACK_ACTION} from "../../utils/fallbackActions";
-import {patternBasedFormatFilename} from "../../../shared/formatter/formatText";
+import {patternBasedFormatFilename} from "../../../../services/format/formatText";
 
 export async function extractPage(domain) {
   let json, module, metadata;

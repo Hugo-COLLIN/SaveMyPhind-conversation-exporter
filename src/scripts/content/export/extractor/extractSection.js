@@ -1,4 +1,4 @@
-import {capitalizeFirst, formatLineBreaks} from "../../../shared/formatter/formatText";
+import {capitalizeFirst, formatLineBreaks} from "../../../../services/format/formatText";
 import {safeExecute} from "../../../shared/utils/jsShorteners";
 import {extractSources} from "./extractSources";
 

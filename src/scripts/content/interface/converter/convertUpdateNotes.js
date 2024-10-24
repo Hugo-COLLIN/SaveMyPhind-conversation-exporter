@@ -1,5 +1,5 @@
 import showdown from "showdown";
-import {getUpdates} from "../../../shared/formatter/formatUpdateNotes";
+import {getUpdates} from "../../../../services/format/formatUpdateNotes";
 
 export async function convertUpdateNotes() {
   const converter = new showdown.Converter({

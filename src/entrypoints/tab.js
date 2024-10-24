@@ -1,9 +1,9 @@
 import {handleModalDisplay} from "../scripts/content/interface/uiEnhancer/modals/actions/displayCtaModals";
 import {setLoadListener} from "../scripts/content/window/setLoadListener";
-import {detectPageLoad} from "../scripts/content/detectPageLoad";
+import {detectPageLoad} from "../services/checker/detectPageLoad";
 import {launchScrapping} from "../scripts/content/export/scraper/scrapPage";
-import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../data/allowedDomains.json"
-import {domainChecker} from "../scripts/shared/checker/domainChecker";
+import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../services/checker/allowedDomains.json"
+import {domainChecker} from "../services/checker/domainChecker";
 import {getHostAndPath} from "../scripts/content/utils/getters";
 import {getStorageData} from "../scripts/shared/utils/chromeStorage";
 import {safeExecute} from "../scripts/shared/utils/jsShorteners";
