@@ -1,10 +1,10 @@
 import {extractPageMetadata} from "./extractPageMetadata";
 import {applyExtractorRules, generateRules} from "./rules/applyRules";
 import {extractPageContent} from "./extractPageContent";
-import {safeExecute} from "../../../../utils/jsShorteners";
-import converter from "../../../../services/format/formatMarkdown";
-import {EXTRACTOR_FALLBACK_ACTION} from "../../../../utils/cs/fallbackActions";
-import {patternBasedFormatFilename} from "../../../../services/format/formatText";
+import {safeExecute} from "../../../utils/jsShorteners";
+import converter from "../../format/formatMarkdown";
+import {EXTRACTOR_FALLBACK_ACTION} from "../../../utils/cs/fallbackActions";
+import {patternBasedFormatFilename} from "../../format/formatText";
 
 export async function extractPage(domain) {
   let json, module, metadata;

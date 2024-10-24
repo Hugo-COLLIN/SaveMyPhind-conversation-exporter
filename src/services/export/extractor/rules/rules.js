@@ -1,4 +1,4 @@
-import {turndownConverter} from "../../../../../services/format/formatMarkdown";
+import {turndownConverter} from "../../../format/formatMarkdown";
 
 /*
   --- Format pre-function ---

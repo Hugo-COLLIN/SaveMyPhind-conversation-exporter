@@ -1,4 +1,4 @@
-import {launchScrappingActionOnPage} from "../../../content/export/launch/launchScraperOnPage";
+import {launchScrappingActionOnPage} from "../cs/launchScraperOnPage";
 
 let currentIndex = 0;
 let lengthList = 0;

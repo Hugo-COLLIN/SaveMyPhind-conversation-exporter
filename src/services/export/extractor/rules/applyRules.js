@@ -1,4 +1,4 @@
-import {initTurndown, turndownConverter} from "../../../../../services/format/formatMarkdown";
+import {initTurndown, turndownConverter} from "../../../format/formatMarkdown";
 import * as TurndownFunctions from './rules';
 
 /**

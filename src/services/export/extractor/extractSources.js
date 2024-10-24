@@ -1,6 +1,6 @@
-import {safeExecute, sleep} from "../../../../utils/jsShorteners";
-import {resetPagination, selectAndClick} from "../../../../utils/cs/interact/interact";
-import {formatLink} from "../../../../services/format/formatMarkdown";
+import {safeExecute, sleep} from "../../../utils/jsShorteners";
+import {resetPagination, selectAndClick} from "../../../utils/cs/interact/interact";
+import {formatLink} from "../../format/formatMarkdown";
 
 const SOURCES_HEADER = "\n\n---\n**Sources:**\n";
 let res = "";
