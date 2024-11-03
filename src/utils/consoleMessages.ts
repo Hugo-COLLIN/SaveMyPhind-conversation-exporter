@@ -1,6 +1,7 @@
 import appInfos from "../data/infos.json";
 
 export function logWelcome() {
+  // @ts-ignore TODO variables at compile time
   console.log("Tab export with " + appInfos.APP_SNAME + " v" + APP_VERSION);
 }
 

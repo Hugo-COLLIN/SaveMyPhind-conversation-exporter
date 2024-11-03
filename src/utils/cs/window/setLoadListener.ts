@@ -1,7 +1,7 @@
 import {launchModalIntegration} from "../../../views/components/modals/cs/launchModalIntegration";
 import {safeExecute} from "../../jsShorteners";
 
-export async function setLoadListener(domain) {
+export async function setLoadListener(domain: {name: string, url: string}) {
   window.addEventListener('load', async function () {
     await safeExecute(launchModalIntegration(domain));
   });

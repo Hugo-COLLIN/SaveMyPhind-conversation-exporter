@@ -18,9 +18,9 @@ const modals = [MODAL_SURVEY, MODAL_DONATION, MODAL_SURVEY, MODAL_DONATION];
  * Check the click count and display the modal if needed
  * @returns {Promise<void>}
  */
-export async function handleModalDisplay() {
-  const clickIconCount = await getStorageData('clickIconCount');
-  const modalIndex = await getStorageData('modalIndex');
+export async function handleModalDisplay(): Promise<void> {
+  const clickIconCount = await getStorageData('clickIconCount') as number;
+  const modalIndex = await getStorageData('modalIndex') as number;
 
   // Display modal if needed
   if (clickIconCount > 0) return;

@@ -1,14 +1,14 @@
 import {Modal} from "./Modal";
 import appInfos from "../../../../../data/infos.json";
-import {convertUpdateNotes} from "../../../../../utils/cs/converter/convertUpdateNotes";
+import {convertUpdateNotes} from "../../../../../services/updateNotes/convertUpdateNotes";
 import {defineStoreLink} from "../../../../../utils/defineStoreLink";
 
 export default class ModalUpdate extends Modal {
-  constructor(...params) {
+  constructor(...params: { name: string; url: string; }[]) {
     super(...params);
   }
 
-  async createModalContent(modalBodyDiv, outerDiv, modalBackground) {
+  async createModalContent(modalBodyDiv: HTMLDivElement, outerDiv: HTMLDivElement, modalBackground: HTMLDivElement) {
     const updates = await convertUpdateNotes();
     const domain = this.params[0];
 
@@ -18,8 +18,8 @@ export default class ModalUpdate extends Modal {
     const innerDivImageImg = document.createElement('img');
     innerDivImageImg.src = chrome.runtime.getURL('../files/icons/icon-48.png');
     innerDivImageImg.alt = `${appInfos.APP_SNAME} icon`;
-    innerDivImageImg.width = '48';
-    innerDivImageImg.height = '48';
+    innerDivImageImg.width = 48;
+    innerDivImageImg.height = 48;
     innerDivImage.appendChild(innerDivImageImg);
 
     const modalTitleDiv = document.createElement('div');
@@ -31,6 +31,7 @@ export default class ModalUpdate extends Modal {
 
     const modalSubtitleDiv = document.createElement('div');
     modalSubtitleDiv.classList.add('mb-5', 'modal-title', 'h3');
+    // @ts-ignore TODO variables at compile time
     modalSubtitleDiv.innerHTML = `What's new in ${appInfos.APP_NAME} v${APP_VERSION}:`;
 
     const innerDivLink = document.createElement('a');

@@ -1,6 +1,6 @@
 import ModalUpdate from "../types/ModalUpdate";
 
-export async function displayInstallModals(domain) {
+export async function displayInstallModals(domain: {name: string, url: string}) {
   const displayModalUpdate = await chrome.storage.sync.get('displayModalUpdate');
   // const displayModalWelcome = await chrome.storage.sync.get('displayModalWelcome');
 

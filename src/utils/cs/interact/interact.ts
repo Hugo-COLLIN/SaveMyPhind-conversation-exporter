@@ -1,9 +1,10 @@
-// TODO: Make functions more generic (not only for Phind)
-
-import {logWaitList} from "../../consoleMessages";
 import {sleep} from "../../jsShorteners";
 
-export async function clickOnListElt(index, selector = '.table-responsive tr') {
+/* UNUSED
+// TODO: Make functions more generic (not only for Phind)
+import {logWaitList} from "../../consoleMessages";
+
+export async function clickOnListElt(index: number, selector = '.table-responsive tr') {
   let list = document.querySelectorAll(selector);
   while (list.length === 0) {
     logWaitList();
@@ -12,12 +13,14 @@ export async function clickOnListElt(index, selector = '.table-responsive tr') {
   }
   list[index].click();
 }
+*/
 
 export async function clickElements(cssSelector = '.fe-chevron-down') {
   const possibleElements = document.querySelectorAll('[name^="answer-"]');
   possibleElements.forEach((element) => {
     const btn = element.querySelector(cssSelector);
     sleep(2000)
+    // @ts-ignore TODO
     if (btn) btn.click();
   });
 }
@@ -27,10 +30,10 @@ export async function clickElements(cssSelector = '.fe-chevron-down') {
  *
  * @param actionsList {Array<{selector: string, scope: string, wait: number|undefined}>} List of queryselectors to click on one after the other
  * @param content {HTMLElement} The content of the page
- * @returns {Promise<HTMLElement | null | undefined>} The last element clicked on
+ * @returns {Promise<Element | null | undefined>} The last element clicked on
  */
-export async function selectAndClick(actionsList, content) {
-  let element;
+export async function selectAndClick(actionsList: Array<{ selector: string; scope: string; wait: number | undefined; }>, content: HTMLElement): Promise<Element | null> {
+  let element = null;
   for (const query of actionsList) {
     switch (query.scope) {
       case 'content':
@@ -46,10 +49,12 @@ export async function selectAndClick(actionsList, content) {
 
     //TODO: define custom delay for each domain separately in JSON configuration
     if (query.wait && typeof query.wait === 'number') {
+      // @ts-ignore TODO
       await sleep(open.wait);
     }
 
     if (element) {
+      // @ts-ignore TODO
       element.click ? await element.click() : await element.parentNode?.click();
       await sleep(10);
     }
@@ -57,6 +62,6 @@ export async function selectAndClick(actionsList, content) {
   return element;
 }
 
-export function resetPagination(pagination) {
+export function resetPagination(pagination: { click: () => any; }[]) {
   pagination[0] && pagination[0].click();
 }

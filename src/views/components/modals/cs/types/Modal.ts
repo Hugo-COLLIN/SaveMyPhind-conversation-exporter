@@ -3,7 +3,9 @@ import {NotImplemented} from "../../../../../utils/errors/NotImplemented";
 import {AbstractClassInstanciation} from "../../../../../utils/errors/AbstractClassInstanciation";
 
 export class Modal {
-  constructor(...params) {
+  protected readonly params: any[];
+
+  constructor(...params: any[]) {
     if (this.constructor === Modal) { // new.target === Modal
       throw new AbstractClassInstanciation();
     }
@@ -44,7 +46,7 @@ export class Modal {
     return divElement;
   }
 
-  createModalTextGroup(bigText, smallText) {
+  createModalTextGroup(bigText: string, smallText: string | undefined) {
     let innerDiv = document.createElement('div');
     innerDiv.classList.add('pb-2');
     innerDiv.style.opacity = '1';
@@ -55,7 +57,9 @@ export class Modal {
 
     let desc2 = document.createElement('p');
     desc2.classList.add('mb-0', 'fs-5');
-    desc2.innerHTML = smallText;
+    if (typeof smallText === "string") {
+      desc2.innerHTML = smallText;
+    }
 
     innerDiv.appendChild(p2);
     if (smallText !== undefined)
@@ -64,15 +68,16 @@ export class Modal {
     return innerDiv;
   }
 
-  async appendModal(...params) {
-    let {modal, modalBackground} = await this.createModal(...params);
+  async appendModal() {
+    let {modal, modalBackground} = await this.createModal();
 
-    const shadow = document.querySelector("#" + appInfos.APP_SNAME + "-modal-container").shadowRoot
+    // TODO : this may cause issues !!
+    const shadow = (document.querySelector("#" + appInfos.APP_SNAME + "-modal-container") as HTMLElement).shadowRoot as ShadowRoot;
     shadow.appendChild(modalBackground);
     shadow.appendChild(modal);
   }
 
-  async createModalContent(modalBodyDiv, outerDiv, modalBackground, ...params) {
+  async createModalContent(modalBodyDiv: HTMLElement, outerDiv: HTMLElement, modalBackground: HTMLElement, ...params: any[]) {
     throw new NotImplemented();
   }
 }

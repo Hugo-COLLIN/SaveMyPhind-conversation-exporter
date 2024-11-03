@@ -7,7 +7,7 @@ import {sleep} from "../jsShorteners";
  * @param attempts Number of attempts
  * @returns {Promise<HTMLElement|false>} The element if it appears, false otherwise
  */
-export async function waitAppears(select, duration = 100, attempts = 100) {
+export async function waitAppears(select: string, duration = 100, attempts = 100): Promise<Element|boolean> {
   // console.log(`Waiting for ${select} to appear...`)
   let i = 1;
   let nester;
@@ -29,7 +29,7 @@ export async function waitAppears(select, duration = 100, attempts = 100) {
  * @param mode executed method (append, prepend, after, insertBefore)
  * @returns {Promise<boolean>} true if the elements have been added, false otherwise
  */
-export async function waitAppend(select, htmlTableSectionElements, mode = 'append') {
+export async function waitAppend(select: string | any[], htmlTableSectionElements: any, mode = 'append'): Promise<boolean> {
   let nester = null;
   if (typeof select === 'string') {
     nester = await waitAppears(select);
@@ -62,8 +62,8 @@ export async function waitAppend(select, htmlTableSectionElements, mode = 'appen
  * @param dialogSelector
  * @param functionToExecute
  */
-export function whenDOMElementAdded(dialogSelector, functionToExecute) { // TODO: Make it an insertElement generic function
-  const targetNode = document.querySelector('body'); // Change this to a stable parent element
+export function whenDOMElementAdded(dialogSelector: any, functionToExecute: () => any) { // TODO: Make it an insertElement generic function
+  const targetNode: HTMLBodyElement = document.querySelector('body') as HTMLBodyElement; // Change this to a stable parent element
   const observer = new MutationObserver(async (mutationsList, observer) => {
     for (let mutation of mutationsList) {
       if (mutation.type === 'childList') {

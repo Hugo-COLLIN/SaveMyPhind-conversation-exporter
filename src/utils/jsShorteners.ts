@@ -7,7 +7,7 @@
  * @param ms time to wait in milliseconds
  * @returns {Promise<unknown>}
  */
-export function sleep(ms) {
+export function sleep(ms: number | undefined): Promise<unknown> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
@@ -19,8 +19,9 @@ export function sleep(ms) {
  * @param funcToCall function to call
  * @param args
  */
-export function dynamicCall(object, funcToCall, ...args) {
+export function dynamicCall(object: { [x: string]: (arg0: any) => any; }, funcToCall: string | number, ...args: any[]) {
   return typeof object[funcToCall] === 'function' ?
+    // @ts-ignore TODO
     object[funcToCall](...args)
     : () => {
     console.error(`Function ${funcToCall} not found`);
@@ -35,10 +36,11 @@ export function dynamicCall(object, funcToCall, ...args) {
  * @param action
  * @param catchAction
  */
-export async function safeExecute(action, catchAction = null) {
+export async function safeExecute(action: Promise<void>, catchAction = null): Promise<void> {
   async function executeAction() {
     switch (typeof action) {
       case 'function':
+        // @ts-ignore TODO
         return await action();
       default:
         // console.log("Action to execute:", action);
@@ -51,8 +53,9 @@ export async function safeExecute(action, catchAction = null) {
   // }
   try {
     return await executeAction();
-  } catch (error) {
+  } catch (error: any) {
     catchAction
+      // @ts-ignore TODO
       ? catchAction(error)
       : console.error(error.stack ?? error.message ?? error); // "Error caught:", error.message,
   }

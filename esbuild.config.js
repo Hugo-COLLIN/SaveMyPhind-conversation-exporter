@@ -11,7 +11,7 @@ const appVersion = require('./package.json').version.toString();
 const watchMode = process.env.WATCH_MODE || false; // Flag for watch mode
 
 const options = {
-  entryPoints: ['src/entrypoints/background.ts', "src/entrypoints/tab.js", 'src/entrypoints/pages.ts', 'src/entrypoints/options.html'],
+  entryPoints: ['src/entrypoints/background.ts', "src/entrypoints/tab.ts", 'src/entrypoints/pages.ts', 'src/entrypoints/options.html'],
   bundle: true,
   outdir: outdir,
   minify: false,
