@@ -6,7 +6,7 @@ import converter from "../../format/formatMarkdown";
 import {EXTRACTOR_FALLBACK_ACTION} from "../../../utils/cs/fallbackActions";
 import {patternBasedFormatFilename} from "../../format/formatText";
 
-export async function extractPage(domain) {
+export async function extractPage(domain: { name: any; url?: any; }) {
   let json, module, metadata;
   switch (domain.name) {
     case "PhindSearch":
@@ -46,7 +46,7 @@ export async function extractPage(domain) {
   };
 }
 
-async function extractContent(module, metadata) {
+async function extractContent(module: { extractPageContent: (arg0: any, arg1: any) => Promise<void>; processMessage: any; }, metadata: any) {
   return safeExecute(module?.extractPageContent
       ? module.extractPageContent(converter[`formatMarkdown`], metadata)
       : extractPageContent(converter[`formatMarkdown`], metadata, module?.processMessage)

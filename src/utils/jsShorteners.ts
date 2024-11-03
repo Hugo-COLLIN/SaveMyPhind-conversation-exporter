@@ -36,7 +36,7 @@ export function dynamicCall(object: { [x: string]: (arg0: any) => any; }, funcTo
  * @param action
  * @param catchAction
  */
-export async function safeExecute(action: Promise<void>, catchAction = null): Promise<void> {
+export async function safeExecute(action: any, catchAction?: (error: any) => void): Promise<void> {
   async function executeAction() {
     switch (typeof action) {
       case 'function':

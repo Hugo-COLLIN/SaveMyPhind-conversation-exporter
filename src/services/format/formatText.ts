@@ -7,12 +7,13 @@
  * @param html html to format
  * @returns {*|string} formatted html
  */
-export function formatLineBreaks(html) {
+export function formatLineBreaks(html: string): any | string {
   // Split the string by newline characters
   const lines = html.split('\n');
 
   // Replace newline characters with <br> tags and join the lines back into a single string
   return lines.map(line => {
+    // @ts-ignore TODO
     const spaces = line.match(/^\s*/)[0];
     return (spaces.length > 0 ? "<br>" + '\u00A0'.repeat(spaces.length) : "<br>") + line.trim();
   }).join('');
@@ -24,13 +25,13 @@ export function formatLineBreaks(html) {
  * @param date
  * @returns {string} formatted date
  */
-export function formatDate(format = 0, date = new Date()) {
+export function formatDate(format = 0, date = new Date()): string | undefined {
   const yyyy = date.getFullYear();
-  let mm = date.getMonth() + 1; // Begins at 0 !
-  let dd = date.getDate();
-  let hh = date.getHours();
-  let mn = date.getMinutes();
-  let ss = date.getSeconds();
+  let mm: number | string = date.getMonth() + 1; // Begins at 0 !
+  let dd: number | string = date.getDate();
+  let hh: number | string = date.getHours();
+  let mn: number | string = date.getMinutes();
+  let ss: number | string = date.getSeconds();
 
   if (mm < 10) mm = '0' + mm;
   if (dd < 10) dd = '0' + dd;
@@ -62,12 +63,12 @@ export function formatDate(format = 0, date = new Date()) {
  * @param titleLength maximum length of the title
  * @returns {string[]} array containing the title and the subtitle
  */
-export function titleShortener(title, titleLength = 100) {
+export function titleShortener(title: string, titleLength = 100): string[] {
   if (!title) return ["", ""];
   title = title.replaceAll("\n", " \n ");
   const words = title.split(" ");
   let res = ["", ""];
-  let next;
+  let next: number = 0;
 
   // Catch a title less than 50 characters
   for (let i = 0; i < words.length; i++) {
@@ -104,7 +105,7 @@ export function titleShortener(title, titleLength = 100) {
  * Returns the filename to use for the export
  * @returns {string} filename
  */
-export function formatFilename(title, siteName) {
+export function formatFilename(title: string, siteName: string) {
   const filename = titleShortener(formatDate() + '_' + siteName + '_' + title)[0].replace(/[\n\/:*?"<>|]/g, '');
   return filename.match(/\.{3}$/g) ?
     filename.replace(/\s*\.{3}$/, '...')
@@ -112,7 +113,7 @@ export function formatFilename(title, siteName) {
     filename.replace(/\s*$/, '');
 }
 
-export async function patternBasedFormatFilename(title, siteName) {
+export async function patternBasedFormatFilename(title: string, siteName: string) {
   const now = new Date();
   const yyyy = now.getFullYear().toString();
   const mm = (now.getMonth() + 1).toString().padStart(2, '0');
@@ -143,6 +144,6 @@ export async function patternBasedFormatFilename(title, siteName) {
  * @param string string to process
  * @returns {string} first-letter-capitalized string
  */
-export function capitalizeFirst(string) {
+export function capitalizeFirst(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }

@@ -62,6 +62,7 @@ export async function selectAndClick(actionsList: Array<{ selector: string; scop
   return element;
 }
 
-export function resetPagination(pagination: { click: () => any; }[]) {
+export function resetPagination(pagination: NodeListOf<Element>) {
+  // @ts-ignore TODO
   pagination[0] && pagination[0].click();
 }

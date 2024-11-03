@@ -66,7 +66,7 @@ export function formatLink(url, message) {
  * Returns the header to put at the beginning of the markdown file
  * @returns {string} header
  */
-export async function setFileHeader(title, linkSite) {
+export async function setFileHeader(title: string, linkSite: any) {
   try {
     const titles = formatMarkdown(capitalizeFirst(titleShortener(title)[0]));
     return "# " + titles + "\n" + "Exported on " + formatDate(2, new Date()) + " at " + formatDate(3, new Date()) + " " + formatLink(getUrl(), `from ${linkSite}`) + ` - with ` + formatLink(`${appInfos.URLS.WEBSITE ?? ""}`, `${appInfos.APP_SNAME ?? ""}`) + "\n\n";

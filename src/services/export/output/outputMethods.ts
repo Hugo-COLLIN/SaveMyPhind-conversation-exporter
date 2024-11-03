@@ -8,7 +8,7 @@
  * @param text markdown content
  * @param filename name of the file
  */
-export function download(text, filename) {
+export function download(text: BlobPart, filename: string) {
   const blob = new Blob([text], { type: 'text/markdown' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -25,8 +25,8 @@ export function download(text, filename) {
  * @param markdownContent markdown content
  * @returns {Promise<void>} nothing to be usable
  */
-export async function saveToClipboard(markdownContent) {
-  document.querySelector("body").click();
+export async function saveToClipboard(markdownContent: string) {
+  document.querySelector("body")?.click();
   // Need the user to authorize the clipboard access
   setTimeout(async()=> {
     navigator.clipboard.writeText(markdownContent).then(function() {
@@ -37,7 +37,7 @@ export async function saveToClipboard(markdownContent) {
   }, 3000)
 }
 
-export function linksToObsidian(content) {
+export function linksToObsidian(content: string | number | boolean) {
   const encoded = encodeURIComponent(content);
   window.open(`obsidian://advanced-uri?data=${encoded}&mode=append`, '_blank');
 }

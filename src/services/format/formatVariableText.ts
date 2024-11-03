@@ -1,4 +1,4 @@
-export async function replaceVariables(content, variables) {
+export async function replaceVariables(content: string, variables: { APP_VERSION: any; APP_NAME: string; APP_SNAME: string; APP_LNAME: string; APP_ID: string; APP_MODE: string; URLS: { REPOSITORY: string; WEBSITE: string; SUPPORT: string; FEEDBACK: string; DISCUSSIONS: string; TUTORIALS: string; STORES: { CHROME: string; FIREFOX: string; }; REPORT: string; }; CONTACT_EMAIL: string; COPY_MODE: string; }) {
   let processedContent = content;
 
   // Search for all placeholders in ${VARIABLE_NAME}

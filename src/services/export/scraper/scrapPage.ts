@@ -10,7 +10,7 @@ import {EXPORTER_FALLBACK_ACTION} from "../../../utils/cs/fallbackActions";
  * @description - Launch the export process
  * @returns {Promise<void>}
  */
-export async function launchScrapping(domain) {
+export async function launchScrapping(domain: { name: string; url: any; }): Promise<void> {
   logWelcome();
   const extracted = await extractPage(domain);
 

@@ -12,7 +12,7 @@ let i = 1;
  * @param format {function} The function to format the sources
  * @param {Object<selectors: Array<{open: Array<{selector: string, scope: string}>, close: Array<{selector: string, scope: string}>, selector: string}>, afterAction: string>} data // scope:document/parent/child/...
  */
-export async function extractSources(content, format, data) {
+export async function extractSources(content: HTMLElement, format: any, data: { selectors: any; afterAction: any; }) {
   // Reset to avoid keeping the previous results
   res = "";
   i = 1;
@@ -22,16 +22,16 @@ export async function extractSources(content, format, data) {
 
     switch (extractionType) {
       case 'list':
-        res = await safeExecute(await extractFromList(format, content, selector ?? msgContent));
+        res = await safeExecute(await extractFromList(format, content, selector ?? msgContent)) as unknown as string;
         break;
       case 'tile-list':
-        res = await safeExecute(await extractFromTileList(format, content, selector));
+        res = await safeExecute(await extractFromTileList(format, content, selector)) as unknown as string;
         break;
       case 'links':
-        res = await safeExecute(selectAndExtract(selector, content, format));
+        res = await safeExecute(selectAndExtract(selector, content, format)) as unknown as string;
         break;
       case 'paginated-links':
-        res = await safeExecute(await extractFromPaginatedLinks(selector, content, format, paginationSelector));
+        res = await safeExecute(await extractFromPaginatedLinks(selector, content, format, paginationSelector)) as unknown as string;
         break;
       default:
         console.warn("No extraction type specified");
@@ -59,7 +59,7 @@ export async function extractSources(content, format, data) {
  * @param paginationSelector {string}
  * @returns {Promise<string>}
  */
-async function extractFromPaginatedLinks(selector, content, format, paginationSelector) {
+async function extractFromPaginatedLinks(selector: any, content: HTMLElement, format: any, paginationSelector: any): Promise<string> {
   const pagination = content.querySelectorAll(paginationSelector);
 
   if (pagination && pagination.length > 0) {
@@ -81,12 +81,12 @@ async function extractFromPaginatedLinks(selector, content, format, paginationSe
  * @param format {function}
  * @returns {string} The formatted sources
  */
-function selectAndExtract(selector, content, format) {
+function selectAndExtract(selector: any, content: HTMLElement, format: any): string {
   const selectSources = content.querySelectorAll(selector);
   return extractFromLinks(selectSources, format);
 }
 
-function extractFromLinks(links, format) {
+function extractFromLinks(links: any[] | NodeListOf<any>, format: (arg0: any) => string) {
   let res = "";
   links.forEach((link) => {
     res += "- " + format(link.outerHTML).replace("[", `[(${i}) `) + "\n";
@@ -102,7 +102,7 @@ function extractFromLinks(links, format) {
  * @param selectorOrContent
  * @returns {Promise<string>}
  */
-async function extractFromList(format, content, selectorOrContent) {
+async function extractFromList(format: any, content: HTMLElement, selectorOrContent: { selector: any; scope: any; }): Promise<string> {
   let res = '';
   let i = 1;
 
@@ -133,7 +133,7 @@ async function extractFromList(format, content, selectorOrContent) {
  * @param selector {string}
  * @returns {Promise<string>}
  */
-async function extractFromTileList(format, content, selector) {
+async function extractFromTileList(format: any, content: HTMLElement, selector: any): Promise<string> {
   let res = '';
   let i = 1;
   // Case the first tile is a file, not a link
@@ -160,8 +160,8 @@ async function extractFromTileList(format, content, selector) {
  * @param tile {HTMLElement}
  * @returns {Promise<string>}
  */
-export async function formatSources(i, format, tile) {
-  const elt = tile.querySelector("div.default") //Perplexity
+export async function formatSources(i: string | number, format: (arg0: any) => string, tile: Element): Promise<string> {
+  const elt: HTMLElement = tile.querySelector("div.default") as HTMLElement //Perplexity
     || tile;
 
   const text = "(" + i + ") "
@@ -173,7 +173,7 @@ export async function formatSources(i, format, tile) {
       .replaceAll(']', '')
     );
 
-  async function extractYoutubeLink(tile) {
+  async function extractYoutubeLink(tile: HTMLElement) {
     await sleep(10); //to be sure
     const clickElt = tile
     // .querySelector('.group')
@@ -195,18 +195,21 @@ export async function formatSources(i, format, tile) {
     }
 
     // Select background to click (no close button)
-    const el = link.closest(".fixed");
+    const el: HTMLElement = link.closest(".fixed") as HTMLElement;
     if (el) el.click();
 
+    // @ts-ignore
     return link.src
   }
 
   // Export content
   let res = "- ";
+  // @ts-ignore TODO
   if (tile && tile.href)
+    // @ts-ignore TODO
     res += formatLink(tile.href, text) + "\n";
   else {
-    const url = await safeExecute(extractYoutubeLink(tile));
+    const url: HTMLElement = await safeExecute(extractYoutubeLink(tile as HTMLElement)) as unknown as HTMLElement;
     res += url
       ? formatLink(url, text) + "\n"
       : text + "\n";
