@@ -6,7 +6,7 @@ import {download} from "./outputMethods";
  * @param extracted extracted content
  * @returns {Promise<void>}
  */
-export async function defineOutputMethod(domain: { name: string; url: any; }, {markdownContent, fileName}: { title: string; fileName: any; markdownContent: void; }): Promise<void> {
+export async function defineOutputMethod(domain: { name: string; url: any; }, {markdownContent, fileName}: { title: string; fileName: any; markdownContent: BlobPart; }): Promise<void> {
   await download(markdownContent, fileName);
   // await saveToClipboard(markdownContent);
   // linksToObsidian(markdownContent);

@@ -5,7 +5,7 @@ import {launchScrapping} from "../services/export/scraper/scrapPage";
 import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../services/checker/allowedDomains.json"
 import {domainChecker} from "../services/checker/domainChecker";
 import {getHostAndPath} from "../utils/cs/getters";
-import {getStorageData} from "../data/chromeStorage";
+import {getStorageData} from "../utils/chromeStorage";
 import {safeExecute} from "../utils/jsShorteners";
 import {SCRAPER_FALLBACK_ACTION} from "../utils/cs/fallbackActions";
 
