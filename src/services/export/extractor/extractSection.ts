@@ -10,22 +10,25 @@ import {extractSources} from "./extractSources";
  * @param options {Object} - Custom options to handle specific logic for PhindSearch and Perplexity
  * @returns {Promise<string>}
  */
-export async function extractSection(content, format, metadata, options = {}) {
+export async function extractSection(content: { hasChildNodes: () => any; }, format: any, metadata: { extractor: { extractionType: any; }; }, options: object = {}): Promise<string> {
   if (!content.hasChildNodes()) return "";
 
   switch (metadata?.extractor?.extractionType) {
     case 'search-sections':
+      // @ts-ignore TODO
       return extractSearchSection(content, format, metadata, options);
     case 'articles-sections':
+      // @ts-ignore TODO
       return extractArticleSection(content, format, metadata, options);
     case 'messages-sections':
+      // @ts-ignore TODO
       return extractMessageSection(content, format, metadata, options);
     default:
       return "";
   }
 }
 
-async function extractSearchSection(content, format, metadata) {
+async function extractSearchSection(content: HTMLElement, format: (arg0: any) => string, metadata: { extractor: any; sourcesExtraction?: any; }) {
   const options = metadata.extractor;
 
   // Extract and format the user question
@@ -64,14 +67,14 @@ async function extractSearchSection(content, format, metadata) {
       additionalPart = "\n" + await safeExecute(extractSources(content, format, metadata.sourcesExtraction));
     }
   } else {
-    const src = await safeExecute(extractSources(content, format, metadata.sourcesExtraction));
+    const src: string = await safeExecute(extractSources(content, format, metadata.sourcesExtraction)) as unknown as string;
     if (src) additionalPart = src + "\n";
   }
 
   return userPart + aiPart + additionalPart;
 }
 
-async function extractArticleSection(content, format, metadata) {
+async function extractArticleSection(content: HTMLElement, format: (arg0: string) => string, metadata: { extractor?: { extractionType: any; }; sourcesExtraction?: any; }) {
   if (!content.hasChildNodes())
     return '';
 
@@ -79,6 +82,7 @@ async function extractArticleSection(content, format, metadata) {
 
   const title = content.querySelector('h2 > span');
   markdown += title
+    // @ts-ignore
     ? `## ${title?.innerText}\n`
     : '';
 
@@ -91,14 +95,16 @@ async function extractArticleSection(content, format, metadata) {
     : '';
 
   const src = await safeExecute(await extractSources(content, format, metadata.sourcesExtraction));
+  // @ts-ignore
   if (src && src !== '')
     markdown += src + "\n";
 
   return markdown;
 }
 
-async function extractMessageSection(content, format, metadata) {
+async function extractMessageSection(content: HTMLElement, format: (arg0: string) => string, metadata: { extractor?: { extractionType: any; }; sourcesExtraction?: any; }) {
   const allDivs = content.querySelectorAll('.col > div > div > div, textarea');
+  // @ts-ignore
   const msgContent = Array.from(allDivs).filter(elt => (elt.children.length > 0 && elt.children.item(0).tagName !== "A") || elt.tagName === "TEXTAREA");
   const searchResults = content.querySelectorAll('.col > div > div > div:nth-last-of-type(1) > div > a');
   const entityName = content.querySelectorAll('.col > div > div > span');

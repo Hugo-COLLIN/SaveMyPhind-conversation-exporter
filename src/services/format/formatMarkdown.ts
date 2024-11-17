@@ -15,7 +15,7 @@ export default {
 /**
  * Initialize the html-to-markdown-converter
  */
-export let turndownConverter;
+export let turndownConverter: TurndownService;
 
 export function initTurndown(options = {}) {
   turndownConverter = new TurndownService(options);
@@ -26,7 +26,7 @@ export function initTurndown(options = {}) {
  * @param html html to format
  * @returns {*|string|string} formatted markdown
  */
-export function formatMarkdown(html) {
+export function formatMarkdown(html: string | Node): any | string | string {
   // Sanitize HTML
   html = DOMPurify.sanitize(html);
 
@@ -58,8 +58,9 @@ export function formatMarkdown(html) {
  * @param message text to display for the link
  * @returns {string} formatted link
  */
-export function formatLink(url, message) {
-  return "[" + message.replaceAll("`", "") + "](" + url.replace(/\)/g, "%29") + ")";
+export function formatLink(url: string | HTMLElement, message: string): string {
+  // @ts-ignore
+  return "[" + message.replaceAll("`", "") + "](" + url?.replace(/\)/g, "%29") + ")";
 }
 
 /**

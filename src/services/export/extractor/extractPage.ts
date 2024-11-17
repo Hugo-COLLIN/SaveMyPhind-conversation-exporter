@@ -42,7 +42,7 @@ export async function extractPage(domain: { name: any; url?: any; }) {
   return {
     title: metadata.pageTitle,
     fileName: await patternBasedFormatFilename(metadata.pageTitle, metadata.domainName),
-    markdownContent: await extractContent(module, metadata),
+    markdownContent: await extractContent(module, metadata) as unknown as string,
   };
 }
 
