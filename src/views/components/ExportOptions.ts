@@ -103,7 +103,6 @@ The currently supported placeholders are:
 _Domain placeholders:_
 - %W - Sub-domain name (e.g. "Phind Search", "Perplexity Pages")
 - %H - Host name (e.g. "www.chatgpt.com")
-- %U - URL of the page (e.g. "https://www.chatgpt.com/c/a1b2c3d4")
 - %T - Title of the page (first 60 characters)
 
 _Date placeholders:_
