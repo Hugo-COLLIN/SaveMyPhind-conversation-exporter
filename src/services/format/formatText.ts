@@ -133,6 +133,8 @@ export async function patternBasedFormatFilename(title: string, siteName: string
     .replace(/%s/g, ss)
     .replace(/%t/g, timestamp.toString())
     .replace(/%W/g, siteName)
+    .replace(/%U/g, window.location.href)
+    .replace(/%H/g, window.location.hostname)
     .replace(/%T/g, titleShortener(title, 60)[0]);
 
   return filenameTemplate.replace(/[\n\/:*?"<>|]/g, '');
