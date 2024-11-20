@@ -23,7 +23,9 @@
   },
   "devDependencies": {
     "@types/chrome": "^0.0.270",
+    "@types/dompurify": "^3.0.5",
     "@types/showdown": "^2.0.6",
+    "@types/turndown": "^5.0.5",
     "@vitest/browser": "^2.0.5",
     "adm-zip": "^0.5.15",
     "chokidar": "^3.6.0",
