@@ -1,4 +1,4 @@
-import {clickElements} from "../../../utils/cs/interact/interact";
+import {clickElements} from "../../interact/cs/interact";
 
 export function defineAction(action: { type: any; selector: string | undefined; }) {
   switch (action.type) {
