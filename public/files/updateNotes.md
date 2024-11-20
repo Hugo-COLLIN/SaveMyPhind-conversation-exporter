@@ -1,4 +1,11 @@
 # Update notes
+# 3.4.2
+🤖 Export ChatGPT bots answers
+Just some URL quake but now GPTs are correctly exported!
+
+⚙️ Hostname in filename pattern
+You can now use the %H placeholder to get the website hostname in your filename.
+
 # 3.4.0
 🔢 Export math equations
 LaTeX equations from Perplexity, ChatGPT and Phind are now correctly formatted! 
