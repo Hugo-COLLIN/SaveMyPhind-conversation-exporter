@@ -99,8 +99,13 @@ export class ExportOptions extends LitElement {
 The filename format is a string containing placeholders, that will be replaced by the actual values when exporting a page. 
 
 The currently supported placeholders are: 
-- %W - Domain/Sub-domain name (Website)
-- %T - Title of the page
+
+_Domain placeholders:_
+- %W - Sub-domain name (e.g. "Phind Search", "Perplexity Pages")
+- %H - Host name (e.g. "www.chatgpt.com")
+- %T - Title of the page (first 60 characters)
+
+_Date placeholders:_
 - %t - Timestamp (Unix time)
 - %Y - Year
 - %M - Month
