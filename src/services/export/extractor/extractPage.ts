@@ -3,7 +3,7 @@ import {applyExtractorRules, generateRules} from "./rules/applyRules";
 import {extractPageContent} from "./extractPageContent";
 import {safeExecute} from "../../../utils/jsShorteners";
 import converter from "../../format/formatMarkdown";
-import {EXTRACTOR_FALLBACK_ACTION} from "../../../utils/cs/fallbackActions";
+import {EXTRACTOR_FALLBACK_ACTION} from "../../fallbackActions";
 import {patternBasedFormatFilename} from "../../format/formatText";
 
 export async function extractPage(domain: { name: any; url?: any; }) {
