@@ -21,7 +21,8 @@
     "*://*.phind.com/*",
     "*://*.perplexity.ai/*",
     "*://google.com/search*",
-    "*://chatgpt.com/*"
+    "*://chatgpt.com/*",
+    "*://*.claude.ai/*"
   ],
   "action": {
     "default_icon": "files/icons/icon_disabled-500.png"
@@ -35,7 +36,8 @@
       "*://*.phind.com/*",
       "*://*.perplexity.ai/*",
       "*://*.google.com/search*",
-      "*://chatgpt.com/*"
+      "*://chatgpt.com/*",
+      "*://*.claude.ai/*"
     ],
     "js": ["tab.js"]
   }],
