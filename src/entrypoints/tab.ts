@@ -6,7 +6,7 @@ import {domainChecker} from "../services/checker/domainChecker";
 import {getHostAndPath} from "../utils/cs/getters";
 import {getStorageData} from "../utils/chromeStorage";
 import {safeExecute} from "../utils/jsShorteners";
-import {SCRAPER_FALLBACK_ACTION} from "../utils/cs/fallbackActions";
+import {SCRAPER_FALLBACK_ACTION} from "../services/fallbackActions";
 import {setLoadListener} from "../views/components/modals/cs/launchModalIntegration";
 
 /**

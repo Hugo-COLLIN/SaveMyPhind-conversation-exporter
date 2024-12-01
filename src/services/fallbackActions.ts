@@ -1,5 +1,7 @@
-import appInfos from "../../data/infos.json";
-import ModalMessage from "../../views/components/modals/cs/types/ModalMessage";
+import appInfos from "../data/infos.json";
+import ModalMessage from "../views/components/modals/cs/types/ModalMessage";
+
+// TODO dispatch to the corresponding code files
 
 export function EXTRACTOR_FALLBACK_ACTION() {
   return (error: { stack: string; }) => {

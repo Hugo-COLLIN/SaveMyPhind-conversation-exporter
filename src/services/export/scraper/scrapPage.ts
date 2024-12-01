@@ -4,7 +4,7 @@ import {extractPage} from "../extractor/extractPage";
 import {defineOutputMethod} from "../output/defineOutputMethod";
 import {updateClickIconCount} from "../../../views/browser/bg/icon/clickCount";
 import {safeExecute} from "../../../utils/jsShorteners";
-import {EXPORTER_FALLBACK_ACTION} from "../../../utils/cs/fallbackActions";
+import {EXPORTER_FALLBACK_ACTION} from "../../fallbackActions";
 
 /**
  * @description - Launch the export process
