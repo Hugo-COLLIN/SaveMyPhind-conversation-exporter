@@ -1,4 +1,20 @@
 {
   "domainName": "Claude Chat",
-  "contentSelector": "[data-test-render-count]"
+  "contentSelector": "[data-test-render-count]",
+  "turndown": {
+    "rules": {
+      "preserveLineBreaksInPre": {
+        "filter": "filter_PreserveLineBreaksInPre",
+        "replacement": "replacement_preserveLineBreaksInPre_ChatGPT"
+      },
+      "formatTables": {
+        "filter": "filter_formatTables",
+        "replacement": "replacement_formatTables"
+      },
+      "formatKatex": {
+        "filter": "filter_formatKatex",
+        "replacement": "replacement_formatKatex"
+      }
+    }
+  }
 }
