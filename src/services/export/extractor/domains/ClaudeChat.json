@@ -1,4 +1,4 @@
 {
   "domainName": "Claude Chat",
-  "contentSelector": "[data-test-render-count] > div"
+  "contentSelector": "[data-test-render-count]"
 }
