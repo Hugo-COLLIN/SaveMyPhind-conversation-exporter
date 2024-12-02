@@ -1,8 +1,7 @@
 import {capitalizeFirst} from "../../../format/formatText";
 
 export async function processMessage(content, format, metadata) {
-  const messageSelector = content.querySelector("[data-testid=\"user-message\"], [data-is-streaming]");
-  console.log("ttttt")
+  const messageSelector = content.querySelector("[data-testid=\"user-message\"], [data-is-streaming] > div");
 
   const entityName = content?.querySelector("[data-is-streaming]")
     ? "Claude"
