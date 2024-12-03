@@ -180,6 +180,54 @@ export function replacement_formatKatex(content: any, node: { querySelector: (ar
 }
 
 /*
+  --- Claude rules ---
+ */
+export function filter_captureArtifactContent_Claude(node: { nodeName: string; classList: { contains: (arg0: string) => any; }; }) {
+  return node.nodeName === 'BUTTON'
+}
+
+// export async function replacement_captureArtifactContent_Claude(content: any, node: any) {
+//   console.log("captureArtifactContent_Claude", node)
+//   await selectAndClick([{scope: 'content'}], node);
+//   console.log("BEFCLICK")
+//   console.log(node.click)
+//   console.log(node.click())
+//   console.log("AFTCLICK")
+//   const res = document.querySelector('[tabindex="0"]')?.textContent;
+//   console.log("captureArtifactContent_Claude", res)
+//   return res;
+// }
+
+// export async function replacement_captureArtifactContent_Claude(content: any, node: any) {
+//   try {
+//     console.log("captureArtifactContent_Claude", node);
+//     await selectAndClick([{scope: 'content'}], node);
+//     console.log("BEFCLICK");
+//     if (node.click) {
+//       node.click();
+//       console.log("has click");
+//     }
+//     console.log("AFTCLICK");
+//
+//     // Attendre un peu pour laisser le temps au contenu de se charger
+//     await new Promise(resolve => setTimeout(resolve, 100));
+//
+//     const res = document.querySelector('[tabindex="0"]')?.textContent || '';
+//     console.log("captureArtifactContent_Claude", res);
+//     return res;
+//   } catch (error) {
+//     console.error("Error in replacement_captureArtifactContent_Claude:", error);
+//     return '';
+//   }
+// }
+
+export function replacement_captureArtifactContent_Claude(content: any, node: any) {
+  return "{{@CAPTURE_ARTIFACT_CONTENT}}";
+}
+
+
+
+/*
   --- Phind rules ---
  */
 

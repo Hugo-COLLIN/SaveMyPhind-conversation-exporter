@@ -17,7 +17,16 @@
       "formatKatex": {
         "filter": "filter_formatKatex",
         "replacement": "replacement_formatKatex"
+      },
+      "captureArtifactContent": {
+        "filter": "filter_captureArtifactContent_Claude",
+        "replacement": "replacement_captureArtifactContent_Claude"
       }
+    }
+  },
+  "actions": {
+    "afterExtraction": {
+      "type": "click_act_close"
     }
   }
 }
