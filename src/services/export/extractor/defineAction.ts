@@ -8,16 +8,16 @@ async function clickActClose(markdown: string | undefined, format: ((html: strin
 
   // selector duplication with processMessage in ClaudeChat.js and ClaudeChat.json
   for (const artifact of document.querySelectorAll('.font-claude-message button')) {
+    // @ts-ignore
     artifact.click();
-    await sleep(1000);
-
-    document.querySelector("[data-testid=\"undefined-code\"][data-state=\"off\"]")?.click();
-
-    const artifactContent = pane?.querySelector(".code-block__code, .font-claude-message")?.textContent;
-    console.log(artifactContent);
-    markdown = markdown?.replace("{{@CAPTURE_ARTIFACT_CONTENT}}", format?.(artifactContent ?? "") ?? "");
+    await sleep(100);
+    // @ts-ignore
+    document.querySelector("[data-testid=\"undefined-code\"][data-state=\"off\"]")?.click(); // Click on 'Code' button if it exists
+    const artifactContent = pane?.querySelector(".code-block__code, .font-claude-message");
+    markdown = markdown?.replace("{{@CAPTURE_ARTIFACT_CONTENT}}", format?.(artifactContent?.innerHTML ?? "") ?? "");
   }
 
+  // @ts-ignore
   pane?.querySelector(".justify-end > button")?.click(); // close artifact
 
   return markdown;
