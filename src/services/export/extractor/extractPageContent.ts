@@ -26,7 +26,7 @@ export async function extractPageContent(format: (html: string) => string, metad
   markdown += await extractSections(messages, metadata, format, processMessage);
 
   if (metadata?.actions?.afterExtraction)
-    await safeExecute(defineAction(metadata.actions.afterExtraction));
+    await safeExecute(async () => markdown = await defineAction(metadata.actions.afterExtraction, markdown, format) ?? markdown);
 
   return markdown;
 }

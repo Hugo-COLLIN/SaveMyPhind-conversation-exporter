@@ -32,19 +32,25 @@ export async function clickElements(cssSelector = '.fe-chevron-down') {
  * @param content {HTMLElement} The content of the page
  * @returns {Promise<Element | null | undefined>} The last element clicked on
  */
-export async function selectAndClick(actionsList: Array<{ selector: string; scope: string; wait: number | undefined; }>, content: HTMLElement): Promise<Element | null> {
+export async function selectAndClick(actionsList: Array<{ selector?: string; scope?: string; wait?: number; }>, content: HTMLElement): Promise<Element | Document | null> {
   let element = null;
   for (const query of actionsList) {
     switch (query.scope) {
       case 'content':
-        element = content.querySelector(query.selector);
+        element = query.selector
+          ? content.querySelector(query.selector)
+          : content;
         break;
       case 'document':
-        element = document.querySelector(query.selector);
+        element = query.selector
+          ? document.querySelector(query.selector)
+          : document;
         break;
       default:
         console.warn("Unknown scope: " + query.scope + ". Defaulting to content for query: " + query.selector + ".");
-        return content.querySelector(query.selector);
+        return query.selector
+          ? content.querySelector(query.selector)
+          : content;
     }
 
     //TODO: define custom delay for each domain separately in JSON configuration
