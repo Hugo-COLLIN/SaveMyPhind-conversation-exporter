@@ -6,7 +6,7 @@ import {sleep} from "../../../utils/jsShorteners";
 async function clickActClose(markdown: string | undefined, format: ((html: string) => string) | undefined) {
   // selector duplication with processMessage in ClaudeChat.js and contentSelector in ClaudeChat.json
   const pane = document.querySelector("div.fixed.flex");
-  const btns = document.querySelectorAll('.font-claude-message button');
+  const btns = document.querySelectorAll('.font-claude-message button[aria-label="Preview contents"]');
 
   for (const artifactBtn of btns) {
     const artifactName = artifactBtn.querySelector(".break-words")?.textContent
