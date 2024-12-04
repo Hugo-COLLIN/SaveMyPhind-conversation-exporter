@@ -90,7 +90,8 @@ export function filter_PreserveLineBreaksInPre_Claude(node: { nodeName: string; 
 export function filter_PreserveLineBreaksInCode_Claude(node: {
   parentNode: any;
   nodeName: string; querySelector: (arg0: string) => any; }) {
-  return node.nodeName === 'CODE' && node.parentNode.querySelector('.code-block__code');
+  return node.nodeName === 'CODE' && node.parentNode.classList.contains('code-block__code') && !node.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('pre');
+  // return node.nodeName === 'CODE' && node.parentNode.parentNode.parentNode.parentNode.nodeType !== "PRE";
 }
 
 export function replacement_PreserveLineBreaksInPre_Perplexity(content: any, node: { querySelector: (arg0: string) => any; }) {
@@ -121,18 +122,60 @@ export function replacement_preserveLineBreaksInPre_Claude(content: any, node: a
   return ('\n```' + codeLang + '\n' + codeContent + '\n```');
 }
 
+// export function replacement_preserveLineBreaksInCode_Claude(content: any, node: any) {
+//   // console.log("replacement_preserveLineBreaksInPre_Claude", node)
+//   // const preCode = document.createElement('pre');
+//   // preCode.appendChild(node)
+//   node.innerHTML = node.innerHTML
+//     // .replace(/<span>( )*<\/span>/g, '<span>{@tab}<\/span>')
+//     .replace(/<span>(\s*)<\/span>/g, '<span>$1<\/span>{@newLine}')
+//     .trim();
+//
+//   console.log("replacement_preserveLineBreaksInCode_Claude", node.innerHTML)
+//
+//   const codeContent = node.textContent
+//     // .replaceAll('{@tab}', '\t')
+//     // .replaceAll('{@newLine}', '\n')
+//     .trim()
+//   const codeLang = node?.className?.split("-")[1] ?? '';
+//   return ('\n```' + codeLang + '\n' + codeContent + '\n```');
+// }
+
 export function replacement_preserveLineBreaksInCode_Claude(content: any, node: any) {
-  // console.log("replacement_preserveLineBreaksInPre_Claude", node)
-  // const preCode = document.createElement('pre');
-  // preCode.appendChild(node)
-  const codeBlock = node.querySelector('code');
-  const codeContent = codeBlock?.textContent?.trim();
-  // console.log(codeContent)
-  // console.log(turndownConverter.turndown(codeBlock.parentNode.innerHTML).trim())
-  const codeLang = codeBlock?.className?.split("-")[1] ?? '';
+  // Create a deep clone of the node to avoid modifying the original
+  const clonedNode = node.cloneNode(true);
+
+  // Split the innerHTML into top-level spans
+  const topLevelSpans = Array.from(clonedNode.children);
+
+  // Process each top-level span
+  topLevelSpans.forEach((span: HTMLElement, index: number) => {
+    // Replace spans with only whitespace with {@tab}
+    if (span.textContent.trim() === '') {
+      span.textContent = '{@tab}';
+    }
+
+    // Add {@newLine} after each top-level span except the last one
+    if (index < topLevelSpans.length - 1) {
+      const newLineSpan = document.createElement('span');
+      newLineSpan.textContent = '{@newLine}';
+      // @ts-ignore
+      span.parentNode.insertBefore(newLineSpan, span.nextSibling);
+    }
+  });
+
+  // Update node innerHTML
+  node.innerHTML = clonedNode.innerHTML.trim();
+
+  console.log("replacement_preserveLineBreaksInCode_Claude", node.innerHTML);
+
+  const codeContent = node.textContent
+    .replaceAll('{@tab}', '\t')
+    .replaceAll('{@newLine}', '\n')
+    .trim()
+  const codeLang = node?.className?.split("-")[1] ?? '';
   return ('\n```' + codeLang + '\n' + codeContent + '\n```');
 }
-
 
 /*
  --- Format Links ---
