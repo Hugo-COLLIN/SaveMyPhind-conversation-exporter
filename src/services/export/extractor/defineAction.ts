@@ -21,7 +21,14 @@ async function clickActClose(markdown: string | undefined, format: ((html: strin
       artifactContent = pane?.querySelector(".code-block__code, .font-claude-message");
       await sleep(100);
     }
-    markdown = markdown?.replace("{{@CAPTURE_ARTIFACT_CONTENT}}", `---\n**${artifactName ?? "Artifact"}:**\n` + (format?.(artifactContent?.outerHTML ?? "") ?? "") + "\n---");
+
+    let codeWithPre;
+    if (pane?.querySelector(".code-block__code")) {
+      codeWithPre = document.createElement("pre");
+      codeWithPre.innerHTML = artifactContent?.outerHTML ?? "";
+    }
+    console.log("codeWithPre", codeWithPre);
+    markdown = markdown?.replace("{{@CAPTURE_ARTIFACT_CONTENT}}", `---\n**${artifactName ?? "Artifact"}:**\n` + (format?.(codeWithPre?.outerHTML ?? artifactContent?.outerHTML ?? "") ?? "") + "\n---");
   }
 
   // @ts-ignore
