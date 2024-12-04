@@ -4,11 +4,12 @@ import {sleep} from "../../../utils/jsShorteners";
 
 //TODO: currently for Claude artifacts, needs to be genericized
 async function clickActClose(markdown: string | undefined, format: ((html: string) => string) | undefined) {
+  // selector duplication with processMessage in ClaudeChat.js and contentSelector in ClaudeChat.json
   const pane = document.querySelector("div.fixed.flex");
   const btns = document.querySelectorAll('.font-claude-message button');
 
-  // selector duplication with processMessage in ClaudeChat.js and ClaudeChat.json
   for (const artifactBtn of btns) {
+    const artifactName = artifactBtn.querySelector(".break-words")?.textContent
     // @ts-ignore
     artifactBtn.click();
     await sleep(100);
@@ -20,7 +21,7 @@ async function clickActClose(markdown: string | undefined, format: ((html: strin
       artifactContent = pane?.querySelector(".code-block__code, .font-claude-message");
       await sleep(100);
     }
-    markdown = markdown?.replace("{{@CAPTURE_ARTIFACT_CONTENT}}", format?.(artifactContent?.outerHTML ?? "") ?? "");
+    markdown = markdown?.replace("{{@CAPTURE_ARTIFACT_CONTENT}}", `---\n***${artifactName ?? "Artifact"}:***\n` + (format?.(artifactContent?.outerHTML ?? "") ?? "") + "\n---");
   }
 
   // @ts-ignore
