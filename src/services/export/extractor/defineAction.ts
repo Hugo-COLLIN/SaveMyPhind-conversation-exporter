@@ -27,7 +27,7 @@ async function clickActClose(markdown: string | undefined, format: ((html: strin
       codeWithPre = document.createElement("pre");
       codeWithPre.innerHTML = artifactContent?.outerHTML ?? "";
     }
-    console.log("codeWithPre", codeWithPre);
+
     markdown = markdown?.replace("{{@CAPTURE_ARTIFACT_CONTENT}}", `---\n**${artifactName ?? "Artifact"}:**\n` + (format?.(codeWithPre?.outerHTML ?? artifactContent?.outerHTML ?? "") ?? "") + "\n---");
   }
 

@@ -20,18 +20,6 @@ export function getBlankReplacement_PerplexityPages(content: any, node: { nodeNa
   }
 }
 
-//Not working
-export function preserveLeadingSpaces(content: any, node: Node) {
-  console.log("PASSY")
-  if (
-    node.nodeName === 'SPAN' &&
-    node.parentNode?.parentNode?.nodeName === 'CODE' &&
-    node.parentNode?.parentNode?.parentNode?.parentNode?.parentNode?.parentNode?.querySelector('pre')
-  ) {
-    return content.replace(/^(\s+)/, (match: string) => '&nbsp;'.repeat(match.length));
-  }
-  return content;
-}
 
 /*
  --- Format tables ---
@@ -99,14 +87,6 @@ export function filter_PreserveLineBreaksInPre_Claude(node: { nodeName: string; 
   return node.nodeName === 'PRE' && node.querySelector('div');
 }
 
-//TODO issue: for code without pre, it seems to be Turndown preformatted on 1 line
-export function filter_PreserveLineBreaksInCode_Claude(node: {
-  parentNode: any;
-  nodeName: string; querySelector: (arg0: string) => any; }) {
-  return node.nodeName === 'CODE' && node.parentNode.classList.contains('code-block__code') && !node.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('pre');
-  // return node.nodeName === 'CODE' && node.parentNode.parentNode.parentNode.parentNode.nodeType !== "PRE";
-}
-
 export function replacement_PreserveLineBreaksInPre_Perplexity(content: any, node: { querySelector: (arg0: string) => any; }) {
   const codeBlock = node.querySelector('code');
   const codeContent = codeBlock.textContent.trim();
@@ -134,46 +114,6 @@ export function replacement_preserveLineBreaksInPre_Claude(content: any, node: a
   const codeLang = codeBlock.className.split("-")[1] ?? '';
   return ('\n```' + codeLang + '\n' + codeContent + '\n```');
 }
-
-export function replacement_preserveLineBreaksInCode_Claude(content: any, node: any) {
-  const clonedNode = node.cloneNode(true);
-  const topLevelSpans = Array.from(clonedNode.children);
-
-  // @ts-ignore
-  topLevelSpans.forEach((span: HTMLElement, index: number) => {
-    const nestedSpans = Array.from(span.children);
-
-    if (nestedSpans.length > 0) {
-      const firstSpan = nestedSpans[0] as HTMLElement;
-      const text = firstSpan.textContent || '';
-
-      // Count spaces at the beginning of line
-      const leadingSpaces = text.match(/^[\s\t]*/)?.[0].length || 0;
-
-      // Converts spaces to tabs (4 spaces = 1 tab)
-      if (leadingSpaces > 0) {
-        const tabCount = Math.floor(leadingSpaces / 4);
-        firstSpan.textContent = '\t'.repeat(tabCount) + text.trim();
-      }
-      // else if (firstSpan?.textContent === '') {
-      //   firstSpan.textContent = '\t';
-      // }
-    }
-
-    // Adds a line break after each span except the last
-    if (index < topLevelSpans.length - 1) {
-      const newLineSpan = document.createElement('span');
-      newLineSpan.textContent = '\n';
-      span.parentNode?.insertBefore(newLineSpan, span.nextSibling);
-    }
-  });
-
-  const codeContent = clonedNode.textContent?.trim() || '';
-  const codeLang = node?.className?.split("-")[1] || '';
-
-  return `\n\`\`\`${codeLang}\n${codeContent}\n\`\`\``;
-}
-
 
 
 /*
