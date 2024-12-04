@@ -20,6 +20,19 @@ export function getBlankReplacement_PerplexityPages(content: any, node: { nodeNa
   }
 }
 
+//Not working
+export function preserveLeadingSpaces(content: any, node: Node) {
+  console.log("PASSY")
+  if (
+    node.nodeName === 'SPAN' &&
+    node.parentNode?.parentNode?.nodeName === 'CODE' &&
+    node.parentNode?.parentNode?.parentNode?.parentNode?.parentNode?.parentNode?.querySelector('pre')
+  ) {
+    return content.replace(/^(\s+)/, (match: string) => '&nbsp;'.repeat(match.length));
+  }
+  return content;
+}
+
 /*
  --- Format tables ---
  */
