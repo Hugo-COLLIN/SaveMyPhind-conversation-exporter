@@ -28,7 +28,7 @@ async function clickActClose(markdown: string | undefined, format: ((html: strin
       codeWithPre.innerHTML = artifactContent?.outerHTML ?? "";
     }
 
-    markdown = markdown?.replace("{{@CAPTURE_ARTIFACT_CONTENT}}", `---\n**${artifactName ?? "Artifact"}:**\n` + (format?.(codeWithPre?.outerHTML ?? artifactContent?.outerHTML ?? "") ?? "") + "\n---");
+    markdown = markdown?.replace(`{{@CAPTURE_ARTIFACT_CONTENT:${artifactName}}}`, `---\n**${artifactName ?? "Artifact"}:**\n` + (format?.(codeWithPre?.outerHTML ?? artifactContent?.outerHTML ?? "") ?? "") + "\n---");
   }
 
   // @ts-ignore

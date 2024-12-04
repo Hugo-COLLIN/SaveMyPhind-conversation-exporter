@@ -198,7 +198,7 @@ export function filter_captureArtifactContent_Claude(node: { nodeName: string; c
 }
 
 export function replacement_captureArtifactContent_Claude(content: any, node: any) {
-  return "{{@CAPTURE_ARTIFACT_CONTENT}}";
+  return `{{@CAPTURE_ARTIFACT_CONTENT:${node.querySelector(".break-words")?.textContent}}}`;
 }
 
 
