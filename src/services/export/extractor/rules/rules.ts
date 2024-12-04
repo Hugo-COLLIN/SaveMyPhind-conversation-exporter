@@ -108,10 +108,12 @@ export function replacement_preserveLineBreaksInPre_ChatGPT(content: any, node: 
   return ('\n```' + codeLang + '\n' + codeContent + '\n```');
 }
 
-export function replacement_preserveLineBreaksInPre_Claude(content: any, node: { querySelector: (arg0: string) => any; }) {
+export function replacement_preserveLineBreaksInPre_Claude(content: any, node: any) {
   // console.log("replacement_preserveLineBreaksInPre_Claude", node)
+  // const preCode = document.createElement('pre');
+  // preCode.appendChild(node)
   const codeBlock = node.querySelector('code');
-  const codeContent = codeBlock.textContent.trim();
+  const codeContent = codeBlock?.textContent?.trim();
   // console.log(codeContent)
   // console.log(turndownConverter.turndown(codeBlock.parentNode.innerHTML).trim())
   const codeLang = codeBlock.className.split("-")[1] ?? '';
