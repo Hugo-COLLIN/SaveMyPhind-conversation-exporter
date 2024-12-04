@@ -21,7 +21,7 @@ async function clickActClose(markdown: string | undefined, format: ((html: strin
       artifactContent = pane?.querySelector(".code-block__code, .font-claude-message");
       await sleep(100);
     }
-    markdown = markdown?.replace("{{@CAPTURE_ARTIFACT_CONTENT}}", `---\n***${artifactName ?? "Artifact"}:***\n` + (format?.(artifactContent?.outerHTML ?? "") ?? "") + "\n---");
+    markdown = markdown?.replace("{{@CAPTURE_ARTIFACT_CONTENT}}", `---\n**${artifactName ?? "Artifact"}:**\n` + (format?.(artifactContent?.outerHTML ?? "") ?? "") + "\n---");
   }
 
   // @ts-ignore
