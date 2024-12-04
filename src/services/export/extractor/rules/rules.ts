@@ -193,11 +193,12 @@ export function replacement_formatKatex(content: any, node: { querySelector: (ar
 /*
   --- Claude rules ---
  */
-export function filter_captureArtifactContent_Claude(node: { nodeName: string; classList: { contains: (arg0: string) => any; }; }) {
-  return node.nodeName === 'BUTTON'
+export function filter_captureArtifactContent_Claude(node: Element) {
+  //target button[aria-label="Preview contents"] :
+  return node.nodeName === 'BUTTON' && node.getAttribute('aria-label') === 'Preview contents';
 }
 
-export function replacement_captureArtifactContent_Claude(content: any, node: any) {
+export function replacement_captureArtifactContent_Claude(content: any, node: Element) {
   return `{{@CAPTURE_ARTIFACT_CONTENT:${node.querySelector(".break-words")?.textContent}}}`;
 }
 
