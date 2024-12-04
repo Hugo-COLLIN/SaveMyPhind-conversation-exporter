@@ -146,42 +146,35 @@ export function replacement_preserveLineBreaksInCode_Claude(content: any, node: 
   const topLevelSpans = Array.from(clonedNode.children);
 
   topLevelSpans.forEach((span: HTMLElement, index: number) => {
-
     const nestedSpans = Array.from(span.children);
-    console.log(nestedSpans)
-    const firstSpan = nestedSpans[0];
-    console.log(firstSpan)
-    // nestedSpans.forEach((nestedSpan: HTMLElement) => {
-      const leadingSpaces = firstSpan?.textContent?.length || 0;
-      // const firstSpan = nestedSpan.querySelector('span:first-child');
 
-      // Si on a des espaces en début de ligne, on les remplace par des {@tab}
+    if (nestedSpans.length > 0) {
+      const firstSpan = nestedSpans[0] as HTMLElement;
+      const text = firstSpan.textContent || '';
+      const leadingSpaces = text.match(/^\s*/)?.[0].length || 0;
+
       if (leadingSpaces > 0) {
-        const tabCount = Math.floor(leadingSpaces / 4); // Supposant qu'une tabulation = 4 espaces
-        if (firstSpan) {
-          firstSpan.textContent = '{@tab}'.repeat(tabCount) + firstSpan.textContent
-        }
-      } else if (firstSpan?.textContent === '') {
-        firstSpan.textContent = '{@tab}';
+        const tabCount = Math.floor(leadingSpaces / 4);
+        firstSpan.textContent = '\t'.repeat(tabCount) + text.trim();
       }
+      // else if (firstSpan?.textContent === '') {
+      //   firstSpan.textContent = '\t';
+      // }
+    }
 
-    // Ajoute {@newLine} après chaque span sauf le dernier
     if (index < topLevelSpans.length - 1) {
       const newLineSpan = document.createElement('span');
-      newLineSpan.textContent = '{@newLine}';
-      span.parentNode.insertBefore(newLineSpan, span.nextSibling);
+      newLineSpan.textContent = '\n';
+      span.parentNode?.insertBefore(newLineSpan, span.nextSibling);
     }
   });
 
-  node.innerHTML = clonedNode.innerHTML.trim();
+  const codeContent = clonedNode.textContent?.trim() || '';
+  const codeLang = node?.className?.split("-")[1] || '';
 
-  const codeContent = node.textContent
-    .replaceAll('{@tab}', '\t')
-    .replaceAll('{@newLine}', '\n')
-    .trim();
-  const codeLang = node?.className?.split("-")[1] ?? '';
-  return ('\n```' + codeLang + '\n' + codeContent + '\n```');
+  return `\n\`\`\`${codeLang}\n${codeContent}\n\`\`\``;
 }
+
 
 /*
  --- Format Links ---
