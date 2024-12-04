@@ -90,7 +90,7 @@ export function filter_PreserveLineBreaksInPre_Claude(node: { nodeName: string; 
 export function filter_PreserveLineBreaksInCode_Claude(node: {
   parentNode: any;
   nodeName: string; querySelector: (arg0: string) => any; }) {
-  return node.parentNode.querySelector('.code-block__code');
+  return node.nodeName === 'CODE' && node.parentNode.querySelector('.code-block__code');
 }
 
 export function replacement_PreserveLineBreaksInPre_Perplexity(content: any, node: { querySelector: (arg0: string) => any; }) {
