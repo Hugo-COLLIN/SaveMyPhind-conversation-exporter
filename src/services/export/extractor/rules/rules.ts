@@ -142,37 +142,43 @@ export function replacement_preserveLineBreaksInPre_Claude(content: any, node: a
 // }
 
 export function replacement_preserveLineBreaksInCode_Claude(content: any, node: any) {
-  // Create a deep clone of the node to avoid modifying the original
   const clonedNode = node.cloneNode(true);
-
-  // Split the innerHTML into top-level spans
   const topLevelSpans = Array.from(clonedNode.children);
 
-  // Process each top-level span
   topLevelSpans.forEach((span: HTMLElement, index: number) => {
-    // Replace spans with only whitespace with {@tab}
-    if (span.textContent.trim() === '') {
-      span.textContent = '{@tab}';
-    }
 
-    // Add {@newLine} after each top-level span except the last one
+    const nestedSpans = Array.from(span.children);
+    console.log(nestedSpans)
+    const firstSpan = nestedSpans[0];
+    console.log(firstSpan)
+    // nestedSpans.forEach((nestedSpan: HTMLElement) => {
+      const leadingSpaces = firstSpan?.textContent?.length || 0;
+      // const firstSpan = nestedSpan.querySelector('span:first-child');
+
+      // Si on a des espaces en début de ligne, on les remplace par des {@tab}
+      if (leadingSpaces > 0) {
+        const tabCount = Math.floor(leadingSpaces / 4); // Supposant qu'une tabulation = 4 espaces
+        if (firstSpan) {
+          firstSpan.textContent = '{@tab}'.repeat(tabCount) + firstSpan.textContent
+        }
+      } else if (firstSpan?.textContent === '') {
+        firstSpan.textContent = '{@tab}';
+      }
+
+    // Ajoute {@newLine} après chaque span sauf le dernier
     if (index < topLevelSpans.length - 1) {
       const newLineSpan = document.createElement('span');
       newLineSpan.textContent = '{@newLine}';
-      // @ts-ignore
       span.parentNode.insertBefore(newLineSpan, span.nextSibling);
     }
   });
 
-  // Update node innerHTML
   node.innerHTML = clonedNode.innerHTML.trim();
-
-  console.log("replacement_preserveLineBreaksInCode_Claude", node.innerHTML);
 
   const codeContent = node.textContent
     .replaceAll('{@tab}', '\t')
     .replaceAll('{@newLine}', '\n')
-    .trim()
+    .trim();
   const codeLang = node?.className?.split("-")[1] ?? '';
   return ('\n```' + codeLang + '\n' + codeContent + '\n```');
 }
