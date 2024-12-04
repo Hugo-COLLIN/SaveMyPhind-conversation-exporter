@@ -82,9 +82,15 @@ export function filter_preserveLineBreaksInPre_Phind(node: { nodeName: string; q
   return node.nodeName === 'PRE' && node.querySelector('div');
 }
 
-//TODO issue: for code without pre, it seems to be Turndown preformatted on 1 line
 export function filter_PreserveLineBreaksInPre_Claude(node: { nodeName: string; querySelector: (arg0: string) => any; }) {
-  return (node.nodeName === 'PRE' && node.querySelector('div') ) || (node.parentNode.querySelector('.code-block__code'));
+  return node.nodeName === 'PRE' && node.querySelector('div');
+}
+
+//TODO issue: for code without pre, it seems to be Turndown preformatted on 1 line
+export function filter_PreserveLineBreaksInCode_Claude(node: {
+  parentNode: any;
+  nodeName: string; querySelector: (arg0: string) => any; }) {
+  return node.parentNode.querySelector('.code-block__code');
 }
 
 export function replacement_PreserveLineBreaksInPre_Perplexity(content: any, node: { querySelector: (arg0: string) => any; }) {
@@ -109,6 +115,13 @@ export function replacement_preserveLineBreaksInPre_ChatGPT(content: any, node: 
 }
 
 export function replacement_preserveLineBreaksInPre_Claude(content: any, node: any) {
+  const codeBlock = node.querySelector('code');
+  const codeContent = codeBlock?.textContent?.trim();
+  const codeLang = codeBlock.className.split("-")[1] ?? '';
+  return ('\n```' + codeLang + '\n' + codeContent + '\n```');
+}
+
+export function replacement_preserveLineBreaksInCode_Claude(content: any, node: any) {
   // console.log("replacement_preserveLineBreaksInPre_Claude", node)
   // const preCode = document.createElement('pre');
   // preCode.appendChild(node)
@@ -116,7 +129,7 @@ export function replacement_preserveLineBreaksInPre_Claude(content: any, node: a
   const codeContent = codeBlock?.textContent?.trim();
   // console.log(codeContent)
   // console.log(turndownConverter.turndown(codeBlock.parentNode.innerHTML).trim())
-  const codeLang = codeBlock.className.split("-")[1] ?? '';
+  const codeLang = codeBlock?.className?.split("-")[1] ?? '';
   return ('\n```' + codeLang + '\n' + codeContent + '\n```');
 }
 
