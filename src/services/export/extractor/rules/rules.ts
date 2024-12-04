@@ -122,37 +122,22 @@ export function replacement_preserveLineBreaksInPre_Claude(content: any, node: a
   return ('\n```' + codeLang + '\n' + codeContent + '\n```');
 }
 
-// export function replacement_preserveLineBreaksInCode_Claude(content: any, node: any) {
-//   // console.log("replacement_preserveLineBreaksInPre_Claude", node)
-//   // const preCode = document.createElement('pre');
-//   // preCode.appendChild(node)
-//   node.innerHTML = node.innerHTML
-//     // .replace(/<span>( )*<\/span>/g, '<span>{@tab}<\/span>')
-//     .replace(/<span>(\s*)<\/span>/g, '<span>$1<\/span>{@newLine}')
-//     .trim();
-//
-//   console.log("replacement_preserveLineBreaksInCode_Claude", node.innerHTML)
-//
-//   const codeContent = node.textContent
-//     // .replaceAll('{@tab}', '\t')
-//     // .replaceAll('{@newLine}', '\n')
-//     .trim()
-//   const codeLang = node?.className?.split("-")[1] ?? '';
-//   return ('\n```' + codeLang + '\n' + codeContent + '\n```');
-// }
-
 export function replacement_preserveLineBreaksInCode_Claude(content: any, node: any) {
   const clonedNode = node.cloneNode(true);
   const topLevelSpans = Array.from(clonedNode.children);
 
+  // @ts-ignore
   topLevelSpans.forEach((span: HTMLElement, index: number) => {
     const nestedSpans = Array.from(span.children);
 
     if (nestedSpans.length > 0) {
       const firstSpan = nestedSpans[0] as HTMLElement;
       const text = firstSpan.textContent || '';
-      const leadingSpaces = text.match(/^\s*/)?.[0].length || 0;
 
+      // Count spaces at the beginning of line
+      const leadingSpaces = text.match(/^[\s\t]*/)?.[0].length || 0;
+
+      // Converts spaces to tabs (4 spaces = 1 tab)
       if (leadingSpaces > 0) {
         const tabCount = Math.floor(leadingSpaces / 4);
         firstSpan.textContent = '\t'.repeat(tabCount) + text.trim();
@@ -162,6 +147,7 @@ export function replacement_preserveLineBreaksInCode_Claude(content: any, node: 
       // }
     }
 
+    // Adds a line break after each span except the last
     if (index < topLevelSpans.length - 1) {
       const newLineSpan = document.createElement('span');
       newLineSpan.textContent = '\n';
@@ -174,6 +160,7 @@ export function replacement_preserveLineBreaksInCode_Claude(content: any, node: 
 
   return `\n\`\`\`${codeLang}\n${codeContent}\n\`\`\``;
 }
+
 
 
 /*
