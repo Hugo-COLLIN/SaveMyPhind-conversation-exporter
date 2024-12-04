@@ -7,8 +7,8 @@
   "turndown": {
     "rules": {
       "preserveLineBreaksInPre": {
-        "filter": "filter_PreserveLineBreaksInPre",
-        "replacement": "replacement_preserveLineBreaksInPre_ChatGPT"
+        "filter": "filter_PreserveLineBreaksInPre_Claude",
+        "replacement": "replacement_preserveLineBreaksInPre_Claude"
       },
       "formatTables": {
         "filter": "filter_formatTables",
