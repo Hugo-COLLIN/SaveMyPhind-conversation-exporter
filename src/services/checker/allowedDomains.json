@@ -3,7 +3,8 @@
     "Phind": "www.phind.com",
     "Perplexity": "www.perplexity.ai",
     "MaxAIGoogle": "www.google.com",
-    "ChatGPT": "chatgpt.com"
+    "ChatGPT": "chatgpt.com",
+    "Claude": "claude.ai"
   },
   "EXPORT_DOMAINS": {
     "PhindSearch": "www.phind.com/search",
@@ -13,6 +14,7 @@
     "MaxAIGoogle": "www.google.com/search",
     "ChatGPT": "chatgpt.com/c",
     "ChatGPTShare": "chatgpt.com/share",
-    "ChatGPTBots": "chatgpt.com/g"
+    "ChatGPTBots": "chatgpt.com/g",
+    "ClaudeChat": "claude.ai/chat"
   }
 }

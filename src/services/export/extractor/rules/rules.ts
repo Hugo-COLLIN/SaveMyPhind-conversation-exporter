@@ -20,6 +20,7 @@ export function getBlankReplacement_PerplexityPages(content: any, node: { nodeNa
   }
 }
 
+
 /*
  --- Format tables ---
  */
@@ -82,6 +83,10 @@ export function filter_preserveLineBreaksInPre_Phind(node: { nodeName: string; q
   return node.nodeName === 'PRE' && node.querySelector('div');
 }
 
+export function filter_PreserveLineBreaksInPre_Claude(node: { nodeName: string; querySelector: (arg0: string) => any; }) {
+  return node.nodeName === 'PRE' && node.querySelector('div');
+}
+
 export function replacement_PreserveLineBreaksInPre_Perplexity(content: any, node: { querySelector: (arg0: string) => any; }) {
   const codeBlock = node.querySelector('code');
   const codeContent = codeBlock.textContent.trim();
@@ -103,6 +108,59 @@ export function replacement_preserveLineBreaksInPre_ChatGPT(content: any, node: 
   return ('\n```' + codeLang + '\n' + codeContent + '\n```');
 }
 
+export function replacement_preserveLineBreaksInPre_Claude(content: any, node: any) {
+  const codeBlock = node.querySelector('code');
+  const codeContent = codeBlock?.textContent?.trim();
+  const codeLang = codeBlock.className.split("-")[1] ?? '';
+  return ('\n```' + codeLang + '\n' + codeContent + '\n```');
+}
+
+//---
+export function filter_PreserveLineBreaksInCode_Claude(node: {
+  parentNode: any;
+  nodeName: string; querySelector: (arg0: string) => any; }) {
+  return node.nodeName === 'CODE' && node.parentNode.classList.contains('code-block__code') && !node.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('pre');
+  // return node.nodeName === 'CODE' && node.parentNode.parentNode.parentNode.parentNode.nodeType !== "PRE";
+}
+
+export function replacement_preserveLineBreaksInCode_Claude(content: any, node: any) {
+  const clonedNode = node.cloneNode(true);
+  const topLevelSpans = Array.from(clonedNode.children);
+
+  // @ts-ignore
+  topLevelSpans.forEach((span: HTMLElement, index: number) => {
+    const nestedSpans = Array.from(span.children);
+
+    if (nestedSpans.length > 0) {
+      const firstSpan = nestedSpans[0] as HTMLElement;
+      const text = firstSpan.textContent || '';
+
+      // Count spaces at the beginning of line
+      const leadingSpaces = text.match(/^[\s\t]*/)?.[0].length || 0;
+
+      // Converts spaces to tabs (4 spaces = 1 tab)
+      if (leadingSpaces > 0) {
+        const tabCount = Math.floor(leadingSpaces / 4);
+        firstSpan.textContent = '\t'.repeat(tabCount) + text.trim();
+      }
+      // else if (firstSpan?.textContent === '') {
+      //   firstSpan.textContent = '\t';
+      // }
+    }
+
+    // Adds a line break after each span except the last
+    if (index < topLevelSpans.length - 1) {
+      const newLineSpan = document.createElement('span');
+      newLineSpan.textContent = '\n';
+      span.parentNode?.insertBefore(newLineSpan, span.nextSibling);
+    }
+  });
+
+  const codeContent = clonedNode.textContent?.trim() || '';
+  const codeLang = node?.className?.split("-")[1] || '';
+
+  return `\n\`\`\`${codeLang}\n${codeContent}\n\`\`\``;
+}
 
 
 /*
@@ -178,6 +236,20 @@ export function replacement_formatKatex(content: any, node: { querySelector: (ar
   }
   return '$' + mathml + '$';
 }
+
+/*
+  --- Claude rules ---
+ */
+export function filter_captureArtifactContent_Claude(node: Element) {
+  //target button[aria-label="Preview contents"] :
+  return node.nodeName === 'BUTTON' && node.getAttribute('aria-label') === 'Preview contents';
+}
+
+export function replacement_captureArtifactContent_Claude(content: any, node: Element) {
+  return `{{@CAPTURE_ARTIFACT_CONTENT:${node.querySelector(".break-words")?.textContent}}}`;
+}
+
+
 
 /*
   --- Phind rules ---

@@ -31,6 +31,10 @@ export async function extractPage(domain: { name: any; url?: any; }) {
       module = require("./domains/ChatGPT");
       json = require("./domains/ChatGPT.json");
       break;
+    case "ClaudeChat":
+      module = require("./domains/ClaudeChat");
+      json = require("./domains/ClaudeChat.json");
+      break;
     default:
       module = require("./domains/ArbitraryPage");
       json = require("./domains/ArbitraryPage.json");

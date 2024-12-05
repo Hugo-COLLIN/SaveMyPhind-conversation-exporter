@@ -1,0 +1,36 @@
+{
+  "domainName": "Claude Chat",
+  "pageTitle": {
+    "selector": "[data-testid=\"chat-menu-trigger\"]"
+  },
+  "contentSelector": "[data-test-render-count]",
+  "turndown": {
+    "rules": {
+      "preserveLineBreaksInPre": {
+        "filter": "filter_PreserveLineBreaksInPre_Claude",
+        "replacement": "replacement_preserveLineBreaksInPre_Claude"
+      },
+      "preserveLineBreaksInCode_userQuestion": {
+        "filter": "filter_PreserveLineBreaksInCode_Claude",
+        "replacement": "replacement_preserveLineBreaksInCode_Claude"
+      },
+      "formatTables": {
+        "filter": "filter_formatTables",
+        "replacement": "replacement_formatTables"
+      },
+      "formatKatex": {
+        "filter": "filter_formatKatex",
+        "replacement": "replacement_formatKatex"
+      },
+      "captureArtifactContent": {
+        "filter": "filter_captureArtifactContent_Claude",
+        "replacement": "replacement_captureArtifactContent_Claude"
+      }
+    }
+  },
+  "actions": {
+    "afterExtraction": {
+      "type": "click_act_close"
+    }
+  }
+}
