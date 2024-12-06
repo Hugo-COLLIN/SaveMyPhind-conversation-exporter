@@ -1,5 +1,5 @@
 # <img alt="SaveMyChatbot logo" src="./public/files/icons/icon-128.png" style="width:40px"> Save my Chatbot - AI Conversation Exporter
-### 🚀 Download Phind, Perplexity, ChatGPT and MaxAI-Google knowledge into markdown files!
+### 🚀 Download Claude, Perplexity, Phind, ChatGPT and MaxAI-Google knowledge into markdown files!
 
 <div align="center">
   <img src="./public/files/captures/Gif_SmC_SearchExport.gif" alt="Save my Chatbot demonstration gif" style="width:500px">
@@ -14,7 +14,7 @@
 &#x2A20; It's **available for Chrome, Firefox, Edge, Opera, Brave, and many more...** 😉
 
 ### ❓ How to use? Simple as 1-2!
-1. **Go to a chat page**: ChatGPT, Phind, Perplexity or Google (with MaxAI integration).
+1. **Go to a chat page**: Claude, Perplexity, Phind, ChatGPT or Google (with MaxAI integration).
 2. **Click on the extension icon.**
 
 👉 It will **automatically download a structured markdown file** containing the conversation. You can **optionally configure some export settings** in the Options page.
@@ -25,7 +25,7 @@
 - To **share threads with others** (send by email, publish on a blog...)
 
 ### 🎯 Main features:
-- [x] Export chats from Phind, Perplexity and MaxAI-Google
+- [x] Export chats from Claude, Perplexity, Phind, ChatGPT and MaxAI-Google
 - [x] Clean markdown formatting and structuring
 - [x] Keep numbered sources in the exported file
 - [x] Configure your exports (filename, more options coming soon...)
