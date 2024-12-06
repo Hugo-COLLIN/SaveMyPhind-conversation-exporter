@@ -1,4 +1,14 @@
 # Update notes
+# 3.5.0
+🤩 Export Claude AI answers
+Claude.ai is now supported! Just click the extension icon when you're on a Claude chat page and see the magic happen! 
+And guess what (what?): Artifacts content is also exported!
+
+🚀 Reaching 3500 users!
+It's not a round number, but it's still a milestone!
+Thank you all for your feedback and feature requests!
+If you have any, feel free to visit the <a href="https://save.hugocollin.com/discussion" target="_blank">GitHub repository</a> and open a new discussion.
+
 # 3.4.2
 🤖 Export ChatGPT bots answers
 Just some URL quake but now GPTs are correctly exported!
