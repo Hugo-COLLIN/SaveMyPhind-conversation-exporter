@@ -28,6 +28,7 @@
 - [x] Export chats from Claude, Perplexity, Phind, ChatGPT and MaxAI-Google
 - [x] Clean markdown formatting and structuring
 - [x] Keep numbered sources in the exported file
+- [x] Keep Artifacts content (Claude)
 - [x] Configure your exports (filename, more options coming soon...)
 - [x] Informative file header and filename (date, url...)
 - [x] Indicates the chatbot response mode used (Phind-Search and Perplexity)
