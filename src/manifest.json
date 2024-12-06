@@ -2,7 +2,7 @@
   "{{chrome}}.manifest_version": 3,
   "{{firefox}}.manifest_version": 3,
   "name": "Save my Chatbot - AI Conversation Exporter",
-  "description": "🚀 Download Phind, Perplexity, ChatGPT and MaxAI-Google knowledge into markdown files!",
+  "description": "🚀 Download Claude, Perplexity, Phind, ChatGPT and MaxAI-Google knowledge into markdown files!",
   "icons": {
     "16": "files/icons/icon-16.png",
     "32": "files/icons/icon-48.png",
