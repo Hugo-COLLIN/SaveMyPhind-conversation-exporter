@@ -53,7 +53,7 @@ export async function defineAction(action: {
       return clickElements(action.selector);
     case "click_act_close":
       let md = await clickActClose(markdown, format, `CAPTURE_ARTIFACT_CONTENT`, document.querySelectorAll('.font-claude-message button[aria-label="Preview contents"]'));
-      md = await clickActClose(md, format, "CAPTURE_INPUT_CONTENT", document.querySelector('[data-test-render-count]')?.querySelectorAll('button[data-testid]'));
+      md = await clickActClose(md, format, "CAPTURE_INPUT_CONTENT", document.querySelectorAll('[data-test-render-count] button[data-testid]'));
       return md;
     // case "scroll":
     //   return scrollElements;
