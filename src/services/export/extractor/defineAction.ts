@@ -35,7 +35,11 @@ async function clickActClose(markdown: string | undefined, format: ((html: strin
       artifactContent = pre;
     }
 
-    markdown = markdown?.replace(`{{@${extractionTypeId}:${artifactName}}}`, `---\n**${artifactName ?? "Artifact"}:**\n` + (format?.(/*codeWithPre?.outerHTML ??*/ artifactContent?.outerHTML ?? "") ?? "") + "\n---");
+    const artifactExportName = artifactBtn.querySelector(".text-center")?.textContent == "pasted"
+      ? "Pasted Content"
+      : artifactName;
+
+    markdown = markdown?.replace(`{{@${extractionTypeId}:${artifactName}}}`, `---\n**${artifactExportName ?? "Artifact"}:**\n` + (format?.(artifactContent?.outerHTML ?? "") ?? "") + "\n---");
   }
 
   // @ts-ignore
