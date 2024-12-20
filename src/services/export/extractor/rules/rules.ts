@@ -111,7 +111,7 @@ export function replacement_preserveLineBreaksInPre_ChatGPT(content: any, node: 
 export function replacement_preserveLineBreaksInPre_Claude(content: any, node: any) {
   const codeBlock = node.querySelector('code');
   const codeContent = codeBlock?.textContent?.trim();
-  const codeLang = codeBlock.className.split("-")[1] ?? '';
+  const codeLang = codeBlock?.className?.split("-")[1] ?? '';
   return ('\n```' + codeLang + '\n' + codeContent + '\n```');
 }
 

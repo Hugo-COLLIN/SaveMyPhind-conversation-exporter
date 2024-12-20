@@ -2,14 +2,14 @@ import {clickElements} from "../../interact/cs/interact";
 import {sleep} from "../../../utils/jsShorteners";
 
 
-//TODO: currently for Claude artifacts, needs to be genericized
-async function clickActClose(markdown: string | undefined, format: ((html: string) => string) | undefined) {
+//TODO: currently for Claude artifacts, needs to be generalized
+async function clickActClose(markdown: string | undefined, format: ((html: string) => string) | undefined, extractionTypeId: string, btns?: NodeListOf<any>) {
   // selector duplication with processMessage in ClaudeChat.js and contentSelector in ClaudeChat.json
   const pane = document.querySelector("div.fixed.flex");
-  const btns = document.querySelectorAll('.font-claude-message button[aria-label="Preview contents"]');
 
-  for (const artifactBtn of btns) {
+  for (const artifactBtn of btns?.values() ?? []) {
     const artifactName = artifactBtn.querySelector(".break-words")?.textContent
+    // console.log(artifactName)
     // @ts-ignore
     artifactBtn.click();
     await sleep(100);
@@ -18,17 +18,28 @@ async function clickActClose(markdown: string | undefined, format: ((html: strin
     let artifactContent;
     let i = 0;
     while (!artifactContent && i < 10) {
-      artifactContent = pane?.querySelector(".code-block__code, .font-claude-message");
+      artifactContent = pane?.querySelector(".code-block__code, .font-claude-message, .break-all");
+      i++
+      if (!artifactContent) console.log("Waiting for artifact content", i);
       await sleep(100);
     }
 
-    let codeWithPre;
-    if (pane?.querySelector(".code-block__code")) {
-      codeWithPre = document.createElement("pre");
-      codeWithPre.innerHTML = artifactContent?.outerHTML ?? "";
+    if (pane?.querySelector(".code-block__code, .break-all")) {
+      if (pane?.querySelector(".break-all")) {
+        const code = document.createElement("code");
+        code.innerHTML = artifactContent?.outerHTML ?? "";
+        artifactContent = code;
+      }
+      const pre = document.createElement("pre");
+      pre.innerHTML = artifactContent?.outerHTML ?? "";
+      artifactContent = pre;
     }
 
-    markdown = markdown?.replace(`{{@CAPTURE_ARTIFACT_CONTENT:${artifactName}}}`, `---\n**${artifactName ?? "Artifact"}:**\n` + (format?.(codeWithPre?.outerHTML ?? artifactContent?.outerHTML ?? "") ?? "") + "\n---");
+    const artifactExportName = artifactBtn.querySelector(".text-center")?.textContent == "pasted"
+      ? "Pasted Content"
+      : artifactName;
+
+    markdown = markdown?.replace(`{{@${extractionTypeId}:${artifactName}}}`, `---\n**${artifactExportName ?? "Artifact"}:**\n` + (format?.(artifactContent?.outerHTML ?? "") ?? "") + "\n---");
   }
 
   // @ts-ignore
@@ -45,7 +56,9 @@ export async function defineAction(action: {
     case "click":
       return clickElements(action.selector);
     case "click_act_close":
-      return await clickActClose(markdown, format);
+      let md = await clickActClose(markdown, format, `CAPTURE_ARTIFACT_CONTENT`, document.querySelectorAll('.font-claude-message button[aria-label="Preview contents"]'));
+      md = await clickActClose(md, format, "CAPTURE_INPUT_CONTENT", document.querySelectorAll('[data-test-render-count] button[data-testid]'));
+      return md;
     // case "scroll":
     //   return scrollElements;
     // case "type":
