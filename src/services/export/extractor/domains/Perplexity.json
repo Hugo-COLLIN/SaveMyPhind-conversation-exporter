@@ -39,8 +39,8 @@
           "scope": "document",
           "wait": 50
         }],
-        "close": [{"selector": "[data-testid=\"close-modal\"]", "scope": "document", "wait": 50}],
-        "selector": ".fixed > div > [class] > div > div > div > div > div > .group",
+        "close": [{"selector": "[data-testid=\"close-modal\"], div.w-full.relative button[aria-label]", "scope": "document", "wait": 50}],
+        "selector": ".fixed > div > [class] > div > div > div > div > div > .group, div.w-full.relative > .h-full.items-stretch.cursor-pointer.w-full.flex.group",
         "extractionType": "list"
       },
       {
