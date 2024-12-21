@@ -1,4 +1,11 @@
 # Update notes
+# 3.6.1
+🔗 Export Claude input content
+Now it keeps your text-converted inputs so your entire conversation is preserved.
+
+🚀 Perplexity Sources exported again!
+Perplexity changed its Sources pane, so the extension needed a refresh.
+
 # 3.5.0
 🤩 Export Claude AI answers
 Claude.ai is now supported! Just click the extension icon when you're on a Claude chat page and see the magic happen! 
