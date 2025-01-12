@@ -1,6 +1,5 @@
 {
-  "{{chrome}}.manifest_version": 3,
-  "{{firefox}}.manifest_version": 3,
+  "manifest_version": 3,
   "name": "Save my Chatbot - AI Conversation Exporter",
   "description": "🚀 Download Claude, Perplexity, Phind, ChatGPT and MaxAI-Google knowledge into markdown files!",
   "icons": {
@@ -28,8 +27,11 @@
     "default_icon": "files/icons/icon_disabled-500.png"
   },
   "background": {
-    "{{chrome}}.service_worker": "background.js",
-    "{{firefox}}.scripts": ["background.js"]
+    "service_worker": "background.js"
+  },
+  "options_ui": {
+    "page": "files/options.html",
+    "open_in_tab": true
   },
   "content_scripts": [{
     "matches": [
@@ -45,7 +47,7 @@
     "resources": ["files/*"],
     "matches": ["<all_urls>"]
   }],
-  "{{firefox}}.browser_specific_settings": {
+  "browser_specific_settings": {
     "gecko": {
       "id": "savemyphind@hugocollin.com",
       "strict_min_version": "109.0"

@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 // TODO: Execute in background
 /*
 --- SAVE ---
@@ -40,4 +42,33 @@ export async function saveToClipboard(markdownContent: string) {
 export function linksToObsidian(content: string | number | boolean) {
   const encoded = encodeURIComponent(content);
   window.open(`obsidian://advanced-uri?data=${encoded}&mode=append`, '_blank');
+}
+
+/**
+ * Enviar el archivo Markdown a un webhook
+ * @param text contenido del archivo Markdown
+ * @param filename nombre del archivo
+ */
+export async function sendToWebhook(text: BlobPart, filename: string) {
+  chrome.storage.sync.get('webhookUrl', async (data) => {
+    const webhookUrl = data.webhookUrl;
+    if (!webhookUrl) {
+      console.error('No se ha configurado la URL del webhook.');
+      return;
+    }
+    console.log('Enviando archivo al webhook:', webhookUrl);
+    const formData = new FormData();
+    formData.append('file', new Blob([text], { type: 'text/markdown' }), filename + '.md');
+
+    try {
+      await axios.post(webhookUrl, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log('Archivo enviado exitosamente al webhook');
+    } catch (error) {
+      console.error('Error al enviar el archivo al webhook:', error);
+    }
+  });
 }
