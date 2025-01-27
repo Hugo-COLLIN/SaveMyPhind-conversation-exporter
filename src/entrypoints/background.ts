@@ -2,7 +2,7 @@ import {listenIconClick} from "../views/browser/bg/icon/iconAction";
 import {buildContextMenu} from "../views/browser/bg/contextMenu/buildContextMenu";
 import {listenTabsToUpdateIcon} from "../views/browser/bg/icon/defineIcon";
 import {initClickCount} from "../views/browser/bg/icon/clickCount";
-import {initModalOnInstall} from "../views/components/modals/bg/manageModals";
+import {initModalOnInstall} from "../features/modals/bg/manageModals";
 import {displayWelcomeTutorial, setUninstalledRedirect} from "../views/browser/bg/setRedirects";
 import {templateFilenameListener} from "../services/export/output/templateFilenameListener";
 

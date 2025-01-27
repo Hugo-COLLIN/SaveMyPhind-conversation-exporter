@@ -1,5 +1,5 @@
 import appInfos from "../data/infos.json";
-import ModalMessage from "../views/components/modals/cs/types/ModalMessage";
+import ModalMessage from "../core/components/modals/cs/types/ModalMessage";
 
 // TODO dispatch to the corresponding code files
 

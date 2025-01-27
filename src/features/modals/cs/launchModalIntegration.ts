@@ -1,6 +1,6 @@
-import {appendModalContainer} from "./actions/appendModalContainer";
-import {displayInstallModals} from "./actions/displayInstallModals";
-import {safeExecute} from "../../../../core/utils/jsShorteners";
+import {appendModalContainer} from "../../../core/components/modals/cs/actions/appendModalContainer";
+import {displayInstallModals} from "../../../core/components/modals/cs/actions/displayInstallModals";
+import {safeExecute} from "../../../core/utils/jsShorteners";
 
 export async function setLoadListener(domain: { name: string, url: string }) {
   window.addEventListener('load', async function () {
