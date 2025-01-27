@@ -1,4 +1,4 @@
-import {capitalizeFirst} from "../../../format/formatText";
+import {capitalizeFirst} from "../../../../core/services/format/formatText";
 
 export async function processMessage(content, format, metadata) {
   const messageSelector = content.querySelector("[data-testid=\"user-message\"], [data-is-streaming] > div");

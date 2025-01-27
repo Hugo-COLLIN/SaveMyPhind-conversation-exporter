@@ -1,8 +1,8 @@
 import {handleModalDisplay} from "../core/components/modals/cs/actions/displayCtaModals";
-import {detectPageLoad} from "../services/checker/detectPageLoad";
+import {detectPageLoad} from "../features/domainChecker/detectPageLoad";
 import {launchScrapping} from "../services/export/scraper/scrapPage";
-import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../services/checker/allowedDomains.json"
-import {domainChecker} from "../services/checker/domainChecker";
+import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../features/domainChecker/allowedDomains.json"
+import {domainChecker} from "../core/services/domainChecker/domainChecker";
 import {getHostAndPath} from "../core/utils/cs/getters";
 import {getStorageData} from "../core/utils/chromeStorage";
 import {safeExecute} from "../core/utils/jsShorteners";

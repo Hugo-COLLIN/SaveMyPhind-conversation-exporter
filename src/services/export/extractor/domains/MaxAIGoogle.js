@@ -1,4 +1,4 @@
-import {formatLink, setFileHeader} from "../../../format/formatMarkdown";
+import {formatLink, setFileHeader} from "../../../../core/services/format/formatMarkdown";
 import {safeExecute} from "../../../../core/utils/jsShorteners";
 import {getPageTitle} from "../extractPageMetadata";
 

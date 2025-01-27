@@ -1,6 +1,6 @@
 import {Modal} from "./Modal";
 import yaml from 'js-yaml';
-import {replaceLocalPath, replaceVariables} from "../../../../../services/format/formatVariableText";
+import {replaceLocalPath, replaceVariables} from "../../../../services/format/formatVariableText";
 import appInfos from "../../../../../data/infos.json";
 
 export default class ModalMessage extends Modal {

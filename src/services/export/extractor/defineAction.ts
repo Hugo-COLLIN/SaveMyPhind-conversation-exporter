@@ -1,4 +1,4 @@
-import {clickElements} from "../../interact/cs/interact";
+import {clickElements} from "../../../core/services/interact/cs/interact";
 import {sleep} from "../../../core/utils/jsShorteners";
 
 

@@ -1,6 +1,6 @@
 import {safeExecute} from "../../../../core/utils/jsShorteners";
 import {extractSources} from "../extractSources";
-import {capitalizeFirst} from "../../../format/formatText";
+import {capitalizeFirst} from "../../../../core/services/format/formatText";
 
 export async function processMessage(content, format, metadata) {
   const messageSelector = content.querySelector("article [data-message-author-role]");
