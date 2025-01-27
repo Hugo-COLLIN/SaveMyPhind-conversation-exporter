@@ -1,5 +1,5 @@
 import {extractPageMetadata} from "./extractPageMetadata";
-import {applyExtractorRules, generateRules} from "./rules/applyRules";
+import {applyExtractorRules, generateRules} from "./applyRules";
 import {extractPageContent} from "./extractPageContent";
 import {safeExecute} from "../../../core/utils/jsShorteners";
 import converter from "../../../core/services/format/formatMarkdown";

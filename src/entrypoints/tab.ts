@@ -1,6 +1,6 @@
 import {handleModalDisplay} from "../core/components/modals/cs/actions/displayCtaModals";
 import {detectPageLoad} from "../features/domainChecker/detectPageLoad";
-import {launchScrapping} from "../services/export/scraper/scrapPage";
+import {launchScrapping} from "../features/scraper/scrapPage";
 import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../features/domainChecker/allowedDomains.json"
 import {domainChecker} from "../core/services/domainChecker/domainChecker";
 import {getHostAndPath} from "../core/utils/cs/getters";

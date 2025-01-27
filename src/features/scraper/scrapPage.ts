@@ -1,10 +1,10 @@
-import {logWelcome} from "../../../core/utils/consoleMessages";
-import appInfos from "../../../data/infos.json";
-import {extractPage} from "../extractor/extractPage";
-import {defineOutputMethod} from "../output/defineOutputMethod";
-import {updateClickIconCount} from "../../../features/browserInterface/bg/icon/clickCount";
-import {safeExecute} from "../../../core/utils/jsShorteners";
-import {EXPORTER_FALLBACK_ACTION} from "../../fallbackActions";
+import {logWelcome} from "../../core/utils/consoleMessages";
+import appInfos from "../../data/infos.json";
+import {extractPage} from "../../services/export/extractor/extractPage";
+import {defineOutputMethod} from "./output/defineOutputMethod";
+import {updateClickIconCount} from "../browserInterface/bg/icon/clickCount";
+import {safeExecute} from "../../core/utils/jsShorteners";
+import {EXPORTER_FALLBACK_ACTION} from "../../services/fallbackActions";
 
 /**
  * @description - Launch the export process

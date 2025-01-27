@@ -4,7 +4,7 @@ import {listenTabsToUpdateIcon} from "../features/browserInterface/bg/icon/defin
 import {initClickCount} from "../features/browserInterface/bg/icon/clickCount";
 import {initModalOnInstall} from "../features/modals/bg/manageModals";
 import {displayWelcomeTutorial, setUninstalledRedirect} from "../features/browserInterface/bg/setRedirects";
-import {templateFilenameListener} from "../services/export/output/templateFilenameListener";
+import {templateFilenameListener} from "../features/scraper/output/templateFilenameListener";
 
 // import {launchScrappingActionOnPage} from "../../content/launch/launchScraperOnPage";
 // import {defineProcessingState} from "../scraper/defineProcessingState";

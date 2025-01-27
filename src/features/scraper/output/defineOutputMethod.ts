@@ -1,4 +1,4 @@
-import {download} from "./outputMethods";
+import {download} from "../../../core/services/outputMethods/outputMethods";
 
 /**
  * Exports the given content using export methods
