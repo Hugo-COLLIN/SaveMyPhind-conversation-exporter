@@ -1,5 +1,5 @@
 import {clickElements} from "../../interact/cs/interact";
-import {sleep} from "../../../utils/jsShorteners";
+import {sleep} from "../../../core/utils/jsShorteners";
 
 
 //TODO: currently for Claude artifacts, needs to be generalized

@@ -1,4 +1,4 @@
-import appInfos from "../data/infos.json";
+import appInfos from "../../data/infos.json";
 
 export function logWelcome() {
   // @ts-ignore TODO variables at compile time

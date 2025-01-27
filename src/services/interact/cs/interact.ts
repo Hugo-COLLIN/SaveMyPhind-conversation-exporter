@@ -1,4 +1,4 @@
-import {sleep} from "../../../utils/jsShorteners";
+import {sleep} from "../../../core/utils/jsShorteners";
 
 /* UNUSED
 // TODO: Make functions more generic (not only for Phind)

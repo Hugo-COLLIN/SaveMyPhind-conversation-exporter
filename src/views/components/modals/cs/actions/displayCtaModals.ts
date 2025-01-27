@@ -1,5 +1,5 @@
 import ModalMessage from "../types/ModalMessage";
-import {getStorageData} from "../../../../../utils/chromeStorage";
+import {getStorageData} from "../../../../../core/utils/chromeStorage";
 
 // TODO: shouldn't call from background directory ; move in shared or split? Or change structure?
 import {

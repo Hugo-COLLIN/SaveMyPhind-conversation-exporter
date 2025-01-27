@@ -1,6 +1,6 @@
 import appInfos from "../../../../../data/infos.json";
-import {NotImplemented} from "../../../../../utils/errors/NotImplemented";
-import {AbstractClassInstanciation} from "../../../../../utils/errors/AbstractClassInstanciation";
+import {NotImplemented} from "../../../../../core/utils/errors/NotImplemented";
+import {AbstractClassInstanciation} from "../../../../../core/utils/errors/AbstractClassInstanciation";
 
 export class Modal {
   protected readonly params: any[];

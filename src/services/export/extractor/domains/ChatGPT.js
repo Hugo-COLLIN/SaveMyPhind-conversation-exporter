@@ -1,4 +1,4 @@
-import {safeExecute} from "../../../../utils/jsShorteners";
+import {safeExecute} from "../../../../core/utils/jsShorteners";
 import {extractSources} from "../extractSources";
 import {capitalizeFirst} from "../../../format/formatText";
 

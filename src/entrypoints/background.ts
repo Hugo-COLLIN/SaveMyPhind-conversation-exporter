@@ -4,9 +4,6 @@ import {listenTabsToUpdateIcon} from "../views/browser/bg/icon/defineIcon";
 import {initClickCount} from "../views/browser/bg/icon/clickCount";
 import {initModalOnInstall} from "../views/components/modals/bg/manageModals";
 import {displayWelcomeTutorial, setUninstalledRedirect} from "../views/browser/bg/setRedirects";
-import {defineOutputMethod} from "../services/export/output/defineOutputMethod";
-import {safeExecute} from "../utils/jsShorteners";
-import {EXPORTER_FALLBACK_ACTION} from "../services/fallbackActions";
 import {templateFilenameListener} from "../services/export/output/templateFilenameListener";
 
 // import {launchScrappingActionOnPage} from "../../content/launch/launchScraperOnPage";

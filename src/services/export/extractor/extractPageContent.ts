@@ -1,4 +1,4 @@
-import {safeExecute} from "../../../utils/jsShorteners";
+import {safeExecute} from "../../../core/utils/jsShorteners";
 import {setFileHeader} from "../../format/formatMarkdown";
 import {defineAction} from "./defineAction";
 import {extractSection} from "./extractSection";

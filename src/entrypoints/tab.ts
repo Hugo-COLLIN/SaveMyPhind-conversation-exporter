@@ -3,9 +3,9 @@ import {detectPageLoad} from "../services/checker/detectPageLoad";
 import {launchScrapping} from "../services/export/scraper/scrapPage";
 import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../services/checker/allowedDomains.json"
 import {domainChecker} from "../services/checker/domainChecker";
-import {getHostAndPath} from "../utils/cs/getters";
-import {getStorageData} from "../utils/chromeStorage";
-import {safeExecute} from "../utils/jsShorteners";
+import {getHostAndPath} from "../core/utils/cs/getters";
+import {getStorageData} from "../core/utils/chromeStorage";
+import {safeExecute} from "../core/utils/jsShorteners";
 import {SCRAPER_FALLBACK_ACTION} from "../services/fallbackActions";
 import {setLoadListener} from "../views/components/modals/cs/launchModalIntegration";
 

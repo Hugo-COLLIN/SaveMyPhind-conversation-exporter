@@ -1,5 +1,5 @@
 import {formatLink, setFileHeader} from "../../../format/formatMarkdown";
-import {safeExecute} from "../../../../utils/jsShorteners";
+import {safeExecute} from "../../../../core/utils/jsShorteners";
 import {getPageTitle} from "../extractPageMetadata";
 
 export const turndown = {};

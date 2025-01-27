@@ -1,4 +1,4 @@
-import {getUrl} from "../../utils/cs/getters";
+import {getUrl} from "../../core/utils/cs/getters";
 import {capitalizeFirst, formatDate, formatLineBreaks, titleShortener} from "./formatText";
 import TurndownService from "turndown";
 import DOMPurify from "dompurify";
