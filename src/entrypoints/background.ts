@@ -3,8 +3,11 @@ import {buildContextMenu} from "../views/browser/bg/contextMenu/buildContextMenu
 import {listenTabsToUpdateIcon} from "../views/browser/bg/icon/defineIcon";
 import {initClickCount} from "../views/browser/bg/icon/clickCount";
 import {initModalOnInstall} from "../views/components/modals/bg/manageModals";
-import {setUninstalledRedirect} from "../views/browser/bg/setUninstalledRedirect";
-import appInfos from "../data/infos.json";
+import {displayWelcomeTutorial, setUninstalledRedirect} from "../views/browser/bg/setRedirects";
+import {defineOutputMethod} from "../services/export/output/defineOutputMethod";
+import {safeExecute} from "../utils/jsShorteners";
+import {EXPORTER_FALLBACK_ACTION} from "../services/fallbackActions";
+import {templateFilenameListener} from "../services/export/output/templateFilenameListener";
 
 // import {launchScrappingActionOnPage} from "../../content/launch/launchScraperOnPage";
 // import {defineProcessingState} from "../scraper/defineProcessingState";
@@ -16,28 +19,25 @@ function background() {
   buildContextMenu();
   listenIconClick();
   listenTabsToUpdateIcon();
+  // listenExportRequest();
   initClickCount();
   initModalOnInstall();
   setUninstalledRedirect();
-
-  chrome.runtime.onInstalled.addListener(async (details) => {
-    const displayModalWelcome = await chrome.storage.sync.get('displayModalWelcome');
-
-    // Create "welcome" modal if needed
-    if (displayModalWelcome['displayModalWelcome']) {
-      await chrome.tabs.create({url: appInfos.URLS.TUTORIALS, active: true});
-      await chrome.storage.sync.set({displayModalWelcome: false});
-    }
-  });
-
-  chrome.runtime.onInstalled.addListener(async (details) => {
-    const filenameTemplate = await chrome.storage.sync.get("filenameTemplate");
-    if (!filenameTemplate["filenameTemplate"]) {
-      chrome.storage.sync.set({filenameTemplate: '%Y-%M-%D_%h-%m-%s_%W_%T'});
-    }
-  });
+  displayWelcomeTutorial();
+  templateFilenameListener();
 
   // exportAllThreadsListener();
   // scrapOnLoadListener();
 }
+
+// function listenExportRequest() {
+//     //on message from content script
+//     chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
+//       if (request.action === "export") {
+//         console.log("Export request received")
+//         await safeExecute(defineOutputMethod(request.domain, request.extracted), EXPORTER_FALLBACK_ACTION());
+//         return true;
+//       }
+//     });
+// }
 
