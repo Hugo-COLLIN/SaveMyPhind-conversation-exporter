@@ -1,5 +1,5 @@
-import {initTurndown, turndownConverter} from "../../../core/services/format/formatMarkdown";
-import * as TurndownFunctions from './rules/rules';
+import {initTurndown, turndownConverter} from "../format/formatMarkdown";
+import * as TurndownFunctions from '../../../features/scraper/rules/rules';
 
 /**
  * Apply the extractor rules to the turndown configuration to correctly extract the content

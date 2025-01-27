@@ -1,10 +1,7 @@
-import {extractPageMetadata} from "./extractPageMetadata";
-import {applyExtractorRules, generateRules} from "./applyRules";
-import {extractPageContent} from "./extractPageContent";
-import {safeExecute} from "../../../core/utils/jsShorteners";
-import converter from "../../../core/services/format/formatMarkdown";
-import {EXTRACTOR_FALLBACK_ACTION} from "../../fallbackActions";
-import {patternBasedFormatFilename} from "../../../core/services/format/formatText";
+import {extractPageMetadata} from "../../core/services/pageExtractor/extractPageMetadata";
+import {applyExtractorRules, generateRules} from "../../core/services/pageExtractor/applyRules";
+import {patternBasedFormatFilename} from "../../core/services/format/formatText";
+import {extractContent} from "../../core/services/pageExtractor/extractContent";
 
 export async function extractPage(domain: { name: any; url?: any; }) {
   let json, module, metadata;
@@ -51,9 +48,3 @@ export async function extractPage(domain: { name: any; url?: any; }) {
   };
 }
 
-async function extractContent(module: { extractPageContent: (arg0: any, arg1: any) => Promise<void>; processMessage: any; }, metadata: any) {
-  return safeExecute(module?.extractPageContent
-      ? module.extractPageContent(converter[`formatMarkdown`], metadata)
-      : extractPageContent(converter[`formatMarkdown`], metadata, module?.processMessage)
-    , EXTRACTOR_FALLBACK_ACTION());
-}

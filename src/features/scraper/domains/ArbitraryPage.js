@@ -1,7 +1,7 @@
-import {formatLink, setFileHeader, turndownConverter} from "../../../../core/services/format/formatMarkdown";
+import {formatLink, setFileHeader, turndownConverter} from "../../../core/services/format/formatMarkdown";
 import {rules} from "../rules/rules";
-import {safeExecute} from "../../../../core/utils/jsShorteners";
-import {getPageTitle} from "../extractPageMetadata";
+import {safeExecute} from "../../../core/utils/jsShorteners";
+import {getPageTitle} from "../../../core/services/pageExtractor/extractPageMetadata";
 
 
 async function extractPageContent(format) {
