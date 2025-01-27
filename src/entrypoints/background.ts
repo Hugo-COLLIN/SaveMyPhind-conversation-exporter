@@ -1,9 +1,9 @@
-import {listenIconClick} from "../views/browser/bg/icon/iconAction";
-import {buildContextMenu} from "../views/browser/bg/contextMenu/buildContextMenu";
-import {listenTabsToUpdateIcon} from "../views/browser/bg/icon/defineIcon";
-import {initClickCount} from "../views/browser/bg/icon/clickCount";
+import {listenIconClick} from "../features/browserInterface/bg/icon/iconAction";
+import {buildContextMenu} from "../features/browserInterface/bg/contextMenu/buildContextMenu";
+import {listenTabsToUpdateIcon} from "../features/browserInterface/bg/icon/defineIcon";
+import {initClickCount} from "../features/browserInterface/bg/icon/clickCount";
 import {initModalOnInstall} from "../features/modals/bg/manageModals";
-import {displayWelcomeTutorial, setUninstalledRedirect} from "../views/browser/bg/setRedirects";
+import {displayWelcomeTutorial, setUninstalledRedirect} from "../features/browserInterface/bg/setRedirects";
 import {templateFilenameListener} from "../services/export/output/templateFilenameListener";
 
 // import {launchScrappingActionOnPage} from "../../content/launch/launchScraperOnPage";

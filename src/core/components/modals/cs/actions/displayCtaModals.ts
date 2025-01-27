@@ -6,7 +6,7 @@ import {
   clickCounts,
   resetClickCount,
   updateClickIconCount
-} from "../../../../../views/browser/bg/icon/clickCount";
+} from "../../../../../features/browserInterface/bg/icon/clickCount";
 
 const MODAL_SURVEY = '../files/modalMessages/modalSurvey.md';
 const MODAL_DONATION = '../files/modalMessages/modalDonation.md';
