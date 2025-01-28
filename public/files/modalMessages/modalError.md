@@ -9,7 +9,9 @@ buttons:
     }
 
 ---
-It seems like an error has occurred during the export process. Please try again. If the issue persists, please report this bug.
+It seems like an error has occurred during the export process. Please try again. 
+
+If the issue persists, please report this bug so we can investigate and fix it.
 This information can help:
 - The steps to reproduce the problem 
 - The URL of this page 

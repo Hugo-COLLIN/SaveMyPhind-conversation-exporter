@@ -2,7 +2,7 @@ import {createWindow} from "../../../core/utils/bg/managePopups";
 import {defineStoreLink} from "../../../core/utils/defineStoreLink";
 import {isEmojiSupported} from "../../../core/utils/isEmojiSupported";
 import appInfos from "../../../data/infos.json";
-import {launchIconClickAction} from "../icon/iconAction";
+import {launchScraper} from "../../scraper/bg/launchScraper";
 
 export function buildContextMenu() {
   const emojiSupported = isEmojiSupported();
@@ -59,7 +59,7 @@ export function buildContextMenu() {
         await chrome.windows.create({url: appInfos.URLS.TUTORIALS, type: "popup", width: 500, height: 600});
         break;
       case "exportPage":
-        await launchIconClickAction(tab as chrome.tabs.Tab);
+        await launchScraper(tab as chrome.tabs.Tab);
         break;
       case "bugReport":
         await chrome.tabs.create({url: appInfos.URLS.REPORT});
