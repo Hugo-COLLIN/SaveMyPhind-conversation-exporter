@@ -15,7 +15,8 @@
     "scripting",
     "activeTab",
     "storage",
-    "contextMenus"
+    "contextMenus",
+    "downloads"
   ],
   "host_permissions": [
     "*://*.phind.com/*",

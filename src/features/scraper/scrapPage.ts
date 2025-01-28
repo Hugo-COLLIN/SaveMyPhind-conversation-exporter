@@ -1,7 +1,6 @@
 import {logWelcome} from "../../core/utils/consoleMessages";
 import appInfos from "../../data/infos.json";
 import {extractPage} from "./extractPage";
-import {defineOutputMethod} from "./output/defineOutputMethod";
 import {updateClickIconCount} from "../browser/icon/clickCount";
 import {safeExecute} from "../../core/utils/jsShorteners";
 import {handleModalDisplay} from "../../core/components/modals/cs/actions/displayCtaModals";
@@ -16,10 +15,6 @@ export async function scrapPage() {
   }, SCRAPER_FALLBACK_ACTION());
 }
 
-/**
- * @description - Launch the export process
- * @returns {Promise<void>}
- */
 export async function launchScrapping(domain: { name: string; url: any; }): Promise<void> {
   logWelcome();
   const extracted = await extractPage(domain);
@@ -30,7 +25,15 @@ export async function launchScrapping(domain: { name: string; url: any; }): Prom
     return;
   }
 
-  await safeExecute(defineOutputMethod(domain, extracted), EXPORTER_FALLBACK_ACTION());
+  // Envoyer les données extraites au background
+  await chrome.runtime.sendMessage({
+    type: 'EXPORT_CONTENT',
+    payload: {
+      domain,
+      extracted
+    }
+  });
+
   console.log("Export done!")
 
   // Increment click icon count
@@ -41,13 +44,5 @@ export function SCRAPER_FALLBACK_ACTION() {
   return async (error: any) => {
     await new ModalMessage('../files/modalMessages/modalError.md').appendModal();
     throw error;
-  };
-}
-
-export function EXPORTER_FALLBACK_ACTION() {
-  return (error: { stack: string; }) => {
-    // @ts-ignore TODO variables at compile time
-    alert(`${appInfos.APP_SNAME}: File conversion error.\n\nPlease contact me at ${appInfos.CONTACT_EMAIL} with these information if the problem persists:\n≫ The steps to reproduce the problem\n≫ The URL of this page\n≫ The app version: ${APP_VERSION}\n≫ Screenshots illustrating the problem\n\nThank you!`);
-    throw new Error("File conversion error:\n" + error.stack);
   };
 }

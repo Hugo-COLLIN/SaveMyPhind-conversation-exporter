@@ -11,18 +11,5 @@ function background() {
   initModalsLogic();
   setRedirects();
   setDefaultTemplateFilenameAtInstall();
-  // listenExportRequest();
   // batchScraping();
 }
-
-// function listenExportRequest() {
-//     //on message from content script
-//     chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
-//       if (request.action === "export") {
-//         console.log("Export request received")
-//         await safeExecute(defineOutputMethod(request.domain, request.extracted), EXPORTER_FALLBACK_ACTION());
-//         return true;
-//       }
-//     });
-// }
-

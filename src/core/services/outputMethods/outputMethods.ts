@@ -1,14 +1,32 @@
-// TODO: Execute in background
 /*
 --- SAVE ---
  */
+
+// --- Background methods ---
 
 /**
  * Save the markdown file
  * @param text markdown content
  * @param filename name of the file
  */
-export function download(text: BlobPart, filename: string) {
+export function download(text: string, filename: string) {
+  const url = 'data:text/markdown;charset=utf-8,' + encodeURIComponent(text);
+
+  chrome.downloads.download({
+    url: url,
+    filename: filename + '.md',
+    saveAs: false
+  });
+}
+
+// --- Content-script methods ---
+
+/**
+ * Save the markdown file
+ * @param text markdown content
+ * @param filename name of the file
+ */
+export function contentScriptDownload(text: string, filename: string) {
   const blob = new Blob([text], { type: 'text/markdown' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
