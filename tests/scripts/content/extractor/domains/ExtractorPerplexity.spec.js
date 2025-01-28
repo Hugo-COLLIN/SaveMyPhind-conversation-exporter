@@ -3,9 +3,9 @@
 // https://www.perplexity.ai/search/lorem-ipsum-dolor-2mBxUUVERqaFf8Q.pyYeYQ
 
 import ExtractorPerplexity from '../../../../../src/scripts/content/extractor/domains/Perplexity';
-import { formatLineBreaks } from "../../../../../src/services/format/formatText";
-import { formatLink, initTurndown, setFileHeader, turndownConverter } from "../../../../../src/services/format/formatMarkdown";
-import { sleep } from "../../../../../src/utils/jsShorteners";
+import { formatLineBreaks } from "../../../../../src/core/services/format/formatText";
+import { formatLink, initTurndown, setFileHeader, turndownConverter } from "../../../../../src/core/services/format/formatMarkdown";
+import { sleep } from "../../../../../src/core/utils/jsShorteners";
 
 describe('ExtractorPerplexity', () => {
   let extractorPerplexity, turndown;

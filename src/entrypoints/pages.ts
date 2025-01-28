@@ -2,7 +2,7 @@ import '@shoelace-style/shoelace/dist/themes/light.css';
 import '@shoelace-style/shoelace/dist/themes/dark.css';
 
 const loadComponents = async () => {
-  const { ExportOptions } = await import('../views/components/ExportOptions');
+  const { ExportOptions } = await import('../features/optionsPage/ExportOptions');
 }
 
 loadComponents();

@@ -1,13 +1,13 @@
-import {handleModalDisplay} from "../views/components/modals/cs/actions/displayCtaModals";
-import {detectPageLoad} from "../services/checker/detectPageLoad";
-import {launchScrapping} from "../services/export/scraper/scrapPage";
-import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../services/checker/allowedDomains.json"
-import {domainChecker} from "../services/checker/domainChecker";
-import {getHostAndPath} from "../utils/cs/getters";
-import {getStorageData} from "../utils/chromeStorage";
-import {safeExecute} from "../utils/jsShorteners";
-import {SCRAPER_FALLBACK_ACTION} from "../services/fallbackActions";
-import {setLoadListener} from "../views/components/modals/cs/launchModalIntegration";
+import {handleModalDisplay} from "../core/components/modals/cs/actions/displayCtaModals";
+import {detectPageLoad} from "../features/scraper/domainCheck/detectPageLoad";
+import {launchScrapping} from "../features/scraper/scrapPage";
+import {EXPORT_DOMAINS, LOAD_DOMAINS} from "../features/scraper/domainCheck/allowedDomains.json"
+import {domainChecker} from "../core/services/domainChecker/domainChecker";
+import {getHostAndPath} from "../core/utils/cs/getters";
+import {getStorageData} from "../core/utils/chromeStorage";
+import {safeExecute} from "../core/utils/jsShorteners";
+import {SCRAPER_FALLBACK_ACTION} from "../features/fallbackActions";
+import {setLoadListener} from "../features/modals/cs/launchModalIntegration";
 
 /**
  * @description - Main function to handle action on the tab
