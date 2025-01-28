@@ -1,7 +1,8 @@
-import { domainChecker } from "../../../core/services/domainChecker/domainChecker";
-import { EXPORT_DOMAINS } from "../../../data/allowedDomains.json";
-import { defineOutputMethod } from "../output/defineOutputMethod";
-import { safeExecute } from "../../../core/utils/jsShorteners";
+import {domainChecker} from "../../../core/services/domainChecker/domainChecker";
+import {EXPORT_DOMAINS} from "../../../data/allowedDomains.json";
+import {defineOutputMethod} from "../output/defineOutputMethod";
+import {safeExecute} from "../../../core/utils/jsShorteners";
+import {updateClickIconCount} from "../../browser/icon/clickCount";
 
 export async function launchScraper(tab: chrome.tabs.Tab) {
   if (!tab || tab.url?.startsWith("chrome://")) {
@@ -40,6 +41,9 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
       EXPORTER_FALLBACK_ACTION()
     );
     console.log("Export done!");
+
+    // Increment click icon count
+    await updateClickIconCount();
   }
 });
 

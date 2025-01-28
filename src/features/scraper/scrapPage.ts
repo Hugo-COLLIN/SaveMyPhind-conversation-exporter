@@ -1,7 +1,6 @@
 import {logWelcome} from "../../core/utils/consoleMessages";
 import appInfos from "../../data/infos.json";
 import {extractPage} from "./extractPage";
-import {updateClickIconCount} from "../browser/icon/clickCount";
 import {safeExecute} from "../../core/utils/jsShorteners";
 import {handleModalDisplay} from "../../core/components/modals/cs/actions/displayCtaModals";
 import {getStorageData} from "../../core/utils/chromeStorage";
@@ -35,9 +34,6 @@ export async function launchScrapping(domain: { name: string; url: any; }): Prom
   });
 
   console.log("Export done!")
-
-  // Increment click icon count
-  updateClickIconCount();
 }
 
 export function SCRAPER_FALLBACK_ACTION() {
