@@ -5,19 +5,11 @@ import {defineOutputMethod} from "./output/defineOutputMethod";
 import {updateClickIconCount} from "../browser/icon/clickCount";
 import {safeExecute} from "../../core/utils/jsShorteners";
 import {EXPORTER_FALLBACK_ACTION, SCRAPER_FALLBACK_ACTION} from "../fallbackActions";
-import {domainChecker} from "../../core/services/domainChecker/domainChecker";
-import {EXPORT_DOMAINS} from "../../data/allowedDomains.json";
-import {getHostAndPath} from "../../core/utils/cs/getters";
 import {handleModalDisplay} from "../../core/components/modals/cs/actions/displayCtaModals";
+import {getStorageData} from "../../core/utils/chromeStorage";
 
 export async function scrapPage() {
-  // console.info("Icon clicked")
-  const domainPage = domainChecker(EXPORT_DOMAINS, getHostAndPath());
-  if (domainPage === null) {
-    console.warn("Domain not allowed");
-    return;
-  }
-
+  const domainPage = await getStorageData("domainPage", "local") as { name: string; url: any; };
   await safeExecute(async () => {
     await launchScrapping(domainPage);
     handleModalDisplay();
