@@ -1,4 +1,9 @@
-import appInfos from "../../../data/infos.json";
+import appInfos from "../../data/infos.json";
+
+export function setRedirects() {
+  setUninstalledRedirect();
+  displayWelcomeTutorial();
+}
 
 export function setUninstalledRedirect() {
   chrome.runtime.setUninstallURL(

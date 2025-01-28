@@ -1,3 +1,10 @@
+import {initClickCount} from "../../browser/icon/clickCount";
+
+export function initModalsLogic() {
+  initClickCount();
+  initModalOnInstall();
+}
+
 export function initModalOnInstall() {
   chrome.runtime.onInstalled.addListener(
     (details) => {
@@ -20,4 +27,3 @@ export function defineDisplayModalOnInstall(details: chrome.runtime.InstalledDet
       break;
   }
 }
-

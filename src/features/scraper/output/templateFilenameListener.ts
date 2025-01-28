@@ -1,4 +1,4 @@
-export function templateFilenameListener() {
+export function setDefaultTemplateFilenameAtInstall() {
   chrome.runtime.onInstalled.addListener(async (details) => {
     const filenameTemplate = await chrome.storage.sync.get("filenameTemplate");
     if (!filenameTemplate["filenameTemplate"]) {

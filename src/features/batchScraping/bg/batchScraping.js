@@ -1,5 +1,12 @@
 import {launchScrappingActionOnPage} from "../cs/launchScraperOnPage";
 
+// import {launchScrappingActionOnPage} from "../../content/launch/launchScraperOnPage";
+// import {defineProcessingState} from "../scraper/defineProcessingState";
+function batchScraping() {
+  exportAllThreadsListener();
+  scrapOnLoadListener();
+}
+
 let currentIndex = 0;
 let lengthList = 0;
 let isExporting = false;

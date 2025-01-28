@@ -1,30 +1,18 @@
-import {listenIconClick} from "../features/browserInterface/bg/icon/iconAction";
-import {buildContextMenu} from "../features/browserInterface/bg/contextMenu/buildContextMenu";
-import {listenTabsToUpdateIcon} from "../features/browserInterface/bg/icon/defineIcon";
-import {initClickCount} from "../features/browserInterface/bg/icon/clickCount";
-import {initModalOnInstall} from "../features/modals/bg/manageModals";
-import {displayWelcomeTutorial, setUninstalledRedirect} from "../features/browserInterface/bg/setRedirects";
-import {templateFilenameListener} from "../features/scraper/output/templateFilenameListener";
-
-// import {launchScrappingActionOnPage} from "../../content/launch/launchScraperOnPage";
-// import {defineProcessingState} from "../scraper/defineProcessingState";
+import {initModalsLogic} from "../features/modals/bg/manageModals";
+import {setRedirects} from "../features/browser/setRedirects";
+import {setDefaultTemplateFilenameAtInstall} from "../features/scraper/output/templateFilenameListener";
+import {initBrowserInterface} from "../features/browser/interface";
 
 background();
 
 function background() {
   console.log("Background script running")
-  buildContextMenu();
-  listenIconClick();
-  listenTabsToUpdateIcon();
+  initBrowserInterface();
+  initModalsLogic();
+  setRedirects();
+  setDefaultTemplateFilenameAtInstall();
   // listenExportRequest();
-  initClickCount();
-  initModalOnInstall();
-  setUninstalledRedirect();
-  displayWelcomeTutorial();
-  templateFilenameListener();
-
-  // exportAllThreadsListener();
-  // scrapOnLoadListener();
+  // batchScraping();
 }
 
 // function listenExportRequest() {

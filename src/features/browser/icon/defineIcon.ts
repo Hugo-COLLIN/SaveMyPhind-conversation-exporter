@@ -1,6 +1,6 @@
-import {domainChecker} from "../../../../core/services/domainChecker/domainChecker";
-import {LOAD_DOMAINS} from "../../../scraper/domainCheck/allowedDomains.json"
-import {getTabData} from "../../../../core/utils/chromeStorage";
+import {domainChecker} from "../../../core/services/domainChecker/domainChecker";
+import {LOAD_DOMAINS} from "../../scraper/domainCheck/allowedDomains.json"
+import {getTabData} from "../../../core/utils/chromeStorage";
 
 /**
  * This is the code for the extension icon to change depending on the website
