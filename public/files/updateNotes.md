@@ -1,4 +1,7 @@
 # Update notes
+# 3.6.1.dgr
+🔗 Sends Markdown file to a custom webhook (for instance, to integrate with n8n)
+
 # 3.6.1
 🔗 Export Claude input content
 Now it keeps your text-converted inputs so your entire conversation is preserved.

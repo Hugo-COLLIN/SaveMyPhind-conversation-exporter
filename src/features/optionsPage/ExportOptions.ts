@@ -58,9 +58,13 @@ export class ExportOptions extends LitElement {
   @state()
   private filenameTemplate = '';
 
+  @state()
+  private webhookUrl = '';
+
   async firstUpdated() {
-    const storedFormat = await chrome.storage.sync.get(['filenameTemplate']);
-    this.filenameTemplate = storedFormat.filenameTemplate || '';
+    const storedData = await chrome.storage.sync.get(['filenameTemplate', 'webhookUrl']);
+    this.filenameTemplate = storedData.filenameTemplate || '';
+    this.webhookUrl = storedData.webhookUrl || '';
     this.requestUpdate();
   }
 
@@ -75,8 +79,9 @@ export class ExportOptions extends LitElement {
         </div>
         <form id="options-form" @submit="${this.saveOptions}">
           <div id="options-fieldset">
-            <sl-input .value="${this.filenameTemplate}" @sl-input="${this.handleInputChange}" placeholder="Enter filename format" label="Filename format:"></sl-input>
+            <sl-input id="filenameTemplate" .value="${this.filenameTemplate}" @sl-input="${this.handleInputChange}" placeholder="Enter filename format" label="Filename format:"></sl-input>
             <div>${unsafeHTML(new showdown.Converter().makeHtml(this.helpText))}</div>
+            <sl-input id="webhookUrl" .value="${this.webhookUrl}" @sl-input="${this.handleInputChange}" placeholder="Enter webhook URL (optional)" label="Webhook URL:"></sl-input>
           </div>
           <sl-button variant="primary" type="submit">Save changes</sl-button>
         </form>
@@ -90,8 +95,12 @@ export class ExportOptions extends LitElement {
   }
 
   private handleInputChange(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.filenameTemplate = input.value;
+    const target = event.target as HTMLInputElement;
+    if (target.id === 'filenameTemplate') {
+      this.filenameTemplate = target.value;
+    } else if (target.id === 'webhookUrl') {
+      this.webhookUrl = target.value;
+    }
   }
 
   private get helpText(): string {
@@ -118,8 +127,10 @@ _Date placeholders:_
 
   private async saveOptions(event: Event) {
     event.preventDefault();
-    await chrome.storage.sync.set({ filenameTemplate: this.filenameTemplate });
-    console.log(await chrome.storage.sync.get('filenameTemplate'));
+    await chrome.storage.sync.set({
+      filenameTemplate: this.filenameTemplate,
+      webhookUrl: this.webhookUrl
+    });
     const alert = document.createElement('sl-alert');
     alert.variant = 'success';
     alert.textContent = 'Options saved successfully';
