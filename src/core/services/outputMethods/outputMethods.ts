@@ -10,14 +10,42 @@ import axios from 'axios';
  * @param text markdown content
  * @param filename name of the file
  */
-export function download(text: string, filename: string) {
+export async function download(text: string, filename: string) {
+  // @ts-ignore TODO defined in esbuild
+  if (APP_TARGET === 'firefox') {
+    return downloadFirefox(text, filename);
+  }
+  return downloadChrome(text, filename);
+}
+
+async function downloadChrome(text: string, filename: string) {
   const url = 'data:text/markdown;charset=utf-8,' + encodeURIComponent(text);
 
-  chrome.downloads.download({
+  await chrome.downloads.download({
     url: url,
     filename: filename + '.md',
     saveAs: false
   });
+}
+
+async function downloadFirefox(text: string, filename: string) {
+  // Create a Blob with the content and a URL from it
+  const blob = new Blob([text], {type: 'text/markdown;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+
+  try {
+    await chrome.downloads.download({
+      url: url,
+      filename: filename + '.md',
+      saveAs: false,
+    });
+  } catch (error: any) {
+    console.error("Error during download:", error);
+    throw new Error("Download failed: " + error.message);
+  } finally {
+    // Revoke the URL to free memory
+    URL.revokeObjectURL(url);
+  }
 }
 
 // --- Content-script methods ---
