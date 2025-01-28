@@ -62,18 +62,18 @@ export function linksToObsidian(content: string | number | boolean) {
 }
 
 /**
- * Enviar el archivo Markdown a un webhook
- * @param text contenido del archivo Markdown
- * @param filename nombre del archivo
+ * Send the Markdown file to a webhook
+ * @param text content of the Markdown file
+ * @param filename name of the file
  */
-export async function sendToWebhook(text: BlobPart, filename: string) {
+export async function sendToWebhook(text: string, filename: string) {
   chrome.storage.sync.get('webhookUrl', async (data) => {
     const webhookUrl = data.webhookUrl;
     if (!webhookUrl) {
-      console.error('No se ha configurado la URL del webhook.');
+      console.info('The webhook URL has not been configured.'); // No se ha configurado la URL del webhook.
       return;
     }
-    console.log('Enviando archivo al webhook:', webhookUrl);
+    console.log('Sending file to webhook:', webhookUrl); // Enviando archivo al webhook:
     const formData = new FormData();
     formData.append('file', new Blob([text], { type: 'text/markdown' }), filename + '.md');
 
@@ -83,9 +83,9 @@ export async function sendToWebhook(text: BlobPart, filename: string) {
           'Content-Type': 'multipart/form-data'
         }
       });
-      console.log('Archivo enviado exitosamente al webhook');
+      console.log('File successfully sent to webhook'); // Archivo enviado exitosamente al webhook
     } catch (error) {
-      console.error('Error al enviar el archivo al webhook:', error);
+      console.error('Error sending the file to the webhook:', error); // Error al enviar el archivo al webhook:
     }
   });
 }
