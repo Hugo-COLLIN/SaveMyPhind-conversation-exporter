@@ -1,6 +1,6 @@
 {
   "name": "save-my-chatbot",
-  "version": "3.6.1",
+  "version": "3.7.0",
   "license": "RMD-C v1.0 License",
   "author": "Hugo COLLIN",
   "homepage": "https://save.hugocollin.com",
@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@shoelace-style/shoelace": "^2.16.0",
+    "axios": "^1.7.9",
     "dompurify": "^3.1.6",
     "js-yaml": "^4.1.0",
     "showdown": "^2.1.0",
