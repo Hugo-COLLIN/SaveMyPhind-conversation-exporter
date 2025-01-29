@@ -1,0 +1,50 @@
+name: Launch Release
+
+on:
+  push:
+    branches:
+      - bpp
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # --- SETUP ---
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Get package info
+        id: package_info
+        run: |
+          echo "::set-output name=version::$(node -p "require('./package.json').version")"
+          echo "::set-output name=name::$(node -p "require('./package.json').name")"
+
+      # --- SOURCE ZIP ---
+      - name: Prepare source code zip
+        uses: vimtor/action-zip@v1.2
+        with:
+          files: ./
+          dest: releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_source.zip
+
+      # --- BUILD ---
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build extension
+        run: npm run prod
+
+      # --- PUBLISH ---
+      - name: Browser Platform Publish
+        uses: PlasmoHQ/bpp@v3.7.0
+        with:
+          keys: ${{ secrets.BPP_KEYS }}
+          chrome-file: releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_chrome.zip
+          firefox-file: releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_firefox.zip
+          edge-file: releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_chrome.zip
+          source: releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_source.zip
+          notes: "1. Go to Phind.com or Perplexity.ai, then start a new search.\n2. Click on the extension icon to download a formatted markdown file containing the conversation."
