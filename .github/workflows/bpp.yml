@@ -36,7 +36,7 @@ jobs:
 
       # --- PUBLISH ---
       - name: Browser Platform Publish
-        uses: PlasmoHQ/bpp@v3.6.1
+        uses: PlasmoHQ/bpp@v3.7.0
         with:
           keys: ${{ secrets.BPP_KEYS }}
           chrome-file: releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_chrome.zip
