@@ -1,11 +1,10 @@
 import { JSDOM } from 'jsdom';
 import * as metadataFunctions from '../../../../src/core/services/pageExtractor/extractPageMetadata';
-import { describe, it, beforeAll, afterAll, expect, vi } from 'vitest';
 
 describe('extractPageMetadata', () => {
   let dom;
-  let window;
-  let document;
+  let window: any;
+  let document: any;
 
   beforeAll(() => {
     // Configure jsdom
@@ -16,16 +15,17 @@ describe('extractPageMetadata', () => {
     window.location = new URL('https://example.com');
 
     // Mock document.querySelector
-    vi.spyOn(document, 'querySelector').mockImplementation(selector => {
+    jest.spyOn(document, 'querySelector').mockImplementation(selector => {
       if (selector === '[tabindex="0"]') return { innerHTML: 'Page Title&nbsp;', innerText: 'Page Title ' };
       return null;
     });
 
     // Injecter la fenêtre de simulation et le document dans les fonctions du module
-    vi.spyOn(metadataFunctions, 'getPageTitle').mockImplementation((documentSelector, titleTreatment) => {
+    jest.spyOn(metadataFunctions, 'getPageTitle').mockImplementation((documentSelector, titleTreatment) => {
       const selectTitle = documentSelector ? document.querySelector(documentSelector) : null;
       if (!selectTitle || !selectTitle.innerHTML) return document.title;
 
+      // @ts-ignore TODO change
       if (titleTreatment?.action === 'replace') {
         const [pattern, replacement] = titleTreatment.params;
         return selectTitle.innerText.replace(new RegExp(pattern, 'g'), replacement);
@@ -33,7 +33,8 @@ describe('extractPageMetadata', () => {
       return selectTitle.innerText;
     });
 
-    vi.spyOn(metadataFunctions, 'extractPageMetadata').mockImplementation((metadataBase) => {
+    // @ts-ignore
+    jest.spyOn(metadataFunctions, 'extractPageMetadata').mockImplementation((metadataBase) => {
       return {
         domainName: metadataBase.domainName ?? window.location.hostname,
         pageTitle: metadataFunctions.getPageTitle(metadataBase.pageTitle?.selector, metadataBase.pageTitle?.treatment),
@@ -43,7 +44,7 @@ describe('extractPageMetadata', () => {
   });
 
   afterAll(() => {
-    vi.restoreAllMocks();
+    jest.restoreAllMocks();
   });
 
   describe('extractPageMetadata', () => {
@@ -59,6 +60,7 @@ describe('extractPageMetadata', () => {
         },
         contentSelector: '[name^="answer-"]'
       };
+      // @ts-ignore
       const result = metadataFunctions.extractPageMetadata(metadataBase);
       expect(result).toEqual({
         domainName: 'Phind Chat',
@@ -78,6 +80,7 @@ describe('extractPageMetadata', () => {
         },
         contentSelector: '[name^="answer-"]'
       };
+      // @ts-ignore
       const result = metadataFunctions.extractPageMetadata(metadataBase);
       expect(result.domainName).toEqual('example.com');
     });
@@ -95,6 +98,7 @@ describe('extractPageMetadata', () => {
     });
 
     it('should return the modified title according to the treatment', () => {
+      // @ts-ignore
       const title = metadataFunctions.getPageTitle('[tabindex="0"]', {
         action: 'replace',
         params: ['\\u00A0', ' ']
