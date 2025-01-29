@@ -1,0 +1,44 @@
+name: Launch Release
+
+on:
+  push:
+    branches:
+      - bpp
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # --- SETUP ---
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Get package info
+        id: package_info
+        run: |
+          echo "::set-output name=version::$(node -p "require('./package.json').version")"
+          echo "::set-output name=name::$(node -p "require('./package.json').name")"
+
+      # --- BUILD ---
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build extension
+        run: npm run prod
+
+#      - name: Prepare source code zip
+#        run: zip -r releases/${{ steps.package_info.outputs.name }}_${{ github.run_number }}_firefox_source.zip src/
+
+      # --- PUBLISH ---
+      - name: Browser Platform Publish
+        uses: PlasmoHQ/bpp@v3.6.1
+        with:
+          keys: ${{ secrets.BPP_KEYS }}
+          chrome-file: releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_chrome.zip
+          firefox-file: releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_firefox.zip
+          edge-file: releases/${{ steps.package_info.outputs.name }}_${{ steps.package_info.outputs.version }}_chrome.zip
