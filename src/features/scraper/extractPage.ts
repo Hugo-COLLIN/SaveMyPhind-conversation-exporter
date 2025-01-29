@@ -25,6 +25,7 @@ export async function extractPage(domain: { name: any; url?: any; }) {
     case "ChatGPT":
     case "ChatGPTShare":
     case "ChatGPTBots":
+    case "ChatGPTSignedOut":
       module = require("./domains/ChatGPT");
       json = require("./domains/ChatGPT.json");
       break;

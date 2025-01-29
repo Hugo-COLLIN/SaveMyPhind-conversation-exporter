@@ -72,9 +72,9 @@ export class Modal {
     let {modal, modalBackground} = await this.createModal();
 
     // TODO : this may cause issues !!
-    const shadow = (document.querySelector("#" + appInfos.APP_SNAME + "-modal-container") as HTMLElement).shadowRoot as ShadowRoot;
-    shadow.appendChild(modalBackground);
-    shadow.appendChild(modal);
+    const shadow = (document.querySelector("#" + appInfos.APP_SNAME + "-modal-container") as HTMLElement)?.shadowRoot as ShadowRoot;
+    shadow?.appendChild(modalBackground);
+    shadow?.appendChild(modal);
   }
 
   async createModalContent(modalBodyDiv: HTMLElement, outerDiv: HTMLElement, modalBackground: HTMLElement, ...params: any[]) {

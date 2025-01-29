@@ -1,11 +1,16 @@
 # Update notes
-# 3.7.0
+# 3.7.2
+🚀 4000 users reached!
+You're more and more to use this extension, and I'm glad to see that it's useful for you.
+Thank you all for your feedback and feature requests!
+If you have any, feel free to contact me at <a href="mailto:hcollin.dev@gmail.com" target="_blank">hcollin.dev@gmail.com</a> or on the <a href="https://save.hugocollin.com/discussion" target="_blank">GitHub repository</a>.
+
 🔗 Send to automation tools
 Thanks to a user contribution, you can now send the exported content to your favorite automation tool through a webhook!
 Simply go to the Options page and set your webhook URL.
 
 🧩 Changes under the hood
-Code moving and improvements to make the extension more robust and easier to maintain.
+Code moves, fixes and improvements to make the extension more robust and easier to maintain.
 
 # 3.6.1
 🔗 Export Claude input content

@@ -10,14 +10,22 @@ import axios from 'axios';
  * @param text markdown content
  * @param filename name of the file
  */
-export function download(text: string, filename: string) {
-  const url = 'data:text/markdown;charset=utf-8,' + encodeURIComponent(text);
+export async function download(text: string, filename: string) {
+  // @ts-ignore TODO APP_TARGET is defined in esbuild
+  const isFirefox = APP_TARGET === 'firefox';
+  const url = isFirefox
+    ? URL.createObjectURL(new Blob([text], {type: 'text/markdown;charset=utf-8'}))
+    : 'data:text/markdown;charset=utf-8,' + encodeURIComponent(text);
 
-  chrome.downloads.download({
-    url: url,
-    filename: filename + '.md',
-    saveAs: false
-  });
+  try {
+    await chrome.downloads.download({
+      url,
+      filename: filename + '.md',
+      saveAs: false
+    });
+  } finally {
+    if (isFirefox) URL.revokeObjectURL(url);
+  }
 }
 
 // --- Content-script methods ---

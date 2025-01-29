@@ -1,7 +1,7 @@
 ---
 title: "🤔 Well... The export didn't go as planned..."
 buttons:
-  - { text: "I'll try again" }
+  - { text: "Let me try again" }
   - {
       text: "🐞 Report this bug",
       url: "${appInfos.URLS.REPORT}",
