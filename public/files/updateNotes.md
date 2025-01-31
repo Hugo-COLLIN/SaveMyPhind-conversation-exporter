@@ -1,4 +1,8 @@
 # Update notes
+# 3.7.3
+⬇️ Firefox download bug fixed
+Some users reported that the extension was not working on Firefox. The issue is now solved!
+
 # 3.7.2
 🚀 4000 users reached!
 You're more and more to use this extension, and I'm glad to see that it's useful for you.
