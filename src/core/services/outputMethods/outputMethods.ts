@@ -18,13 +18,36 @@ export async function download(text: string, filename: string) {
     : 'data:text/markdown;charset=utf-8,' + encodeURIComponent(text);
 
   try {
-    await chrome.downloads.download({
-      url,
-      filename: filename + '.md',
-      saveAs: false
+    return new Promise<void>((resolve, reject) => {
+      chrome.downloads.download({
+        url,
+        filename: filename + '.md',
+        saveAs: false
+      }, (downloadId) => {
+        if (chrome.runtime.lastError) {
+          reject(chrome.runtime.lastError);
+          return;
+        }
+
+        if (isFirefox) {
+          // Attendre que le téléchargement soit terminé avant de révoquer l'URL
+          chrome.downloads.onChanged.addListener(function onChanged(delta) {
+            if (delta.id === downloadId && delta.state?.current === 'complete') {
+              chrome.downloads.onChanged.removeListener(onChanged);
+              URL.revokeObjectURL(url);
+              resolve();
+            }
+          });
+        } else {
+          resolve();
+        }
+      });
     });
-  } finally {
-    if (isFirefox) URL.revokeObjectURL(url);
+  } catch (error) {
+    if (isFirefox) {
+      URL.revokeObjectURL(url);
+    }
+    throw error;
   }
 }
 
@@ -75,7 +98,7 @@ export function linksToObsidian(content: string | number | boolean) {
  * @param filename name of the file
  */
 export async function sendToWebhook(text: string, filename: string) {
-  chrome.storage.sync.get('webhookUrl', async (data) => {
+  chrome.storage.sync.get('webhookUrl', async (data: { webhookUrl: any; }) => {
     const webhookUrl = data.webhookUrl;
     if (!webhookUrl) {
       console.info('The webhook URL has not been configured.'); // No se ha configurado la URL del webhook.
