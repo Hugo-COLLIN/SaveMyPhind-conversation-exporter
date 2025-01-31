@@ -17,38 +17,25 @@ export async function download(text: string, filename: string) {
     ? URL.createObjectURL(new Blob([text], {type: 'text/markdown;charset=utf-8'}))
     : 'data:text/markdown;charset=utf-8,' + encodeURIComponent(text);
 
-  try {
-    return new Promise<void>((resolve, reject) => {
-      chrome.downloads.download({
-        url,
-        filename: filename + '.md',
-        saveAs: false
-      }, (downloadId) => {
-        if (chrome.runtime.lastError) {
-          reject(chrome.runtime.lastError);
-          return;
-        }
-
-        if (isFirefox) {
-          // Attendre que le téléchargement soit terminé avant de révoquer l'URL
-          chrome.downloads.onChanged.addListener(function onChanged(delta) {
-            if (delta.id === downloadId && delta.state?.current === 'complete') {
-              chrome.downloads.onChanged.removeListener(onChanged);
-              URL.revokeObjectURL(url);
-              resolve();
-            }
-          });
-        } else {
-          resolve();
-        }
-      });
+  return new Promise<void>((resolve) => {
+    chrome.downloads.download({
+      url,
+      filename: filename + '.md',
+      saveAs: false
+    }, (downloadId) => {
+      if (isFirefox) {
+        chrome.downloads.onChanged.addListener(function cleanup(delta) {
+          if (delta.id === downloadId && delta.state?.current === 'complete') {
+            chrome.downloads.onChanged.removeListener(cleanup);
+            URL.revokeObjectURL(url);
+            resolve();
+          }
+        });
+      } else {
+        resolve();
+      }
     });
-  } catch (error) {
-    if (isFirefox) {
-      URL.revokeObjectURL(url);
-    }
-    throw error;
-  }
+  });
 }
 
 // --- Content-script methods ---
