@@ -10,7 +10,7 @@
     "outDir": "dist",
     "resolveJsonModule": true,
     "experimentalDecorators": true,
-    "types": ["jest"]
+    "types": ["jest", "chrome"]
   },
   "include": ["src", "tests/**/*.test.ts"],
 }
