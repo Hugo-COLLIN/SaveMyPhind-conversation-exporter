@@ -17,15 +17,54 @@ export async function download(text: string, filename: string) {
     ? URL.createObjectURL(new Blob([text], {type: 'text/markdown;charset=utf-8'}))
     : 'data:text/markdown;charset=utf-8,' + encodeURIComponent(text);
 
-  try {
-    await chrome.downloads.download({
+  return new Promise<void>((resolve) => {
+    chrome.downloads.download({
       url,
       filename: filename + '.md',
       saveAs: false
+    }, (downloadId) => {
+      if (isFirefox) {
+        chrome.downloads.onChanged.addListener(function cleanup(delta) {
+          if (delta.id === downloadId && delta.state?.current === 'complete') {
+            chrome.downloads.onChanged.removeListener(cleanup);
+            URL.revokeObjectURL(url);
+            resolve();
+          }
+        });
+      } else {
+        resolve();
+      }
     });
-  } finally {
-    if (isFirefox) URL.revokeObjectURL(url);
-  }
+  });
+}
+
+/**
+ * Send the Markdown file to a webhook
+ * @param text content of the Markdown file
+ * @param filename name of the file
+ */
+export async function sendToWebhook(text: string, filename: string) {
+  chrome.storage.sync.get('webhookUrl', async (data: { webhookUrl: any; }) => {
+    const webhookUrl = data.webhookUrl;
+    if (!webhookUrl) {
+      console.info('The webhook URL has not been configured.'); // No se ha configurado la URL del webhook.
+      return;
+    }
+    console.log('Sending file to webhook:', webhookUrl); // Enviando archivo al webhook:
+    const formData = new FormData();
+    formData.append('file', new Blob([text], { type: 'text/markdown' }), filename + '.md');
+
+    try {
+      await axios.post(webhookUrl, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log('File successfully sent to webhook'); // Archivo enviado exitosamente al webhook
+    } catch (error) {
+      console.error('Error sending the file to the webhook:', error); // Error al enviar el archivo al webhook:
+    }
+  });
 }
 
 // --- Content-script methods ---
@@ -67,33 +106,4 @@ export async function saveToClipboard(markdownContent: string) {
 export function linksToObsidian(content: string | number | boolean) {
   const encoded = encodeURIComponent(content);
   window.open(`obsidian://advanced-uri?data=${encoded}&mode=append`, '_blank');
-}
-
-/**
- * Send the Markdown file to a webhook
- * @param text content of the Markdown file
- * @param filename name of the file
- */
-export async function sendToWebhook(text: string, filename: string) {
-  chrome.storage.sync.get('webhookUrl', async (data) => {
-    const webhookUrl = data.webhookUrl;
-    if (!webhookUrl) {
-      console.info('The webhook URL has not been configured.'); // No se ha configurado la URL del webhook.
-      return;
-    }
-    console.log('Sending file to webhook:', webhookUrl); // Enviando archivo al webhook:
-    const formData = new FormData();
-    formData.append('file', new Blob([text], { type: 'text/markdown' }), filename + '.md');
-
-    try {
-      await axios.post(webhookUrl, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-      console.log('File successfully sent to webhook'); // Archivo enviado exitosamente al webhook
-    } catch (error) {
-      console.error('Error sending the file to the webhook:', error); // Error al enviar el archivo al webhook:
-    }
-  });
 }
