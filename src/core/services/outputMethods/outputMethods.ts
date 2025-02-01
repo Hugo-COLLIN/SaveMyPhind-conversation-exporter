@@ -20,8 +20,7 @@ export async function download(text: string, filename: string) {
   return new Promise<void>((resolve) => {
     chrome.downloads.download({
       url,
-      filename: filename + '.md',
-      saveAs: false
+      filename: filename + '.md'
     }, (downloadId) => {
       if (isFirefox) {
         chrome.downloads.onChanged.addListener(function cleanup(delta) {
@@ -44,6 +43,7 @@ export async function download(text: string, filename: string) {
  * @param filename name of the file
  */
 export async function sendToWebhook(text: string, filename: string) {
+  // @ts-ignore
   chrome.storage.sync.get('webhookUrl', async (data: { webhookUrl: any; }) => {
     const webhookUrl = data.webhookUrl;
     if (!webhookUrl) {
