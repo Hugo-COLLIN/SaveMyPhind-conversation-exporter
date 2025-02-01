@@ -1,4 +1,10 @@
 # Update notes
+# 3.7.5
+🐞 Sorry for the mess
+These days, the download was buggy and required extra download permissions. 
+I really apologize and I hope it didn't bother you too much. 
+It's now fixed and you can download your files as usual!
+
 # 3.7.4
 ⬇️ Download Save As dialog fixed
 Some users reported that the "Save As" dialog was not showing up anymore. It is now solved!
