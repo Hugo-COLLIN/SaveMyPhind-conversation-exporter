@@ -1,4 +1,8 @@
 # Update notes
+# 3.7.4
+⬇️ Download Save As dialog fixed
+Some users reported that the "Save As" dialog was not showing up anymore. It is now solved!
+
 # 3.7.3
 ⬇️ Firefox download bug fixed
 Some users reported that the extension was not working on Firefox. The issue is now solved!
