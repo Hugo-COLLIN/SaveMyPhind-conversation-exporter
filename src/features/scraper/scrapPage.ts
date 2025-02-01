@@ -5,6 +5,7 @@ import {safeExecute} from "../../core/utils/jsShorteners";
 import {handleModalDisplay} from "../../core/components/modals/cs/actions/displayCtaModals";
 import {getStorageData} from "../../core/utils/chromeStorage";
 import ModalMessage from "../../core/components/modals/cs/types/ModalMessage";
+import {contentScriptDownload} from "../../core/services/outputMethods/outputMethods";
 
 export async function scrapPage() {
   const domainPage = await getStorageData("domainPage", "local") as { name: string; url: any; };
@@ -32,6 +33,9 @@ export async function launchScrapping(domain: { name: string; url: any; }): Prom
       extracted
     }
   });
+
+  //TODO temporary download from content-script
+  contentScriptDownload(extracted.markdownContent, extracted.fileName);
 
   console.log("Export done!")
 }
