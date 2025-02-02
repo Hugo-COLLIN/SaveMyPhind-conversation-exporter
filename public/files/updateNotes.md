@@ -1,4 +1,8 @@
 # Update notes
+# 3.7.6
+🎯 Fix Perplexity sources list export
+Some sources were not correctly exported. It's now fixed!
+
 # 3.7.5
 🐞 Fixing the download bugs
 These days, the download was a bit buggy for some users. 
