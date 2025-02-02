@@ -1,8 +1,8 @@
 # Update notes
 # 3.7.5
-🐞 Sorry for the mess
-These days, the download was buggy and required extra download permissions. 
-I really apologize and I hope it didn't bother you too much. 
+🐞 Fixing the download bugs
+These days, the download was a bit buggy for some users. 
+I hope it didn't bother you too much. 
 It's now fixed and you can download your files as usual!
 
 # 3.7.4
