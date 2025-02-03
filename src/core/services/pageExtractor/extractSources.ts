@@ -1,6 +1,7 @@
 import {safeExecute, sleep} from "../../utils/jsShorteners";
 import {resetPagination, selectAndClick} from "../interact/cs/interact";
 import {formatLink} from "../format/formatMarkdown";
+import {waitAppears} from "../../utils/cs/interactDOM";
 
 const SOURCES_HEADER = "\n\n---\n**Sources:**\n";
 let res = "";
@@ -187,7 +188,7 @@ export async function formatSources(i: string | number, format: (arg0: any) => s
     await sleep(500); // needed for youtube player to load
 
     // Get the youtube embed
-    const link = document.querySelector('.fixed iframe');
+    const link = await waitAppears('.fixed iframe', 100, 10) as HTMLElement;
 
     if (!link) {
       console.warn("link undefined");
