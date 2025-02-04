@@ -1,6 +1,6 @@
 {
   "pageTitle": {
-    "selector": "[name^=\"answer-\"] span"
+    "selector": "h2"
   },
   "contentSelector": ".chat-qa-pair",
   "domainName": "Phind Search",
