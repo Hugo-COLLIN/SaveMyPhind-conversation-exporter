@@ -42,7 +42,7 @@ async function extractSearchSection(content: HTMLElement, format: (arg0: any) =>
   if (options.aiModelSelector) {
     const aiModelElement = content.querySelector(options.aiModelSelector);
     if (aiModelElement) {
-      aiName = format(aiModelElement.innerHTML).split("|")[1].split("Model")[0].trim();
+      aiName = format(aiModelElement.innerHTML).split("MODEL")[0].trim();
     } else {
       const answerer = content.querySelector(".mb-lg .flex.items-center > p");
       if (answerer && answerer.innerHTML.toLowerCase().includes('pro')) // Perplexity Pro Search
@@ -56,6 +56,7 @@ async function extractSearchSection(content: HTMLElement, format: (arg0: any) =>
   if (options.selectParentOfAiAnswer && aiAnswerElement) {
     aiAnswerElement = aiAnswerElement.parentNode;
   }
+  // console.log(aiAnswerElement)
   const aiAnswerText = aiAnswerElement ? format(aiAnswerElement.innerHTML) : "";
   const aiPart = `\n${aiIndicator}${aiAnswerText.replace(/^\s+|\s+$/g, '')}`; // trim newlines at the beginning and end
 

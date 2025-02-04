@@ -2,7 +2,7 @@
   "pageTitle": {
     "selector": "[name^=\"answer-\"] span"
   },
-  "contentSelector": "[name^=\"answer-\"]",
+  "contentSelector": ".chat-qa-pair",
   "domainName": "Phind Search",
   "turndown": {
     "rules": {
@@ -49,10 +49,9 @@
   },
   "extractor": {
     "extractionType": "search-sections",
-    "userQuestionSelector": "span, textarea",
-    "aiModelSelector": "[name^=\"answer-\"] h6",
-    "aiAnswerSelector": "[name^=\"answer-\"] h6",
-    "selectParentOfAiAnswer": true,
+    "userQuestionSelector": ".chat-question",
+    "aiModelSelector": ".model-pill",
+    "aiAnswerSelector": ".chat-answer",
     "paginationSelector": ".pagination button"
   }
 }
