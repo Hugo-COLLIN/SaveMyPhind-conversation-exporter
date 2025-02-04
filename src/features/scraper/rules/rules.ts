@@ -261,8 +261,9 @@ export function filter_formatLinks_Phind(node: { nodeName: string; }) {
 
 export function replacement_formatLinks_Phind(content: string, node: { getAttribute: (arg0: string) => any; }) {
     const href = node.getAttribute('href');
-    const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '');
-    return '[' + linkText + '](' + href + ')';
+    const linkText = node.querySelector('span')?.textContent || node.textContent;
+    // const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '');
+    return ' [' + linkText + '](' + href + ')';
 }
 
 export function filter_backslashAngleBracketsNotInBackticks_Phind(node: { querySelectorAll: (arg0: string) => { (): any; new(): any; length: number; }; }) {
