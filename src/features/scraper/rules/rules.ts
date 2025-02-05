@@ -3,8 +3,10 @@ import {turndownConverter} from "../../../core/services/format/formatMarkdown";
 /*
   --- Format pre-function ---
  */
-export function getBlankReplacement(content: any, node: { nodeName: string; getAttribute: (arg0: string) => string; }) {
-  if (node.nodeName === 'SPAN' && node.getAttribute('class') === 'block mt-md') {
+export function getBlankReplacement(content: any, node: HTMLElement) {
+  // if (node.nodeName === 'SPAN' && node.getAttribute('class') === 'block mt-md') {
+  if (node.nodeName === 'SPAN' && node.classList.contains('block') && node.classList.contains('mt-md'))
+  {
     return '\n\n';
   } else {
     return '';
