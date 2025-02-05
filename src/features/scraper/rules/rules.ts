@@ -3,9 +3,11 @@ import {turndownConverter} from "../../../core/services/format/formatMarkdown";
 /*
   --- Format pre-function ---
  */
-export function getBlankReplacement(content: any, node: { nodeName: string; getAttribute: (arg0: string) => string; }) {
-  if (node.nodeName === 'SPAN' && node.getAttribute('class') === 'block mt-md') {
-    return '\n\n';
+export function getBlankReplacement(content: any, node: HTMLElement) {
+  // if (node.nodeName === 'SPAN' && node.getAttribute('class') === 'block mt-md') {
+  if (node.nodeName === 'SPAN') {
+    if (node.classList.contains('block') && node.classList.contains('mt-md')) return '\n\n';
+    if (node.innerHTML === '') return '\n';
   } else {
     return '';
   }
@@ -88,10 +90,11 @@ export function filter_PreserveLineBreaksInPre_Claude(node: { nodeName: string; 
 }
 
 export function replacement_PreserveLineBreaksInPre_Perplexity(content: any, node: { querySelector: (arg0: string) => any; }) {
+  console.log("replacement_PreserveLineBreaksInPre_Perplexity", node)
   const codeBlock = node.querySelector('code');
   const codeContent = codeBlock.textContent.trim();
   const codeLang = codeBlock.parentNode.parentNode.parentNode.querySelector("div").textContent.trim();
-  return ('\n```' + codeLang + '\n' + codeContent + '\n```');
+  return (turndownConverter.turndown("<br>") + '\n```' + codeLang + '\n' + codeContent + '\n```');
 }
 
 export function replacement_preserveLineBreaksInPre_Phind(content: any, node: { querySelector: (arg0: string) => any; }) {
