@@ -1,8 +1,11 @@
 # Update notes
-# 3.8.0
+# 3.8.1
 🚀 Export your threads on Phind 2.0!
 The Phind interface completely changed, so the extension needed a refresh!
 Now it's back on tracks! 
+
+🧩 Fixing Perplexity export
+Newline formatting problem solved!
 
 # 3.7.6
 🎯 Fix Perplexity sources list export
