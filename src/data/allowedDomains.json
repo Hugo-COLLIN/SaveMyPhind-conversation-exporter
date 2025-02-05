@@ -8,7 +8,6 @@
   },
   "EXPORT_DOMAINS": {
     "PhindSearch": "www.phind.com/search",
-    "PhindChat": "www.phind.com/agent",
     "Perplexity": "www.perplexity.ai/search",
     "PerplexityPages": "www.perplexity.ai/page",
     "MaxAIGoogle": "www.google.com/search",

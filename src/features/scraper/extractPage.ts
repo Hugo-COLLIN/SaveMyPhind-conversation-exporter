@@ -9,9 +9,6 @@ export async function extractPage(domain: { name: any; url?: any; }) {
     case "PhindSearch":
       json = require("./domains/PhindSearch.json");
       break;
-    case "PhindChat":
-      json = require("./domains/PhindChat.json");
-      break;
     case "Perplexity":
       json = require("./domains/Perplexity.json");
       break;
