@@ -259,7 +259,7 @@ export function filter_formatLinks_Phind(node: { nodeName: string; }) {
     return node.nodeName === 'A';
 }
 
-export function replacement_formatLinks_Phind(content: string, node: { getAttribute: (arg0: string) => any; }) {
+export function replacement_formatLinks_Phind(content: string, node: HTMLElement) {
     const href = node.getAttribute('href');
     const linkText = node.querySelector('span')?.textContent || node.textContent;
     // const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '');
