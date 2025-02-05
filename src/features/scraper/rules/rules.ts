@@ -79,8 +79,8 @@ export function filter_PreserveLineBreaksInPre_Perplexity(node: { nodeName: stri
   return node.nodeName === 'PRE' && node.querySelector('div');
 }
 
-export function filter_preserveLineBreaksInPre_Phind(node: { nodeName: string; querySelector: (arg0: string) => any; }) {
-  return node.nodeName === 'PRE' && node.querySelector('div');
+export function filter_preserveLineBreaksInPre_Phind(node: HTMLElement) {
+  return node.nodeName === 'DIV' && node.classList.contains('relative') && node.querySelector('pre');
 }
 
 export function filter_PreserveLineBreaksInPre_Claude(node: { nodeName: string; querySelector: (arg0: string) => any; }) {
@@ -259,20 +259,21 @@ export function filter_formatLinks_Phind(node: { nodeName: string; }) {
     return node.nodeName === 'A';
 }
 
-export function replacement_formatLinks_Phind(content: string, node: { getAttribute: (arg0: string) => any; }) {
+export function replacement_formatLinks_Phind(content: string, node: HTMLElement) {
     const href = node.getAttribute('href');
-    const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '');
-    return '[' + linkText + '](' + href + ')';
+    const linkText = node.querySelector('span')?.textContent || node.textContent;
+    // const linkText = content.replace(/\\\[/g, '(').replace(/\\\]/g, ')').replace(/</g, '').replace(/>/g, '');
+    return ' [' + linkText + '](' + href + ')';
 }
 
-export function filter_backslashAngleBracketsNotInBackticks_Phind(node: { querySelectorAll: (arg0: string) => { (): any; new(): any; length: number; }; }) {
-    return node.querySelectorAll('p').length > 0;
-}
-
-export function replacement_backslashAngleBracketsNotInBackticks_Phind(content: any, node: { innerHTML: any; }) {
-    // Replace < and > characters in paragraphs but not in backticks
-    return "\n" + turndownConverter.turndown(node.innerHTML).replace(/(?<!`)<(?!`)/g, '{{@LT}}').replace(/(?<!`)>(?!`)/g, '{{@GT}}') + "\n\n";
-}
+// export function filter_backslashAngleBracketsNotInBackticks_Phind(node: { querySelectorAll: (arg0: string) => { (): any; new(): any; length: number; }; }) {
+//     return node.querySelectorAll('p').length > 0;
+// }
+//
+// export function replacement_backslashAngleBracketsNotInBackticks_Phind(content: any, node: { innerHTML: any; }) {
+//     // Replace < and > characters in paragraphs but not in backticks
+//     return "\n" + turndownConverter.turndown(node.innerHTML).replace(/(?<!`)<(?!`)/g, '{{@LT}}').replace(/(?<!`)>(?!`)/g, '{{@GT}}') + "\n\n";
+// }
 
 /*
   --- Arbitrary page rules ---

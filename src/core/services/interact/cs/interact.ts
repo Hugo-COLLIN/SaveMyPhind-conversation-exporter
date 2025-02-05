@@ -15,8 +15,8 @@ export async function clickOnListElt(index: number, selector = '.table-responsiv
 }
 */
 
-export async function clickElements(cssSelector = '.fe-chevron-down') {
-  const possibleElements = document.querySelectorAll('[name^="answer-"]');
+export async function clickElements(cssSelector : string) {
+  const possibleElements = document.querySelectorAll('.chat-qa-pair'); // TODO: Make this more generic than just for Phind
   possibleElements.forEach((element) => {
     const btn = element.querySelector(cssSelector);
     sleep(2000)
