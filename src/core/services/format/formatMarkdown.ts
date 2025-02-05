@@ -41,7 +41,7 @@ export function formatMarkdown(html: string | Node): any | string | string {
   // Convert HTML to Markdown
   if (html !== '' && html !== ' ') {
     let markdown = turndownConverter.turndown(html)
-      .replace(/{{@LT}}/g, '\\<').replace(/{{@GT}}/g, '\\>')
+      // .replace(/{{@LT}}/g, '\\<').replace(/{{@GT}}/g, '\\>')
       .replace(/\n\n /g, '\n\n');
 
     // Fix ChatGPT whitespaces and newlines before links
