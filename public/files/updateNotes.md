@@ -1,5 +1,5 @@
 # Update notes
-# 3.8.1
+# 3.8.2
 🚀 Export your threads on Phind 2.0!
 The Phind interface completely changed, so the extension needed a refresh!
 Now it's back on tracks! 
