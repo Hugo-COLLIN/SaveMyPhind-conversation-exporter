@@ -62,6 +62,7 @@ async function extractSearchSection(content: HTMLElement, format: (arg0: any) =>
 
   // Optional pagination or additional content (like sources)
   let additionalPart = "";
+  // TODO Warn paginationSelector should be targetting sourcesSelection.selectors[], not extractor
   if (options.paginationSelector) {
     const selectPagination = content.querySelectorAll(options.paginationSelector);
     if (selectPagination.length > 0) {

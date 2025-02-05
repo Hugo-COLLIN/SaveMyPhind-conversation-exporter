@@ -16,7 +16,7 @@ export async function clickOnListElt(index: number, selector = '.table-responsiv
 */
 
 export async function clickElements(cssSelector = '.fe-chevron-down') {
-  const possibleElements = document.querySelectorAll('[name^="answer-"]');
+  const possibleElements = document.querySelectorAll('.chat-qa-pair');
   possibleElements.forEach((element) => {
     const btn = element.querySelector(cssSelector);
     sleep(2000)

@@ -31,19 +31,19 @@
   "actions": {
     "beforeExtraction": {
       "type": "click",
-      "selector": ".fe-chevron-down"
+      "selector": ".sources-toggle-pill"
     },
     "afterExtraction": {
       "type": "click",
-      "selector": ".fe-chevron-up"
+      "selector": ".minimize-button"
     }
   },
   "sourcesExtraction": {
     "selectors": [
       {
-        "selector": "a.mb-0",
-        "paginationSelector": ".pagination button",
-        "extractionType": "paginated-links"
+        "selector": ".chat-source-link",
+        "paginationSelector": ".chat-sources-list .sources-toggle-pill // UNUSED",
+        "extractionType": "list"
       }
     ]
   },
@@ -51,7 +51,6 @@
     "extractionType": "search-sections",
     "userQuestionSelector": ".chat-question",
     "aiModelSelector": ".model-pill",
-    "aiAnswerSelector": ".chat-answer",
-    "paginationSelector": ".pagination button"
+    "aiAnswerSelector": ".chat-answer"
   }
 }
