@@ -169,9 +169,10 @@ export async function formatSources(i: string | number, format: (arg0: any) => s
     + format(elt.innerText
       .replaceAll("\n", " ")
       .replaceAll('"', '')
-      .replaceAll(/^[0-9]+./g, "")
+      .replace(/^\d+/, "") // Removes numbers at the beginning
       .replaceAll('[', '')
       .replaceAll(']', '')
+      .trim()
     );
 
   async function extractYoutubeLink(tile: HTMLElement) {
