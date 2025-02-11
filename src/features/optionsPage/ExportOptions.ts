@@ -69,6 +69,7 @@ export class ExportOptions extends LitElement {
     this.requestUpdate();
   }
 
+  /* language=pug */
   render() {
     return pug`
 main.container
