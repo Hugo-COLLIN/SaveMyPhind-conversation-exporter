@@ -80,7 +80,7 @@ main.container
         width="48"
         height="48"
       )
-    h1.title Export Options ll2
+    h1.title Export Options
   form#options-form(@submit="${this.saveOptions}")
     #options-fieldset
       sl-input#filenameTemplate(
@@ -96,7 +96,11 @@ main.container
         placeholder="Enter webhook URL (optional)"
         label="Webhook URL:"
       )
-      sl-button(variant="primary" type="submit") Save changes
+    sl-button(variant="primary" type="submit") Save changes
+  p(class="feedback")
+    span Options page is currently in beta. 
+      a(href="${appInfos.URLS.DISCUSSIONS}" target="_blank") Share feedback and report bugs.
+    div(class="toast-stack")
   `;
   }
 
