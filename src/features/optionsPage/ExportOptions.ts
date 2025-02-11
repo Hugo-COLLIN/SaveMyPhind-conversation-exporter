@@ -71,32 +71,32 @@ export class ExportOptions extends LitElement {
 
   render() {
     return pug`
-    main.container
-      .title-div
-        span.inner-span-image(style="margin-right: 10px;")
-          img(
-            src="${chrome.runtime.getURL('../files/icons/icon-48.png')}"
-            alt="${appInfos.APP_SNAME} icon"
-            width="48"
-            height="48"
-          )
-        h1.title Export Options
-      form#options-form(@submit="${this.saveOptions}")
-        #options-fieldset
-          sl-input#filenameTemplate(
-            .value="${this.filenameTemplate}"
-            @sl-input="${this.handleInputChange}"
-            placeholder="Enter filename format"
-            label="Filename format:"
-          )
-          div ${unsafeHTML(new showdown.Converter().makeHtml(this.helpText))}
-          sl-input#webhookUrl(
-            .value="${this.webhookUrl}"
-            @sl-input="${this.handleInputChange}"
-            placeholder="Enter webhook URL (optional)"
-            label="Webhook URL:"
-          )
-        sl-button(variant="primary" type="submit") Save changes
+main.container
+  .title-div
+    span.inner-span-image(style="margin-right: 10px;")
+      img(
+        src="${chrome.runtime.getURL('../files/icons/icon-48.png')}"
+        alt="${appInfos.APP_SNAME} icon"
+        width="48"
+        height="48"
+      )
+    h1.title Export Options ll2
+  form#options-form(@submit="${this.saveOptions}")
+    #options-fieldset
+      sl-input#filenameTemplate(
+        .value="${this.filenameTemplate}"
+        @sl-input="${this.handleInputChange}"
+        placeholder="Enter filename format"
+        label="Filename format:"
+      )
+      div ${unsafeHTML(new showdown.Converter().makeHtml(this.helpText))}
+      sl-input#webhookUrl(
+        .value="${this.webhookUrl}"
+        @sl-input="${this.handleInputChange}"
+        placeholder="Enter webhook URL (optional)"
+        label="Webhook URL:"
+      )
+      sl-button(variant="primary" type="submit") Save changes
   `;
   }
 

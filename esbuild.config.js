@@ -3,8 +3,8 @@ const {generateManifestPlugin} = require("./config/esbuild/plugins/generateManif
 const {copyStaticFilesPlugin} = require("./config/esbuild/plugins/copyStaticFilesPlugin");
 const {cleanDirectoryPlugin} = require("./config/esbuild/plugins/cleanDirectoryPlugin");
 const {watchStatic} = require("./config/esbuild/watchStatic");
-const pugPlugin = require('esbuild-plugin-pug');
-const {clientSidePugPlugin} = require("./config/esbuild/plugins/clientSidePugPlugin");
+const pugPlugin = require('./config/esbuild/plugins/pugPlugin');
+// const {clientSidePugPlugin} = require("./config/esbuild/plugins/clientSidePugPlugin");
 
 
 const outdir = 'dist';
@@ -38,7 +38,7 @@ const options = {
     cleanDirectoryPlugin(outdir),
     generateManifestPlugin(targetBrowser),
     copyStaticFilesPlugin(['public', 'LICENSE']),
-    clientSidePugPlugin
+    pugPlugin,
   ],
 };
 
