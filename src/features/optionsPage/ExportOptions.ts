@@ -6,6 +6,7 @@ import '@shoelace-style/shoelace/dist/components/alert/alert.js';
 import {unsafeHTML} from 'lit-html/directives/unsafe-html.js';
 import showdown from 'showdown';
 import appInfos from '../../data/infos.json';
+import { pug } from '../../core/utils/pug-template-tag';
 
 @customElement('export-options')
 export class ExportOptions extends LitElement {
@@ -69,29 +70,34 @@ export class ExportOptions extends LitElement {
   }
 
   render() {
-    return html`
-      <main class="container">
-        <div class="title-div">
-          <span class="inner-span-image" style="margin-right: 10px;">
-            <img src="${chrome.runtime.getURL('../files/icons/icon-48.png')}" alt="${appInfos.APP_SNAME} icon" width="48" height="48">
-          </span>
-          <h1 class="title">Export Options</h1>
-        </div>
-        <form id="options-form" @submit="${this.saveOptions}">
-          <div id="options-fieldset">
-            <sl-input id="filenameTemplate" .value="${this.filenameTemplate}" @sl-input="${this.handleInputChange}" placeholder="Enter filename format" label="Filename format:"></sl-input>
-            <div>${unsafeHTML(new showdown.Converter().makeHtml(this.helpText))}</div>
-            <sl-input id="webhookUrl" .value="${this.webhookUrl}" @sl-input="${this.handleInputChange}" placeholder="Enter webhook URL (optional)" label="Webhook URL:"></sl-input>
-          </div>
-          <sl-button variant="primary" type="submit">Save changes</sl-button>
-        </form>
-        <p class="feedback">
-          <span>Options page is currently in beta. </span>
-          <a href="${appInfos.URLS.DISCUSSIONS}" target="_blank">Share feedback and report bugs.</a>
-        </p>
-        <div class="toast-stack"></div>
-      </main>
-    `;
+    return pug`
+    main.container
+      .title-div
+        span.inner-span-image(style="margin-right: 10px;")
+          img(
+            src="${chrome.runtime.getURL('../files/icons/icon-48.png')}"
+            alt="${appInfos.APP_SNAME} icon"
+            width="48"
+            height="48"
+          )
+        h1.title Export Options
+      form#options-form(@submit="${this.saveOptions}")
+        #options-fieldset
+          sl-input#filenameTemplate(
+            .value="${this.filenameTemplate}"
+            @sl-input="${this.handleInputChange}"
+            placeholder="Enter filename format"
+            label="Filename format:"
+          )
+          div ${unsafeHTML(new showdown.Converter().makeHtml(this.helpText))}
+          sl-input#webhookUrl(
+            .value="${this.webhookUrl}"
+            @sl-input="${this.handleInputChange}"
+            placeholder="Enter webhook URL (optional)"
+            label="Webhook URL:"
+          )
+        sl-button(variant="primary" type="submit") Save changes
+  `;
   }
 
   private handleInputChange(event: Event) {
