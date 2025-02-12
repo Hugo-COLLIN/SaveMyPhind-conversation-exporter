@@ -1,4 +1,3 @@
-// config/esbuild/plugins/pugPlugin.js
 const pug = require('pug');
 const fs = require('fs');
 const path = require('path');
@@ -6,25 +5,25 @@ const path = require('path');
 const pugPlugin = {
   name: 'pug-transform',
   setup(build) {
-    // Regex pour détecter les templates pug dans les backticks
+    // Detect Pug templates in template literals
     const pugTemplateRegex = /pug`([^`]*)`/g;
 
     build.onLoad({ filter: /\.(ts|js)$/ }, async (args) => {
       let contents = await fs.promises.readFile(args.path, 'utf8');
 
-      // Si le fichier contient des templates pug
+      // Check if the file contains Pug templates
       if (pugTemplateRegex.test(contents)) {
-        // Reset le regex après le test
+        // Reset the regex after test
         pugTemplateRegex.lastIndex = 0;
 
-        // Transformer tous les templates pug en HTML
+        // Transform all pug templates to HTML
         contents = contents.replace(pugTemplateRegex, (match, pugCode) => {
           try {
-            // Gérer les interpolations ${...} dans le template
+            // Manage interpolations ${...} in the template
             const interpolationPlaceholders = [];
             let index = 0;
 
-            // Remplacer temporairement les interpolations par des placeholders
+            // Temporarily replace interpolations with placeholders
             pugCode = pugCode.replace(/\${([^}]*)}/g, (_, expr) => {
               const placeholder = `___PLACEHOLDER_${index}___`;
               interpolationPlaceholders.push(expr);
@@ -32,14 +31,14 @@ const pugPlugin = {
               return placeholder;
             });
 
-            // Compiler le template Pug en HTML
+            // Compile the Pug template into HTML
             let html = pug.compile(pugCode, {
               pretty: true,
               filename: args.path,
               basedir: path.dirname(args.path)
             })();
 
-            // Restaurer les interpolations
+            // Restore interpolations
             interpolationPlaceholders.forEach((expr, i) => {
               html = html.replace(
                 `___PLACEHOLDER_${i}___`,
@@ -47,11 +46,11 @@ const pugPlugin = {
               );
             });
 
-            // Retourner le template littéral avec le HTML compilé
+            // Return the literal template with the compiled HTML
             return 'html`' + html.replace(/`/g, '\\`') + '`';
           } catch (error) {
             console.error('Error compiling Pug template:', error);
-            return match; // En cas d'erreur, garder le template original
+            return match; // In case of error, keep the original template
           }
         });
 
