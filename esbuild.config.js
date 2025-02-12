@@ -4,8 +4,6 @@ const {copyStaticFilesPlugin} = require("./config/esbuild/plugins/copyStaticFile
 const {cleanDirectoryPlugin} = require("./config/esbuild/plugins/cleanDirectoryPlugin");
 const {watchStatic} = require("./config/esbuild/watchStatic");
 const pugPlugin = require('./config/esbuild/plugins/pugPlugin');
-// const {clientSidePugPlugin} = require("./config/esbuild/plugins/clientSidePugPlugin");
-
 
 const outdir = 'dist';
 const targetBrowser = process.env.TARGET || 'chrome';
