@@ -3,8 +3,6 @@ import { customElement, state } from 'lit/decorators.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 import '@shoelace-style/shoelace/dist/components/input/input.js';
 import '@shoelace-style/shoelace/dist/components/alert/alert.js';
-import {unsafeHTML} from 'lit-html/directives/unsafe-html.js';
-import showdown from 'showdown';
 import appInfos from '../../data/infos.json';
 import { pug } from '../../core/utils/pug-template-tag';
 
@@ -90,13 +88,29 @@ main.container
         placeholder="Enter filename format"
         label="Filename format:"
       )
-      div ${unsafeHTML(new showdown.Converter().makeHtml(this.helpText))}
-      sl-input#webhookUrl(
-        .value="${this.webhookUrl}"
-        @sl-input="${this.handleInputChange}"
-        placeholder="Enter webhook URL (optional)"
-        label="Webhook URL:"
-      )
+      div
+        p The filename format is a string containing placeholders, that will be replaced by the actual values when exporting a page. 
+        p The currently supported placeholders are:
+        i Domain placeholders:
+        ul
+          li %W - Sub-domain name (e.g. "Phind Search", "Perplexity Pages")
+          li %H - Host name (e.g. "www.chatgpt.com")
+          li %T - Title of the page (first 60 characters)
+        i Date placeholders:
+        ul
+          li %t - Timestamp (Unix time)
+          li %Y - Year
+          li %M - Month
+          li %D - Day
+          li %h - Hour
+          li %m - Minutes
+          li %s - Seconds
+        sl-input#webhookUrl(
+          .value="${this.webhookUrl}"
+          @sl-input="${this.handleInputChange}"
+          placeholder="Enter webhook URL (optional)"
+          label="Webhook URL:"
+        )
     sl-button(variant="primary" type="submit") Save changes
   p(class="feedback")
     span Options page is currently in beta. 
@@ -113,29 +127,6 @@ main.container
       this.webhookUrl = target.value;
     }
   }
-
-  private get helpText(): string {
-    return `
-The filename format is a string containing placeholders, that will be replaced by the actual values when exporting a page. 
-
-The currently supported placeholders are: 
-
-_Domain placeholders:_
-- %W - Sub-domain name (e.g. "Phind Search", "Perplexity Pages")
-- %H - Host name (e.g. "www.chatgpt.com")
-- %T - Title of the page (first 60 characters)
-
-_Date placeholders:_
-- %t - Timestamp (Unix time)
-- %Y - Year
-- %M - Month
-- %D - Day
-- %h - Hour
-- %m - Minutes
-- %s - Seconds
-    `;
-  }
-
   private async saveOptions(event: Event) {
     event.preventDefault();
     await chrome.storage.sync.set({
