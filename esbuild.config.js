@@ -23,8 +23,7 @@ const options = {
   logLevel: 'info',
   loader: {
     '.ts': 'ts',
-    '.html': 'copy',
-    '.pug': 'text'
+    '.html': 'copy'
   },
   entryNames: '[name]',
   define: {
