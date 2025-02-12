@@ -1,4 +1,8 @@
 # Update notes
+# 3.8.3
+🧩 Changes under the hood
+Some code refactoring and improvements to make the extension more robust and easier to maintain.
+
 # 3.8.2
 🚀 Export your threads on Phind 2.0!
 The Phind interface completely changed, so the extension needed a refresh!
