@@ -3,6 +3,7 @@ const {generateManifestPlugin} = require("./config/esbuild/plugins/generateManif
 const {copyStaticFilesPlugin} = require("./config/esbuild/plugins/copyStaticFilesPlugin");
 const {cleanDirectoryPlugin} = require("./config/esbuild/plugins/cleanDirectoryPlugin");
 const {watchStatic} = require("./config/esbuild/watchStatic");
+const pugPlugin = require('./config/esbuild/plugins/pugPlugin');
 
 const outdir = 'dist';
 const targetBrowser = process.env.TARGET || 'chrome';
@@ -22,7 +23,7 @@ const options = {
   logLevel: 'info',
   loader: {
     '.ts': 'ts',
-    '.html': 'copy',
+    '.html': 'copy'
   },
   entryNames: '[name]',
   define: {
@@ -34,6 +35,7 @@ const options = {
     cleanDirectoryPlugin(outdir),
     generateManifestPlugin(targetBrowser),
     copyStaticFilesPlugin(['public', 'LICENSE']),
+    pugPlugin,
   ],
 };
 
