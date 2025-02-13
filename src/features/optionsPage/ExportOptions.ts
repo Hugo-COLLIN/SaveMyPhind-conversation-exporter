@@ -4,6 +4,7 @@ import '@shoelace-style/shoelace/dist/components/button/button.js';
 import '@shoelace-style/shoelace/dist/components/input/input.js';
 import '@shoelace-style/shoelace/dist/components/alert/alert.js';
 import '@shoelace-style/shoelace/dist/components/icon/icon.js';
+import '@shoelace-style/shoelace/dist/components/details/details.js';
 import appInfos from '../../data/infos.json';
 import { pug } from '../../core/utils/pug-template-tag';
 
@@ -35,11 +36,14 @@ export class ExportOptions extends LitElement {
           flex-direction: column;
           align-items: center;
           justify-content: center;
+          width: 100%;
+          max-width: 800px;
+          padding: 0 1rem;
       }
 
-      #options-fieldset {
-          padding: 0 0 1rem 0;
+      sl-input {
           width: 100%;
+          --sl-input-width: 100%;
       }
 
       .feedback {
@@ -52,6 +56,21 @@ export class ExportOptions extends LitElement {
           top: 0;
           right: 0;
           z-index: 1000;
+      }
+
+      sl-details {
+          width: 100%;
+          margin-bottom: 1rem;
+      }
+
+      .details-content {
+          padding: 1rem;
+          width: 100%;
+      }
+
+      #options-fieldset {
+          padding: 0 0 1rem 0;
+          width: 100%;
       }
   `;
 
@@ -82,31 +101,32 @@ export class ExportOptions extends LitElement {
             )
           h1.title Export Options
         form#options-form(@submit="${this.saveOptions}")
-          sl-icon(library="base" name="bug")
           #options-fieldset
-            sl-input#filenameTemplate(
-              .value="${this.filenameTemplate}"
-              @sl-input="${this.handleInputChange}"
-              placeholder="Enter filename format"
-              label="Filename format:"
-            )
-            div
-              p The filename format is a string containing placeholders, that will be replaced by the actual values when exporting a page. 
-              p The currently supported placeholders are:
-              i Domain placeholders:
-              ul
-                li %W - Sub-domain name (e.g. "Phind Search", "Perplexity Pages")
-                li %H - Host name (e.g. "www.chatgpt.com")
-                li %T - Title of the page (first 60 characters)
-              i Date placeholders:
-              ul
-                li %t - Timestamp (Unix time)
-                li %Y - Year
-                li %M - Month
-                li %D - Day
-                li %h - Hour
-                li %m - Minutes
-                li %s - Seconds
+            sl-details(summary="Filename Settings")
+              sl-input#filenameTemplate(
+                .value="${this.filenameTemplate}"
+                label="Filename format:"
+                @sl-input="${this.handleInputChange}"
+                placeholder="Enter filename format"
+              )
+              div
+                p The filename format is a string containing placeholders, that will be replaced by the actual values when exporting a page. 
+                p The currently supported placeholders are:
+                i Domain placeholders:
+                ul
+                  li %W - Sub-domain name (e.g. "Phind Search", "Perplexity Pages")
+                  li %H - Host name (e.g. "www.chatgpt.com")
+                  li %T - Title of the page (first 60 characters)
+                i Date placeholders:
+                ul
+                  li %t - Timestamp (Unix time)
+                  li %Y - Year
+                  li %M - Month
+                  li %D - Day
+                  li %h - Hour
+                  li %m - Minutes
+                  li %s - Seconds
+            sl-details(summary="Output Settings")
               sl-input#webhookUrl(
                 .value="${this.webhookUrl}"
                 @sl-input="${this.handleInputChange}"
@@ -129,6 +149,7 @@ export class ExportOptions extends LitElement {
       this.webhookUrl = target.value;
     }
   }
+
   private async saveOptions(event: Event) {
     event.preventDefault();
     await chrome.storage.sync.set({
