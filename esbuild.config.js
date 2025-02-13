@@ -4,6 +4,7 @@ const {copyStaticFilesPlugin} = require("./config/esbuild/plugins/copyStaticFile
 const {cleanDirectoryPlugin} = require("./config/esbuild/plugins/cleanDirectoryPlugin");
 const {watchStatic} = require("./config/esbuild/watchStatic");
 const pugPlugin = require('./config/esbuild/plugins/pugPlugin');
+const {copy} = require('esbuild-plugin-copy');
 
 const outdir = 'dist';
 const targetBrowser = process.env.TARGET || 'chrome';
@@ -34,7 +35,19 @@ const options = {
   plugins: [
     cleanDirectoryPlugin(outdir),
     generateManifestPlugin(targetBrowser),
-    copyStaticFilesPlugin(['public', 'LICENSE']),
+    copy({
+      assets: [
+        {
+          from: 'public/**/*',
+          to: './',
+        },
+        {
+          from: ['./LICENSE'],
+          to: ['./'],
+        },
+      ],
+      watch: true,
+    }),
     pugPlugin,
   ],
 };
