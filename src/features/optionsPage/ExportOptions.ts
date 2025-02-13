@@ -102,7 +102,7 @@ export class ExportOptions extends LitElement {
           h1.title Export Options
         form#options-form(@submit="${this.saveOptions}")
           #options-fieldset
-            sl-details(summary="Filename Settings")
+            sl-details(summary="Filename Settings" @sl-show="${this.handleDetailsShow}")
               sl-input#filenameTemplate(
                 .value="${this.filenameTemplate}"
                 label="Filename format:"
@@ -126,7 +126,7 @@ export class ExportOptions extends LitElement {
                   li %h - Hour
                   li %m - Minutes
                   li %s - Seconds
-            sl-details(summary="Output Settings")
+            sl-details(summary="Output Settings" @sl-show="${this.handleDetailsShow}")
               sl-input#webhookUrl(
                 .value="${this.webhookUrl}"
                 @sl-input="${this.handleInputChange}"
@@ -137,8 +137,19 @@ export class ExportOptions extends LitElement {
         p(class="feedback")
           span Options page is currently in beta. 
             a(href="${appInfos.URLS.DISCUSSIONS}" target="_blank") Share feedback and report bugs.
-          div(class="toast-stack")
+        div(class="toast-stack")
   `;
+  }
+
+  private handleDetailsShow(event: Event) {
+    const currentDetails = event.target as HTMLElement;
+    const allDetails = this.shadowRoot!.querySelectorAll('sl-details');
+
+    allDetails.forEach(details => {
+      if (details !== currentDetails && details.open) {
+        details.hide();
+      }
+    });
   }
 
   private handleInputChange(event: Event) {
