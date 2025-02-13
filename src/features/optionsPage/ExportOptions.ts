@@ -116,7 +116,6 @@ export class ExportOptions extends LitElement {
           span Options page is currently in beta. 
             a(href="${appInfos.URLS.DISCUSSIONS}" target="_blank") Share feedback and report bugs.
           div(class="toast-stack")
-      button
   `;
   }
 
