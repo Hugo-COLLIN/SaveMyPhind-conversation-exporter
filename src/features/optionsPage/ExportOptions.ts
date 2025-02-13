@@ -39,13 +39,6 @@ export class ExportOptions extends LitElement {
           width: 100%;
           max-width: 800px;
           margin: 0 auto;
-          height: calc(100vh - 220px); /* Space for title and button */
-          overflow: hidden;
-      }
-
-      sl-input {
-          width: 100%;
-          --sl-input-width: 100%;
       }
 
       .feedback {
@@ -60,11 +53,6 @@ export class ExportOptions extends LitElement {
           z-index: 1000;
       }
 
-      sl-details {
-          width: 100%;
-          margin-bottom: 1rem;
-      }
-
       .details-content {
           max-height: calc(100vh - 300px);
           overflow-y: auto;
@@ -73,9 +61,23 @@ export class ExportOptions extends LitElement {
 
       #options-fieldset {
           width: 100%;
-          height: 100%;
+          padding-bottom: 60px;
+      }
+
+      sl-details {
+          width: 100%;
+          margin-bottom: 1rem;
+      }
+
+      sl-details::part(content) {
+          max-height: calc((100vh - 150px) / 2);
           overflow-y: auto;
-          padding-bottom: 60px; /* Espace pour le bouton */
+          padding: 1rem;
+      }
+
+      sl-input {
+          width: 100%;
+          --sl-input-width: 100%;
       }
 
       .bottom-btn {
