@@ -19,7 +19,29 @@ const pugPlugin = {
         // Transform all pug templates to HTML
         contents = contents.replace(pugTemplateRegex, (match, pugCode) => {
           try {
-            // Manage interpolations ${...} in the template
+            // Handle indentation
+            const lines = pugCode.split('\n');
+            if (lines.length > 1) {
+              // Find the common indentation
+              const indentMatch = lines[1].match(/^\s+/);
+              if (indentMatch) {
+                const baseIndent = indentMatch[0];
+                // Remove the common indentation from all lines
+                pugCode = lines
+                  .map((line, index) => {
+                    // Skip the first empty line if it exists
+                    if (index === 0 && line.trim() === '') return '';
+                    // Remove base indentation only if line starts with it
+                    if (line.startsWith(baseIndent)) {
+                      return line.slice(baseIndent.length);
+                    }
+                    return line;
+                  })
+                  .join('\n');
+              }
+            }
+
+            // Handle interpolations
             const interpolationPlaceholders = [];
             let index = 0;
 
@@ -46,11 +68,17 @@ const pugPlugin = {
               );
             });
 
-            // Return the literal template with the compiled HTML
+            // Clean up extra whitespace and newlines
+            html = html
+              .split('\n')
+              .map(line => line.trimRight())
+              .join('\n')
+              .trim();
+
             return 'html`' + html.replace(/`/g, '\\`') + '`';
           } catch (error) {
             console.error('Error compiling Pug template:', error);
-            return match; // In case of error, keep the original template
+            throw error; // Rethrow the error to stop the build
           }
         });
 

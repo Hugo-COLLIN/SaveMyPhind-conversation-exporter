@@ -70,52 +70,52 @@ export class ExportOptions extends LitElement {
   /* language=pug */
   render() {
     return pug`
-main.container
-  .title-div
-    span.inner-span-image(style="margin-right: 10px;")
-      img(
-        src="${chrome.runtime.getURL('../files/icons/icon-48.png')}"
-        alt="${appInfos.APP_SNAME} icon"
-        width="48"
-        height="48"
-      )
-    h1.title Export Options
-  form#options-form(@submit="${this.saveOptions}")
-    #options-fieldset
-      sl-input#filenameTemplate(
-        .value="${this.filenameTemplate}"
-        @sl-input="${this.handleInputChange}"
-        placeholder="Enter filename format"
-        label="Filename format:"
-      )
-      div
-        p The filename format is a string containing placeholders, that will be replaced by the actual values when exporting a page. 
-        p The currently supported placeholders are:
-        i Domain placeholders:
-        ul
-          li %W - Sub-domain name (e.g. "Phind Search", "Perplexity Pages")
-          li %H - Host name (e.g. "www.chatgpt.com")
-          li %T - Title of the page (first 60 characters)
-        i Date placeholders:
-        ul
-          li %t - Timestamp (Unix time)
-          li %Y - Year
-          li %M - Month
-          li %D - Day
-          li %h - Hour
-          li %m - Minutes
-          li %s - Seconds
-        sl-input#webhookUrl(
-          .value="${this.webhookUrl}"
-          @sl-input="${this.handleInputChange}"
-          placeholder="Enter webhook URL (optional)"
-          label="Webhook URL:"
-        )
-    sl-button(variant="primary" type="submit") Save changes
-  p(class="feedback")
-    span Options page is currently in beta. 
-      a(href="${appInfos.URLS.DISCUSSIONS}" target="_blank") Share feedback and report bugs.
-    div(class="toast-stack")
+      main.container
+        .title-div
+          span.inner-span-image(style="margin-right: 10px;")
+            img(
+              src="${chrome.runtime.getURL('../files/icons/icon-48.png')}"
+              alt="${appInfos.APP_SNAME} icon"
+              width="48"
+              height="48"
+            )
+          h1.title Export Options
+        form#options-form(@submit="${this.saveOptions}")
+          #options-fieldset
+            sl-input#filenameTemplate(
+              .value="${this.filenameTemplate}"
+              @sl-input="${this.handleInputChange}"
+              placeholder="Enter filename format"
+              label="Filename format:"
+            )
+            div
+              p The filename format is a string containing placeholders, that will be replaced by the actual values when exporting a page. 
+              p The currently supported placeholders are:
+              i Domain placeholders:
+              ul
+                li %W - Sub-domain name (e.g. "Phind Search", "Perplexity Pages")
+                li %H - Host name (e.g. "www.chatgpt.com")
+                li %T - Title of the page (first 60 characters)
+              i Date placeholders:
+              ul
+                li %t - Timestamp (Unix time)
+                li %Y - Year
+                li %M - Month
+                li %D - Day
+                li %h - Hour
+                li %m - Minutes
+                li %s - Seconds
+              sl-input#webhookUrl(
+                .value="${this.webhookUrl}"
+                @sl-input="${this.handleInputChange}"
+                placeholder="Enter webhook URL (optional)"
+                label="Webhook URL:"
+              )
+          sl-button(variant="primary" type="submit") Save changes
+        p(class="feedback")
+          span Options page is currently in beta. 
+            a(href="${appInfos.URLS.DISCUSSIONS}" target="_blank") Share feedback and report bugs.
+          div(class="toast-stack")
   `;
   }
 
