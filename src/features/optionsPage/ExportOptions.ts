@@ -5,6 +5,7 @@ import '@shoelace-style/shoelace/dist/components/input/input.js';
 import '@shoelace-style/shoelace/dist/components/alert/alert.js';
 import '@shoelace-style/shoelace/dist/components/icon/icon.js';
 import '@shoelace-style/shoelace/dist/components/details/details.js';
+import './details-group';
 import appInfos from '../../data/infos.json';
 import { pug } from '../../core/utils/pug-template-tag';
 
@@ -64,17 +65,6 @@ export class ExportOptions extends LitElement {
           padding-bottom: 60px;
       }
 
-      sl-details {
-          width: 100%;
-          margin-bottom: 1rem;
-      }
-
-      sl-details::part(content) {
-          max-height: calc((100vh - 150px) / 2);
-          overflow-y: auto;
-          padding: 1rem;
-      }
-
       sl-input {
           width: 100%;
           --sl-input-width: 100%;
@@ -119,54 +109,44 @@ export class ExportOptions extends LitElement {
           a(href="${appInfos.URLS.DISCUSSIONS}" target="_blank") Share feedback and report bugs.
         form#options-form(@submit="${this.saveOptions}")
           #options-fieldset
-            sl-details(summary="Filename Settings" @sl-show="${this.handleDetailsShow}")
-              sl-input#filenameTemplate(
-                .value="${this.filenameTemplate}"
-                label="Filename format:"
-                @sl-input="${this.handleInputChange}"
-                placeholder="Enter filename format"
-              )
-              div
-                p The filename format is a string containing placeholders, that will be replaced by the actual values when exporting a page. 
-                p The currently supported placeholders are:
-                i Domain placeholders:
-                ul
-                  li %W - Sub-domain name (e.g. "Phind Search", "Perplexity Pages")
-                  li %H - Host name (e.g. "www.chatgpt.com")
-                  li %T - Title of the page (first 60 characters)
-                i Date placeholders:
-                ul
-                  li %t - Timestamp (Unix time)
-                  li %Y - Year
-                  li %M - Month
-                  li %D - Day
-                  li %h - Hour
-                  li %m - Minutes
-                  li %s - Seconds
-            sl-details(summary="Output Settings" @sl-show="${this.handleDetailsShow}")
-              sl-input#webhookUrl(
-                .value="${this.webhookUrl}"
-                @sl-input="${this.handleInputChange}"
-                placeholder="Enter webhook URL (optional)"
-                label="Webhook URL:"
-              )
+            details-group
+              sl-details(summary="Filename Settings")
+                sl-input#filenameTemplate(
+                  .value="${this.filenameTemplate}"
+                  label="Filename format:"
+                  @sl-input="${this.handleInputChange}"
+                  placeholder="Enter filename format"
+                )
+                div
+                  p The filename format is a string containing placeholders, that will be replaced by the actual values when exporting a page. 
+                  p The currently supported placeholders are:
+                  i Domain placeholders:
+                  ul
+                    li %W - Sub-domain name (e.g. "Phind Search", "Perplexity Pages")
+                    li %H - Host name (e.g. "www.chatgpt.com")
+                    li %T - Title of the page (first 60 characters)
+                  i Date placeholders:
+                  ul
+                    li %t - Timestamp (Unix time)
+                    li %Y - Year
+                    li %M - Month
+                    li %D - Day
+                    li %h - Hour
+                    li %m - Minutes
+                    li %s - Seconds
+              sl-details(summary="Output Settings")
+                sl-input#webhookUrl(
+                  .value="${this.webhookUrl}"
+                  @sl-input="${this.handleInputChange}"
+                  placeholder="Enter webhook URL (optional)"
+                  label="Webhook URL:"
+                )
           sl-button.bottom-btn(
             variant="primary" 
             type="submit"
           ) Save changes
         div(class="toast-stack")
   `;
-  }
-
-  private handleDetailsShow(event: Event) {
-    const currentDetails = event.target as HTMLElement;
-    const allDetails = this.shadowRoot!.querySelectorAll('sl-details');
-
-    allDetails.forEach(details => {
-      if (details !== currentDetails && details.open) {
-        details.hide();
-      }
-    });
   }
 
   private handleInputChange(event: Event) {
