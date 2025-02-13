@@ -3,6 +3,7 @@ import { customElement, state } from 'lit/decorators.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 import '@shoelace-style/shoelace/dist/components/input/input.js';
 import '@shoelace-style/shoelace/dist/components/alert/alert.js';
+import '@shoelace-style/shoelace/dist/components/icon/icon.js';
 import appInfos from '../../data/infos.json';
 import { pug } from '../../core/utils/pug-template-tag';
 
@@ -81,6 +82,7 @@ export class ExportOptions extends LitElement {
             )
           h1.title Export Options
         form#options-form(@submit="${this.saveOptions}")
+          sl-icon(library="base" name="bug")
           #options-fieldset
             sl-input#filenameTemplate(
               .value="${this.filenameTemplate}"
