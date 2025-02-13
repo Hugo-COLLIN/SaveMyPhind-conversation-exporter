@@ -72,6 +72,15 @@ export class ExportOptions extends LitElement {
           padding: 0 0 1rem 0;
           width: 100%;
       }
+
+      .bottom-btn {
+          position: fixed;
+          bottom: 2rem;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 100;
+          bottom: 5px;
+      }
   `;
 
   @state()
@@ -100,6 +109,8 @@ export class ExportOptions extends LitElement {
               height="48"
             )
           h1.title Export Options
+        p(class="feedback") Options page is currently in beta. 
+          a(href="${appInfos.URLS.DISCUSSIONS}" target="_blank") Share feedback and report bugs.
         form#options-form(@submit="${this.saveOptions}")
           #options-fieldset
             sl-details(summary="Filename Settings" @sl-show="${this.handleDetailsShow}")
@@ -133,10 +144,10 @@ export class ExportOptions extends LitElement {
                 placeholder="Enter webhook URL (optional)"
                 label="Webhook URL:"
               )
-          sl-button(variant="primary" type="submit") Save changes
-        p(class="feedback")
-          span Options page is currently in beta. 
-            a(href="${appInfos.URLS.DISCUSSIONS}" target="_blank") Share feedback and report bugs.
+          sl-button.bottom-btn(
+            variant="primary" 
+            type="submit"
+          ) Save changes
         div(class="toast-stack")
   `;
   }
