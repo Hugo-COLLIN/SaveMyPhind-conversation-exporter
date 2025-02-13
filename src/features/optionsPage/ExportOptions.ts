@@ -14,8 +14,10 @@ export class ExportOptions extends LitElement {
       .container {
           display: flex;
           flex-direction: column;
-          align-items: center;
-          justify-content: center;
+          height: 100vh;
+          padding: 1rem;
+          box-sizing: border-box;
+          position: relative;
       }
 
       .title-div {
@@ -34,11 +36,11 @@ export class ExportOptions extends LitElement {
       #options-form {
           display: flex;
           flex-direction: column;
-          align-items: center;
-          justify-content: center;
           width: 100%;
           max-width: 800px;
-          padding: 0 1rem;
+          margin: 0 auto;
+          height: calc(100vh - 220px); /* Space for title and button */
+          overflow: hidden;
       }
 
       sl-input {
@@ -64,22 +66,24 @@ export class ExportOptions extends LitElement {
       }
 
       .details-content {
+          max-height: calc(100vh - 300px);
+          overflow-y: auto;
           padding: 1rem;
-          width: 100%;
       }
 
       #options-fieldset {
-          padding: 0 0 1rem 0;
           width: 100%;
+          height: 100%;
+          overflow-y: auto;
+          padding-bottom: 60px; /* Espace pour le bouton */
       }
 
       .bottom-btn {
           position: fixed;
-          bottom: 2rem;
+          bottom: 1rem;
           left: 50%;
           transform: translateX(-50%);
           z-index: 100;
-          bottom: 5px;
       }
   `;
 
