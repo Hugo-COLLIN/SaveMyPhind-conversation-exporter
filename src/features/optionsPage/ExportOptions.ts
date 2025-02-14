@@ -11,14 +11,21 @@ import { pug } from '../../core/utils/pug-template-tag';
 @customElement('export-options')
 export class ExportOptions extends LitElement {
   static styles = css`
-      .container {
-          display: flex;
-          flex-direction: column;
-          height: 100vh;
-          padding: 1rem;
-          box-sizing: border-box;
+      /* --- Component styles --- */
+      :host {
+          display: block;
+          height: 100%;
       }
 
+      .container {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          box-sizing: border-box;
+          padding: 1rem;
+      }
+      
+      /* --- Header styles --- */
       .title-div {
           display: flex;
           justify-content: center;
@@ -29,14 +36,6 @@ export class ExportOptions extends LitElement {
 
       .inner-span-image {
           margin-right: 10px;
-      }
-
-      #options-form {
-          display: flex;
-          flex-direction: column;
-          width: 100%;
-          max-width: 800px;
-          margin: 0 auto;
       }
 
       .feedback {
@@ -51,29 +50,67 @@ export class ExportOptions extends LitElement {
           z-index: 1000;
       }
 
-      .details-content {
-          max-height: calc(100vh - 300px);
-          overflow-y: auto;
-          padding: 1rem;
+      /* --- Form styles --- */
+      #options-form {
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+          min-height: 0;
       }
 
       #options-fieldset {
-          width: 100%;
-          padding-bottom: 60px;
-      }
-
-      sl-input {
-          width: 100%;
-          --sl-input-width: 100%;
+          flex-grow: 1;
+          overflow-y: auto;
       }
 
       .bottom-btn {
-          position: fixed;
-          bottom: 1rem;
-          left: 50%;
-          transform: translateX(-50%);
-          z-index: 100;
+          margin-top: 1rem;
+          align-self: center;
       }
+      
+      sl-details {
+          margin-bottom: 1rem;
+      }
+      
+      //form {
+      //    display: flex;
+      //    flex-direction: column;
+      //    justify-content: space-between;
+      //    height: 100%;
+      //    flex-grow: 1;
+      //}
+      
+      //#options-form {
+      //    display: flex;
+      //    flex-direction: column;
+      //    width: 100%;
+      //    max-width: 800px;
+      //    margin: 0 auto;
+      //}
+      //
+      //.details-content {
+      //    max-height: calc(100vh - 300px);
+      //    overflow-y: auto;
+      //    padding: 1rem;
+      //}
+      //
+      //#options-fieldset {
+      //    width: 100%;
+      //    padding-bottom: 60px;
+      //}
+      //
+      //sl-input {
+      //    width: 100%;
+      //    --sl-input-width: 100%;
+      //}
+      //
+      //.bottom-btn {
+      //    position: fixed;
+      //    bottom: 1rem;
+      //    left: 50%;
+      //    transform: translateX(-50%);
+      //    z-index: 100;
+      //}
   `;
 
   @state() private filenameTemplate = '';
@@ -144,7 +181,7 @@ export class ExportOptions extends LitElement {
         
         form#options-form(@submit="${this.saveOptions}")
           #options-fieldset
-            details-group
+              //details-group
               sl-details(summary="Filename Settings")
                 sl-input#filenameTemplate(
                   .value="${this.filenameTemplate}"
