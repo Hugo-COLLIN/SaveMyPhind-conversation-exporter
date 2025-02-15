@@ -84,7 +84,7 @@ export class ExportOptions extends LitElement {
 
       sl-details::part(content) {
           overflow-y: auto;
-          max-height: calc(100vh - 28rem);
+          max-height: calc(100vh - 26rem);
       }
 
       sl-details[open] {
