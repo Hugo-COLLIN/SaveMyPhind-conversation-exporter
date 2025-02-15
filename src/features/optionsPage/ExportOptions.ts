@@ -82,15 +82,11 @@ export class ExportOptions extends LitElement {
           min-height: 3.5rem;
       }
 
-      /* Style pour le conteneur du contenu */
       sl-details::part(content) {
           overflow-y: auto;
           max-height: calc(100vh - 28rem);
-          /*max-height: 25vh; /*25rem*/
-          /*max-height: calc(100vh - 18rem - 3.5rem * ${document.querySelectorAll("sl-details").length}px);*/
       }
 
-      /* Assurer que le contenu ne déborde pas */
       sl-details[open] {
           overflow: hidden;
       }
