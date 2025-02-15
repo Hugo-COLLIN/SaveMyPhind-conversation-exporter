@@ -54,28 +54,45 @@ export class ExportOptions extends LitElement {
 
       /* --- Form styles --- */
 
-      #options-form {
-          flex-grow: 1;
-          display: flex;
-          flex-direction: column;
-          min-height: 0;
-      }
-
-      #options-fieldset {
-          flex-grow: 1;
-          overflow-y: auto;
-      }
-
       .bottom-btn {
           margin-top: 1rem;
           margin-bottom: 1rem;
           align-self: center;
       }
 
+      #options-form {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          min-height: 0;
+      }
+
+      #options-fieldset {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          min-height: 0;
+          overflow: hidden;
+      }
+
       sl-details {
           margin-bottom: 1rem;
-          overflow-y: auto;
+          display: flex;
+          flex-direction: column;
           min-height: 3.5rem;
+      }
+
+      /* Style pour le conteneur du contenu */
+      sl-details::part(content) {
+          overflow-y: auto;
+          max-height: calc(100vh - 28rem);
+          /*max-height: 25vh; /*25rem*/
+          /*max-height: calc(100vh - 18rem - 3.5rem * ${document.querySelectorAll("sl-details").length}px);*/
+      }
+
+      /* Assurer que le contenu ne déborde pas */
+      sl-details[open] {
+          overflow: hidden;
       }
   `;
 
