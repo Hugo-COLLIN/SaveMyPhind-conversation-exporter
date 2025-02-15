@@ -89,6 +89,22 @@ export class ExportOptions extends LitElement {
     this.requestUpdate();
   }
 
+  private handleDetailsShow(event: CustomEvent) {
+    const currentDetails = event.target as HTMLElement;
+    if (!currentDetails) return;
+
+    // Get all sl-details elements
+    const allDetails = this.shadowRoot?.querySelectorAll('sl-details');
+    if (!allDetails) return;
+
+    // Close all other details elements
+    allDetails.forEach(details => {
+      if (details !== currentDetails && details.open) {
+        details.hide();
+      }
+    });
+  }
+
   private handleInputChange(event: Event) {
     const target = event.target as HTMLInputElement;
     const { id, value } = target;
@@ -147,8 +163,10 @@ export class ExportOptions extends LitElement {
         
         form#options-form(@submit="${this.saveOptions}")
           #options-fieldset.container
-              //details-group
-              sl-details(summary="Filename Settings")
+              sl-details(
+                summary="Filename Settings"
+                @sl-show="${this.handleDetailsShow}"
+              )
                 sl-input#filenameTemplate(
                   .value="${this.filenameTemplate}"
                   label="Filename format:"
@@ -175,7 +193,10 @@ export class ExportOptions extends LitElement {
                     li %m - Minutes
                     li %s - Seconds
               
-              sl-details(summary="Output Settings")
+              sl-details(
+                summary="Output Settings"
+                @sl-show="${this.handleDetailsShow}"
+              )
                 sl-input#webhookUrl(
                   .value="${this.webhookUrl}"
                   @sl-input="${this.handleInputChange}"
