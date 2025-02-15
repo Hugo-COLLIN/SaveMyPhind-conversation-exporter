@@ -12,6 +12,7 @@ import { pug } from '../../core/utils/pug-template-tag';
 export class ExportOptions extends LitElement {
   static styles = css`
       /* --- Component styles --- */
+
       :host {
           display: block;
           height: 100%;
@@ -22,10 +23,11 @@ export class ExportOptions extends LitElement {
           display: flex;
           flex-direction: column;
           box-sizing: border-box;
-          padding: 1rem;
+          padding: 1rem 1rem 0;
       }
-      
+
       /* --- Header styles --- */
+
       .title-div {
           display: flex;
           justify-content: center;
@@ -51,6 +53,7 @@ export class ExportOptions extends LitElement {
       }
 
       /* --- Form styles --- */
+
       #options-form {
           flex-grow: 1;
           display: flex;
@@ -65,52 +68,15 @@ export class ExportOptions extends LitElement {
 
       .bottom-btn {
           margin-top: 1rem;
+          margin-bottom: 1rem;
           align-self: center;
       }
-      
+
       sl-details {
           margin-bottom: 1rem;
+          overflow-y: auto;
+          min-height: 3.5rem;
       }
-      
-      //form {
-      //    display: flex;
-      //    flex-direction: column;
-      //    justify-content: space-between;
-      //    height: 100%;
-      //    flex-grow: 1;
-      //}
-      
-      //#options-form {
-      //    display: flex;
-      //    flex-direction: column;
-      //    width: 100%;
-      //    max-width: 800px;
-      //    margin: 0 auto;
-      //}
-      //
-      //.details-content {
-      //    max-height: calc(100vh - 300px);
-      //    overflow-y: auto;
-      //    padding: 1rem;
-      //}
-      //
-      //#options-fieldset {
-      //    width: 100%;
-      //    padding-bottom: 60px;
-      //}
-      //
-      //sl-input {
-      //    width: 100%;
-      //    --sl-input-width: 100%;
-      //}
-      //
-      //.bottom-btn {
-      //    position: fixed;
-      //    bottom: 1rem;
-      //    left: 50%;
-      //    transform: translateX(-50%);
-      //    z-index: 100;
-      //}
   `;
 
   @state() private filenameTemplate = '';
@@ -180,7 +146,7 @@ export class ExportOptions extends LitElement {
           a(href="${appInfos.URLS.DISCUSSIONS}" target="_blank") Share feedback and report bugs.
         
         form#options-form(@submit="${this.saveOptions}")
-          #options-fieldset
+          #options-fieldset.container
               //details-group
               sl-details(summary="Filename Settings")
                 sl-input#filenameTemplate(
