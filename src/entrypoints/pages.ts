@@ -8,7 +8,7 @@ registerIconLibrary('base', {
 });
 
 const loadComponents = async () => {
-  const { ExportOptions } = await import('../features/optionsPage/ExportOptions');
+  const { ExportOptions } = await import('../features/options/ExportOptions');
 }
 
 loadComponents();
