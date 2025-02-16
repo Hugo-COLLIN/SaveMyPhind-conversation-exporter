@@ -95,6 +95,7 @@ export class ExportOptions extends LitElement {
           margin-top: 1rem;
           opacity: 0.5;
           pointer-events: none;
+          transition: opacity 0.3s ease;
       }
 
       .webhook-input.enabled {
@@ -169,6 +170,17 @@ export class ExportOptions extends LitElement {
       this.enableLocalDownload = checked;
     } else if (id === 'enableWebhook') {
       this.enableWebhook = checked;
+      this.requestUpdate(); // Force component update after state change
+
+      // Focus on the webhook field if enabled
+      if (checked) {
+        setTimeout(() => {
+          const webhookInput = this.shadowRoot?.querySelector('#webhookUrl') as HTMLInputElement;
+          if (webhookInput) {
+            webhookInput.focus();
+          }
+        }, 100);
+      }
     }
   }
 
@@ -256,6 +268,7 @@ export class ExportOptions extends LitElement {
                 @sl-show="${this.handleDetailsShow}"
               )
                 .export-options
+                  p Here you can choose how your exports are saved and shared:
                   sl-checkbox#enableLocalDownload(
                     ?checked="${this.enableLocalDownload}"
                     @sl-change="${this.handleCheckboxChange}"
@@ -267,7 +280,7 @@ export class ExportOptions extends LitElement {
                   ) Webhook export
                   
                   sl-input#webhookUrl(
-                    ?disabled="${!this.enableWebhook}"
+                    .disabled="${!this.enableWebhook}"
                     .value="${this.webhookUrl}"
                     class="webhook-input ${this.enableWebhook ? 'enabled' : ''}"
                     @sl-input="${this.handleInputChange}"
