@@ -8,6 +8,11 @@ import '@shoelace-style/shoelace/dist/components/checkbox/checkbox.js';
 import appInfos from '../../data/infos.json';
 import { pug } from '../../core/utils/pug-template-tag';
 
+interface OutputOptions {
+  localDownload: boolean;
+  webhook: boolean;
+}
+
 @customElement('export-options')
 export class ExportOptions extends LitElement {
   static styles = css`
@@ -118,21 +123,21 @@ export class ExportOptions extends LitElement {
 
   @state() private filenameTemplate = '';
   @state() private webhookUrl = '';
-  @state() private enableLocalDownload = true;
-  @state() private enableWebhook = false;
+  @state() private outputOptions: OutputOptions = {
+    localDownload: true,
+    webhook: false
+  };
 
   async firstUpdated() {
     const storedData = await chrome.storage.sync.get([
       'filenameTemplate',
       'webhookUrl',
-      'enableLocalDownload',
-      'enableWebhook'
+      'outputOptions'
     ]);
 
     this.filenameTemplate = storedData.filenameTemplate || '';
     this.webhookUrl = storedData.webhookUrl || '';
-    this.enableLocalDownload = storedData.enableLocalDownload !== false;
-    this.enableWebhook = storedData.enableWebhook || false;
+    this.outputOptions = storedData.outputOptions || this.outputOptions;
 
     this.requestUpdate();
   }
@@ -167,10 +172,16 @@ export class ExportOptions extends LitElement {
     const { id, checked } = target;
 
     if (id === 'enableLocalDownload') {
-      this.enableLocalDownload = checked;
+      this.outputOptions = {
+        ...this.outputOptions,
+        localDownload: checked
+      };
     } else if (id === 'enableWebhook') {
-      this.enableWebhook = checked;
-      this.requestUpdate(); // Force component update after state change
+      this.outputOptions = {
+        ...this.outputOptions,
+        webhook: checked
+      };
+      this.requestUpdate();
 
       // Focus on the webhook field if enabled
       if (checked) {
@@ -206,8 +217,7 @@ export class ExportOptions extends LitElement {
     await chrome.storage.sync.set({
       filenameTemplate: this.filenameTemplate,
       webhookUrl: this.webhookUrl,
-      enableLocalDownload: this.enableLocalDownload,
-      enableWebhook: this.enableWebhook
+      outputOptions: this.outputOptions
     });
 
     const alert = this.createSuccessAlert();
@@ -270,19 +280,19 @@ export class ExportOptions extends LitElement {
                 .export-options
                   p Here you can choose how your exports are saved and shared:
                   sl-checkbox#enableLocalDownload(
-                    ?checked="${this.enableLocalDownload}"
+                    ?checked="${this.outputOptions.localDownload}"
                     @sl-change="${this.handleCheckboxChange}"
                   ) Local file download
                   
                   sl-checkbox#enableWebhook(
-                    ?checked="${this.enableWebhook}"
+                    ?checked="${this.outputOptions.webhook}"
                     @sl-change="${this.handleCheckboxChange}"
                   ) Webhook export
                   
                   sl-input#webhookUrl(
-                    .disabled="${!this.enableWebhook}"
+                    .disabled="${!this.outputOptions.webhook}"
                     .value="${this.webhookUrl}"
-                    class="webhook-input ${this.enableWebhook ? 'enabled' : ''}"
+                    class="webhook-input ${this.outputOptions.webhook ? 'enabled' : ''}"
                     @sl-input="${this.handleInputChange}"
                     placeholder="Enter webhook URL"
                     label="Webhook URL:"
