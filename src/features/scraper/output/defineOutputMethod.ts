@@ -13,7 +13,9 @@ export async function defineOutputMethod(domain: { name: string; url: any; }, {m
   // await download(markdownContent, fileName);
 
   // Send the file to the webhook
-  await sendToWebhook(markdownContent, fileName);
+  const storedOptions = await chrome.storage.sync.get("outputOptions");
+  if(storedOptions.outputOptions.webhook)
+    await sendToWebhook(markdownContent, fileName);
 
   // await saveToClipboard(markdownContent);
   // linksToObsidian(markdownContent);

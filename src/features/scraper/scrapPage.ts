@@ -35,7 +35,9 @@ export async function launchScrapping(domain: { name: string; url: any; }): Prom
   });
 
   //TODO temporary download from content-script
-  contentScriptDownload(extracted.markdownContent, extracted.fileName);
+  const storedOptions = await chrome.storage.sync.get("outputOptions");
+  if(storedOptions.outputOptions.localDownload)
+    contentScriptDownload(extracted.markdownContent, extracted.fileName);
 
   console.log("Export done!")
 }
