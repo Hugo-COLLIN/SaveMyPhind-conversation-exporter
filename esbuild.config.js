@@ -1,15 +1,25 @@
 const esbuild = require('esbuild');
 const {generateManifestPlugin} = require("./config/esbuild/plugins/generateManifestPlugin");
-const {copyStaticFilesPlugin} = require("./config/esbuild/plugins/copyStaticFilesPlugin");
 const {cleanDirectoryPlugin} = require("./config/esbuild/plugins/cleanDirectoryPlugin");
 const {watchStatic} = require("./config/esbuild/watchStatic");
 const pugPlugin = require('./config/esbuild/plugins/pugPlugin');
+const {copy} = require('esbuild-plugin-copy');
 
 const outdir = 'dist';
 const targetBrowser = process.env.TARGET || 'chrome';
 const appMode = process.env.APP_MODE || 'dev';
 const appVersion = require('./package.json').version.toString();
 const watchMode = process.env.WATCH_MODE || false; // Flag for watch mode
+const staticAssetsConfig = [
+  {
+    from: 'public/**/*',
+    to: './',
+  },
+  {
+    from: ['./LICENSE'],
+    to: ['./'],
+  }
+];
 
 const options = {
   entryPoints: ['src/entrypoints/background.ts', "src/entrypoints/tab.ts", 'src/entrypoints/pages.ts', 'src/entrypoints/options.html'],
@@ -34,7 +44,10 @@ const options = {
   plugins: [
     cleanDirectoryPlugin(outdir),
     generateManifestPlugin(targetBrowser),
-    copyStaticFilesPlugin(['public', 'LICENSE']),
+    copy({
+      assets: staticAssetsConfig,
+      watch: true,
+    }),
     pugPlugin,
   ],
 };
@@ -59,23 +72,6 @@ async function watch() {
 
   // Watch for changes in the 'public' folder
   watchStatic(ctx);
-
-  // --- No way to list the output files from `watch` mode ---
-  // await ctx.rebuild().then(result => {
-  //   if (result.errors.length > 0) {
-  //     console.error('Build failed with errors:');
-  //     console.error(result.errors);
-  //   } else {
-  //     console.log('Build succeeded:');
-  //     // Comme `result.outputFiles` n'est pas disponible, vous pouvez simplement afficher un message ou d'autres informations.
-  //     // Pour obtenir les fichiers générés, vous devrez le faire manuellement car `result` ne contient pas directement `outputFiles`.
-  //     // Par exemple, vous pouvez afficher les fichiers sortis de `outdir`.
-  //     console.log('Output files:');
-  //     result.outputFiles?.forEach(file => {
-  //       console.log(`  ${file.path}  ${file.contents.length} bytes`);
-  //     });
-  //   }
-  // });
 }
 
 

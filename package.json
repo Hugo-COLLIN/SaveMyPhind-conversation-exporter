@@ -1,6 +1,6 @@
 {
   "name": "save-my-chatbot",
-  "version": "3.8.3",
+  "version": "3.8.4",
   "license": "RMD-C 1.1",
   "author": "Hugo COLLIN",
   "homepage": "https://save.hugocollin.com",
@@ -32,6 +32,7 @@
     "chokidar": "^3.6.0",
     "cross-env": "^7.0.3",
     "esbuild": "^0.25.0",
+    "esbuild-plugin-copy": "^2.1.1",
     "jest": "^29.7.0",
     "jsdom": "^25.0.1",
     "lit": "^3.2.0",

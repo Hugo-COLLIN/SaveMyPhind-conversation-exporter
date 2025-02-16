@@ -1,5 +1,11 @@
 import '@shoelace-style/shoelace/dist/themes/light.css';
 import '@shoelace-style/shoelace/dist/themes/dark.css';
+import { registerIconLibrary } from '@shoelace-style/shoelace/dist/utilities/icon-library.js';
+
+registerIconLibrary('base', {
+  resolver: name => `${chrome.runtime.getURL('files/icons/shoelace')}/${name}.svg`,
+  mutator: svg => svg.setAttribute('fill', 'currentColor')
+});
 
 const loadComponents = async () => {
   const { ExportOptions } = await import('../features/optionsPage/ExportOptions');
