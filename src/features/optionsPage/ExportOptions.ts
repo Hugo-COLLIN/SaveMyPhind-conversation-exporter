@@ -16,13 +16,16 @@ export class ExportOptions extends LitElement {
           display: block;
           height: 100%;
       }
+      
+      main {
+          padding: 1rem 1rem 0.5rem;
+      }
 
       .container {
           height: 100%;
           display: flex;
           flex-direction: column;
           box-sizing: border-box;
-          padding: 1rem 1rem 0;
       }
 
       /* --- Header styles --- */
