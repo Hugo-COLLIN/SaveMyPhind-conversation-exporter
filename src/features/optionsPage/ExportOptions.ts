@@ -4,6 +4,7 @@ import '@shoelace-style/shoelace/dist/components/button/button.js';
 import '@shoelace-style/shoelace/dist/components/input/input.js';
 import '@shoelace-style/shoelace/dist/components/alert/alert.js';
 import '@shoelace-style/shoelace/dist/components/details/details.js';
+import '@shoelace-style/shoelace/dist/components/checkbox/checkbox.js';
 import appInfos from '../../data/infos.json';
 import { pug } from '../../core/utils/pug-template-tag';
 
@@ -11,12 +12,11 @@ import { pug } from '../../core/utils/pug-template-tag';
 export class ExportOptions extends LitElement {
   static styles = css`
       /* --- Component styles --- */
-
       :host {
           display: block;
           height: 100%;
       }
-      
+
       main {
           padding: 1rem 1rem 0.5rem;
       }
@@ -29,7 +29,6 @@ export class ExportOptions extends LitElement {
       }
 
       /* --- Header styles --- */
-
       .title-div {
           display: flex;
           justify-content: center;
@@ -47,15 +46,7 @@ export class ExportOptions extends LitElement {
           margin-top: 1rem;
       }
 
-      .toast-stack {
-          position: fixed;
-          top: 0;
-          right: 0;
-          z-index: 1000;
-      }
-
       /* --- Form styles --- */
-
       .bottom-btn {
           margin-top: 1rem;
           margin-bottom: 1rem;
@@ -92,8 +83,33 @@ export class ExportOptions extends LitElement {
       sl-details[open] {
           overflow: hidden;
       }
-      
+
+      .export-options {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          margin-bottom: 1rem;
+      }
+
+      .webhook-input {
+          margin-top: 1rem;
+          opacity: 0.5;
+          pointer-events: none;
+      }
+
+      .webhook-input.enabled {
+          opacity: 1;
+          pointer-events: auto;
+      }
+
       /* --- Toast styles --- */
+      .toast-stack {
+          position: fixed;
+          top: 0;
+          right: 0;
+          z-index: 1000;
+      }
+
       sl-alert {
           margin: 1rem;
       }
@@ -101,11 +117,22 @@ export class ExportOptions extends LitElement {
 
   @state() private filenameTemplate = '';
   @state() private webhookUrl = '';
+  @state() private enableLocalDownload = true;
+  @state() private enableWebhook = false;
 
   async firstUpdated() {
-    const storedData = await chrome.storage.sync.get(['filenameTemplate', 'webhookUrl']);
+    const storedData = await chrome.storage.sync.get([
+      'filenameTemplate',
+      'webhookUrl',
+      'enableLocalDownload',
+      'enableWebhook'
+    ]);
+
     this.filenameTemplate = storedData.filenameTemplate || '';
     this.webhookUrl = storedData.webhookUrl || '';
+    this.enableLocalDownload = storedData.enableLocalDownload !== false;
+    this.enableWebhook = storedData.enableWebhook || false;
+
     this.requestUpdate();
   }
 
@@ -113,11 +140,9 @@ export class ExportOptions extends LitElement {
     const currentDetails = event.target as HTMLElement;
     if (!currentDetails) return;
 
-    // Get all sl-details elements
     const allDetails = this.shadowRoot?.querySelectorAll('sl-details');
     if (!allDetails) return;
 
-    // Close all other details elements
     allDetails.forEach(details => {
       if (details !== currentDetails && details.open) {
         details.hide();
@@ -133,6 +158,17 @@ export class ExportOptions extends LitElement {
       this.filenameTemplate = value;
     } else if (id === 'webhookUrl') {
       this.webhookUrl = value;
+    }
+  }
+
+  private handleCheckboxChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const { id, checked } = target;
+
+    if (id === 'enableLocalDownload') {
+      this.enableLocalDownload = checked;
+    } else if (id === 'enableWebhook') {
+      this.enableWebhook = checked;
     }
   }
 
@@ -157,7 +193,9 @@ export class ExportOptions extends LitElement {
 
     await chrome.storage.sync.set({
       filenameTemplate: this.filenameTemplate,
-      webhookUrl: this.webhookUrl
+      webhookUrl: this.webhookUrl,
+      enableLocalDownload: this.enableLocalDownload,
+      enableWebhook: this.enableWebhook
     });
 
     const alert = this.createSuccessAlert();
@@ -217,12 +255,25 @@ export class ExportOptions extends LitElement {
                 summary="Output Settings"
                 @sl-show="${this.handleDetailsShow}"
               )
-                sl-input#webhookUrl(
-                  .value="${this.webhookUrl}"
-                  @sl-input="${this.handleInputChange}"
-                  placeholder="Enter webhook URL (optional)"
-                  label="Webhook URL:"
-                )
+                .export-options
+                  sl-checkbox#enableLocalDownload(
+                    ?checked="${this.enableLocalDownload}"
+                    @sl-change="${this.handleCheckboxChange}"
+                  ) Local file download
+                  
+                  sl-checkbox#enableWebhook(
+                    ?checked="${this.enableWebhook}"
+                    @sl-change="${this.handleCheckboxChange}"
+                  ) Webhook export
+                  
+                  sl-input#webhookUrl(
+                    ?disabled="${!this.enableWebhook}"
+                    .value="${this.webhookUrl}"
+                    class="webhook-input ${this.enableWebhook ? 'enabled' : ''}"
+                    @sl-input="${this.handleInputChange}"
+                    placeholder="Enter webhook URL"
+                    label="Webhook URL:"
+                  )
           
           sl-button.bottom-btn(
             variant="primary" 
