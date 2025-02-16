@@ -1,6 +1,6 @@
 import {initModalsLogic} from "../features/modals/bg/manageModals";
 import {setRedirects} from "../features/browser/setRedirects";
-import {setDefaultTemplateFilenameAtInstall} from "../features/scraper/output/templateFilenameListener";
+import {setDefaultOptionsAtInstall} from "../features/options/defaultOptions";
 import {initBrowserInterface} from "../features/browser/interface";
 
 background();
@@ -10,6 +10,6 @@ function background() {
   initBrowserInterface();
   initModalsLogic();
   setRedirects();
-  setDefaultTemplateFilenameAtInstall();
+  setDefaultOptionsAtInstall();
   // batchScraping();
 }

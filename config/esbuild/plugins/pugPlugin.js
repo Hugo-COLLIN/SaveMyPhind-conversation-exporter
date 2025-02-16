@@ -41,7 +41,24 @@ const pugPlugin = {
               }
             }
 
-            // Handle interpolations
+            // Store special attributes (starting with . or ?)
+            const specialAttributes = [];
+            let specialAttrIndex = 0;
+
+            // Replace special attributes with placeholders before Pug compilation
+            pugCode = pugCode.replace(/([.?])([a-zA-Z][a-zA-Z0-9]*)\s*=\s*([^\s,)]+)/g, (match, prefix, attr, value) => {
+              const placeholder = `___SPECIAL_ATTR_${specialAttrIndex}___`;
+              specialAttributes.push({
+                prefix,
+                attr,
+                value,
+                placeholder
+              });
+              specialAttrIndex++;
+              return placeholder;
+            });
+
+            // Handle regular interpolations
             const interpolationPlaceholders = [];
             let index = 0;
 
@@ -53,14 +70,27 @@ const pugPlugin = {
               return placeholder;
             });
 
-            // Compile the Pug template into HTML
+            // Compile Pug to HTML
             let html = pug.compile(pugCode, {
               pretty: true,
               filename: args.path,
               basedir: path.dirname(args.path)
             })();
 
-            // Restore interpolations
+            // Restore special attributes with correct ordering
+            specialAttributes.forEach(({ prefix, attr, value, placeholder }) => {
+              const attributeStr = `${prefix}${attr}=${value}`;
+
+              // If this is a special attribute, ensure it appears first in its element
+              html = html.replace(new RegExp(`(\\s*${placeholder}[^>]*)([^>]*>)`), (match, before, after) => {
+                // Remove the placeholder
+                before = before.replace(placeholder, '').trim();
+                // Add the special attribute at the start of the attributes
+                return ` ${attributeStr} ${before}${after}`;
+              });
+            });
+
+            // Restore regular interpolations
             interpolationPlaceholders.forEach((expr, i) => {
               html = html.replace(
                 `___PLACEHOLDER_${i}___`,
