@@ -92,6 +92,11 @@ export class ExportOptions extends LitElement {
       sl-details[open] {
           overflow: hidden;
       }
+      
+      /* --- Toast styles --- */
+      sl-alert {
+          margin: 1rem;
+      }
   `;
 
   @state() private filenameTemplate = '';
