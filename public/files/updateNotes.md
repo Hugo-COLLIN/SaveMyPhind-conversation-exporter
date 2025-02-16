@@ -4,7 +4,7 @@
 The Options page has been redesigned to be more user-friendly and to prepare for future features.
 
 🚀 Outputs selection
-You can now choose to enable or disable some output types in the Options page.
+You can now choose to enable or disable some output types (download or webhook) in the Options page.
 
 🧩 Changes under the hood
 Some code refactoring and improvements to make the extension more robust and easier to maintain.
