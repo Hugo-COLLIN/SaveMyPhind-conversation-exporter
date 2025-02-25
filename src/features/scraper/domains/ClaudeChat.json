@@ -1,7 +1,7 @@
 {
   "domainName": "Claude Chat",
   "pageTitle": {
-    "selector": "[data-testid=\"chat-menu-trigger\"]"
+    "selector": "[data-testid=\"chat-menu-trigger\"], .tracking-tight.truncate"
   },
   "contentSelector": "[data-test-render-count]",
   "turndown": {
