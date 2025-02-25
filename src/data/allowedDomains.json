@@ -15,6 +15,7 @@
     "ChatGPTShare": "chatgpt.com/share",
     "ChatGPTBots": "chatgpt.com/g",
     "ChatGPTSignedOut": "chatgpt.com",
-    "ClaudeChat": "claude.ai/chat"
+    "ClaudeChat": "claude.ai/chat",
+    "ClaudeShare": "claude.ai/share"
   }
 }
