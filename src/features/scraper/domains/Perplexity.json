@@ -31,11 +31,11 @@
     "selectors": [
       {
         "open": [{
-          "selector": "button > div > svg[data-icon=\"ellipsis\"]",
+          "selector": "button svg.tabler-icon-dots",
           "scope": "content",
           "wait": 50
         }, {
-          "selector": ".cursor-pointer [data-icon=\"sources\"]",
+          "selector": ".md\\:h-full.group\\/item",
           "scope": "document",
           "wait": 50
         }],

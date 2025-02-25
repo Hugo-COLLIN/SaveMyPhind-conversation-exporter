@@ -1,4 +1,8 @@
 # Update notes
+# 3.8.6
+🚀 Perplexity sources extraction working again!
+Perplexity changed its interface again, but the extension is now back on track!
+
 # 3.8.5
 ⚙️ Better Options page
 The Options page has been redesigned to be more user-friendly and to prepare for future features.
