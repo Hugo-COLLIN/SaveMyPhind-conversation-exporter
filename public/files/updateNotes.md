@@ -1,7 +1,10 @@
 # Update notes
-# 3.8.6
+# 3.8.7
 🚀 Perplexity sources extraction working again!
 Perplexity changed its interface again, but the extension is now back on track!
+
+💡 Export shared Claude threads
+Support for shared Claude threads (claude.ai/share) is now available!
 
 # 3.8.5
 ⚙️ Better Options page
