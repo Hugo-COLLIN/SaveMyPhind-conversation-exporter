@@ -1,5 +1,5 @@
 import { JSDOM } from 'jsdom';
-import * as metadataFunctions from '../../../../src/core/services/pageExtractor/extractPageMetadata';
+import * as metadataFunctions from '../../../src/core/services/pageExtractor/extractPageMetadata';
 
 describe('extractPageMetadata', () => {
   let dom;
