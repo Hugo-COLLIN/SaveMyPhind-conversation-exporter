@@ -94,3 +94,7 @@ releases/
 config.json
 publish.json
 key.json
+
+# Approval Tests
+.approval_tests_temp
+**/tests/**/*.received.*
