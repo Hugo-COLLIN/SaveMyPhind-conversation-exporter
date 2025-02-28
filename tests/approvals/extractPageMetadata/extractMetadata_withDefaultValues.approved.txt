@@ -1,0 +1,21 @@
+{
+  "input": {
+    "domainName": "Phind Chat",
+    "pageTitle": {
+      "selector": "[tabindex=\"0\"]",
+      "treatment": {
+        "action": "replace",
+        "params": [
+          "\\u00A0",
+          " "
+        ]
+      }
+    },
+    "contentSelector": "[name^=\"answer-\"]"
+  },
+  "output": {
+    "domainName": "Phind Chat",
+    "pageTitle": "Page Title ",
+    "contentSelector": "[name^=\"answer-\"]"
+  }
+}

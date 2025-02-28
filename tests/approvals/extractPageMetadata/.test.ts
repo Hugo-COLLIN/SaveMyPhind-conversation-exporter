@@ -1,4 +1,5 @@
 import { JSDOM } from 'jsdom';
+import { verify } from 'approvals';
 import * as metadataFunctions from '../../../src/core/services/pageExtractor/extractPageMetadata';
 
 describe('extractPageMetadata', () => {
@@ -60,13 +61,16 @@ describe('extractPageMetadata', () => {
         },
         contentSelector: '[name^="answer-"]'
       };
+
       // @ts-ignore
       const result = metadataFunctions.extractPageMetadata(metadataBase);
-      expect(result).toEqual({
-        domainName: 'Phind Chat',
-        pageTitle: 'Page Title ',
-        contentSelector: '[name^="answer-"]'
-      });
+
+      verify(
+        __dirname,
+        'extractMetadata_withDefaultValues',
+        JSON.stringify({ input: metadataBase, output: result }, null, 2),
+        { formatExtension: '.json' }
+      );
     });
 
     it('should use window.location.hostname if domainName is not provided', () => {
@@ -80,30 +84,57 @@ describe('extractPageMetadata', () => {
         },
         contentSelector: '[name^="answer-"]'
       };
+
       // @ts-ignore
       const result = metadataFunctions.extractPageMetadata(metadataBase);
-      expect(result.domainName).toEqual('example.com');
+
+      verify(
+        __dirname,
+        'extractMetadata_withoutDomainName',
+        JSON.stringify({ input: metadataBase, output: result }, null, 2),
+        { formatExtension: '.json' }
+      );
     });
   });
 
   describe('getPageTitle', () => {
     it('should return the document title if selector is null', () => {
       const title = metadataFunctions.getPageTitle();
-      expect(title).toEqual('Default Title');
+
+      verify(
+        __dirname,
+        'getPageTitle_nullSelector',
+        title,
+        { formatExtension: '.txt' }
+      );
     });
 
     it('should return the document title if the selector matches the document title', () => {
       const title = metadataFunctions.getPageTitle(null, null);
-      expect(title).toEqual('Default Title');
+
+      verify(
+        __dirname,
+        'getPageTitle_matchDocTitle',
+        title,
+        { formatExtension: '.txt' }
+      );
     });
 
     it('should return the modified title according to the treatment', () => {
-      // @ts-ignore
-      const title = metadataFunctions.getPageTitle('[tabindex="0"]', {
+      const treatment = {
         action: 'replace',
         params: ['\\u00A0', ' ']
-      });
-      expect(title).toEqual('Page Title ');
+      };
+
+      // @ts-ignore
+      const title = metadataFunctions.getPageTitle('[tabindex="0"]', treatment);
+
+      verify(
+        __dirname,
+        'getPageTitle_withTreatment',
+        title,
+        { formatExtension: '.txt' }
+      );
     });
   });
 });
