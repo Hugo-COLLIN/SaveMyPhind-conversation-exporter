@@ -1,0 +1,20 @@
+{
+  "input": {
+    "pageTitle": {
+      "selector": "[tabindex=\"0\"]",
+      "treatment": {
+        "action": "replace",
+        "params": [
+          "\\u00A0",
+          " "
+        ]
+      }
+    },
+    "contentSelector": "[name^=\"answer-\"]"
+  },
+  "output": {
+    "domainName": "",
+    "pageTitle": "Page Title ",
+    "contentSelector": "[name^=\"answer-\"]"
+  }
+}

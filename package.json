@@ -18,8 +18,10 @@
     "dev:firefox": "cross-env TARGET=firefox APP_MODE=dev WATCH_MODE=true node esbuild.config.js",
     "zip": "node config/zip.js",
     "prod": "cross-env TARGET=chrome APP_MODE=prod node esbuild.config.js && node config/zip.js && cross-env TARGET=firefox APP_MODE=prod node esbuild.config.js && node config/zip.js",
-    "test": "vitest",
-    "test:watch": "vitest --watch"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:approvals": "jest --testMatch='**/tests/**/*.test.ts'",
+    "test:approvals:update": "jest --testMatch='**/tests/**/*.test.ts' -u"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.270",
@@ -29,6 +31,7 @@
     "@types/showdown": "^2.0.6",
     "@types/turndown": "^5.0.5",
     "adm-zip": "^0.5.15",
+    "approvals": "^7.2.1",
     "chokidar": "^3.6.0",
     "cross-env": "^7.0.3",
     "esbuild": "^0.25.0",
