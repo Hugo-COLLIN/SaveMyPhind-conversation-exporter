@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@shoelace-style/shoelace": "^2.16.0",
-    "axios": "^1.7.9",
+    "axios": "^1.8.2",
     "dompurify": "^3.2.4",
     "js-yaml": "^4.1.0",
     "showdown": "^2.1.0",
