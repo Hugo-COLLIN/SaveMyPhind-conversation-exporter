@@ -1,5 +1,5 @@
 import {capitalizeFirst, formatLineBreaks} from "../format/formatText";
-import {safeExecute} from "../../utils/jsShorteners";
+import {safeExecute, sleep} from "../../utils/jsShorteners";
 import {extractSources} from "./extractSources";
 
 /**
@@ -30,6 +30,10 @@ export async function extractSection(content: { hasChildNodes: () => any; }, for
 
 async function extractSearchSection(content: HTMLElement, format: (arg0: any) => string, metadata: { extractor: any; sourcesExtraction?: any; }) {
   const options = metadata.extractor;
+
+  // @ts-ignore
+  content.querySelector('.whitespace-nowrap.absolute')?.click();
+  await sleep(100);
 
   // Extract and format the user question
   const userQuestionSelector = options.userQuestionSelector ?? 'span, textarea';

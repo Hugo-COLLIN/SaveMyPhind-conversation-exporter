@@ -1,4 +1,8 @@
 # Update notes
+# 3.8.8
+🧩 Fixing Perplexity export
+Perplexity changed its interface again, but we're now back!
+
 # 3.8.7
 🚀 Perplexity sources extraction working again!
 Perplexity changed its interface again, but the extension is now back on track!

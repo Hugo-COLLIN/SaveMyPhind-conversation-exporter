@@ -18,12 +18,12 @@ export async function extractSources(content: HTMLElement, format: any, data: { 
   res = "";
   i = 1;
 
-  for (const {open, close, selector, extractionType, paginationSelector, content: msgContent} of data.selectors) {
+  for (const {open, close, selector, extractionType, paginationSelector, content: msgContent, scope: scopeType } of data.selectors) {
     open && await safeExecute(await selectAndClick(open, content));
 
     switch (extractionType) {
       case 'list':
-        res = await safeExecute(await extractFromList(format, content, selector ?? msgContent)) as unknown as string;
+        res = await safeExecute(await extractFromList(format, content, selector ?? msgContent, scopeType)) as unknown as string;
         break;
       case 'tile-list':
         res = await safeExecute(await extractFromTileList(format, content, selector)) as unknown as string;
@@ -103,7 +103,7 @@ function extractFromLinks(links: any[] | NodeListOf<any>, format: (arg0: any) =>
  * @param selectorOrContent
  * @returns {Promise<string>}
  */
-async function extractFromList(format: any, content: HTMLElement, selectorOrContent: { selector: any; scope: any; }): Promise<string> {
+async function extractFromList(format: any, content: HTMLElement, selectorOrContent: { selector: any; scope: any; }, scopeType: string): Promise<string> {
   let res = '';
   let i = 1;
 
@@ -111,9 +111,11 @@ async function extractFromList(format: any, content: HTMLElement, selectorOrCont
     ? selectorOrContent.selector
     : selectorOrContent;
 
-  const scope = typeof selectorOrContent === "object"
-    ? selectorOrContent.scope
-    : "document";
+  const scope = scopeType === "content"
+    ? "content"
+    : typeof selectorOrContent === "object"
+      ? selectorOrContent.scope
+      : "document";
 
   const qs = scope === "document"
     ? document.querySelectorAll(selector)
@@ -121,6 +123,7 @@ async function extractFromList(format: any, content: HTMLElement, selectorOrCont
 
   // console.log(content, scope, qs)
   for (const tile of qs) {
+    // console.log("THE TILE : ", tile)
     res += await formatSources(i, format, tile);
     i++;
   }
@@ -162,11 +165,13 @@ async function extractFromTileList(format: any, content: HTMLElement, selector: 
  * @returns {Promise<string>}
  */
 export async function formatSources(i: string | number, format: (arg0: any) => string, tile: Element): Promise<string> {
-  const elt: HTMLElement = tile.querySelector("div.default") as HTMLElement //Perplexity
+  const elt: HTMLElement = tile.querySelector("a") as HTMLElement //Perplexity
     || tile;
 
+  const title: HTMLElement = tile.querySelector('.font-display') as HTMLElement
+
   const text = "(" + i + ") "
-    + format(elt.innerText
+    + format(title.innerText
       .replaceAll("\n", " ")
       .replaceAll('"', '')
       .replace(/^\d+/, "") // Removes numbers at the beginning
@@ -206,53 +211,16 @@ export async function formatSources(i: string | number, format: (arg0: any) => s
 
   // Export content
   let res = "- ";
+  // console.log(tile)
   // @ts-ignore TODO
-  if (tile && tile.href)
+  // if (tile && tile.href)
     // @ts-ignore TODO
-    res += formatLink(tile.href, text) + "\n";
-  else {
-    const url: HTMLElement = await safeExecute(extractYoutubeLink(tile as HTMLElement)) as unknown as HTMLElement;
-    res += url
-      ? formatLink(url, text) + "\n"
-      : text + "\n";
-  }
+    res += (elt.href ? formatLink(elt.href, text) : text) + "\n";
+  // else {
+  //   const url: HTMLElement = await safeExecute(extractYoutubeLink(tile as HTMLElement)) as unknown as HTMLElement;
+  //   res += url
+  //     ? formatLink(url, text) + "\n"
+  //     : text + "\n";
+  // }
   return res;
 }
-
-
-// async function extractSourcesOld(msgContent, searchResults, res, format) {
-//   const buttonsInCard = msgContent[2].querySelectorAll("button");
-//   for (const btn of buttonsInCard) {
-//     if (btn.textContent.toLowerCase() === "view all search results") {
-//       // Open modal
-//       btn.click();
-//       await sleep(0); // Needed to wait for the modal to open (even if it's 0!)
-//
-//       // Export sources and all search results, put correct index in front of each link
-//       let i = 1;
-//       let allResults = "**All search results:**";
-//
-//       const dialogLinks = Array.from(document.querySelectorAll("[role='dialog'] a"));
-//       const p2Array = Array.from(searchResults);
-//       dialogLinks.forEach((link) => {
-//         // If the link is in the sources, add it to the sources with the correct index
-//         if (p2Array.find((elt) => elt.getAttribute("href") === link.getAttribute("href"))) {
-//           res += "\n- " + format(link.outerHTML).replace("[", `[(${i}) `);
-//         }
-//
-//         // Add the link to the all search results with the correct index
-//         allResults += "\n- " + format(link.outerHTML).replace("[", `[(${i}) `);
-//         i++;
-//       });
-//
-//       // Append all search results after the sources
-//       res += "\n\n" + allResults;
-//
-//       // Close modal
-//       document.querySelectorAll("[role='dialog'] [type='button']").forEach((btn) => {
-//         if (btn.textContent.toLowerCase() === "close") btn.click();
-//       });
-//     }
-//   }
-//   return res;
-// }

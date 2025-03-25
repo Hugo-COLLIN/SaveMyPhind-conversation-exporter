@@ -90,7 +90,7 @@ export function filter_PreserveLineBreaksInPre_Claude(node: { nodeName: string; 
 }
 
 export function replacement_PreserveLineBreaksInPre_Perplexity(content: any, node: { querySelector: (arg0: string) => any; }) {
-  console.log("replacement_PreserveLineBreaksInPre_Perplexity", node)
+  // console.log("replacement_PreserveLineBreaksInPre_Perplexity", node)
   const codeBlock = node.querySelector('code');
   const codeContent = codeBlock.textContent.trim();
   const codeLang = codeBlock.parentNode.parentNode.parentNode.querySelector("div").textContent.trim();
