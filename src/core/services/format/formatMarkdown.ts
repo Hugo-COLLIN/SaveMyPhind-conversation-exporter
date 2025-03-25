@@ -59,8 +59,11 @@ export function formatMarkdown(html: string | Node): any | string | string {
  * @returns {string} formatted link
  */
 export function formatLink(url: string | HTMLElement, message: string): string {
+  console.log(message)
   // @ts-ignore
-  return "[" + message.replaceAll("`", "") + "](" + url?.replace(/\)/g, "%29") + ")";
+  const res = "[" + message.replaceAll("`", "") + "](" + url?.replace(/\)/g, "%29") + ")";
+  console.log(res)
+  return res;
 }
 
 /**

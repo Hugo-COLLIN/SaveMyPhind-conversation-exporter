@@ -40,7 +40,7 @@
           "wait": 50
         }],
         "close": [{"selector": "[data-testid=\"close-modal\"], div.w-full.relative button[aria-label].h-8:not([aria-label=\"Submit\"])", "scope": "document", "wait": 50}],
-        "selector": ".relative > div > .flex-col.flex",
+        "selector": ".relative > div > .flex-col.flex > div.items-start",
         "extractionType": "list",
         "scope": "content"
       },

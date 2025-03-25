@@ -123,6 +123,7 @@ async function extractFromList(format: any, content: HTMLElement, selectorOrCont
 
   // console.log(content, scope, qs)
   for (const tile of qs) {
+    // console.log("THE TILE : ", tile)
     res += await formatSources(i, format, tile);
     i++;
   }
@@ -164,11 +165,13 @@ async function extractFromTileList(format: any, content: HTMLElement, selector: 
  * @returns {Promise<string>}
  */
 export async function formatSources(i: string | number, format: (arg0: any) => string, tile: Element): Promise<string> {
-  const elt: HTMLElement = tile.querySelector("div.default") as HTMLElement //Perplexity
+  const elt: HTMLElement = tile.querySelector("a") as HTMLElement //Perplexity
     || tile;
 
+  const title: HTMLElement = tile.querySelector('.font-display') as HTMLElement
+
   const text = "(" + i + ") "
-    + format(elt.innerText
+    + format(title.innerText
       .replaceAll("\n", " ")
       .replaceAll('"', '')
       .replace(/^\d+/, "") // Removes numbers at the beginning
@@ -208,16 +211,17 @@ export async function formatSources(i: string | number, format: (arg0: any) => s
 
   // Export content
   let res = "- ";
+  console.log(tile)
   // @ts-ignore TODO
-  if (tile && tile.href)
+  // if (tile && tile.href)
     // @ts-ignore TODO
-    res += formatLink(tile.href, text) + "\n";
-  else {
-    const url: HTMLElement = await safeExecute(extractYoutubeLink(tile as HTMLElement)) as unknown as HTMLElement;
-    res += url
-      ? formatLink(url, text) + "\n"
-      : text + "\n";
-  }
+    res += (elt.href ? formatLink(elt.href, text) : text) + "\n";
+  // else {
+  //   const url: HTMLElement = await safeExecute(extractYoutubeLink(tile as HTMLElement)) as unknown as HTMLElement;
+  //   res += url
+  //     ? formatLink(url, text) + "\n"
+  //     : text + "\n";
+  // }
   return res;
 }
 
