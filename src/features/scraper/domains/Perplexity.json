@@ -40,8 +40,9 @@
           "wait": 50
         }],
         "close": [{"selector": "[data-testid=\"close-modal\"], div.w-full.relative button[aria-label].h-8:not([aria-label=\"Submit\"])", "scope": "document", "wait": 50}],
-        "selector": ".fixed > div > [class] > div > div > div > div > div > .group, div.w-full.relative > .group",
-        "extractionType": "list"
+        "selector": ".relative > div > .flex-col.flex",
+        "extractionType": "list",
+        "scope": "content"
       },
       {
         "open": [{"selector": "div.grid > div.flex:nth-last-of-type(1)", "scope": "content", "wait": 50}],

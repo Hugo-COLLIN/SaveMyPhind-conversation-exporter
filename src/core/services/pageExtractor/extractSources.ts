@@ -18,12 +18,12 @@ export async function extractSources(content: HTMLElement, format: any, data: { 
   res = "";
   i = 1;
 
-  for (const {open, close, selector, extractionType, paginationSelector, content: msgContent} of data.selectors) {
+  for (const {open, close, selector, extractionType, paginationSelector, content: msgContent, scope: scopeType } of data.selectors) {
     open && await safeExecute(await selectAndClick(open, content));
 
     switch (extractionType) {
       case 'list':
-        res = await safeExecute(await extractFromList(format, content, selector ?? msgContent)) as unknown as string;
+        res = await safeExecute(await extractFromList(format, content, selector ?? msgContent, scopeType)) as unknown as string;
         break;
       case 'tile-list':
         res = await safeExecute(await extractFromTileList(format, content, selector)) as unknown as string;
@@ -103,7 +103,7 @@ function extractFromLinks(links: any[] | NodeListOf<any>, format: (arg0: any) =>
  * @param selectorOrContent
  * @returns {Promise<string>}
  */
-async function extractFromList(format: any, content: HTMLElement, selectorOrContent: { selector: any; scope: any; }): Promise<string> {
+async function extractFromList(format: any, content: HTMLElement, selectorOrContent: { selector: any; scope: any; }, scopeType: string): Promise<string> {
   let res = '';
   let i = 1;
 
@@ -111,9 +111,11 @@ async function extractFromList(format: any, content: HTMLElement, selectorOrCont
     ? selectorOrContent.selector
     : selectorOrContent;
 
-  const scope = typeof selectorOrContent === "object"
-    ? selectorOrContent.scope
-    : "document";
+  const scope = scopeType === "content"
+    ? "content"
+    : typeof selectorOrContent === "object"
+      ? selectorOrContent.scope
+      : "document";
 
   const qs = scope === "document"
     ? document.querySelectorAll(selector)
