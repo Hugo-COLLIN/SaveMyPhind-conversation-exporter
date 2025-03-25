@@ -245,11 +245,11 @@ export function replacement_formatKatex(content: any, node: { querySelector: (ar
  */
 export function filter_captureArtifactContent_Claude(node: Element) {
   //target button[aria-label="Preview contents"] :
-  return node.nodeName === 'BUTTON' && node.getAttribute('aria-label') === 'Preview contents';
+  return node.nodeName === 'BUTTON' && node.getAttribute('aria-label');
 }
 
 export function replacement_captureArtifactContent_Claude(content: any, node: Element) {
-  return `{{@CAPTURE_ARTIFACT_CONTENT:${node.querySelector(".break-words")?.textContent}}}`;
+  return `{{@CAPTURE_ARTIFACT_CONTENT:${node.querySelector(".break-all")?.textContent}}}`;
 }
 
 

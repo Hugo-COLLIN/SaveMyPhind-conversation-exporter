@@ -8,7 +8,7 @@ async function clickActClose(markdown: string | undefined, format: ((html: strin
   const pane = document.querySelector("div.fixed.flex");
 
   for (const artifactBtn of btns?.values() ?? []) {
-    const artifactName = artifactBtn.querySelector(".break-words")?.textContent
+    const artifactName = artifactBtn.querySelector(".break-all")?.textContent
     // console.log(artifactName)
     // @ts-ignore
     artifactBtn.click();
@@ -54,9 +54,10 @@ export async function defineAction(action: {
 }, markdown?: string, format?: (html: string) => string): Promise<string | void | null> {
   switch (action.type) {
     case "click":
+      //@ts-ignore
       return clickElements(action.selector);
     case "click_act_close":
-      let md = await clickActClose(markdown, format, `CAPTURE_ARTIFACT_CONTENT`, document.querySelectorAll('.font-claude-message button[aria-label="Preview contents"]'));
+      let md = await clickActClose(markdown, format, `CAPTURE_ARTIFACT_CONTENT`, document.querySelectorAll('.font-claude-message button[aria-label]'));
       md = await clickActClose(md, format, "CAPTURE_INPUT_CONTENT", document.querySelectorAll('[data-test-render-count] button[data-testid]'));
       return md;
     // case "scroll":

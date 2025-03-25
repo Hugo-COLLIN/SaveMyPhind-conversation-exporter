@@ -1,7 +1,7 @@
 # Update notes
-# 3.8.8
-🧩 Fixing Perplexity export
-Perplexity changed its interface again, but we're now back!
+# 3.8.9
+🧩 Fixing Perplexity and Claude export
+Perplexity and Claude changed their interfaces again, but we're now back!
 
 # 3.8.7
 🚀 Perplexity sources extraction working again!
