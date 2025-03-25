@@ -3,7 +3,7 @@
     "selector": "h1"
   },
   "domainName": "Perplexity.ai",
-  "contentSelector": "main .mx-auto > div > div > div > div > div .col-span-8",
+  "contentSelector": "main .scrollable-container > div > div > div > div > div > div:not([class])",
   "turndown": {
     "init": {
       "blankReplacement": "getBlankReplacement"
