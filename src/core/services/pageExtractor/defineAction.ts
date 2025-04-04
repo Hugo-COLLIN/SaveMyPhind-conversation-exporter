@@ -43,7 +43,7 @@ async function clickActClose(markdown: string | undefined, format: ((html: strin
   }
 
   // @ts-ignore
-  pane?.querySelector(".justify-end > button")?.click(); // close artifact
+  pane?.querySelector(`.text-sm.items-center.gap-2.flex > .active\\:scale-95.rounded-md.w-8.h-8.aria-expanded\\:text-text-100.aria-checked\\:text-text-100.aria-pressed\\:text-text-100.hover\\:text-text-100.aria-expanded\\:bg-bg-300.aria-checked\\:bg-bg-400.aria-pressed\\:bg-bg-400.hover\\:bg-bg-400.ease-\\[cubic-bezier\\(0\\.165\\,0\\.85\\,0\\.45\\,1\\)\\].duration-300.font-styrene.transition.border-transparent.text-text-300.disabled\\:drop-shadow-none.disabled\\:shadow-none.disabled\\:opacity-50.disabled\\:pointer-events-none.select-none.can-focus.shrink-0.relative.justify-center.items-center.inline-flex`)?.click(); // close artifact
 
   return markdown;
 }
