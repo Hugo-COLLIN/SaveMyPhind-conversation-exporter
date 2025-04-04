@@ -5,10 +5,10 @@ import {sleep} from "../../utils/jsShorteners";
 //TODO: currently for Claude artifacts, needs to be generalized
 async function clickActClose(markdown: string | undefined, format: ((html: string) => string) | undefined, extractionTypeId: string, btns?: NodeListOf<any>) {
   // selector duplication with processMessage in ClaudeChat.js and contentSelector in ClaudeChat.json
-  const pane = document.querySelector("div.fixed.flex");
+  const pane = document.querySelector("body div.h-full.overflow-hidden.flex-1");
 
   for (const artifactBtn of btns?.values() ?? []) {
-    const artifactName = artifactBtn.querySelector(".break-all")?.textContent
+    const artifactName = artifactBtn.querySelector(".shrink.flex, .leading-tight")?.textContent
     // console.log(artifactName)
     // @ts-ignore
     artifactBtn.click();
@@ -43,7 +43,7 @@ async function clickActClose(markdown: string | undefined, format: ((html: strin
   }
 
   // @ts-ignore
-  pane?.querySelector(".justify-end > button")?.click(); // close artifact
+  pane?.querySelector(`.text-sm.items-center.gap-2.flex > .active\\:scale-95.rounded-md.w-8.h-8.aria-expanded\\:text-text-100.aria-checked\\:text-text-100.aria-pressed\\:text-text-100.hover\\:text-text-100.aria-expanded\\:bg-bg-300.aria-checked\\:bg-bg-400.aria-pressed\\:bg-bg-400.hover\\:bg-bg-400.ease-\\[cubic-bezier\\(0\\.165\\,0\\.85\\,0\\.45\\,1\\)\\].duration-300.font-styrene.transition.border-transparent.text-text-300.disabled\\:drop-shadow-none.disabled\\:shadow-none.disabled\\:opacity-50.disabled\\:pointer-events-none.select-none.can-focus.shrink-0.relative.justify-center.items-center.inline-flex`)?.click(); // close artifact
 
   return markdown;
 }
@@ -58,7 +58,7 @@ export async function defineAction(action: {
       return clickElements(action.selector);
     case "click_act_close":
       let md = await clickActClose(markdown, format, `CAPTURE_ARTIFACT_CONTENT`, document.querySelectorAll('.font-claude-message button[aria-label]'));
-      md = await clickActClose(md, format, "CAPTURE_INPUT_CONTENT", document.querySelectorAll('[data-test-render-count] button[data-testid]'));
+      md = await clickActClose(md, format, "CAPTURE_INPUT_CONTENT", document.querySelectorAll('[data-testid=\"file-thumbnail\"]'));
       return md;
     // case "scroll":
     //   return scrollElements;

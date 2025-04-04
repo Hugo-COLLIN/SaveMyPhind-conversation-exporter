@@ -2,7 +2,7 @@ import {capitalizeFirst} from "../../../core/services/format/formatText";
 
 export async function processMessage(content, format, metadata) {
   const messageSelector = content.querySelector("[data-testid=\"user-message\"], [data-is-streaming] > div");
-  const inputsSelector = content.querySelectorAll("button[data-testid]");
+  const inputsSelector = content.querySelectorAll('[data-testid=\"file-thumbnail\"]');
 
   const entityName = content?.querySelector("[data-is-streaming]")
     ? "Claude"
@@ -12,7 +12,7 @@ export async function processMessage(content, format, metadata) {
 
   let inputsText = "##### Content:\n";
   inputsText += Array.from(inputsSelector).map((input) => {
-    const text = input?.querySelector(".break-words")?.textContent ?? "Input";
+    const text = input?.querySelector(".shrink.flex")?.textContent ?? "Input";
     return `{{@CAPTURE_INPUT_CONTENT:${text}}}`;
   }).join("\n");
 
