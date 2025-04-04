@@ -5,7 +5,7 @@ import {sleep} from "../../utils/jsShorteners";
 //TODO: currently for Claude artifacts, needs to be generalized
 async function clickActClose(markdown: string | undefined, format: ((html: string) => string) | undefined, extractionTypeId: string, btns?: NodeListOf<any>) {
   // selector duplication with processMessage in ClaudeChat.js and contentSelector in ClaudeChat.json
-  const pane = document.querySelector("div.fixed.flex");
+  const pane = document.querySelector("body div.h-full.overflow-hidden.flex-1");
 
   for (const artifactBtn of btns?.values() ?? []) {
     const artifactName = artifactBtn.querySelector(".break-all")?.textContent
