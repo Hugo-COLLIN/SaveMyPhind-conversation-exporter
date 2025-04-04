@@ -214,7 +214,7 @@ export async function formatSources(i: string | number, format: (arg0: any) => s
   let res = "- ";
   // console.log(tile)
   // @ts-ignore TODO
-  if (tile && tile.href)
+  if (tile?.querySelector('.font-display') || (tile && tile.href))
     // @ts-ignore TODO
     res += (elt.href ? formatLink(elt.href, text) : text) + "\n";
   else {
