@@ -1,7 +1,8 @@
 # Update notes
 # 3.8.10
-🧩 Fixing Perplexity Pages export
-Some quirky things under the hood but Perplexity Pages export is now working again!
+🧩 Fixing Perplexity Pages and Claude export
+Claude changed its interface again, but we're back on track!
+Plus, Perplexity Pages export is now working again!
 
 # 3.8.9
 🧩 Fixing Perplexity and Claude export
