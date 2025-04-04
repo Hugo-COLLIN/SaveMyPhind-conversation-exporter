@@ -62,7 +62,7 @@ export function formatLink(url: string | HTMLElement, message: string): string {
   // console.log(message)
   // @ts-ignore
   const res = "[" + message.replaceAll("`", "") + "](" + url?.replace(/\)/g, "%29") + ")";
-  console.log(res)
+  // console.log(res)
   return res;
 }
 

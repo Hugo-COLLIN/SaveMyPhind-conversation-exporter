@@ -168,7 +168,8 @@ export async function formatSources(i: string | number, format: (arg0: any) => s
   const elt: HTMLElement = tile.querySelector("a") as HTMLElement //Perplexity
     || tile;
 
-  const title: HTMLElement = tile.querySelector('.font-display') as HTMLElement
+  const title: HTMLElement = tile?.querySelector('.font-display') as HTMLElement //Perplexity Search
+    || tile?.querySelector("div.default") as HTMLElement //Perplexity Pages
 
   const text = "(" + i + ") "
     + format(title.innerText
@@ -213,14 +214,14 @@ export async function formatSources(i: string | number, format: (arg0: any) => s
   let res = "- ";
   // console.log(tile)
   // @ts-ignore TODO
-  // if (tile && tile.href)
+  if (tile?.querySelector('.font-display') || (tile && tile.href))
     // @ts-ignore TODO
     res += (elt.href ? formatLink(elt.href, text) : text) + "\n";
-  // else {
-  //   const url: HTMLElement = await safeExecute(extractYoutubeLink(tile as HTMLElement)) as unknown as HTMLElement;
-  //   res += url
-  //     ? formatLink(url, text) + "\n"
-  //     : text + "\n";
-  // }
+  else {
+    const url: HTMLElement = await safeExecute(extractYoutubeLink(tile as HTMLElement)) as unknown as HTMLElement;
+    res += url
+      ? formatLink(url, text) + "\n"
+      : text + "\n";
+  }
   return res;
 }
