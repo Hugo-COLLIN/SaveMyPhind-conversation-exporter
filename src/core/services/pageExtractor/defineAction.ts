@@ -8,7 +8,7 @@ async function clickActClose(markdown: string | undefined, format: ((html: strin
   const pane = document.querySelector("body div.h-full.overflow-hidden.flex-1");
 
   for (const artifactBtn of btns?.values() ?? []) {
-    const artifactName = artifactBtn.querySelector(".shrink.flex")?.textContent
+    const artifactName = artifactBtn.querySelector(".shrink.flex, .leading-tight")?.textContent
     // console.log(artifactName)
     // @ts-ignore
     artifactBtn.click();

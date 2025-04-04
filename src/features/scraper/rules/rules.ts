@@ -249,7 +249,7 @@ export function filter_captureArtifactContent_Claude(node: Element) {
 }
 
 export function replacement_captureArtifactContent_Claude(content: any, node: Element) {
-  return `{{@CAPTURE_ARTIFACT_CONTENT:${node.querySelector(".break-all")?.textContent}}}`;
+  return `{{@CAPTURE_ARTIFACT_CONTENT:${node.querySelector(".leading-tight")?.textContent}}}`;
 }
 
 
