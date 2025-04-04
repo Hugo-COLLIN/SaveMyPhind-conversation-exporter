@@ -8,7 +8,7 @@ async function clickActClose(markdown: string | undefined, format: ((html: strin
   const pane = document.querySelector("body div.h-full.overflow-hidden.flex-1");
 
   for (const artifactBtn of btns?.values() ?? []) {
-    const artifactName = artifactBtn.querySelector(".break-all")?.textContent
+    const artifactName = artifactBtn.querySelector(".shrink.flex")?.textContent
     // console.log(artifactName)
     // @ts-ignore
     artifactBtn.click();
@@ -58,7 +58,7 @@ export async function defineAction(action: {
       return clickElements(action.selector);
     case "click_act_close":
       let md = await clickActClose(markdown, format, `CAPTURE_ARTIFACT_CONTENT`, document.querySelectorAll('.font-claude-message button[aria-label]'));
-      md = await clickActClose(md, format, "CAPTURE_INPUT_CONTENT", document.querySelectorAll('[data-test-render-count] button[data-testid]'));
+      md = await clickActClose(md, format, "CAPTURE_INPUT_CONTENT", document.querySelectorAll('[data-testid=\"file-thumbnail\"]'));
       return md;
     // case "scroll":
     //   return scrollElements;
