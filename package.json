@@ -44,7 +44,7 @@
     "@shoelace-style/shoelace": "^2.16.0",
     "axios": "^1.8.2",
     "dompurify": "^3.2.4",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.1.1",
     "showdown": "^2.1.0",
     "turndown": "^7.2.0"
   }
