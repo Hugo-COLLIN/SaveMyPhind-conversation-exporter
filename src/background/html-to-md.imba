@@ -112,8 +112,8 @@ export def htmlToMarkdown(html)
 	# Decoding HTML entities
 	markdown = decodeHtmlEntities(markdown)
 	
-	# Cleaning multiple spaces and excessive line breaks
-	markdown = markdown.replace(/\ +/g, ' ')
+	# Cleaning excessive line breaks and spaces
+	# markdown = markdown.replace(/\ +/g, ' ') # Should clean spaces only outside code blocks
 	markdown = markdown.replace(/\n{3,}/g, '\n\n')
 	markdown = markdown.trim()
 	
