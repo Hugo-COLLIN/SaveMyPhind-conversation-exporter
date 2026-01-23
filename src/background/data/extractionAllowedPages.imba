@@ -1,5 +1,5 @@
 export const EXTRACTION_ALLOWED_PAGES =
-	"PhindSearch": "www.phind.com/search"
+	"PhindSearch": "old.phind.com/search"
 	"Perplexity": "www.perplexity.ai/search"
 	# "PerplexityPages": "www.perplexity.ai/discover"
 	"MaxAIGoogle": "www.google.com/search"
