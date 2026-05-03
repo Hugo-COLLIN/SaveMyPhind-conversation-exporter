@@ -8,4 +8,5 @@ export const EXTRACTION_ALLOWED_PAGES =
 	"ChatGPTBots": "chatgpt.com/g"
 	"ChatGPTSignedOut": "chatgpt.com"
 	"ClaudeChat": "claude.ai/chat"
+	"ClaudeIncognito": "claude.ai/new?incognito"
 	"ClaudeShare": "claude.ai/share"

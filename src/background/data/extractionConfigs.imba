@@ -106,6 +106,31 @@ export const EXTRACTION_CONFIGS = {
 		}
 	},
 
+	"ClaudeIncognito": {
+		"domainName": "Claude Chat (Incognito)",
+		"pageTitle": {
+			"selector": "[data-testid=\"chat-title-button\"], .tracking-tight.truncate"
+		},
+		"contentSelector": "[data-test-render-count]",
+		"extractionType": "message-list",
+		"messageConfig": {
+			"userSelector": "[data-testid=\"user-message\"]",
+			"assistantSelector": "[data-is-streaming] > div",
+			"contentSelector": "[data-testid=\"user-message\"], [data-is-streaming] > div",
+			"streamingIndicator": "[data-is-streaming]",
+			"inputsSelector": "[data-testid=\"file-thumbnail\"]",
+			"roles": {
+				"user": "User",
+				"assistant": "Claude"
+			}
+		},
+		"actions": {
+			"afterExtraction": {
+				"type": "click_act_close"
+			}
+		}
+	},
+
 	"ClaudeShare": {
 		"domainName": "Claude Chat",
 		"pageTitle": {
